@@ -158,6 +158,19 @@
       return previous + current;
     }));
   };
+  
+  /**********\
+  | Equality |
+  \**********/
+  Matrix.prototype.equals = function(matrix) {
+    return this.rows
+      .map(function(vector, index) {
+        return vector.equals(matrix.rows[index]);
+      })
+      .reduce(function(previous, current) {
+        return previous === current;
+      });
+  };
       
   /***********\
   | Get & set |
