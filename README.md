@@ -259,3 +259,12 @@ Vector.prototype.toString = function()
 ```
 
 Convert vector to string.
+
+## Todo
+
+* Add testing suite
+* Add more useful operations :)
+
+## Contribute
+
+Feel free to fork and commit pull requests. If you have any problems just submit an issue or send me an email.
