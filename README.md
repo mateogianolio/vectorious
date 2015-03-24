@@ -4,8 +4,8 @@ Vectorious is a generalized n-dimensional matrix and vector library written in J
 
 Clone or install with
 
-```javascript
-npm install vectorious
+```bash
+$ npm install vectorious
 ```
 
 ## Usage
