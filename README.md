@@ -2,6 +2,53 @@
 
 Vectorious is a generalized n-dimensional matrix and vector library written in JavaScript, which can be used both in node.js and the browser.
 
+## Usage
+
+The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments.
+
+```javascript
+var vectorious = require('vectorious');
+
+var vector,
+    matrix;
+
+vector = new vectorious.Vector();
+// { values: [], length: 0 }
+
+matrix = new vectorious.Matrix();
+// { rows: [] }
+
+vector = new vectorious.Vector().zeros(2);
+// { values: [0, 0, 0, 0, 0], length: 5 }
+
+vector = new vectorious.Vector(1, 2, 3, 4, 5);
+// { values: [1, 2, 3, 4, 5], length: 5 }
+
+matrix = new vectorious.Matrix(vector);
+// { rows: [ { values: [1, 2, 3, 4, 5], length: 5 } ] }
+
+matrix = new vectorious.Matrix().zeros(2, 2);
+/* {
+  rows: [
+    { values: [0, 0], length: 2 },
+    { values: [0, 0], length: 2 }
+  ]
+} */
+
+var input = [
+  [1, 2],
+  [3, 4]
+];
+
+matrix = new vectorious.Matrix(input);
+/* {
+  rows: [
+    { values: [1, 2], length: 2 },
+    { values: [3, 4], length: 2 }
+  ]
+} */
+```
+
 ## Matrix
 
 The following matrix operations and methods are implemented in ```matrix.js```.
