@@ -67,6 +67,16 @@
     return this;
   };
   
+  Vector.prototype.append = function(vector) {
+    var self = this;
+    vector.values.forEach(function(value) {
+      self.values.push(value);
+      self.length++;
+    });
+    
+    return this;
+  };
+  
   /***************************\
   | Methods returning scalars |
   \***************************/

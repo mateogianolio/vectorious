@@ -124,6 +124,15 @@
     return Matrix.construct(this.rows);
   };
   
+  Matrix.prototype.augment = function(matrix) {
+    if(this.rows.length !== matrix.rows.length)
+      throw 'Error: sizes do not match!';
+    
+    return Matrix.construct(this.rows.map(function(vector, index) {
+      return vector.append(matrix.rows[index]);
+    }));
+  };
+  
   Matrix.prototype.identity = function(size) {
     var matrix = new Matrix().zeros(size, size),
         i, j;
