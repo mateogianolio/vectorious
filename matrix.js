@@ -43,10 +43,6 @@
     }));
   };
   
-  Matrix.prototype.normalize = function() {
-    return this.scale(1 / this.length);
-  };
-  
   Matrix.prototype.zeros = function(x, y) {
     for(var i = 0; i < y; i++)
       if(this.rows[i] === undefined)
@@ -97,7 +93,6 @@
     var copy,
         argmax,
         max,
-        scalar,
         i, j, k;
     for(k = 0; k < Math.min(this.rows.length, this.rows[0].length); k++) {
       argmax = 0;
@@ -118,20 +113,10 @@
       this.rows[k] = this.rows[argmax];
       this.rows[argmax] = copy;
       
-      // swapping two rows multiplies the determinant by -1
-      if(k !== argmax)
-        this.d *= -1;
-      
       for(i = k + 1; i < this.rows.length; i++) {
-        for(j = k + 1; j < this.rows[0].length; j++) {
-          scalar = this.get(i, k) / this.get(k, k);
+        for(j = k + 1; j < this.rows[0].length; j++)
+          this.set(i, j, this.get(i, j) - this.get(k, j) * (this.get(i, k) / this.get(k, k)));
           
-          // multiplying a row by a non-zero scalar multiplies the determinant by the same scalar
-          if(scalar !== 0)
-            this.d *= scalar;
-          
-          this.set(i, j, this.get(i, j) - this.get(k, j) * scalar);
-        }
         this.set(i, k, 0);
       }
     }
