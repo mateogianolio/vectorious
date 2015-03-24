@@ -18,7 +18,7 @@ vector = new vectorious.Vector();
 matrix = new vectorious.Matrix();
 // { rows: [] }
 
-vector = new vectorious.Vector().zeros(2);
+vector = new vectorious.Vector().zeros(5);
 // { values: [0, 0, 0, 0, 0], length: 5 }
 
 vector = new vectorious.Vector(1, 2, 3, 4, 5);
