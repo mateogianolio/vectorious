@@ -139,7 +139,7 @@ Create an ```i x j``` matrix of ones.
 
 ```javascript
 // (Matrix, Matrix) => (Boolean)
-Matrix.prototype.equals(matrix)
+Matrix.prototype.equals = function(matrix)
 ```
 
 Compare two matrices.
