@@ -43,18 +43,18 @@
     }));
   };
   
-  Matrix.prototype.zeros = function(x, y) {
-    for(var i = 0; i < y; i++)
-      if(this.rows[i] === undefined)
-        this.rows[i] = new Vector().zeros(x);
+  Matrix.prototype.zeros = function(i, j) {
+    for(var row = 0; row < i; row++)
+      if(this.rows[row] === undefined)
+        this.rows[row] = new Vector().zeros(j);
     
     return this;
   };
   
-  Matrix.prototype.ones = function(x, y) {
-    for(var i = 0; i < y; i++)
-      if(this.rows[i] === undefined)
-        this.rows[i] = new Vector().ones(x);
+  Matrix.prototype.ones = function(i, j) {
+    for(var row = 0; row < i; row++)
+      if(this.rows[row] === undefined)
+        this.rows[row] = new Vector().ones(j);
     
     return this;
   };

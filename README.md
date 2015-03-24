@@ -62,7 +62,7 @@ Matrix.prototype.ones = function(i, j)
 ```
 
 ```javascript
-// (Matrix, Number, Number) => ()
+// (Matrix, Number, Number) => (Number)
 Matrix.prototype.get = function(i, j)
 ```
 
