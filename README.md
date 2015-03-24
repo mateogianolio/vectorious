@@ -2,6 +2,12 @@
 
 Vectorious is a generalized n-dimensional matrix and vector library written in JavaScript, which can be used both in node.js and the browser.
 
+Clone or install with
+
+```javascript
+npm install vectorious
+```
+
 ## Usage
 
 The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments.
