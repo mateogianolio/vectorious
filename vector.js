@@ -8,21 +8,18 @@
     
     [].slice.call(arguments, 0)
       .forEach(function(argument) {
-        self.values.push(argument);
-        self.length++;
+        self.push(argument);
+        self.length = self.values.length;
       });
   }
   
-  // ([a, b, c]) => (a, b, c)
+  // array of arguments to function arguments (e.g. f.construct([a, b, c]) => f(a, b, c))
   Function.prototype.construct = function(args) {
     var object = Object.create(this.prototype);
     this.apply(object, args);
     return object;
   };
   
-  /***************************\
-  | Methods returning vectors |
-  \***************************/
   Vector.prototype.add = function(vector) {
     if(this.length !== vector.length)
       throw 'Error: sizes do not match!';
@@ -105,14 +102,11 @@
     
     var i;
     for(i = start; i < end; i += step)
-      this.values.push(i);
+      this.push(i);
     
     return Vector.construct(this.values);
   };
-  
-  /***************************\
-  | Methods returning scalars |
-  \***************************/
+
   Vector.prototype.dot = function(vector) {
     if(this.length !== vector.length)
       throw 'Error: sizes do not match!';
@@ -140,10 +134,7 @@
   Vector.prototype.angle = function(vector) {
     return Math.acos(this.dot(vector) / this.magnitude() * vector.magnitude());
   };
-  
-  /**********\
-  | Equality |
-  \**********/
+
   Vector.prototype.equals = function(vector) {
     if(this.length !== vector.length)
       return false;
@@ -156,10 +147,7 @@
         return previous === current;
       });
   };
-  
-  /***********\
-  | Get & set |
-  \***********/
+
   Vector.prototype.get = function(index) {
     return this.values[index];
   };
@@ -169,13 +157,19 @@
     return this;
   };
   
-  Vector.prototype.append = function(vector) {
+  Vector.prototype.combine = function(vector) {
     var self = this;
     vector.values.forEach(function(value) {
-      self.values.push(value);
+      self.push(value);
       self.length++;
     });
     
+    return this;
+  };
+  
+  Vector.prototype.push = function(value) {
+    this.values.push(value);
+    this.length++;
     return this;
   };
   
@@ -185,9 +179,14 @@
     }));
   };
   
-  /*********\
-  | Display |
-  \*********/
+  Vector.prototype.each = function(callback) {
+    this.values.forEach(function(value, index) {
+      callback(value, index);
+    });
+    
+    return this;
+  };
+
   Vector.prototype.toString = function() {
     return '[' + this.values.join(', ') + ']';
   };

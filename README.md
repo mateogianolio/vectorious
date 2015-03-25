@@ -217,6 +217,13 @@ Matrix.prototype.map = function(callback)
 Maps a function ```callback``` to all elements of the matrix.
 
 ```javascript
+// (Matrix, Function) => (Matrix)
+Matrix.prototype.each = function(callback)
+```
+
+Calls ```callback(row, index)``` for each row in the matrix.
+
+```javascript
 // (Matrix) => (String)
 Matrix.prototype.toString = function()
 ```
@@ -326,11 +333,32 @@ Vector.prototype.set = function(index, value)
 Set value of an element at ```index```.
 
 ```javascript
+// (Vector, Vector) => (Vector)
+Vector.prototype.combine = function(vector)
+```
+
+Combines two vectors.
+
+```javascript
+// (Vector, Number) => (Vector)
+Vector.prototype.push = function(value)
+```
+
+Pushes ```value``` into the vector.
+
+```javascript
 // (Vector, Function) => (Vector)
 Vector.prototype.map = function(callback)
 ```
 
 Maps a function ```callback``` to all elements of the vector.
+
+```javascript
+// (Vector, Function) => (Vector)
+Vector.prototype.each = function(callback)
+```
+
+Calls ```callback(value, index)``` for each element in the vector.
 
 ```javascript
 // (Vector) => (String)

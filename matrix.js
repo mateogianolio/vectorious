@@ -21,10 +21,7 @@
         }
       });
   }
-  
-  /****************************\
-  | Methods returning matrices |
-  \****************************/
+
   Matrix.prototype.add = function(matrix) {
     return Matrix.construct(this.rows.map(function(vector, index) {
       return vector.add(matrix.rows[index]);
@@ -145,7 +142,7 @@
       throw 'Error: sizes do not match!';
     
     return Matrix.construct(this.rows.map(function(vector, index) {
-      return vector.append(matrix.rows[index]);
+      return vector.combine(matrix.rows[index]);
     }));
   };
   
@@ -159,10 +156,7 @@
     
     return matrix;
   };
-  
-  /***************************\
-  | Methods returning vectors |
-  \***************************/
+
   Matrix.prototype.diag = function() {
     var elements = [],
         i, j;
@@ -174,19 +168,13 @@
     
     return Vector.construct(elements);
   };
-  
-  /***************************\
-  | Methods returning scalars |
-  \***************************/
+
   Matrix.prototype.trace = function() {
     return Matrix.construct(this.diag().values.reduce(function(previous, current) {
       return previous + current;
     }));
   };
-  
-  /**********\
-  | Equality |
-  \**********/
+
   Matrix.prototype.equals = function(matrix) {
     return this.rows
       .map(function(vector, index) {
@@ -196,10 +184,7 @@
         return previous === current;
       });
   };
-      
-  /***********\
-  | Get & set |
-  \***********/
+
   Matrix.prototype.get = function(i, j) {
     return this.rows[i].get(j);
   };
@@ -226,9 +211,14 @@
     }));
   };
   
-  /*********\
-  | Display |
-  \*********/
+  Matrix.prototype.each = function(callback) {
+    this.rows.forEach(function(vector, index) {
+      callback(vector, index);
+    });
+    
+    return this;
+  };
+  
   Matrix.prototype.toString = function() {
     return '[' + this.rows.map(function(vector) {
       return vector.toString();
