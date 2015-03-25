@@ -95,11 +95,11 @@ Matrix.prototype.transpose = function()
 Transpose a matrix.
 
 ```javascript
-// (Matrix) => (Matrix)
-Matrix.prototype.gauss = function()
+// (Matrix, Boolean) => (Matrix)
+Matrix.prototype.gauss = function(reduce)
 ```
 
-Convert a matrix to row echelon form.
+Convert a matrix to (reduced) row echelon form.
 
 ```javascript
 // (Matrix) => (Vector)
@@ -163,6 +163,13 @@ Matrix.prototype.set = function(i, j, value)
 ```
 
 Set the value of an element at row ```i```, column ```j```.
+
+```javascript
+// (Matrix, Number, Number) => (Matrix)
+Matrix.prototype.swap = function(i, j)
+```
+
+Swaps the position of rows ```i``` and ```j```.
 
 ```javascript
 // (Matrix) => (String)

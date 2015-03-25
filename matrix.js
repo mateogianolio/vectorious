@@ -89,11 +89,12 @@
     return copy;
   };
   
-  Matrix.prototype.gauss = function() {
+  Matrix.prototype.gauss = function(reduce) {
     var copy,
         argmax,
         max,
         i, j, k;
+    
     for(k = 0; k < Math.min(this.rows.length, this.rows[0].length); k++) {
       argmax = 0;
       max = 0;
@@ -109,9 +110,7 @@
       if(this.get(argmax, k) === 0)
         throw 'Error: matrix is singular!';
       
-      copy = this.rows[k];
-      this.rows[k] = this.rows[argmax];
-      this.rows[argmax] = copy;
+      this.swap(k, argmax);
       
       for(i = k + 1; i < this.rows.length; i++) {
         for(j = k + 1; j < this.rows[0].length; j++)
@@ -121,7 +120,23 @@
       }
     }
     
-    return Matrix.construct(this.rows);
+    if(reduce) {
+      var pivot = 0;
+      for(k = this.rows.length - 1; k >= 0; k--) {
+        for(i = 0; i < this.rows[0].length; i++) {
+          copy = this.get(k, i);
+
+          if(!pivot && copy !== 0)
+            pivot = copy;
+        }
+
+        this.rows[k] = this.rows[k].scale(1 / pivot);
+
+        pivot = 0;
+      }
+    }
+    
+    return this;
   };
   
   Matrix.prototype.augment = function(matrix) {
@@ -190,6 +205,17 @@
       
   Matrix.prototype.set = function(i, j, value) {
     this.rows[i].set(j, value);
+    return this;
+  };
+  
+  Matrix.prototype.swap = function(i, j) {
+    if(!this.rows[i].length || !this.rows[j].length)
+      throw 'Error: index out of bounds';
+    
+    var copy = this.rows[i];
+    this.rows[i] = this.rows[j];
+    this.rows[j] = copy;
+    
     return this;
   };
   
