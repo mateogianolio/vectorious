@@ -75,6 +75,41 @@
     return this;
   };
   
+  Vector.prototype.range = function() {
+    var args = [].slice.call(arguments, 0),
+        start, step, end;
+    
+    switch(args.length) {
+      case 2:
+        end = args.pop();
+        step = 1;
+        start = args.pop();
+        break;
+      case 3:
+        end = args.pop();
+        step = args.pop();
+        start = args.pop();
+        break;
+      default:
+        throw 'Error: invalid range!';
+    }
+    
+    if(end - start < 0) {
+      var copy = end;
+      end = start;
+      start = copy;
+    }
+    
+    if(step > end - start)
+      throw 'Error: invalid range!';
+    
+    var i;
+    for(i = start; i < end; i += step)
+      this.values.push(i);
+    
+    return Vector.construct(this.values);
+  };
+  
   /***************************\
   | Methods returning scalars |
   \***************************/

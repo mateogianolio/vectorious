@@ -253,6 +253,13 @@ Vector.prototype.ones = function(count)
 Create a vector of ```count``` ones.
 
 ```javascript
+// (Vector, Number, [Number], Number) => (Vector)
+Vector.prototype.range = function(start, [step], end)
+```
+
+Create a vector containing the range from ```start``` to ```end``` in steps of ```step``` (optional).
+
+```javascript
 // (Vector, Vector) => (Boolean)
 Vector.prototype.equals = function(vector)
 ```
