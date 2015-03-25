@@ -97,6 +97,26 @@ var sine = time.map(Math.sin);
 
 The following matrix operations and methods are implemented in ```matrix.js```.
 
+* ```add```
+* ```subtract```
+* ```scale```
+* ```multiply```
+* ```transpose```
+* ```gauss```
+* ```diag```
+* ```augment```
+* ```trace```
+* ```identity```
+* ```zeros```
+* ```ones```
+* ```equals```
+* ```get```
+* ```set```
+* ```swap```
+* ```map```
+* ```each```
+* ```toString```
+
 ```javascript
 // (Matrix, Matrix) => (Matrix)
 Matrix.prototype.add = function(matrix)
@@ -233,6 +253,26 @@ Convert matrix to string.
 ## Vector
 
 The following vector operations and methods are implemented in ```vector.js```.
+
+* ```add```
+* ```subtract```
+* ```scale```
+* ```normalize```
+* ```dot```
+* ```magnitude```
+* ```angle```
+* ```project```
+* ```zeros```
+* ```ones```
+* ```range```
+* ```equals```
+* ```get```
+* ```set```
+* ```combine```
+* ```push```
+* ```map```
+* ```each```
+* ```toString```
 
 ```javascript
 // (Vector, Vector) => (Vector)
