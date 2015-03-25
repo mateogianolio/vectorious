@@ -220,6 +220,12 @@
     return this;
   };
   
+  Matrix.prototype.map = function(callback) {
+    return Matrix.construct(this.rows.map(function(vector) {
+      return vector.map(callback);
+    }));
+  };
+  
   /*********\
   | Display |
   \*********/

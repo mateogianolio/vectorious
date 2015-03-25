@@ -172,6 +172,13 @@ Matrix.prototype.swap = function(i, j)
 Swaps the position of rows ```i``` and ```j```.
 
 ```javascript
+// (Matrix, Function) => (Matrix)
+Matrix.prototype.map = function(callback)
+```
+
+Maps a function ```callback``` to all elements of the matrix.
+
+```javascript
 // (Matrix) => (String)
 Matrix.prototype.toString = function()
 ```
@@ -279,6 +286,13 @@ Vector.prototype.set = function(index, value)
 ```
 
 Set value of an element at ```index```.
+
+```javascript
+// (Vector, Function) => (Vector)
+Vector.prototype.map = function(callback)
+```
+
+Maps a function ```callback``` to all elements of the vector.
 
 ```javascript
 // (Vector) => (String)

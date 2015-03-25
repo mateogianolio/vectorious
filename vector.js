@@ -179,6 +179,12 @@
     return this;
   };
   
+  Vector.prototype.map = function(callback) {
+    return Vector.construct(this.values.map(function(value) {
+      return callback(value);
+    }));
+  };
+  
   /*********\
   | Display |
   \*********/
