@@ -191,5 +191,9 @@
     return '[' + this.values.join(', ') + ']';
   };
   
+  Vector.prototype.toArray = function() {
+    return this.values;
+  };
+  
   module.exports = Vector;
 })();

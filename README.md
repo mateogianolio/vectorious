@@ -116,6 +116,7 @@ The following matrix operations and methods are implemented in ```matrix.js```.
 * ```map```
 * ```each```
 * ```toString```
+* ```toArray```
 
 ```javascript
 // (Matrix, Matrix) => (Matrix)
@@ -250,6 +251,13 @@ Matrix.prototype.toString = function()
 
 Convert matrix to string.
 
+```javascript
+// (Matrix) => (Array)
+Matrix.prototype.toArray = function()
+```
+
+Convert matrix to array.
+
 ## Vector
 
 The following vector operations and methods are implemented in ```vector.js```.
@@ -273,6 +281,7 @@ The following vector operations and methods are implemented in ```vector.js```.
 * ```map```
 * ```each```
 * ```toString```
+* ```toArray```
 
 ```javascript
 // (Vector, Vector) => (Vector)
@@ -406,6 +415,13 @@ Vector.prototype.toString = function()
 ```
 
 Convert vector to string.
+
+```javascript
+// (Vector) => (Array)
+Vector.prototype.toArray = function()
+```
+
+Convert vector to array.
 
 ## Todo
 

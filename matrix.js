@@ -225,5 +225,11 @@
     }).join(', \n') + ']';
   };
   
+  Matrix.prototype.toArray = function() {
+    return this.rows.map(function(vector) {
+      return vector.toArray();
+    });
+  };
+  
   module.exports = Matrix;
 })();
