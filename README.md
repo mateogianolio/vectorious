@@ -232,6 +232,13 @@ Vector.prototype.angle = function(vector)
 Get the angle (in radians) between two vectors.
 
 ```javascript
+// (Vector, Vector) => (Vector)
+Vector.prototype.project = function(vector)
+```
+
+Project a vector onto another vector.
+
+```javascript
 // (Vector, Number) => (Vector)
 Vector.prototype.zeros = function(count)
 ```

@@ -51,6 +51,14 @@
     return this.scale(1 / this.length);
   };
   
+  Vector.prototype.project = function(vector) {
+    return Vector.construct(
+      vector
+        .normalize()
+        .scale(this.magnitude() * Math.cos(this.dot(vector) / (this.magnitude() * vector.magnitude())))
+    );
+  };
+  
   Vector.prototype.zeros = function(count) {
     this.values = Array
       .apply(null, new Array(count))
@@ -64,16 +72,6 @@
       .apply(null, new Array(count))
       .map(Number.prototype.valueOf, 1);
     this.length = count;
-    return this;
-  };
-  
-  Vector.prototype.append = function(vector) {
-    var self = this;
-    vector.values.forEach(function(value) {
-      self.values.push(value);
-      self.length++;
-    });
-    
     return this;
   };
   
@@ -133,6 +131,16 @@
   
   Vector.prototype.set = function(index, value) {
     this.values[index] = value;
+    return this;
+  };
+  
+  Vector.prototype.append = function(vector) {
+    var self = this;
+    vector.values.forEach(function(value) {
+      self.values.push(value);
+      self.length++;
+    });
+    
     return this;
   };
   
