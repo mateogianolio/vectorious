@@ -58,7 +58,7 @@ matrix = new vectorious.Matrix(input);
 Now that you've got a hang of the basics, let me show you a useful application example.
 
 ```javascript
-var time = new vectorious.Vector().range(-Math.PI, Math.PI / 10, Math.PI);
+var time = new vectorious.Vector().range(0, Math.PI / 12, Math.PI);
 /* {
   values: 
    [ 0,
