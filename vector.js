@@ -161,7 +161,6 @@
     var self = this;
     vector.values.forEach(function(value) {
       self.push(value);
-      self.length++;
     });
     
     return this;

@@ -10,16 +10,24 @@
     [].slice.call(arguments, 0)
       .forEach(function(argument) {
         var i;
-        if(argument instanceof Vector) {
+        if(argument instanceof Matrix) {
+          self = argument;
+        } else if(argument instanceof Vector) {
           self.rows.push(argument);
         } else if(typeof argument === 'number') {
           for(i = 0; i < argument; i++)
             self.rows.push(new Vector().zeros(argument));
         } else if(typeof argument === 'object') {
-          for(i = 0; i < argument.length; i++)
-            self.rows.push(Vector.construct(argument[i]));
+          for(i = 0; i < argument.length; i++) {
+            if(argument[i] instanceof Vector)
+              self.rows.push(argument[i]);
+            else
+              self.rows.push(Vector.construct(argument[i]));
+          }
         }
       });
+    
+    return self;
   }
 
   Matrix.prototype.add = function(matrix) {
@@ -126,8 +134,9 @@
             pivot = copy;
         }
 
-        if(k)
+        if(k > 0)
           matrix.rows[k - 1] = matrix.rows[k - 1].scale(1 / pivot);
+        
         matrix.rows[k] = matrix.rows[k].scale(1 / pivot);
 
         pivot = 0;
