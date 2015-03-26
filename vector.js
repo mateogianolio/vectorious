@@ -8,9 +8,15 @@
     
     [].slice.call(arguments, 0)
       .forEach(function(argument) {
-        self.push(argument);
-        self.length = self.values.length;
+        if(argument instanceof Vector)
+          self = argument;
+        else {
+          self.push(argument);
+          self.length = self.values.length;
+        }
       });
+    
+    return self;
   }
   
   // array of arguments to function arguments (e.g. f.construct([a, b, c]) => f(a, b, c))

@@ -93,8 +93,7 @@
   };
   
   Matrix.prototype.gauss = function(reduce) {
-    var matrix = Matrix.construct(this.rows),
-        n = Math.min(matrix.rows.length, matrix.rows[0].length),
+    var n = Math.min(this.rows.length, this.rows[0].length),
         copy,
         argmax,
         max,
@@ -105,45 +104,47 @@
       max = 0;
       
       for(i = k; i < n; i++) {
-        copy = Math.abs(matrix.get(k, i));
+        copy = Math.abs(this.get(k, i));
         if(copy > max) {
           argmax = i;
           max = copy;
         }
       }
       
-      if(matrix.get(argmax, k) === 0)
-        throw 'Error: matrix is singular!';
+      if(this.get(argmax, k) === 0)
+        throw 'Error: this is singular!';
       
-      matrix.swap(k, argmax);
+      this.swap(k, argmax);
       
       for(i = k + 1; i < n; i++) {
         for(j = k + 1; j < n; j++)
-          matrix.set(i, j, matrix.get(i, j) - matrix.get(k, j) * (matrix.get(i, k) / matrix.get(k, k)));
+          this.set(i, j, this.get(i, j) - this.get(k, j) * (this.get(i, k) / this.get(k, k)));
           
-        matrix.set(i, k, 0);
+        this.set(i, k, 0);
       }
     }
     
     if(reduce) {
-      for(k = matrix.rows.length - 1; k >= 0; k--) {
-        for(i = 0; i < matrix.rows[0].length; i++) {
-          copy = matrix.get(k, i);
+      var pivot = 0;
+      
+      for(k = this.rows.length - 1; k >= 0; k--) {
+        for(i = 0; i < this.rows[0].length; i++) {
+          copy = this.get(k, i);
 
           if(!pivot && copy !== 0)
             pivot = copy;
         }
 
         if(k > 0)
-          matrix.rows[k - 1] = matrix.rows[k - 1].scale(1 / pivot);
+          this.rows[k - 1] = this.rows[k - 1].scale(1 / pivot);
         
-        matrix.rows[k] = matrix.rows[k].scale(1 / pivot);
+        this.rows[k] = this.rows[k].scale(1 / pivot);
 
         pivot = 0;
       }
     }
     
-    return matrix;
+    return this;
   };
 
   Matrix.prototype.augment = function(matrix) {
