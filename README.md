@@ -8,6 +8,10 @@ Clone or install with
 $ npm install vectorious
 ```
 
+## Applications
+
+* [vectorious-solve](https://github.com/mateogianolio/vectorious-solve) - Solves linear systems of equations of the form Ax = B.
+
 ## Usage
 
 The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments.

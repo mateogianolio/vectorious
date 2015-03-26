@@ -94,16 +94,17 @@
   
   Matrix.prototype.gauss = function(reduce) {
     var matrix = Matrix.construct(this.rows),
+        n = Math.min(matrix.rows.length, matrix.rows[0].length),
         copy,
         argmax,
         max,
         i, j, k;
     
-    for(k = 0; k < Math.min(matrix.rows.length, matrix.rows[0].length); k++) {
+    for(k = 0; k < n; k++) {
       argmax = 0;
       max = 0;
       
-      for(i = k; i < matrix.rows.length; i++) {
+      for(i = k; i < n; i++) {
         copy = Math.abs(matrix.get(k, i));
         if(copy > max) {
           argmax = i;
@@ -116,8 +117,8 @@
       
       matrix.swap(k, argmax);
       
-      for(i = k + 1; i < matrix.rows.length; i++) {
-        for(j = k + 1; j < matrix.rows[0].length; j++)
+      for(i = k + 1; i < n; i++) {
+        for(j = k + 1; j < n; j++)
           matrix.set(i, j, matrix.get(i, j) - matrix.get(k, j) * (matrix.get(i, k) / matrix.get(k, k)));
           
         matrix.set(i, k, 0);
@@ -125,7 +126,6 @@
     }
     
     if(reduce) {
-      var pivot = 0;
       for(k = matrix.rows.length - 1; k >= 0; k--) {
         for(i = 0; i < matrix.rows[0].length; i++) {
           copy = matrix.get(k, i);
@@ -145,7 +145,7 @@
     
     return matrix;
   };
-  
+
   Matrix.prototype.augment = function(matrix) {
     if(this.rows.length !== matrix.rows.length)
       throw 'Error: sizes do not match!';
