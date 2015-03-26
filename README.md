@@ -281,6 +281,8 @@ The following vector operations and methods are implemented in ```vector.js```.
 * ```range```
 * ```equals```
 * ```get```
+* ```min```
+* ```max```
 * ```set```
 * ```combine```
 * ```push```
@@ -379,6 +381,20 @@ Vector.prototype.get = function(index)
 ```
 
 Get value of an element at ```index```.
+
+```javascript
+// (Vector, Number) => (Number)
+Vector.prototype.min = function()
+```
+
+Get the minimum value of a vector.
+
+```javascript
+// (Vector, Number) => (Number)
+Vector.prototype.max = function()
+```
+
+Get the maximum value of a vector.
 
 ```javascript
 // (Vector, Number, Number) => (Vector)

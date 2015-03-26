@@ -158,6 +158,30 @@
     return this.values[index];
   };
   
+  Vector.prototype.min = function() {
+    var min;
+    this.each(function(value, index) {
+      if(!min)
+        min = value;
+      else
+        min = value < min ? value : min;
+    });
+    
+    return min;
+  };
+  
+  Vector.prototype.max = function() {
+    var max;
+    this.each(function(value, index) {
+      if(!max)
+        max = value;
+      else
+        max = value > max ? value : max;
+    });
+    
+    return max;
+  };
+  
   Vector.prototype.set = function(index, value) {
     this.values[index] = value;
     return this;
