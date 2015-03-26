@@ -1,5 +1,7 @@
 # Vectorious
 
+[![npm](https://img.shields.io/npm/dm/vectorious.svg?style=flat-square)]()
+
 Vectorious is a generalized n-dimensional matrix and vector library written in JavaScript, which can be used both in node.js and the browser.
 
 Clone or install with
