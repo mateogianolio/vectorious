@@ -107,7 +107,7 @@
       throw 'Error: invalid range!';
     
     var i;
-    for(i = start; i < end; i += step)
+    for(i = start; i < end - step; i += step)
       this.push(i);
     
     return Vector.construct(this.values);
