@@ -215,7 +215,6 @@
   };
   
   Vector.prototype.min = function() {
-
     // Opt 8
     //  For loop rather than .each(fn)
     //  values caching
@@ -232,13 +231,17 @@
   };
   
   Vector.prototype.max = function() {
-    var max;
-    this.each(function(value, index) {
-      if(!max)
-        max = value;
-      else
-        max = value > max ? value : max;
-    });
+    // Opt 9
+    //  For loop rather than .each(fn)
+    //  values caching
+
+    var max = Number.NEGATIVE_INFINITY;
+    var val, my_values = this.values;
+
+    for (var c = 0, l = this.length; c < l; c++) {
+      val = my_values[c];
+      if (val > max) max = val;
+    }
     
     return max;
   };
