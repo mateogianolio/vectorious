@@ -76,11 +76,19 @@
     };
     return res;
   };
+
   
   Vector.prototype.scale = function(scalar) {
-    return Vector.construct(this.values.map(function(value) {
-      return value * scalar;
-    }));
+    var res = new Vector();
+    var my_vals = this.values;
+
+    // Opt 4
+    //  Using for loop instead of map. Caching values array.
+
+    for (var c = 0, l = this.length; c < l; c++) {
+      res.push(my_vals[c] * scalar);
+    };
+    return res;
   };
   
   Vector.prototype.normalize = function() {
