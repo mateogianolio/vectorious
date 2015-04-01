@@ -48,10 +48,22 @@
   Vector.prototype.add = function(vector) {
     if(this.length !== vector.length)
       throw 'Error: sizes do not match!';
+
+    // Opt 2
+    //  Using for loop instead of map. Caching values arrays.
     
-    return Vector.construct(this.values.map(function(value, index) {
-      return value + vector.values[index];
-    }));
+    var res = new Vector();
+    var my_vals = this.values, its_vals = vector.values;
+
+    for (var c = 0, l = this.length; c < l; c++) {
+      res.push(my_vals[c] + its_vals[c]);
+    }
+
+    //return Vector.construct(this.values.map(function(value, index) {
+    //  return value + vector.values[index];
+    //}));
+
+    return res;
   };
   
   Vector.prototype.subtract = function(vector) {
