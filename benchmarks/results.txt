@@ -5,24 +5,26 @@ i7 4770K (haswell)
 A few programs running (eg Chrome with about 10 tabs), but effort taken to limit unneeded programs / processes running at the same time.
 
 nanoseconds (ns)
+  1 billionth of a second
+
+var repetitions = 1000;
+var size = 4096;
 
 add
 ---
 
-var repetitions = 1000;
-var size = 4096;
 
 4096000 operations
 
 opt 1
 131949303
-(0.13s)
+(0.13s, 31,507,692 o/s)
 
 130888151
 
 unopt
 614924515
-(0.61s)
+(0.61s, 6,660,980 o/s)
 614901402
 614458451
 613656225
@@ -31,8 +33,23 @@ unopt
 
 opt 2
 23931045
-(0.02s)
+(0.02s, 171,158,748 o/s)
 23963520
 22841515
 24629702
 24277155
+
+
+subtract
+--------
+
+opt 1
+
+132779908
+131566913
+
+opt 3
+
+25143454
+24169490
+25063583
