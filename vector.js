@@ -104,6 +104,10 @@
   };
   
   Vector.prototype.zeros = function(count) {
+
+    // Opt 5
+    //  Use for loop instead of Array.apply and .map
+
     var values = this.values = new Array(count);
     for (var c = 0; c < count; c++) {
       values[c] = 0;
@@ -118,9 +122,13 @@
   };
   
   Vector.prototype.ones = function(count) {
-    this.values = Array
-      .apply(null, new Array(count))
-      .map(Number.prototype.valueOf, 1);
+    // Opt 6
+    //  Use for loop instead of Array.apply and .map
+    
+    var values = this.values = new Array(count);
+    for (var c = 0; c < count; c++) {
+      values[c] = 1;
+    };
     this.length = count;
     return this;
   };
