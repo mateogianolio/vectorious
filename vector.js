@@ -201,12 +201,13 @@
 
     return (c === l);
 
-
-    // Opt 7
-    //  Use fast loop to check equality
     // Fix 1
     //  Bug: Returning true when they are not equal
+    // Opt 7
+    //  Use fast loop to check equality
+    //   Douglas Crockford would not approve: https://www.youtube.com/watch?v=taaEzHI9xyY&t=50m42s
     
+
   };
 
   Vector.prototype.get = function(index) {
@@ -214,13 +215,18 @@
   };
   
   Vector.prototype.min = function() {
-    var min;
-    this.each(function(value, index) {
-      if(!min)
-        min = value;
-      else
-        min = value < min ? value : min;
-    });
+
+    // Opt 8
+    //  For loop rather than .each(fn)
+    //  values caching
+
+    var min = Number.POSITIVE_INFINITY;
+    var val, my_values = this.values;
+
+    for (var c = 0, l = this.length; c < l; c++) {
+      val = my_values[c];
+      if (val < min) min = val;
+    }
     
     return min;
   };
