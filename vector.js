@@ -252,10 +252,19 @@
   };
   
   Vector.prototype.combine = function(vector) {
-    var self = this;
-    vector.values.forEach(function(value) {
-      self.push(value);
-    });
+    // Opt 10
+    //  Use for loop
+    //  Use cached its_values
+
+    //var self = this;
+    var its_values = vector.values;
+    for (var c = 0, l = vector.length; c < l; c++) {
+      this.push(its_values[c]);
+    }
+
+    //vector.values.forEach(function(value) {
+    //  self.push(value);
+    //});
     
     return this;
   };
@@ -273,9 +282,14 @@
   };
   
   Vector.prototype.each = function(callback) {
-    this.values.forEach(function(value, index) {
-      callback(value, index);
-    });
+    // Opt 11
+    //  Remove inner function call
+
+    this.values.forEach(callback);
+    
+    //this.values.forEach(function(value, index) {
+    //  callback(value, index);
+    //});
     
     return this;
   };
