@@ -23,8 +23,10 @@
       });
 
     */
+    var argument;
 
     for (var c = 0, l = arguments.length; c < l; c++) {
+      argument = arguments[c];
       if(argument instanceof Vector)
         self = argument;
       else {
