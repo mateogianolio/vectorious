@@ -104,9 +104,15 @@
   };
   
   Vector.prototype.zeros = function(count) {
-    this.values = Array
-      .apply(null, new Array(count))
-      .map(Number.prototype.valueOf, 0);
+    var values = this.values = new Array(count);
+    for (var c = 0; c < count; c++) {
+      values[c] = 0;
+    };
+
+
+    //this.values = Array
+    //  .apply(null, new Array(count))
+    //  .map(Number.prototype.valueOf, 0);
     this.length = count;
     return this;
   };
