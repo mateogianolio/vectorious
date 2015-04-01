@@ -9,20 +9,7 @@
     // Opt 1
     //  1 Stopping making new array and slicing arguments into it
     //  2 Using for loop rather than .forEach(fn)
-
-    /*
     
-    [].slice.call(arguments, 0)
-      .forEach(function(argument) {
-        if(argument instanceof Vector)
-          self = argument;
-        else {
-          self.push(argument);
-          self.length = self.values.length;
-        }
-      });
-
-    */
     var argument;
 
     for (var c = 0, l = arguments.length; c < l; c++) {
@@ -286,7 +273,7 @@
     //  Remove inner function call
 
     this.values.forEach(callback);
-    
+
     //this.values.forEach(function(value, index) {
     //  callback(value, index);
     //});

@@ -1,4 +1,4 @@
-var Vector = require('../vectorious').Vector;
+var Vector = require('../../vectorious').Vector;
 var size = 16;
 
 var c_rep;

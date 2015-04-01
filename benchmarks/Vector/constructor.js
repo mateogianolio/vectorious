@@ -1,6 +1,6 @@
 // benchmark.js
 
-var vectorious = require('../vectorious');
+var vectorious = require('../../vectorious');
 
 var Vector = vectorious.Vector;
 var Matrix = vectorious.Matrix;
