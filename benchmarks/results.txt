@@ -1,0 +1,24 @@
+Benchmark Results
+
+Windows 8.1 x64
+i7 4770K (haswell)
+A few programs running (eg Chrome with about 10 tabs), but effort taken to limit unneeded programs / processes running at the same time.
+
+nanoseconds (ns)
+
+add
+---
+
+var repetitions = 1000;
+var size = 4096;
+
+opt 1
+131949303
+130888151
+
+unopt
+614924515
+614901402
+614458451
+613656225
+611577224
