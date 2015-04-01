@@ -8,13 +8,13 @@ var Vector = vectorious.Vector;
 // A few benchmarks.
 // Test adding a bunch of numbers
 
-var repetitions = 5000;
+var repetitions = 1000;
 var size = 4096;
 
 var c_rep;
 var i;
 
-var hrt_start = process.hrtime();
+
 
 var vector_1, vector_2;
 var vector_res;
@@ -29,7 +29,7 @@ for (i = 0; i < size; i++) {
 
 
 var vector_res;
-
+var hrt_start = process.hrtime();
 for (c_rep = 0; c_rep < repetitions; c_rep++) {
 	vector_res = vector_1.add(vector_2);
 }
