@@ -104,7 +104,6 @@
   };
   
   Vector.prototype.zeros = function(count) {
-
     // Opt 5
     //  Use for loop instead of Array.apply and .map
 
@@ -112,11 +111,6 @@
     for (var c = 0; c < count; c++) {
       values[c] = 0;
     };
-
-
-    //this.values = Array
-    //  .apply(null, new Array(count))
-    //  .map(Number.prototype.valueOf, 0);
     this.length = count;
     return this;
   };
@@ -199,14 +193,20 @@
   Vector.prototype.equals = function(vector) {
     if(this.length !== vector.length)
       return false;
+
+    var my_values = this.values, its_values = vector.values;
+
+    var c = 0, l = this.length;
+    while(c < l && my_values[c] === its_values[c++]) {};
+
+    return (c === l);
+
+
+    // Opt 7
+    //  Use fast loop to check equality
+    // Fix 1
+    //  Bug: Returning true when they are not equal
     
-    return this.values
-      .map(function(value, index) {
-        return value === vector.values[index];
-      })
-      .reduce(function(previous, current) {
-        return previous === current;
-      });
   };
 
   Vector.prototype.get = function(index) {
