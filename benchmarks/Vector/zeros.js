@@ -36,4 +36,4 @@ for (c_rep = 0; c_rep < repetitions; c_rep++) {
 
 var hrt_diff = process.hrtime(hrt_start);
 
-console.log('hrt_diff', hrt_diff);
+console.log(hrt_diff);
