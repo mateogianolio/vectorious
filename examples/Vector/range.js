@@ -12,8 +12,6 @@ var size = 16;
 var c_rep;
 var i;
 
-
-
 var vector_1, vector_2;
 var vector_res;
 
@@ -30,7 +28,11 @@ var vector_res;
 console.log('vector_1', vector_1);
 var hrt_start = process.hrtime();
 //for (c_rep = 0; c_rep < repetitions; c_rep++) {
+
+
 vector_res = vector_1.range(100, 105);
+
+
 //}
 
 var hrt_diff = process.hrtime(hrt_start);
