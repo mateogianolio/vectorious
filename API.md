@@ -29,4 +29,4 @@ toArray               |                           |                         |
 
 Method Name           | Arguments                 |  Return Value           |  Description
 ----------------------|---------------------------|-------------------------|-------------
-range                 |                           |                         |
+range                 | start, [step,]  end       |  vector                 | Returns a Vector containing a range of numbers, starting with start, verying by step, and up to but not including end
