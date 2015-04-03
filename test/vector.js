@@ -203,7 +203,7 @@
     });
     
     describe('.min()', function() {
-      it('should work as expected', function() {
+      it('should find the minimum number in vectors', function() {
         var a = new Vector(1, 2, 3);
         var b = new Vector(3, -1, 1);
         var c = new Vector(2, 5, 1);
@@ -215,7 +215,7 @@
     });
     
     describe('.max()', function() {
-      it('should work as expected', function() {
+      it('should find the maximum number in vectors', function() {
         var a = new Vector(1, 2, 3);
         var b = new Vector(3, -1, 1);
         var c = new Vector(2, 5, 1);
