@@ -33,43 +33,43 @@
     if(this.length !== vector.length)
       throw new Error('sizes do not match!');
     
-    var copy = new Vector(),
+    var result = new Vector(),
         a = this.values,
         b = vector.values,
         i, l;
     for(i = 0, l = this.length; i < l; i++)
-      copy.push(a[i] + b[i]);
+      result.push(a[i] + b[i]);
     
-    return copy;
+    return result;
   };
   
   Vector.prototype.subtract = function(vector) {
     if(this.length !== vector.length)
       throw new Error('sizes do not match');
     
-    var copy = new Vector(),
+    var result = new Vector(),
         a = this.values,
         b = vector.values,
         i, l;
     for(i = 0, l = this.length; i < l; i++)
-      copy.push(a[i] - b[i]);
+      result.push(a[i] - b[i]);
     
-    return copy;
+    return result;
   };
   
   Vector.prototype.scale = function(scalar) {
-    var copy = new Vector(),
+    var result = new Vector(),
         values = this.values,
         i, l;
     for(i = 0, l = this.length; i < l; i++)
-      copy.push(values[i] * scalar);
+      result.push(values[i] * scalar);
     
-    return copy;
+    return result;
   };
   
   Vector.prototype.normalize = function() {
-    var copy = new Vector(this);
-    return copy.scale(1 / copy.magnitude());
+    var result = new Vector(this);
+    return result.scale(1 / result.magnitude());
   };
   
   Vector.prototype.project = function(vector) {
