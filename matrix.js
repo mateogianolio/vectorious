@@ -33,106 +33,119 @@
   }
 
   Matrix.prototype.add = function(matrix) {
-    var copy = new Matrix(this),
-        i;
-    for(i = 0; i < copy.rows.length; i++)
-      copy.rows[i] = copy.rows[i].add(matrix.rows[i]);
+    var result = [],
+        a = this.rows,
+        b = matrix.rows,
+        i, l;
+    for(i = 0, l = a.length; i < l; i++)
+      result.push(a[i].add(b[i]));
     
-    return copy;
+    return Matrix.construct(result);
   };
   
   Matrix.prototype.subtract = function(matrix) {
-    var copy = new Matrix(this),
-        i;
-    for(i = 0; i < this.rows.length; i++)
-      copy.rows[i] = copy.rows[i].subtract(matrix.rows[i]);
+    var result = [],
+        a = this.rows,
+        b = matrix.rows,
+        i, l;
+    for(i = 0, l = a.length; i < l; i++)
+      result.push(a[i].subtract(b[i]));
     
-    return copy;
+    return Matrix.construct(result);
   };
   
   Matrix.prototype.scale = function(scalar) {
-    var copy = new Matrix(this),
-        i;
-    for(i = 0; i < this.rows.length; i++)
-      copy.rows[i] = copy.rows[i].scale(scalar);
+    var result = [],
+        rows = this.rows,
+        i, l;
+    for(i = 0, l = rows.length; i < l; i++)
+      result.push(rows[i].scale(scalar));
     
-    return copy;
+    return Matrix.construct(result);
   };
   
   Matrix.prototype.zeros = function(i, j) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
     
-    var rows = [],
+    var result = [],
         row;
-    for(var row = 0; row < i; row++)
-      rows.push(new Vector().zeros(j));
+    for(row = 0; row < i; row++)
+      result.push(new Vector().zeros(j));
     
-    return Matrix.construct(rows);
+    return Matrix.construct(result);
   };
   
   Matrix.prototype.ones = function(i, j) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
     
-    var rows = [],
+    var result = [],
         row;
     for(row = 0; row < i; row++)
-      rows.push(new Vector().ones(j));
+      result.push(new Vector().ones(j));
     
-    return Matrix.construct(rows);
+    return Matrix.construct(result);
   };
   
   Matrix.prototype.multiply = function(matrix) {
     if(this.rows[0].length !== matrix.rows.length)
       throw new Error('sizes do not match');
     
-    var copy = new Matrix().zeros(this.rows.length, matrix.rows[0].length);
+    var l = this.rows.length,
+        m = matrix.rows[0].length,
+        n = this.rows[0].length;
     
-    var sum = 0;
-    for(var i = 0; i < this.rows.length; i++) {
-      for(var j = 0; j < matrix.rows[0].length; j++) {
+    var result = new Matrix().zeros(l, m),
+        sum,
+        i, j, k, l, m, n;
+    for(i = 0; i < l; i++) {
+      for(j = 0; j < m; j++) {
         sum = 0;
-        for(var k = 0; k < this.rows[0].length; k++)
+        for(k = 0; k < n; k++)
           sum += this.get(i, k) * matrix.get(k, j);
         
-        copy.set(i, j, sum);
+        result.set(i, j, sum);
       }
     }
     
-    return copy;
+    return result;
   };
   
   Matrix.prototype.transpose = function() {
-    var matrix = new Matrix().zeros(this.rows[0].length, this.rows.length);
-    var i, j;
-    for(i = 0; i < this.rows.length; i++)
-      for(j = 0; j < this.rows[0].length; j++)
-        matrix.set(j, i, this.get(i, j));
+    var l = this.rows.length,
+        m = this.rows[0].length;
     
-    return matrix;
+    var result = new Matrix().zeros(m, l),
+        i, j;
+    for(i = 0; i < l; i++)
+      for(j = 0; j < m; j++)
+        result.set(j, i, this.get(i, j));
+    
+    return result;
   };
   
   Matrix.prototype.gauss = function() {
+    var l = this.rows.length,
+        m = this.rows[0].length;
+    
     var copy = new Matrix(this),
         lead = 0,
-        rows = this.rows.length,
-        cols = this.rows[0].length,
         pivot,
         i, j;
     
-    for(i = 0; i < rows; i++) {
-      if(cols <= lead)
+    for(i = 0; i < l; i++) {
+      if(m <= lead)
         return;
       
       j = i;
       while(copy.get(j, lead) === 0) {
         j++;
-        if(rows === j) {
+        if(l === j) {
           j = i;
           lead++;
           
-          if(cols === lead)
+          if(m === lead)
             return;
         }
       }
@@ -143,7 +156,7 @@
       if(pivot !== 0)
         copy.rows[i].scale(1 / pivot);
       
-      for(j = 0; j < rows; j++) {
+      for(j = 0; j < l; j++) {
         if(j !== i)
           copy.rows[j].subtract(copy.rows[i].scale(copy.get(j, lead)));
       }
@@ -151,9 +164,9 @@
       lead++;
     }
     
-    for(i = 0; i < rows; i++) {
+    for(i = 0; i < l; i++) {
       pivot = 0;
-      for(j = 0; j < cols; j++)
+      for(j = 0; j < m; j++)
         if(!pivot)
           pivot = copy.get(i, j);
       
@@ -165,12 +178,13 @@
   };
 
   Matrix.prototype.augment = function(matrix) {
-    var i;
-    for(i = 0; i < matrix.rows.length; i++) {
-      if(!(this.rows[i] instanceof Vector))
-        this.rows[i] = new Vector();
+    var rows = this.rows,
+        i, l;
+    for(i = 0, l = matrix.rows.length; i < l; i++) {
+      if(!(rows[i] instanceof Vector))
+        rows[i] = new Vector();
       
-      this.rows[i].combine(matrix.rows[i]);
+      rows[i].combine(matrix.rows[i]);
     }
     
     return this;
@@ -191,23 +205,23 @@
   };
 
   Matrix.prototype.diag = function() {
-    var elements = [],
-        i, j;
+    var result = [],
+        i, j, l, m;
     
-    for(i = 0; i < this.rows.length; i++)
-      for(j = 0; j < this.rows[0].length; j++)
+    for(i = 0, l = this.rows.length; i < l; i++)
+      for(j = 0, m = this.rows[0].length; j < m; j++)
         if(i === j)
-          elements.push(this.get(i, j));
+          result.push(this.get(i, j));
     
-    return Vector.construct(elements);
+    return Vector.construct(result);
   };
 
   Matrix.prototype.trace = function() {
     var diagonal = this.diag(),
         result = 0,
-        i;
+        i, l;
     
-    for(i = 0; i < diagonal.length; i++)
+    for(i = 0, l = diagonal.length; i < l; i++)
       result += diagonal.get(i);
     
     return result;
@@ -217,9 +231,11 @@
     if(this.rows.length !== matrix.rows.length)
       return false;
     
-    var i;
-    for(i = 0; i < this.rows.length; i++)
-      if(!this.rows[i].equals(matrix.rows[i]))
+    var a = this.rows,
+        b = matrix.rows,
+        i, l;
+    for(i = 0, l = a.length; i < l; i++)
+      if(!a[i].equals(b[i]))
         return false;
     
     return true;
@@ -246,36 +262,40 @@
   };
   
   Matrix.prototype.map = function(callback) {
-    var matrix = new Matrix(this),
-        i;
-    for(i = 0; i < this.rows.length; i++)
-      matrix.rows[i] = callback(matrix.rows[i]);
+    var result = new Matrix(this),
+        rows = result.rows,
+        i, l;
+    for(i = 0, l = this.rows.length; i < l; i++)
+      rows[i] = callback(rows[i]);
     
-    return matrix;
+    return result;
   };
   
   Matrix.prototype.each = function(callback) {
-    var i;
-    for(i = 0; i < this.rows.length; i++)
-      callback(this.rows[i], i);
+    var rows = this.rows,
+        i, l;
+    for(i = 0, l = rows.length; i < l; i++)
+      callback(rows[i], i);
     
     return this;
   };
   
   Matrix.prototype.toString = function() {
     var result = [],
-        i;
-    for(i = 0; i < this.rows.length; i++)
-      result.push(this.rows[i].toString());
+        rows = this.rows,
+        i, l;
+    for(i = 0, l = rows.length; i < l; i++)
+      result.push(rows[i].toString());
     
     return '[' + result.join(', \n') + ']';
   };
   
   Matrix.prototype.toArray = function() {
     var result = [],
-        i;
-    for(i = 0; i < this.rows.length; i++)
-      result.push(this.rows[i].toArray());
+        rows = this.rows,
+        i, l;
+    for(i = 0, l = rows.length; i < l; i++)
+      result.push(rows[i].toArray());
     
     return result;
   };
