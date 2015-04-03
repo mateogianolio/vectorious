@@ -23,7 +23,7 @@
         assert.throws(a.add.bind(a, b), Error);
       });
       
-      it('should work as expected', function() {
+      it('should produce Vector(5, 7, 9) from Vector(1, 2, 3) and Vector(4, 5, 6)', function() {
         var a = new Vector(1, 2, 3);
         var b = new Vector(4, 5, 6);
         var c = new Vector(5, 7, 9);
@@ -47,7 +47,7 @@
         assert.throws(a.subtract.bind(a, b), Error);
       });
       
-      it('should work as expected', function() {
+      it('should produce Vector(-3, -3, -3) from Vector(1, 2, 3) and Vector(4, 5, 6)', function() {
         var a = new Vector(1, 2, 3);
         var b = new Vector(4, 5, 6);
         var c = new Vector(-3, -3, -3);
@@ -57,7 +57,7 @@
     });
     
     describe('.scale()', function() {
-      it('should work as expected', function() {
+      it('should scale Vector(1, 2, 3) by 2 to Vector(2, 4, 6)', function() {
         var a = new Vector(1, 2, 3);
         var b = new Vector(2, 4, 6);
         
@@ -100,7 +100,7 @@
         assert.deepEqual(new Vector(), new Vector().zeros(0));
       });
       
-      it('should work as expected', function() {
+      it('should create Vector(0, 0, 0)', function() {
         assert.deepEqual(new Vector(0, 0, 0), new Vector().zeros(3));
       });
     });
@@ -114,7 +114,7 @@
         assert.deepEqual(new Vector(), new Vector().ones(0));
       });
       
-      it('should work as expected', function() {
+      it('should create Vector(1, 1, 1)', function() {
         assert.deepEqual(new Vector(1, 1, 1), new Vector().ones(3));
       });
     });
@@ -253,7 +253,7 @@
     });
     
     describe('.push()', function() {
-      it('should work as expected', function() {
+      it('should start with Vector(1, 2), push(3) to get Vector(1, 2, 3)', function() {
         assert.deepEqual(new Vector(1, 2, 3), new Vector(1, 2).push(3));
       });
     });
