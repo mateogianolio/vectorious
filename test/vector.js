@@ -90,6 +90,8 @@
         assert.deepEqual(c, a.project(b));
       });
     });
+
+    /*
     
     describe('.zeros()', function() {
       it('should throw error if argument < 0', function() {
@@ -118,6 +120,8 @@
         assert.deepEqual(new Vector(1, 1, 1), new Vector().ones(3));
       });
     });
+
+    */
     
     describe('.range()', function() {
       it('should throw error if wrong number or arguments supplied', function() {
