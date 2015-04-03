@@ -20,8 +20,8 @@ combine               | (vector)                  | this vector             |
 push                  | (number)                  | this vector             |
 map                   | (callback)                |                         |
 each                  |                           |                         |
-toString              |                           |                         |
-toArray               |                           |                         |
+toString              | ()                        | string                  |
+toArray               | ()                        | new array               |
 
 ######Static Methods
 
