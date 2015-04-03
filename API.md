@@ -3,9 +3,9 @@
 
 Method Name           | Arguments                 | Return Value            | Description
 ----------------------|---------------------------|-------------------------|------------
-add                   | (vector)                  | new vector              |
-subtract              | (vector)                  | new vector              |
-scale                 | (number)                  | new vector              |
+add                   | (vector)                  | new vector              | Adds `vector` to `this`, returns resultant Vector
+subtract              | (vector)                  | new vector              | Subtracts `vector` from `this`, returns resultant Vector
+scale                 | (number)                  | new vector              | Scales `this` by factor, returns resultant Vector
 normalize             | ()                        | new vector              |
 dot                   | (vector)                  | new vector              |
 magnitude             | ()                        | number                  |
