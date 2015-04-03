@@ -1,3 +1,6 @@
+#####Vector
+######Instance Methods
+
 Method Name           | Arguments                 |  Return Value           |  Description
 ----------------------|---------------------------|-------------------------|-------------
 add                   |                           |                         |
@@ -10,7 +13,6 @@ angle                 |                           |                         |
 project               |                           |                         |
 zeros                 |                           |                         |
 ones                  |                           |                         |
-range                 |                           |                         |
 equals                |                           |                         |
 get                   |                           |                         |
 min                   |                           |                         |
@@ -22,3 +24,9 @@ map                   |                           |                         |
 each                  |                           |                         |
 toString              |                           |                         |
 toArray               |                           |                         |
+
+######Static Methods
+
+Method Name           | Arguments                 |  Return Value           |  Description
+----------------------|---------------------------|-------------------------|-------------
+range                 |                           |                         |
