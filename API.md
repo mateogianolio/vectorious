@@ -5,7 +5,7 @@ Method Name           | Arguments                 | Return Value            | De
 ----------------------|---------------------------|-------------------------|------------
 add                   | (vector)                  | new vector              | Adds `vector` to `this`, returns resultant Vector
 subtract              | (vector)                  | new vector              | Subtracts `vector` from `this`, returns resultant Vector
-scale                 | (number)                  | new vector              | Scales `this` by factor, returns resultant Vector
+scale                 | (number)                  | new vector              | Scales `this` by `number` factor, returns resultant Vector
 normalize             | ()                        | new vector              |
 dot                   | (vector)                  | new vector              |
 magnitude             | ()                        | number                  |
