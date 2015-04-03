@@ -11,14 +11,14 @@ dot                   | (vector)                  | new vector              |
 magnitude             | ()                        | number                  |
 angle                 | ()                        | number                  |
 project               | (vector)                  | new vector              |
-equals                |                           |                         |
-get                   |                           |                         |
-min                   |                           |                         |
-max                   |                           |                         |
-set                   |                           |                         |
-combine               |                           |                         |
-push                  |                           |                         |
-map                   |                           |                         |
+equals                | (vector)                  | boolean                 |
+get                   | (number)                  | number                  |
+min                   | ()                        | number                  |
+max                   | ()                        | number                  |
+set                   | (number, number)          | this vector             |
+combine               | (vector)                  | this vector             |
+push                  | (number)                  | this vector             |
+map                   | (callback)                |                         |
 each                  |                           |                         |
 toString              |                           |                         |
 toArray               |                           |                         |
