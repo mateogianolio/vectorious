@@ -13,8 +13,8 @@ angle                 | ()                        | number                  |
 project               | (vector)                  | new vector              |
 equals                | (vector)                  | boolean                 |
 get                   | (number)                  | number                  |
-min                   | ()                        | number                  |
-max                   | ()                        | number                  |
+min                   | ()                        | number                  | Finds and returns the minumum value
+max                   | ()                        | number                  | Finds and returns the maximum value
 set                   | (number, number)          | this vector             |
 combine               | (vector)                  | this vector             |
 push                  | (number)                  | this vector             |
