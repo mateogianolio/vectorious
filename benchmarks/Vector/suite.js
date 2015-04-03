@@ -4,7 +4,10 @@ var benchmark_js_files = [
 	'add.js',
 	'subtract.js',
 	'constructor.js',
-	'equals.js'
+	'equals.js',
+	'ones.js',
+	'zeros.js',
+	'scale.js'
 ];
 
 
@@ -22,6 +25,8 @@ var sns, s, ns, tns;
 var parse = JSON.parse;
 
 var total_ns = 0;
+
+var task_total_ns;
 
 var num_repetitions_per_file = 10;
 
@@ -49,6 +54,7 @@ var run_file = function(filename, callback) {
 		//console.log('tns', tns);
 
 		total_ns += tns;
+		task_total_ns += tns;
 		callback();
 	});
 }
@@ -57,13 +63,27 @@ var run_file = function(filename, callback) {
 
 var fns = [];
 
+var task_total_s;
+
+String.prototype.rpad = function(padString, length) {
+	var str = this;
+    while (str.length < length)
+        str = str + padString;
+    return str;
+}
+
 var benchmark_js_file;
 for (var c = 0, l = benchmark_js_files.length; c < l; c++) {
 	benchmark_js_file = benchmark_js_files[c];
 
 	(function(benchmark_js_file) {
 		fns.push(function(callback) {
-		repeat_run_file(benchmark_js_file, num_repetitions_per_file, callback);
+		task_total_ns = 0;
+		repeat_run_file(benchmark_js_file, num_repetitions_per_file, function() {
+			task_total_s = task_total_ns / 1000000000;
+			console.log(benchmark_js_file.rpad(' ', 16) + ' * ' + num_repetitions_per_file + '     ', task_total_s);
+			callback();
+		});
 	});
 	})(benchmark_js_file);
 	
