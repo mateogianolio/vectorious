@@ -15,4 +15,4 @@ var arr_cube = [
 ];
 
 var matrix_cube = new Matrix(arr_cube);
-console.log('matrix_cube', matrix_cube);
+console.log('matrix_cube:\n', matrix_cube.toString());
