@@ -76,7 +76,7 @@
     return vector.scale(this.dot(vector) / vector.dot(vector));
   };
   
-  Vector.prototype.zeros = function(count) {
+  Vector.zeros = function(count) {
     if(count < 0)
       throw new Error('invalid size');
     
@@ -88,7 +88,7 @@
     return Vector.construct(zeros);
   };
   
-  Vector.prototype.ones = function(count) {
+  Vector.ones = function(count) {
     if(count < 0)
       throw new Error('invalid size');
     
