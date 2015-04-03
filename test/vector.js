@@ -121,20 +121,20 @@
     
     describe('.range()', function() {
       it('should throw error if wrong number or arguments supplied', function() {
-        assert.throws(new Vector().range.bind(new Vector(), 1), Error);
-        assert.throws(new Vector().range.bind(new Vector(), 1, 2, 3, 4), Error);
+        assert.throws(Vector.range.bind(new Vector(), 1), Error);
+        assert.throws(Vector.range.bind(new Vector(), 1, 2, 3, 4), Error);
       });
       
       it('should throw error if step > start - end', function() {
-        assert.throws(new Vector().range.bind(new Vector(), 0, 0), Error);
-        assert.throws(new Vector().range.bind(new Vector(), 1, 3, 2), Error);
+        assert.throws(Vector.range.bind(new Vector(), 0, 0), Error);
+        assert.throws(Vector.range.bind(new Vector(), 1, 3, 2), Error);
       });
       
       it('should work as expected', function() {
-        var a = new Vector().range(0, 5);
-        var b = new Vector().range(5, 2, 10);
-        var c = new Vector().range(5, 0);
-        var d = new Vector().range(5, 2, 0);
+        var a = Vector.range(0, 5);
+        var b = Vector.range(5, 2, 10);
+        var c = Vector.range(5, 0);
+        var d = Vector.range(5, 2, 0);
         
         assert.deepEqual(new Vector(0, 1, 2, 3, 4), a);
         assert.deepEqual(new Vector(5, 7, 9), b);

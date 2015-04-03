@@ -5,21 +5,18 @@
     var self = this;
     self.values = [];
     self.length = 0;
-
-    // Opt 1
-    //  1 Stopping making new array and slicing arguments into it
-    //  2 Using for loop rather than .forEach(fn)
     
-    var argument;
-
-    for (var c = 0, l = arguments.length; c < l; c++) {
-      argument = arguments[c];
+    var argument,
+        i;
+    for(i = 0; i < arguments.length; i++) {
+      argument = arguments[i];
+    
       if(argument instanceof Vector)
-        self = argument;
-      else {
+        self.combine(argument);
+      else if(typeof argument === 'object')
+        self.combine(Vector.construct(argument));
+      else
         self.push(argument);
-        self.length = self.values.length;
-      }
     }
     
     return self;
@@ -34,88 +31,78 @@
   
   Vector.prototype.add = function(vector) {
     if(this.length !== vector.length)
-      throw 'Error: sizes do not match!';
-
-    // Opt 2
-    //  Using for loop instead of map. Caching values arrays.
+      throw new Error('sizes do not match!');
     
-    var res = new Vector();
-    var my_vals = this.values, its_vals = vector.values;
-
-    for (var c = 0, l = this.length; c < l; c++) {
-      res.push(my_vals[c] + its_vals[c]);
-    };
-    return res;
+    var copy = new Vector(),
+        a = this.values,
+        b = vector.values,
+        i, l;
+    for(i = 0, l = this.length; i < l; i++)
+      copy.push(a[i] + b[i]);
+    
+    return copy;
   };
   
   Vector.prototype.subtract = function(vector) {
     if(this.length !== vector.length)
-      throw 'Error: sizes do not match!';
-
-    // Opt 3
-    //  Using for loop instead of map. Caching values arrays.
+      throw new Error('sizes do not match');
     
-    var res = new Vector();
-    var my_vals = this.values, its_vals = vector.values;
-
-    for (var c = 0, l = this.length; c < l; c++) {
-      res.push(my_vals[c] - its_vals[c]);
-    };
-    return res;
+    var copy = new Vector(),
+        a = this.values,
+        b = vector.values,
+        i, l;
+    for(i = 0, l = this.length; i < l; i++)
+      copy.push(a[i] - b[i]);
+    
+    return copy;
   };
-
   
   Vector.prototype.scale = function(scalar) {
-    var res = new Vector();
-    var my_vals = this.values;
-
-    // Opt 4
-    //  Using for loop instead of map. Caching values array.
-
-    for (var c = 0, l = this.length; c < l; c++) {
-      res.push(my_vals[c] * scalar);
-    };
-    return res;
+    var copy = new Vector(),
+        values = this.values,
+        i, l;
+    for(i = 0, l = this.length; i < l; i++)
+      copy.push(values[i] * scalar);
+    
+    return copy;
   };
   
   Vector.prototype.normalize = function() {
-    return this.scale(1 / this.length);
+    var copy = new Vector(this);
+    return copy.scale(1 / copy.magnitude());
   };
   
   Vector.prototype.project = function(vector) {
-    return Vector.construct(
-      vector
-        .normalize()
-        .scale(this.magnitude() * Math.cos(this.dot(vector) / (this.magnitude() * vector.magnitude())))
-    );
+    return vector.scale(this.dot(vector) / vector.dot(vector));
   };
   
   Vector.prototype.zeros = function(count) {
-    // Opt 5
-    //  Use for loop instead of Array.apply and .map
+    if(count < 0)
+      throw new Error('invalid size');
+    
+    var zeros = [],
+        i;
+    for(i = 0; i < count; i++)
+      zeros.push(0);
 
-    var values = this.values = new Array(count);
-    for (var c = 0; c < count; c++) {
-      values[c] = 0;
-    };
-    this.length = count;
-    return this;
+    return Vector.construct(zeros);
   };
   
   Vector.prototype.ones = function(count) {
-    // Opt 6
-    //  Use for loop instead of Array.apply and .map
+    if(count < 0)
+      throw new Error('invalid size');
     
-    var values = this.values = new Array(count);
-    for (var c = 0; c < count; c++) {
-      values[c] = 1;
-    };
-    this.length = count;
-    return this;
+    var ones = [],
+        i;
+    for(i = 0; i < count; i++)
+      ones.push(1);
+    
+    return Vector.construct(ones);
   };
   
-  Vector.prototype.range = function() {
+  Vector.range = function() {
     var args = [].slice.call(arguments, 0),
+        backwards = false,
         start, step, end;
     
     switch(args.length) {
@@ -130,47 +117,50 @@
         start = args.pop();
         break;
       default:
-        throw 'Error: invalid range!';
+        throw new Error('invalid range');
     }
     
     if(end - start < 0) {
       var copy = end;
       end = start;
       start = copy;
+      backwards = true;
     }
     
     if(step > end - start)
-      throw 'Error: invalid range!';
+      throw new Error('invalid range');
     
-    var i;
-    for(i = start; i < end - step; i += step)
-      this.push(i);
+    var vector = new Vector(),
+        i;
+    for(i = start; i < end; i += step)
+      vector.push(backwards ? end - i + start : i);
     
-    return Vector.construct(this.values);
+    return vector;
   };
 
   Vector.prototype.dot = function(vector) {
     if(this.length !== vector.length)
-      throw 'Error: sizes do not match!';
+      throw new Error('sizes do not match');
     
-    return this.values
-      .map(function(value, index) {
-        return value * vector.values[index];
-      })
-      .reduce(function(previous, current) {
-        return previous + current;
-      });
+    var result = 0,
+        a = this.values,
+        b = vector.values,
+        i, l;
+    
+    for(i = 0, l = this.length; i < l; i++)
+      result += a[i] * b[i];
+    
+    return result;
   };
   
   Vector.prototype.magnitude = function() {
-    return Math.sqrt(this.values
-      .map(function(value) {
-        return value * value;
-      })
-      .reduce(function(previous, current) {
-        return previous + current;
-      })
-    );
+    var result = 0,
+        values = this.values,
+        i, l;
+    for(i = 0, l = this.length; i < l; i++)
+      result += values[i] * values[i];
+    
+    return Math.sqrt(result);
   };
   
   Vector.prototype.angle = function(vector) {
@@ -180,78 +170,66 @@
   Vector.prototype.equals = function(vector) {
     if(this.length !== vector.length)
       return false;
-
-    var my_values = this.values, its_values = vector.values;
-
-    var c = 0, l = this.length;
-    while(c < l && my_values[c] === its_values[c++]) {};
-
-    return (c === l);
-
-    // Fix 1
-    //  Bug: Returning true when they are not equal
-    // Opt 7
-    //  Use fast loop to check equality
-    //   Douglas Crockford would not approve: https://www.youtube.com/watch?v=taaEzHI9xyY&t=50m42s
     
-
+    var a = this.values,
+        b = vector.values,
+        i = 0, l = this.length;
+    
+    while(i < l && a[i] === b[i++]) {};
+    
+    return i === l;
   };
 
   Vector.prototype.get = function(index) {
+    if(index < 0 || index > this.length - 1)
+      throw new Error('index out of bounds');
+    
     return this.values[index];
   };
   
   Vector.prototype.min = function() {
-    // Opt 8
-    //  For loop rather than .each(fn)
-    //  values caching
-
-    var min = Number.POSITIVE_INFINITY;
-    var val, my_values = this.values;
-
-    for (var c = 0, l = this.length; c < l; c++) {
-      val = my_values[c];
-      if (val < min) min = val;
+    var min = Number.POSITIVE_INFINITY,
+        values = this.values,
+        value,
+        i, l;
+    
+    for(i = 0, l = values.length; i < l; i++) {
+      value = values[i];
+      if(value < min)
+        min = value;
     }
     
     return min;
   };
   
   Vector.prototype.max = function() {
-    // Opt 9
-    //  For loop rather than .each(fn)
-    //  values caching
-
-    var max = Number.NEGATIVE_INFINITY;
-    var val, my_values = this.values;
-
-    for (var c = 0, l = this.length; c < l; c++) {
-      val = my_values[c];
-      if (val > max) max = val;
+    var max = Number.NEGATIVE_INFINITY,
+        values = this.values,
+        value,
+        i, l;
+    
+    for(i = 0, l = this.length; i < l; i++) {
+      value = values[i];
+      if(value > max)
+        max = value;
     }
     
     return max;
   };
   
   Vector.prototype.set = function(index, value) {
+    if(index < 0 || index > this.length - 1)
+      throw new Error('index out of bounds');
+    
     this.values[index] = value;
     return this;
   };
   
   Vector.prototype.combine = function(vector) {
-    // Opt 10
-    //  Use for loop
-    //  Use cached its_values
-
-    //var self = this;
-    var its_values = vector.values;
-    for (var c = 0, l = vector.length; c < l; c++) {
-      this.push(its_values[c]);
-    }
-
-    //vector.values.forEach(function(value) {
-    //  self.push(value);
-    //});
+    var values = vector.values,
+        i, l;
+    for(i = 0, l = vector.length; i < l; i++)
+      this.push(values[i]);
     
     return this;
   };
@@ -259,24 +237,23 @@
   Vector.prototype.push = function(value) {
     this.values.push(value);
     this.length++;
+    
     return this;
   };
   
   Vector.prototype.map = function(callback) {
-    return Vector.construct(this.values.map(function(value) {
-      return callback(value);
-    }));
+    var vector = new Vector(this),
+        i;
+    for(i = 0; i < this.length; i++)
+      vector.values[i] = callback(vector.values[i]);
+    
+    return vector;
   };
   
   Vector.prototype.each = function(callback) {
-    // Opt 11
-    //  Remove inner function call
-
-    this.values.forEach(callback);
-
-    //this.values.forEach(function(value, index) {
-    //  callback(value, index);
-    //});
+    var i;
+    for(i = 0; i < this.length; i++)
+      callback(this.values[i], i);
     
     return this;
   };
