@@ -97,28 +97,30 @@
     });
     
     describe('.transpose()', function() {
-      var a = new Matrix([[1, 2]]);
-      var b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
-      var c = new Matrix([[1], [2]]);
-      var d = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
-      
-      assert.deepEqual(c, a.transpose());
-      assert.deepEqual(d, b.transpose());
+      it('should work as expected', function() {
+        var a = new Matrix([[1, 2]]);
+        var b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+        var c = new Matrix([[1], [2]]);
+        var d = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
+
+        assert.deepEqual(c, a.transpose());
+        assert.deepEqual(d, b.transpose());
+      });
     });
     
-    /*
     describe('.gauss()', function() {
-      var a = new Matrix([[1, 2, 3], [3, 4, 5]]);
-      var b = new Matrix([[1, 0, -1], [0, 1, 2]]);
-      
-      assert.deepEqual(b, a.gauss());
-      
-      var c = new Matrix([[1, 2, -1, -4], [2, 3, -1, -11], [-2, 0, -3, 22]]);
-      var d = new Matrix([[1, 0, 0, -8], [0, 1, 0, 1], [0, 0, 1, -2]]);
-      
-      assert.deepEqual(d, c.gauss());
+      it('should work as expected', function() {
+        var a = new Matrix([[1, 2, 3], [3, 4, 5]]);
+        var b = new Matrix([[1, 0, -1], [0, 1, 2]]);
+
+        assert.deepEqual(b, a.gauss());
+
+        var c = new Matrix([[1, 2, -1, -4], [2, 3, -1, -11], [-2, 0, -3, 22]]);
+        var d = new Matrix([[1, 0, 0, -8], [0, 1, 0, 1], [0, 0, 1, -2]]);
+
+        assert.deepEqual(d, c.gauss());
+      });
     });
-    */
     
     describe('.augment()', function() {
       it('should return current matrix when combined with empty matrix', function() {

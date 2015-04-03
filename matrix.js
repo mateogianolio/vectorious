@@ -150,15 +150,15 @@
         }
       }
       
-      this.swap(i, j);
+      copy.swap(i, j);
       
       pivot = copy.get(i, lead);
       if(pivot !== 0)
-        copy.rows[i].scale(1 / pivot);
+        copy.rows[i] = copy.rows[i].scale(1 / pivot);
       
       for(j = 0; j < l; j++) {
         if(j !== i)
-          copy.rows[j].subtract(copy.rows[i].scale(copy.get(j, lead)));
+          copy.rows[j] = copy.rows[j].subtract(copy.rows[i].scale(copy.get(j, lead)));
       }
       
       lead++;
@@ -171,7 +171,7 @@
           pivot = copy.get(i, j);
       
       if(pivot)
-        copy.rows[i].scale(1 / pivot);
+        copy.rows[i] = copy.rows[i].scale(1 / pivot);
     }
     
     return copy;
