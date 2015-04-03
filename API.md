@@ -27,6 +27,6 @@ toArray               |                           |                         |
 
 Method Name           | Arguments                 | Return Value            | Description
 ----------------------|---------------------------|-------------------------|-------------
-range                 | (start, [step,]  end)     | new vector              | Returns a Vector containing a range of numbers, starting with start, verying by step, and up to but not including end
-zeros                 | (count)                   | new vector              | Returns a Vector with each value set to 0
-ones                  | (count)                   | new vector              | Returns a Vector with each value set to 1
+range                 | (start, [step,]  end)     | new vector              | Returns a Vector containing a range of numbers, starting with `start`, varying by `step`, and up to but not including `end`
+zeros                 | (count)                   | new vector              | Returns a Vector with each value set to `0`
+ones                  | (count)                   | new vector              | Returns a Vector with each value set to `1`
