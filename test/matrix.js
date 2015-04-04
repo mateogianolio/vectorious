@@ -1,4 +1,6 @@
 (function() {
+  'use strict';
+  
   var vectorious = require('../vectorious'),
       assert = require('assert');
   
