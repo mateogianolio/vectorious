@@ -13,7 +13,6 @@ $ npm install vectorious
 Test with
 
 ```bash
-$ npm install --dev vectorious
 $ mocha
 ```
 
