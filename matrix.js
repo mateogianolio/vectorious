@@ -18,7 +18,7 @@
         self.rows.push(argument);
       } else if(typeof argument === 'number') {
         for(j = 0; j < argument; j++)
-          self.rows.push(new Vector().zeros(argument));
+          self.rows.push(Vector.zeros(argument));
       } else if(typeof argument === 'object') {
         for(j = 0; j < argument.length; j++) {
           if(argument[j] instanceof Vector)
@@ -31,6 +31,10 @@
     
     return self;
   }
+  
+  Matrix.add = function(a, b) {
+    return new Matrix(a).add(b);
+  };
 
   Matrix.prototype.add = function(matrix) {
     var result = [],
@@ -41,6 +45,10 @@
       result.push(a[i].add(b[i]));
     
     return Matrix.construct(result);
+  };
+  
+  Matrix.subtract = function(a, b) {
+    return new Matrix(a).subtract(b);
   };
   
   Matrix.prototype.subtract = function(matrix) {
@@ -64,28 +72,32 @@
     return Matrix.construct(result);
   };
   
-  Matrix.prototype.zeros = function(i, j) {
+  Matrix.zeros = function(i, j) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
     
     var result = [],
         row;
     for(row = 0; row < i; row++)
-      result.push(new Vector().zeros(j));
+      result.push(Vector.zeros(j));
     
     return Matrix.construct(result);
   };
   
-  Matrix.prototype.ones = function(i, j) {
+  Matrix.ones = function(i, j) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
     
     var result = [],
         row;
     for(row = 0; row < i; row++)
-      result.push(new Vector().ones(j));
+      result.push(Vector.ones(j));
     
     return Matrix.construct(result);
+  };
+  
+  Matrix.multiply = function(a, b) {
+    return new Matrix(a).multiply(b);
   };
   
   Matrix.prototype.multiply = function(matrix) {
@@ -96,9 +108,10 @@
         m = matrix.rows[0].length,
         n = this.rows[0].length;
     
-    var result = new Matrix().zeros(l, m),
+    var result = Matrix.zeros(l, m),
         sum,
-        i, j, k, l, m, n;
+        i, j, k,
+        l, m, n;
     for(i = 0; i < l; i++) {
       for(j = 0; j < m; j++) {
         sum = 0;
@@ -116,7 +129,7 @@
     var l = this.rows.length,
         m = this.rows[0].length;
     
-    var result = new Matrix().zeros(m, l),
+    var result = Matrix.zeros(m, l),
         i, j;
     for(i = 0; i < l; i++)
       for(j = 0; j < m; j++)
@@ -176,6 +189,10 @@
     
     return copy;
   };
+  
+  Matrix.augment = function(a, b) {
+    return new Matrix(a).augment(b);
+  };
 
   Matrix.prototype.augment = function(matrix) {
     var rows = this.rows,
@@ -194,7 +211,7 @@
     if(size < 0)
       throw new Error('invalid size');
     
-    var matrix = new Matrix().zeros(size, size),
+    var matrix = Matrix.zeros(size, size),
         i, j;
     for(i = 0; i < size; i++)
       for(j = 0; j < size; j++)
@@ -225,6 +242,10 @@
       result += diagonal.get(i);
     
     return result;
+  };
+  
+  Matrix.equals = function(a, b) {
+    return new Matrix(a).equals(b);
   };
 
   Matrix.prototype.equals = function(matrix) {

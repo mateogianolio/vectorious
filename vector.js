@@ -29,6 +29,10 @@
     return object;
   };
   
+  Vector.add = function(a, b) {
+    return new Vector(a).add(b);
+  };
+  
   Vector.prototype.add = function(vector) {
     if(this.length !== vector.length)
       throw new Error('sizes do not match!');
@@ -41,6 +45,10 @@
       result.push(a[i] + b[i]);
     
     return result;
+  };
+  
+  Vector.subtract = function(a, b) {
+    return new Vector(a).subtract(b);
   };
   
   Vector.prototype.subtract = function(vector) {
@@ -137,6 +145,10 @@
     
     return vector;
   };
+  
+  Vector.dot = function(a, b) {
+    return new Vector(a).dot(b);
+  };
 
   Vector.prototype.dot = function(vector) {
     if(this.length !== vector.length)
@@ -163,8 +175,16 @@
     return Math.sqrt(result);
   };
   
+  Vector.angle = function(a, b) {
+    return new Vector(a).angle(b);
+  };
+  
   Vector.prototype.angle = function(vector) {
     return Math.acos(this.dot(vector) / this.magnitude() * vector.magnitude());
+  };
+  
+  Vector.equals = function(a, b) {
+    return new Vector(a).equals(b);
   };
 
   Vector.prototype.equals = function(vector) {
@@ -223,6 +243,10 @@
     
     this.values[index] = value;
     return this;
+  };
+  
+  Vector.combine = function(a, b) {
+    return new Vector(a).combine(b);
   };
   
   Vector.prototype.combine = function(vector) {
