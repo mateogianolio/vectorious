@@ -14,7 +14,6 @@ Test with
 
 ```bash
 $ npm install --dev vectorious
-$ npm install mocha -g # if you don't have mocha installed already
 $ mocha
 ```
 
