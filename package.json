@@ -29,5 +29,8 @@
     "gulp-sourcemaps": "^1.5.1",
     "gulp-uglify": "^1.1.0",
     "vinyl-transform": "^1.0.0"
+  },
+  "dependencies": {
+    "mocha": "^2.2.1"
   }
 }
