@@ -177,7 +177,7 @@ Get dot product of two vectors.
 Vector.prototype.magnitude = function()
 ```
 
-Get magnitude of vector (Pythagoras).
+Get magnitude (norm) of vector.
 
 ```javascript
 // (Vector, Vector) => (Angle)
