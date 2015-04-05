@@ -4,7 +4,7 @@
 
 Vectorious is a generalized n-dimensional matrix and vector library written in JavaScript, which can be used both in node.js and the browser.
 
-Install with ```npm``` or download ```dist/vectorious.js```
+Install with ```npm``` or download ```dist/vectorious-2.0.0.js```
 
 ```bash
 $ npm install vectorious
