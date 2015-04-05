@@ -1,23 +1,29 @@
 (function() {
   'use strict';
 
-  var browserify = require('browserify'),
-      gulp = require('gulp'),
-      transform = require('vinyl-transform'),
-      uglify = require('gulp-uglify'),
-      sourcemaps = require('gulp-sourcemaps');
+  var browserify = require('browserify');
+  var gulp = require('gulp');
+  var source = require('vinyl-source-stream');
+  var buffer = require('vinyl-buffer');
+  var uglify = require('gulp-uglify');
+  var sourcemaps = require('gulp-sourcemaps');
+  var gutil = require('gulp-util');
 
   gulp.task('javascript', function () {
-    // transform regular node stream to gulp (buffered vinyl) stream 
-    var browserified = transform(function(filename) {
-      var b = browserify({entries: filename, debug: true});
-      return b.bundle();
+    // set up the browserify instance on a task basis
+    var b = browserify({
+      entries: './vectorious.js',
+      debug: false,
+      standalone: 'vectorious'
     });
 
-    return gulp.src('./vectorious.js')
-      .pipe(browserified)
+    return b.bundle()
+      .pipe(source('vectorious.js'))
+      .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
-      .pipe(uglify())
+          // Add transformation tasks to the pipeline here.
+          .pipe(uglify())
+          .on('error', gutil.log)
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./dist/'));
   });
