@@ -154,14 +154,14 @@ Subtract two vectors.
 Vector.prototype.scale = function(scalar)
 ```
 
-Multiply a vector by a scalar.
+Multiply a vector by a [scalar](http://en.wikipedia.org/wiki/Scalar_multiplication).
 
 ```javascript
 // (Vector) => (Vector)
 Vector.prototype.normalize = function()
 ```
 
-Normalize a vector.
+[Normalize](http://en.wikipedia.org/wiki/Unit_vector) a vector.
 
 ```javascript
 // (Vector, Vector) => (Number)
@@ -169,14 +169,14 @@ Vector.dot = function(a, b)
 Vector.prototype.dot = function(vector)
 ```
 
-Get dot product of two vectors.
+Get [dot product](http://en.wikipedia.org/wiki/Dot_product) of two vectors.
 
 ```javascript
 // (Vector) => (Number)
 Vector.prototype.magnitude = function()
 ```
 
-Get magnitude (norm) of vector.
+Get [magnitude (norm)](http://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm) of vector.
 
 ```javascript
 // (Vector, Vector) => (Angle)
@@ -192,7 +192,7 @@ Vector.project = function(a, b)
 Vector.prototype.project = function(vector)
 ```
 
-Project a vector onto another vector.
+[Project](http://en.wikipedia.org/wiki/Vector_projection) a vector onto another vector.
 
 ```javascript
 // (Number) => (Vector)
@@ -325,7 +325,7 @@ Matrix.add = function(a, b)
 Matrix.prototype.add = function(matrix)
 ```
 
-Add two matrices together.
+[Add](http://en.wikipedia.org/wiki/Matrix_addition) two matrices together.
 
 ```javascript
 // (Matrix, Matrix) => (Matrix)
@@ -340,7 +340,7 @@ Subtract two matrices.
 Matrix.prototype.scale = function(scalar)
 ```
 
-Multiply all elements in matrix with a scalar.
+Multiply all elements in matrix with a [scalar](http://en.wikipedia.org/wiki/Matrix_multiplication#Scalar_multiplication).
 
 ```javascript
 // (Matrix, Matrix) => (Matrix)
@@ -348,35 +348,35 @@ Matrix.multiply = function(a, b)
 Matrix.prototype.multiply = function(matrix)
 ```
 
-Multiply two matrices together.
+[Multiply](http://en.wikipedia.org/wiki/Matrix_multiplication#Matrix_product_.28two_matrices.29) two matrices together.
 
 ```javascript
 // (Matrix) => (Matrix)
 Matrix.prototype.transpose = function()
 ```
 
-Transpose a matrix.
+[Transpose](http://en.wikipedia.org/wiki/Transpose) a matrix.
 
 ```javascript
 // (Matrix, Boolean) => (Matrix)
 Matrix.prototype.gauss = function()
 ```
 
-Convert a matrix to reduced row echelon (RREF) form using [Gauss-Jordan eliminiation](http://en.wikipedia.org/wiki/Gaussian_elimination).
+Convert a matrix to [reduced row echelon (RREF)](http://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form) form using [Gauss-Jordan eliminiation](http://en.wikipedia.org/wiki/Gaussian_elimination).
 
 ```javascript
 // (Matrix) => (Matrix)
 Matrix.prototype.inverse = function()
 ```
 
-Get the inverse of any invertible square matrix using [Gauss-Jordan elimination](http://en.wikipedia.org/wiki/Gaussian_elimination#Finding_the_inverse_of_a_matrix).
+Get the [inverse](http://en.wikipedia.org/wiki/Invertible_matrix) of any invertible square matrix using [Gauss-Jordan elimination](http://en.wikipedia.org/wiki/Gaussian_elimination#Finding_the_inverse_of_a_matrix).
 
 ```javascript
 // (Matrix) => (Vector)
 Matrix.prototype.diag = function()
 ```
 
-Get matrix diagonal as a ```Vector```.
+Get [matrix diagonal](http://en.wikipedia.org/wiki/Main_diagonal) as a ```Vector```.
 
 ```javascript
 // (Matrix, Matrix) => (Matrix)
@@ -384,21 +384,21 @@ Matrix.augment = function(a, b)
 Matrix.prototype.augment = function(matrix)
 ```
 
-Create an augmented matrix.
+Create an [augmented matrix](http://en.wikipedia.org/wiki/Augmented_matrix).
 
 ```javascript
 // (Matrix) => (Number)
 Matrix.prototype.trace = function()
 ```
 
-Get matrix trace (the sum of the diagonal).
+Get [matrix trace](http://en.wikipedia.org/wiki/Trace_(linear_algebra)) (the sum of the diagonal).
 
 ```javascript
 // (Number) => (Matrix)
 Matrix.identity = function(size)
 ```
 
-Create an identity matrix.
+Create an [identity matrix](http://en.wikipedia.org/wiki/Identity_matrix).
 
 ```javascript
 // (Number, Number) => (Matrix)
