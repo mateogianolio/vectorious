@@ -133,7 +133,7 @@ The following vector operations and methods are implemented in ```vector.js```.
 * ```toString```
 * ```toArray```
 
-<span id="vector_add"></span>
+<p id="vector_add"></p>
 ```javascript
 // (Vector, Vector) => (Vector)
 Vector.add = function(a, b)
