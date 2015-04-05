@@ -303,6 +303,7 @@ The following matrix operations and methods are implemented in ```matrix.js```.
 * ```scale```
 * ```multiply```
 * ```transpose```
+* ```inverse```
 * ```gauss```
 * ```diag```
 * ```augment```
