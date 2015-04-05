@@ -110,7 +110,7 @@ var sine = time.map(Math.sin);
 
 The following vector operations and methods are implemented in ```vector.js```.
 
-* ```add```
+* [```add```](#vector_add)
 * ```subtract```
 * ```scale```
 * ```normalize```
@@ -133,6 +133,7 @@ The following vector operations and methods are implemented in ```vector.js```.
 * ```toString```
 * ```toArray```
 
+<span id="vector_add"></span>
 ```javascript
 // (Vector, Vector) => (Vector)
 Vector.add = function(a, b)
