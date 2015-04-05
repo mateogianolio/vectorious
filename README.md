@@ -362,7 +362,14 @@ Transpose a matrix.
 Matrix.prototype.gauss = function()
 ```
 
-Convert a matrix to reduced row echelon (RREF) form.
+Convert a matrix to reduced row echelon (RREF) form using [Gauss-Jordan eliminiation](http://en.wikipedia.org/wiki/Gaussian_elimination).
+
+```javascript
+// (Matrix) => (Matrix)
+Matrix.prototype.inverse = function()
+```
+
+Get the inverse of any invertible square matrix using [Gauss-Jordan elimination](http://en.wikipedia.org/wiki/Gaussian_elimination#Finding_the_inverse_of_a_matrix).
 
 ```javascript
 // (Matrix) => (Vector)

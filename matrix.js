@@ -110,8 +110,7 @@
     
     var result = Matrix.zeros(l, m),
         sum,
-        i, j, k,
-        l, m, n;
+        i, j, k;
     for(i = 0; i < l; i++) {
       for(j = 0; j < m; j++) {
         sum = 0;
@@ -136,6 +135,36 @@
         result.set(j, i, this.get(i, j));
     
     return result;
+  };
+  
+  Matrix.prototype.inverse = function() {
+    var l = this.rows.length,
+        m = this.rows[0].length;
+    
+    if(l !== m)
+      throw new Error('invalid dimensions');
+    
+    var identity = Matrix.identity(l);
+    var augmented = Matrix.augment(this, identity);
+    var gauss = augmented.gauss();
+    
+    var left = Matrix.zeros(l, m),
+        right = Matrix.zeros(l, m),
+        n = gauss.rows[0].length,
+        i, j;
+    for(i = 0; i < l; i++) {
+      for(j = 0; j < n; j++) {
+        if(j < m)
+          left.set(i, j, gauss.get(i, j));
+        else
+          right.set(i, j - l, gauss.get(i, j));
+      }
+    }
+    
+    if(!left.equals(Matrix.identity(l)))
+      throw new Error('matrix is invertible');
+    
+    return right;
   };
   
   Matrix.prototype.gauss = function() {
@@ -207,7 +236,7 @@
     return this;
   };
   
-  Matrix.prototype.identity = function(size) {
+  Matrix.identity = function(size) {
     if(size < 0)
       throw new Error('invalid size');
     

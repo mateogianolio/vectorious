@@ -52,6 +52,17 @@
         assert.deepEqual(new Matrix(a).equals(b), Matrix.equals(a, b));
       });
     });
+    
+    describe('Matrix.identity()', function() {
+      it('should throw error if invalid size', function() {
+        assert.throws(Matrix.identity.bind(new Matrix(), -1), Error);
+        assert.throws(Matrix.identity.bind(new Matrix(), 0), Error);
+      });
+
+      it('should work as expected', function() {
+        assert.deepEqual(new Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]), Matrix.identity(3));
+      });
+    });
 
     describe('Matrix.zeros()', function() {
       it('should throw error if invalid size', function() {
@@ -155,6 +166,44 @@
           assert.deepEqual(d, b.transpose());
         });
       });
+      
+      describe('.inverse()', function() {
+        it('should throw error if matrix is not square', function() {
+          var a = new Matrix([[1, 2]]);
+          
+          assert.throws(a.inverse.bind(a), Error);
+        });
+        
+        it('should throw error if matrix is invertible', function() {
+          var a = new Matrix([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+          ]);
+          
+          assert.throws(a.inverse.bind(a), Error);
+        });
+        
+        it('should work as expected', function() {
+          var a = new Matrix([
+            [2, -1, 0],
+            [-1, 2, -1],
+            [0, -1, 2]
+          ]);
+          var b = new Matrix([
+            [3/4, 1/2, 1/4],
+            [1/2, 1, 1/2],
+            [1/4, 1/2, 3/4]
+          ]);
+          
+          // need to round result to avoid floating point rounding errors, e.g. 0.99999999994
+          assert.deepEqual(b, a.inverse().map(function(row) {
+            return row.map(function(value) {
+              return Number(value.toFixed(2));
+            });
+          }));
+        });
+      });
 
       describe('.gauss()', function() {
         it('should work as expected', function() {
@@ -183,17 +232,6 @@
           var c = new Matrix([[1, 2, 5, 6], [3, 4, 7, 8]]);
 
           assert.deepEqual(c, a.augment(b));
-        });
-      });
-
-      describe('.identity()', function() {
-        it('should throw error if invalid size', function() {
-          assert.throws(new Matrix().identity.bind(new Matrix(), -1), Error);
-          assert.throws(new Matrix().identity.bind(new Matrix(), 0), Error);
-        });
-
-        it('should work as expected', function() {
-          assert.deepEqual(new Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]), new Matrix().identity(3));
         });
       });
 

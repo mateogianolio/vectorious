@@ -195,7 +195,8 @@
         b = vector.values,
         i = 0, l = this.length;
     
-    while(i < l && a[i] === b[i++]) {};
+    
+    while(i < l && a[i] === b[i]) { i++; }
     
     return i === l;
   };
