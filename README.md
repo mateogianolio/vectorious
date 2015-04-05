@@ -1,4 +1,4 @@
-# Vectorious
+# Vectorious 2.0.0
 
 ![npm version](https://img.shields.io/npm/v/vectorious.svg?style=flat-square) ![npm downloads](https://img.shields.io/npm/dm/vectorious.svg?style=flat-square) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat-square)
 
