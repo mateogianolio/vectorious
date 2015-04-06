@@ -1,6 +1,6 @@
 // benchmark.js
 
-var vectorious = require('../vectorious');
+var vectorious = require('../../vectorious');
 
 var Vector = vectorious.Vector;
 var Matrix = vectorious.Matrix;
@@ -24,4 +24,4 @@ for (c_rep = 0; c_rep < repetitions; c_rep++) {
 
 var hrt_diff = process.hrtime(hrt_start);
 
-console.log('hrt_diff', hrt_diff);
+console.log(hrt_diff);

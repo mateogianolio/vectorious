@@ -1,0 +1,118 @@
+Benchmark Results
+
+Windows 8.1 x64
+i7 4770K (haswell)
+A few programs running (eg Chrome with about 10 tabs), but effort taken to limit unneeded programs / processes running at the same time.
+
+nanoseconds (ns)
+  1 billionth of a second
+
+var repetitions = 1000;
+var size = 4096;
+
+add
+---
+
+
+4096000 operations
+
+opt 1
+131949303
+(0.13s, 31,507,692 o/s)
+
+130888151
+
+unopt
+
+614924515
+(0.61s, 6,660,980 o/s)
+614901402
+614458451
+613656225
+611577224
+
+
+opt 2
+23931045
+(0.02s, 171,158,748 o/s)
+23963520
+22841515
+24629702
+24277155
+
+
+subtract
+--------
+
+opt 1
+
+132779908
+131566913
+
+opt 3
+
+25143454
+24169490
+25063583
+
+
+scale
+-----
+
+opt 1
+
+125959812
+129519802
+
+opt 4
+
+23089321
+23594590
+
+
+zeros
+-----
+
+unopt
+
+hrt_diff [ 0, 452866556 ]
+hrt_diff [ 0, 443514559 ]
+hrt_diff [ 0, 446110532 ]
+hrt_diff [ 0, 441245388 ]
+hrt_diff [ 0, 442497587 ]
+
+opt 1
+
+hrt_diff [ 0, 444595898 ]
+hrt_diff [ 0, 444182204 ]
+hrt_diff [ 0, 448681637 ]
+hrt_diff [ 0, 445889057 ]
+hrt_diff [ 0, 443741009 ]
+
+opt 5
+
+hrt_diff [ 0, 5738465 ]
+hrt_diff [ 0, 5327112 ]
+hrt_diff [ 0, 5717108 ]
+hrt_diff [ 0, 5574041 ]
+hrt_diff [ 0, 6298737 ]
+
+ones
+----
+
+opt 1
+
+hrt_diff [ 0, 445723755 ]
+hrt_diff [ 0, 443531529 ]
+hrt_diff [ 0, 441355687 ]
+hrt_diff [ 0, 445290166 ]
+hrt_diff [ 0, 444178986 ]
+
+opt 6
+
+hrt_diff [ 0, 5816582 ]
+hrt_diff [ 0, 5416931 ]
+hrt_diff [ 0, 6130509 ]
+hrt_diff [ 0, 5016988 ]
+hrt_diff [ 0, 5225591 ]
+
