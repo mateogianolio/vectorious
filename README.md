@@ -34,8 +34,10 @@ Download ```dist/vectorious-2.0.0.js``` and use it like this:
 
 ## Extensions
 
-* [vectorious-solve](https://github.com/mateogianolio/vectorious-solve) - Solves linear systems of equations of the form Ax = B.
-* [vectorious-plot](https://github.com/mateogianolio/vectorious-plot) - Generates a two-dimensional SVG plot from two input vectors.
+* [Solve](https://github.com/mateogianolio/vectorious-solve)
+    * Solves matrix equations of the form Ax = B.
+* [Plot](https://github.com/mateogianolio/vectorious-plot)
+    * Generates a two-dimensional SVG plot from two input vectors.
 
 ## Usage
 
