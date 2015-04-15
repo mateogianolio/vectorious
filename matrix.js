@@ -72,26 +72,26 @@
     return Matrix.construct(result);
   };
   
-  Matrix.zeros = function(i, j) {
+  Matrix.zeros = function(i, j, type) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
     
     var result = [],
         row;
     for(row = 0; row < i; row++)
-      result.push(Vector.zeros(j));
+      result.push(Vector.zeros(j, type !== undefined ? type : Float64Array));
     
     return Matrix.construct(result);
   };
   
-  Matrix.ones = function(i, j) {
+  Matrix.ones = function(i, j, type) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
     
     var result = [],
         row;
     for(row = 0; row < i; row++)
-      result.push(Vector.ones(j));
+      result.push(Vector.ones(j, type !== undefined ? type : Float64Array));
     
     return Matrix.construct(result);
   };
