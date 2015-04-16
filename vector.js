@@ -21,6 +21,8 @@
         self.length = argument.length;
       } else if(typeof argument === 'object')
         self.combine(Vector.construct(argument));
+      else if(typeof argument === 'function')
+        this.type = argument;
       else
         self.push(argument);
     }
