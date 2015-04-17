@@ -345,6 +345,9 @@
   };
   
   Vector.prototype.toArray = function() {
+    if(!this.values)
+      return [];
+    
     return this.values;
   };
   
