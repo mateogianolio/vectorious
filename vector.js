@@ -348,7 +348,7 @@
     if(!this.values)
       return [];
     
-    return this.values;
+    return [].prototype.slice(this.values);
   };
   
   module.exports = Vector;
