@@ -334,13 +334,11 @@
         });
       });
 
-      describe('.toString()', function() {
-        it('should work as expected', function() {
-          assert.equal('[1, 2, 3]', new Vector(1, 2, 3).toString());
-        });
-      });
-
       describe('.toArray()', function() {
+        it('should return empty array from empty vector', function() {
+          assert.deepEqual([], new Vector().toArray());
+        });
+        
         it('should work as expected', function() {
           assert.deepEqual([1, 2, 3], new Vector(1, 2, 3).toArray());
         });

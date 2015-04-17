@@ -330,16 +330,6 @@
     return this;
   };
   
-  Matrix.prototype.toString = function() {
-    var result = [],
-        rows = this.rows,
-        i, l;
-    for(i = 0, l = rows.length; i < l; i++)
-      result.push(rows[i].toString());
-    
-    return '[' + result.join(', \n') + ']';
-  };
-  
   Matrix.prototype.toArray = function() {
     var result = [],
         rows = this.rows,
