@@ -353,6 +353,12 @@
         });
       });
 
+      describe('.toString()', function() {
+        it('should work as expected', function() {
+          assert.equal('[[1, 2], \n[3, 4]]', new Matrix([[1, 2], [3, 4]]).toString());
+        });
+      });
+
       describe('.toArray()', function() {
         it('should work as expected', function() {
           assert.deepEqual([[1, 2], [3, 4]], new Matrix([[1, 2], [3, 4]]).toArray());

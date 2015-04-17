@@ -334,12 +334,18 @@
     
     return this;
   };
+
+  Vector.prototype.toString = function() {
+    var result = '',
+        i;
+    for(i = 0; i < this.length; i++)
+      result += i > 0 ? ', ' + this.values[i] : this.values[i];
+    
+    return '[' + result + ']';
+  };
   
   Vector.prototype.toArray = function() {
-    if(!this.values)
-      return [];
-    
-    return Array.prototype.slice.call(this.values);
+    return this.values;
   };
   
   module.exports = Vector;
