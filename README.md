@@ -7,8 +7,6 @@ Vectorious is a generalized n-dimensional matrix and vector library written in J
 
 ## Installation
 
-#### In Node.js:
-
 Install with ```npm```
 
 ```bash
@@ -18,15 +16,15 @@ $ npm install vectorious
 Test with
 
 ```bash
-$ mocha
+$ npm test
 ```
 
-#### In the browser:
+#### For the browser
 
-Download ```dist/vectorious-2.0.0.js``` and use it like this:
+Download ```dist/vectorious-2.1.0.js``` and use it like this:
 
 ```html
-<script src="vectorious-2.0.0.js"></script>
+<script src="vectorious-2.1.0.js"></script>
 <script>
   // e.g. var vector = new vectorious.Vector()
 </script>
