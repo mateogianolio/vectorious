@@ -6,8 +6,8 @@
   var Vector = vectorious.Vector,
       Matrix = vectorious.Matrix;
   
-  var a = Vector.ones(10),
-      b = Vector.ones(10);
+  var a = Vector.ones(1024),
+      b = Vector.ones(1024).scale(2);
   
   suite
     .add('Vector.add()', function() {
@@ -22,11 +22,32 @@
     .add('Vector.normalize()', function() {
       a.normalize();
     })
+    .add('Vector.dot()', function() {
+      a.dot(b);
+    })
+    .add('Vector.magnitude()', function() {
+      a.magnitude();
+    })
+    .add('Vector.angle()', function() {
+      a.angle(b);
+    })
+    .add('Vector.project()', function() {
+      a.project(b);
+    })
+    .add('Vector.zeros()', function() {
+      Vector.zeros(1024);
+    })
+    .add('Vector.ones()', function() {
+      Vector.ones(1024);
+    })
+    .add('Vector.range()', function() {
+      Vector.range(0, 1024);
+    })
+    .add('Vector.combine()', function() {
+      Vector.combine(a, b);
+    })
     .on('cycle', function(event) {
       log(String(event.target));
-    })
-    .on('complete', function(event) {
-      log('done!');
     })
     .run({ 'async': true });
 })(console.log);

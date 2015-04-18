@@ -30,7 +30,8 @@
     return self;
   }
   
-  // array of arguments to function arguments (e.g. f.construct([a, b, c]) => f(a, b, c))
+  /* array of arguments to function arguments
+     (e.g. f.construct([a, b, c]) => f(a, b, c)) */
   Function.prototype.construct = function(args) {
     var object = Object.create(this.prototype);
     this.apply(object, args);
@@ -56,7 +57,7 @@
   };
   
   Vector.subtract = function(a, b) {
-    return a.subtract(b);
+    return new Vector(a).subtract(b);
   };
   
   Vector.prototype.subtract = function(vector) {
@@ -137,6 +138,10 @@
         backwards = false,
         start, step, end;
     
+    var type = Float64Array;
+    if(typeof args[args.length - 1] === 'function')
+      type = args.pop();
+    
     switch(args.length) {
       case 2:
         end = args.pop();
@@ -162,10 +167,10 @@
     if(step > end - start)
       throw new Error('invalid range');
     
-    var vector = new Vector(),
-        i;
-    for(i = start; i < end; i += step)
-      vector.push(backwards ? end - i + start : i);
+    var vector = Vector.zeros(Math.ceil((end - start) / step), type),
+        i, j;
+    for(i = start, j = 0; i < end; i += step, j++)
+      vector.values[j] = backwards ? end - i + start : i;
     
     return vector;
   };
@@ -271,7 +276,7 @@
   };
   
   Vector.combine = function(a, b) {
-    return a.combine(b);
+    return new Vector(a).combine(b);
   };
   
   Vector.prototype.combine = function(vector) {
