@@ -1,10 +1,11 @@
 {
   "name": "vectorious",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A generalized n-dimensional matrix and vector library in JavaScript.",
   "main": "vectorious.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha",
+    "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "vinyl-transform": "^1.0.0"
   },
   "dependencies": {
+    "memcpy": "^0.5.0",
     "mocha": "^2.2.1"
   }
 }

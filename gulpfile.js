@@ -18,7 +18,7 @@
     });
 
     return b.bundle()
-      .pipe(source('vectorious-2.0.0.js'))
+      .pipe(source('vectorious-2.1.0.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
           // Add transformation tasks to the pipeline here.
