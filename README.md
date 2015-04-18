@@ -62,16 +62,16 @@ vector = new Vector(Uint8Array);
 matrix = new Matrix();
 // { rows: [] }
 
-vector = vectorious.Vector.zeros(5);
+vector = Vector.zeros(5);
 // { values: [0, 0, 0, 0, 0], length: 5 }
 
-vector = new vectorious.Vector(1, 2, 3, 4, 5);
+vector = new Vector(1, 2, 3, 4, 5);
 // { values: [1, 2, 3, 4, 5], length: 5 }
 
-matrix = new vectorious.Matrix(vector);
+matrix = new Matrix(vector);
 // { rows: [ { values: [1, 2, 3, 4, 5], length: 5 } ] }
 
-matrix = vectorious.Matrix.zeros(2, 2);
+matrix = Matrix.zeros(2, 2);
 /* {
   rows: [
     { values: [0, 0], length: 2 },
@@ -84,7 +84,7 @@ var input = [
   [3, 4]
 ];
 
-matrix = new vectorious.Matrix(input);
+matrix = new Matrix(input);
 /* {
   rows: [
     { values: [1, 2], length: 2 },
@@ -96,7 +96,7 @@ matrix = new vectorious.Matrix(input);
 Now that you've got a hang of the basics, let me show you a useful application example.
 
 ```javascript
-var time = vectorious.Vector.range(0, Math.PI / 12, Math.PI);
+var time = Vector.range(0, Math.PI / 12, Math.PI);
 /* {
   values: 
    [ 0,
@@ -130,6 +130,8 @@ var sine = time.map(Math.sin);
      0.2588190451025206 ],
   length: 12 } */
 ```
+
+For more advanced uses, check out the extensions [solve](https://github.com/mateogianolio/vectorious-solve) and [plot](https://github.com/mateogianolio/vectorious-plot).
 
 ## Vector
 
