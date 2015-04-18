@@ -19,6 +19,12 @@ Test with
 $ npm test
 ```
 
+Run benchmarks with
+
+```bash
+$ npm run benchmark
+```
+
 #### For the browser
 
 Download ```dist/vectorious-2.1.0.js``` and use it like this:
@@ -251,10 +257,10 @@ Create a vector of ```count``` ones. ```type``` is optional and specifies the ty
 
 ```javascript
 // (Number, [Number], Number) => (Vector)
-Vector.range = function(start, [step], end)
+Vector.range = function(start, [step], end, [type])
 ```
 
-Create a vector containing the range from ```start``` to ```end``` in steps of ```step``` (optional).
+Create a vector containing the range from ```start``` to ```end``` in steps of ```step``` (optional). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
 
 <p id="vector_equals"></p>
 

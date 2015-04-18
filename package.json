@@ -4,7 +4,8 @@
   "description": "A generalized n-dimensional matrix and vector library in JavaScript.",
   "main": "vectorious.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha",
+    "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js"
   },
   "repository": {
     "type": "git",
