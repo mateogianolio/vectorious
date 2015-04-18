@@ -27,10 +27,10 @@ $ npm run benchmark
 
 #### For the browser
 
-Download ```dist/vectorious-2.1.0.js``` and use it like this:
+Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-2.1.0.js"></script>
+<script src="vectorious-2.x.x.js"></script>
 <script>
   // e.g. var vector = new vectorious.Vector()
 </script>
