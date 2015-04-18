@@ -3,8 +3,7 @@
       vectorious = require('../vectorious'),
       suite = new Benchmark.Suite;
   
-  var Vector = vectorious.Vector,
-      Matrix = vectorious.Matrix;
+  var Vector = vectorious.Vector;
   
   var a = Vector.ones(1024),
       b = Vector.ones(1024).scale(2);

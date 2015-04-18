@@ -481,10 +481,10 @@ Get [matrix trace](http://en.wikipedia.org/wiki/Trace_(linear_algebra)) (the sum
 
 ```javascript
 // (Number) => (Matrix)
-Matrix.identity = function(size)
+Matrix.identity = function(size, [type])
 ```
 
-Create an [identity matrix](http://en.wikipedia.org/wiki/Identity_matrix).
+Create an [identity matrix](http://en.wikipedia.org/wiki/Identity_matrix). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
 
 <p id="matrix_zeros"></p>
 

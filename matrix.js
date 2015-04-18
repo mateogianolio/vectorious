@@ -236,11 +236,13 @@
     return this;
   };
   
-  Matrix.identity = function(size) {
+  Matrix.identity = function(size, type) {
     if(size < 0)
       throw new Error('invalid size');
     
-    var matrix = Matrix.zeros(size, size),
+    type = type !== undefined ? type : Float64Array;
+    
+    var matrix = Matrix.zeros(size, size, type),
         i, j;
     for(i = 0; i < size; i++)
       for(j = 0; j < size; j++)
