@@ -13,7 +13,7 @@ Vectorious is a generalized n-dimensional matrix and vector library written in J
 * [Benchmarks](#benchmarks)
 
 
-## Installation
+## Installation [&uarr;](#vectorious)
 
 Install with ```npm```
 
@@ -33,7 +33,7 @@ Run benchmarks with
 $ npm run benchmark
 ```
 
-#### For the browser
+#### For the browser [&uarr;](#vectorious)
 
 Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
@@ -44,12 +44,12 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 </script>
 ```
 
-## Extensions
+## Extensions [&uarr;](#vectorious)
 
 * [**Solve**](https://github.com/mateogianolio/vectorious-solve) &mdash; *Solves matrix equations of the form Ax = B.*
 * [**Plot**](https://github.com/mateogianolio/vectorious-plot) &mdash; *Generates a two-dimensional SVG plot from two input vectors.*
 
-## Usage
+## Usage [&uarr;](#vectorious)
 
 The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments. Since 2.1.0 ```Vector``` implements [JavaScript typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) for increased performance. The default ```Vector``` type is ```Float64Array```, but this can be specified upon creation.
 
@@ -141,7 +141,7 @@ var sine = time.map(Math.sin);
 
 For more advanced uses, check out the extensions [solve](https://github.com/mateogianolio/vectorious-solve) and [plot](https://github.com/mateogianolio/vectorious-plot).
 
-## Vector
+## Vector [&uarr;](#vectorious)
 
 The following vector operations and methods are implemented in ```vector.js```.
 
@@ -373,7 +373,7 @@ Vector.prototype.toArray = function()
 
 Convert vector to array.
 
-## Matrix
+## Matrix [&uarr;](#vectorious)
 
 The following matrix operations and methods are implemented in ```matrix.js```.
 
@@ -603,7 +603,7 @@ Matrix.prototype.toArray = function()
 
 Convert matrix to array.
 
-## Benchmarks
+## Benchmarks [&uarr;](#vectorious)
 
 ```
 $ npm run benchmark
