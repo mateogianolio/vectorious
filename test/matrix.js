@@ -63,6 +63,17 @@
         assert.deepEqual(new Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]), Matrix.identity(3));
       });
     });
+    
+    describe('Matrix.magic()', function() {
+      it('should throw error if invalid size', function() {
+        assert.throws(Matrix.magic.bind(new Matrix(), -1), Error);
+        assert.throws(Matrix.identity.bind(new Matrix(), 0), Error);
+      });
+
+      it('should work as expected', function() {
+        assert.deepEqual(new Matrix([[8, 1, 6], [3, 5, 7], [4, 9, 2]]), Matrix.magic(3));
+      });
+    });
 
     describe('Matrix.zeros()', function() {
       it('should throw error if invalid size', function() {

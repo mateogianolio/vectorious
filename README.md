@@ -4,6 +4,14 @@
 
 Vectorious is a generalized n-dimensional matrix and vector library written in JavaScript, which can be used both in node.js and the browser.
 
+* [Installation](#installation)
+    * [For the browser](#for-the-browser)
+* [Extensions](#extensions)
+* [Usage](#usage)
+* [Vector](#vector)
+* [Matrix](#matrix)
+* [Benchmarks](#benchmarks)
+
 
 ## Installation
 
@@ -286,7 +294,7 @@ Get value of an element at ```index```.
 <p id="vector_min"></p>
 
 ```javascript
-// (Vector, Number) => (Number)
+// (Vector) => (Number)
 Vector.prototype.min = function()
 ```
 
@@ -295,7 +303,7 @@ Get the minimum value of a vector.
 <p id="vector_max"></p>
 
 ```javascript
-// (Vector, Number) => (Number)
+// (Vector) => (Number)
 Vector.prototype.max = function()
 ```
 
@@ -380,6 +388,7 @@ The following matrix operations and methods are implemented in ```matrix.js```.
 * [```augment```](#user-content-matrix_augment)
 * [```trace```](#user-content-matrix_trace)
 * [```identity```](#user-content-matrix_identity)
+* [```magic```](#user-content-matrix_magic)
 * [```zeros```](#user-content-matrix_zeros)
 * [```ones```](#user-content-matrix_ones)
 * [```equals```](#user-content-matrix_equals)
@@ -492,7 +501,16 @@ Get [matrix trace](http://en.wikipedia.org/wiki/Trace_(linear_algebra)) (the sum
 Matrix.identity = function(size, [type])
 ```
 
-Create an [identity matrix](http://en.wikipedia.org/wiki/Identity_matrix). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
+Create a ```size x size``` [identity matrix](http://en.wikipedia.org/wiki/Identity_matrix). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
+
+<p id="matrix_magic"></p>
+
+```javascript
+// (Number) => (Matrix)
+Matrix.magic = function(size, [type])
+```
+
+Create a ```size x size``` [magic square matrix](http://en.wikipedia.org/wiki/Magic_square). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
 
 <p id="matrix_zeros"></p>
 
@@ -584,3 +602,47 @@ Matrix.prototype.toArray = function()
 ```
 
 Convert matrix to array.
+
+## Benchmarks
+
+```
+$ npm run benchmark
+
+> vectorious@2.2.0 benchmark /Users/mateogianolio/Desktop/projects/vectorious
+> node ./benchmarks/vector.js && node ./benchmarks/matrix.js
+
+a = Vector.ones(1024)
+b = Vector.ones(1024).scale(2)
+
+Vector.zeros(1024) x 136,816 ops/sec ±5.13% (66 runs sampled)
+Vector.ones(1024) x 138,310 ops/sec ±5.22% (67 runs sampled)
+Vector.range(0, 1024) x 41,263 ops/sec ±3.34% (84 runs sampled)
+a.add(b) x 97,360 ops/sec ±7.22% (72 runs sampled)
+a.subtract(b) x 87,613 ops/sec ±20.89% (65 runs sampled)
+a.scale(Math.random()) x 98,581 ops/sec ±7.74% (65 runs sampled)
+a.normalize() x 83,966 ops/sec ±6.99% (76 runs sampled)
+a.dot(b) x 505,832 ops/sec ±0.45% (101 runs sampled)
+a.magnitude() x 632,850 ops/sec ±0.31% (91 runs sampled)
+a.angle(b) x 193,917 ops/sec ±0.46% (93 runs sampled)
+a.project(b) x 72,737 ops/sec ±6.67% (71 runs sampled)
+a.combine(b) x 64.58 ops/sec ±42.44% (9 runs sampled)
+
+a = Matrix.ones(128, 128)
+b = Matrix.ones(128, 128).scale(2)
+
+Matrix.identity(128) x 4,919 ops/sec ±2.48% (84 runs sampled)
+Matrix.magic(128) x 1,173 ops/sec ±6.16% (62 runs sampled)
+Matrix.zeros(128, 128) x 5,507 ops/sec ±2.24% (77 runs sampled)
+Matrix.ones(128, 128) x 5,682 ops/sec ±2.33% (73 runs sampled)
+a.add(b) x 4,629 ops/sec ±3.08% (78 runs sampled)
+a.subtract(b) x 4,577 ops/sec ±3.15% (78 runs sampled)
+a.scale(Math.random()) x 4,763 ops/sec ±3.16% (80 runs sampled)
+a.multiply(b) x 30.35 ops/sec ±0.53% (54 runs sampled)
+a.transpose() x 2,481 ops/sec ±3.27% (85 runs sampled)
+a.gauss() x 490 ops/sec ±5.15% (70 runs sampled)
+a.diag() x 939 ops/sec ±1.71% (92 runs sampled)
+a.augment(b) x 11.51 ops/sec ±43.34% (9 runs sampled)
+a.trace() x 241 ops/sec ±0.75% (89 runs sampled)
+
+Done!
+```
