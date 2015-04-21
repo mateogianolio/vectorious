@@ -265,6 +265,19 @@
           assert.equal(5, b.trace());
         });
       });
+      
+      describe('.determinant()', function() {
+        it('should throw error if matrix is not square', function() {
+          var a = new Matrix([[0, 0]]);
+          assert.throws(a.determinant.bind(a), Error);
+        });
+        
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 5, 6], [3.3, 9, 10], [7, 9, 3.2]]);
+
+          assert.equal(36.2, Number(a.determinant().toFixed(2)));
+        });
+      });
 
       describe('.equals()', function() {
         it('should work as expected', function() {

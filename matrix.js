@@ -282,6 +282,46 @@
     
     return Vector.construct(result);
   };
+  
+  Matrix.prototype.determinant = function(matrix) {
+    if(this.rows.length !== this.rows[0].length)
+      throw new Error('invalid size of matrix');
+    
+    var sum = 0,
+        s, l;
+    
+    if(matrix === undefined)
+      matrix = new Matrix(this);
+    
+    l = matrix.rows.length;
+    if(l === 1)
+      return matrix.get(0, 0);
+    
+    var smaller, 
+        i, j, k;
+    for(i = 0; i < l; i++) {
+      smaller = Matrix.zeros(l - 1, l - 1, this.type);
+      
+      for(j = 1; j < l; j++) {
+        for(k = 0; k < l; k++) {
+          if(k < i) {
+            smaller.set(j - 1, k, matrix.get(j, k));
+          } else if(k > i) {
+            smaller.set(j - 1, k - 1, matrix.get(j, k));
+          }
+        }
+      }
+      
+      if(!(i % 2))
+        s = 1;
+      else
+        s = -1;
+      
+      sum += s * matrix.get(0, i) * this.determinant(smaller);
+    }
+    
+    return sum;
+  };
 
   Matrix.prototype.trace = function() {
     var diagonal = this.diag(),

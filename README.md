@@ -496,6 +496,15 @@ Matrix.prototype.trace = function()
 
 Get [matrix trace](http://en.wikipedia.org/wiki/Trace_(linear_algebra)) (the sum of the diagonal).
 
+<p id="matrix_determinant"></p>
+
+```javascript
+// (Matrix) => (Number)
+Matrix.prototype.determinant = function()
+```
+
+Get [matrix determinant](http://en.wikipedia.org/wiki/Determinant) (*note:* inefficient for large matrices).
+
 <p id="matrix_identity"></p>
 
 ```javascript
