@@ -619,7 +619,7 @@ Convert matrix to array.
 ```
 $ npm run benchmark
 
-> vectorious@2.2.0 benchmark /Users/mateogianolio/Desktop/projects/vectorious
+> vectorious@2.2.0 benchmark /path/to/vectorious
 > node ./benchmarks/vector.js && node ./benchmarks/matrix.js
 
 a = Vector.ones(1024)
