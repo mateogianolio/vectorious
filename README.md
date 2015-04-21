@@ -51,7 +51,9 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 
 ## Usage [&uarr;](#vectorious)
 
-The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments. Since 2.1.0 ```Vector``` implements [JavaScript typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) for increased performance. The default ```Vector``` type is ```Float64Array```, but this can be specified upon creation.
+The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments.
+
+Since [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0) ```Vector``` implements [JavaScript typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) for increased performance. The default ```Vector``` type is ```Float64Array```, but this can be specified upon creation.
 
 ```javascript
 var vectorious = require('vectorious'),
