@@ -219,6 +219,65 @@
     return copy;
   };
   
+  Matrix.prototype.pivotize = function() {
+    var l = this.rows.length,
+        result = Matrix.identity(l),
+        pivot,
+        lead,
+        row;
+    
+    var i, j;
+    for(i = 0; i < l; i++) {
+      pivot = 0;
+      row = i;
+      
+      for(j = i; j < l; j++) {
+        lead = Math.abs(this.get(j, i));
+        if(pivot < lead) {
+          pivot = lead;
+          row = j;
+        }
+      }
+      
+      if(i !== row)
+        result.swap(i, row);
+    }
+    
+    return result;
+  };
+  
+  Matrix.prototype.lu = function() {
+    var l = this.rows.length;
+    
+    var L = Matrix.identity(l),
+        U = Matrix.zeros(l, l),
+        P = this.pivotize(),
+        A = Matrix.multiply(P, this);
+    
+    var i, j, k,
+        sum = [0, 0];
+    
+    for(i = 0; i < l; i++) {
+      for(j = 0; j < i + 1; j++) {
+        sum[0] = 0;
+        for(k = 0; k < j; k++)
+          sum[0] += U.get(k, i) * L.get(j, k);
+        
+        U.set(j, i, A.get(j, i) - sum[0]);
+      }
+      
+      for(j = i; j < l; j++) {
+        sum[1] = 0;
+        for(k = 0; k < j; k++)
+          sum[1] += U.get(k, i) * L.get(j, k);
+        
+        L.set(j, i, (A.get(j, i) - sum[1]) / U.get(i, i));
+      }
+    }
+    
+    return [L, U, P];
+  };
+
   Matrix.augment = function(a, b) {
     return new Matrix(a).augment(b);
   };

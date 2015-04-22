@@ -389,9 +389,12 @@ The following matrix operations and methods are implemented in ```matrix.js```.
 * [```transpose```](#user-content-matrix_transpose)
 * [```inverse```](#user-content-matrix_inverse)
 * [```gauss```](#user-content-matrix_gauss)
+* [```pivotize```](#user-content-matrix_pivotize)
+* [```lu```](#user-content-matrix_lu)
 * [```diag```](#user-content-matrix_diag)
 * [```augment```](#user-content-matrix_augment)
 * [```trace```](#user-content-matrix_trace)
+* [```determinant```](#user-content-matrix_determinant)
 * [```identity```](#user-content-matrix_identity)
 * [```magic```](#user-content-matrix_magic)
 * [```zeros```](#user-content-matrix_zeros)
@@ -461,6 +464,24 @@ Matrix.prototype.gauss = function()
 ```
 
 Convert a matrix to [reduced row echelon (RREF)](http://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form) form using [Gauss-Jordan eliminiation](http://en.wikipedia.org/wiki/Gaussian_elimination).
+
+<p id="matrix_pivotize"></p>
+
+```javascript
+// (Matrix) => (Matrix)
+Matrix.prototype.pivotize = function()
+```
+
+Get the pivot permutation matrix (used in [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition)).
+
+<p id="matrix_lu"></p>
+
+```javascript
+// (Matrix) => ([Matrix, Matrix, Matrix])
+Matrix.prototype.lu = function()
+```
+
+Get the [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition) of a matrix in the form of the array of matrices ```[L, U, P]```, where ```P``` is the pivot permutation matrix.
 
 <p id="matrix_inverse"></p>
 
