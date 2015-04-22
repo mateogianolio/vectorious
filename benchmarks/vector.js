@@ -8,45 +8,52 @@
   var a = Vector.ones(1024),
       b = Vector.ones(1024).scale(2);
   
+  log('a = Vector.ones(1024)');
+  log('b = Vector.ones(1024).scale(2)');
+  log();
+  
   suite
-    .add('Vector.add()', function() {
-      a.add(b);
-    })
-    .add('Vector.subtract()', function() {
-      a.subtract(b);
-    })
-    .add('Vector.scale()', function() {
-      a.scale(Math.random());
-    })
-    .add('Vector.normalize()', function() {
-      a.normalize();
-    })
-    .add('Vector.dot()', function() {
-      a.dot(b);
-    })
-    .add('Vector.magnitude()', function() {
-      a.magnitude();
-    })
-    .add('Vector.angle()', function() {
-      a.angle(b);
-    })
-    .add('Vector.project()', function() {
-      a.project(b);
-    })
-    .add('Vector.zeros()', function() {
+    .add('Vector.zeros(1024)', function() {
       Vector.zeros(1024);
     })
-    .add('Vector.ones()', function() {
+    .add('Vector.ones(1024)', function() {
       Vector.ones(1024);
     })
-    .add('Vector.range()', function() {
+    .add('Vector.range(0, 1024)', function() {
       Vector.range(0, 1024);
     })
-    .add('Vector.combine()', function() {
+    .add('Vector.combine(a, b)', function() {
       Vector.combine(a, b);
+    })
+    .add('a.add(b)', function() {
+      a.add(b);
+    })
+    .add('a.subtract(b)', function() {
+      a.subtract(b);
+    })
+    .add('a.scale(Math.random())', function() {
+      a.scale(Math.random());
+    })
+    .add('a.normalize()', function() {
+      a.normalize();
+    })
+    .add('a.dot(b)', function() {
+      a.dot(b);
+    })
+    .add('a.magnitude()', function() {
+      a.magnitude();
+    })
+    .add('a.angle(b)', function() {
+      a.angle(b);
+    })
+    .add('a.project(b)', function() {
+      a.project(b);
     })
     .on('cycle', function(event) {
       log(String(event.target));
+    })
+    .on('complete', function() {
+      log();
     })
     .run({ 'async': true });
 })(console.log);

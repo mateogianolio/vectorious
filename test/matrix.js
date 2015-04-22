@@ -63,6 +63,17 @@
         assert.deepEqual(new Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]), Matrix.identity(3));
       });
     });
+    
+    describe('Matrix.magic()', function() {
+      it('should throw error if invalid size', function() {
+        assert.throws(Matrix.magic.bind(new Matrix(), -1), Error);
+        assert.throws(Matrix.identity.bind(new Matrix(), 0), Error);
+      });
+
+      it('should work as expected', function() {
+        assert.deepEqual(new Matrix([[8, 1, 6], [3, 5, 7], [4, 9, 2]]), Matrix.magic(3));
+      });
+    });
 
     describe('Matrix.zeros()', function() {
       it('should throw error if invalid size', function() {
@@ -218,6 +229,46 @@
           assert.deepEqual(d, c.gauss());
         });
       });
+      
+      describe('.pivotize()', function() {
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+          var b = new Matrix([[0, 1, 0], [1, 0, 0], [0, 0, 1]]);
+          
+          assert.deepEqual(b, a.pivotize().shift());
+          
+          var c = new Matrix([[11, 9, 24, 2], [1, 5, 2, 6], [3, 17, 18, 1], [2, 5, 7, 1]]);
+          var d = new Matrix([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]);
+          
+          assert.deepEqual(d, c.pivotize().shift());
+        });
+      });
+      
+      describe('.lu()', function() {
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+          var b = [
+            new Matrix([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]),
+            new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]),
+          ];
+          
+          assert.deepEqual(b, a.lu().splice(0, 2));
+          
+          var c = new Matrix([[11, 9, 24, 2], [1, 5, 2, 6], [3, 17, 18, 1], [2, 5, 7, 1]]);
+          var d = [
+            new Matrix([[1, 0, 0, 0], [0.27273, 1, 0, 0], [0.09091, 0.2875, 1, 0], [0.18182, 0.23125, 0.0036, 1]]),
+            new Matrix([[11, 9, 24, 2], [0, 14.54545, 11.45455, 0.45455], [0, 0, -3.475, 5.6875], [0, 0, 0, 0.51079]]),
+          ];
+          
+          assert.deepEqual(d, c.lu().splice(0, 2).map(function(matrix) {
+            return matrix.map(function(row) {
+              return row.map(function(value) {
+                return Number(value.toFixed(5));
+              });
+            });
+          }));
+        });
+      });
 
       describe('.augment()', function() {
         it('should return current matrix when combined with empty matrix', function() {
@@ -252,6 +303,23 @@
 
           assert.equal(15, a.trace());
           assert.equal(5, b.trace());
+        });
+      });
+      
+      describe('.determinant()', function() {
+        it('should throw error if matrix is not square', function() {
+          var a = new Matrix([[0, 0]]);
+          assert.throws(a.determinant.bind(a), Error);
+        });
+        
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 2], [3, 4]]);
+          var b = new Matrix([[1, 5, 6], [3.3, 9, 10], [7, 9, 3.2]]);
+          var c = new Matrix([[2, -1, 1], [-1, -2, 1], [-1, -1, -1]]);
+
+          assert.equal(-2, Number(a.determinant().toFixed(2)));
+          assert.equal(36.2, Number(b.determinant().toFixed(2)));
+          assert.equal(7, Number(c.determinant().toFixed(2)));
         });
       });
 

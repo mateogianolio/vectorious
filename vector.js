@@ -39,7 +39,7 @@
   };
   
   Vector.add = function(a, b) {
-    return new Vector(a).add(b);
+    return a.add(b);
   };
   
   Vector.prototype.add = function(vector) {
@@ -57,7 +57,7 @@
   };
   
   Vector.subtract = function(a, b) {
-    return new Vector(a).subtract(b);
+    return a.subtract(b);
   };
   
   Vector.prototype.subtract = function(vector) {
@@ -87,6 +87,10 @@
   Vector.prototype.normalize = function() {
     var result = new Vector(this.values);
     return result.scale(1 / result.magnitude());
+  };
+  
+  Vector.project = function(a, b) {
+    return a.project(b);
   };
   
   Vector.prototype.project = function(vector) {
@@ -176,7 +180,7 @@
   };
   
   Vector.dot = function(a, b) {
-    return new Vector(a).dot(b);
+    return a.dot(b);
   };
 
   Vector.prototype.dot = function(vector) {
@@ -205,7 +209,7 @@
   };
   
   Vector.angle = function(a, b) {
-    return new Vector(a).angle(b);
+    return a.angle(b);
   };
   
   Vector.prototype.angle = function(vector) {
@@ -213,7 +217,7 @@
   };
   
   Vector.equals = function(a, b) {
-    return new Vector(a).equals(b);
+    return a.equals(b);
   };
 
   Vector.prototype.equals = function(vector) {

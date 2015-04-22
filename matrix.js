@@ -33,7 +33,7 @@
   }
   
   Matrix.add = function(a, b) {
-    return new Matrix(a).add(b);
+    return a.add(b);
   };
 
   Matrix.prototype.add = function(matrix) {
@@ -48,7 +48,7 @@
   };
   
   Matrix.subtract = function(a, b) {
-    return new Matrix(a).subtract(b);
+    return a.subtract(b);
   };
   
   Matrix.prototype.subtract = function(matrix) {
@@ -97,7 +97,7 @@
   };
   
   Matrix.multiply = function(a, b) {
-    return new Matrix(a).multiply(b);
+    return a.multiply(b);
   };
   
   Matrix.prototype.multiply = function(matrix) {
@@ -178,7 +178,7 @@
     
     for(i = 0; i < l; i++) {
       if(m <= lead)
-        return;
+        return new Error('matrix is singular');
       
       j = i;
       while(copy.get(j, lead) === 0) {
@@ -188,7 +188,7 @@
           lead++;
           
           if(m === lead)
-            return;
+            return new Error('matrix is singular');
         }
       }
       
@@ -219,6 +219,68 @@
     return copy;
   };
   
+  Matrix.prototype.pivotize = function() {
+    var l = this.rows.length,
+        result = Matrix.identity(l),
+        sign = 1,
+        pivot,
+        lead,
+        row;
+    
+    var i, j;
+    for(i = 0; i < l; i++) {
+      pivot = 0;
+      row = i;
+      
+      for(j = i; j < l; j++) {
+        lead = Math.abs(this.get(j, i));
+        if(pivot < lead) {
+          pivot = lead;
+          row = j;
+        }
+      }
+      
+      if(i !== row) {
+        result.swap(i, row);
+        sign *= -1;
+      }
+    }
+    
+    return [result, sign];
+  };
+  
+  Matrix.prototype.lu = function() {
+    var l = this.rows.length;
+    
+    var L = Matrix.identity(l),
+        U = Matrix.zeros(l, l),
+        P = this.pivotize(),
+        A = Matrix.multiply(P[0], this);
+    
+    var i, j, k,
+        sum = [0, 0];
+    
+    for(i = 0; i < l; i++) {
+      for(j = 0; j < i + 1; j++) {
+        sum[0] = 0;
+        for(k = 0; k < j; k++)
+          sum[0] += U.get(k, i) * L.get(j, k);
+        
+        U.set(j, i, A.get(j, i) - sum[0]);
+      }
+      
+      for(j = i; j < l; j++) {
+        sum[1] = 0;
+        for(k = 0; k < j; k++)
+          sum[1] += U.get(k, i) * L.get(j, k);
+        
+        L.set(j, i, (A.get(j, i) - sum[1]) / U.get(i, i));
+      }
+    }
+    
+    return [L, U, P];
+  };
+
   Matrix.augment = function(a, b) {
     return new Matrix(a).augment(b);
   };
@@ -241,7 +303,6 @@
       throw new Error('invalid size');
     
     type = type !== undefined ? type : Float64Array;
-    
     var matrix = Matrix.zeros(size, size, type),
         i, j;
     for(i = 0; i < size; i++)
@@ -250,6 +311,26 @@
           matrix.set(i, j, 1);
     
     return matrix;
+  };
+  
+  Matrix.magic = function(size, type) {
+    if(size < 0)
+      throw new Error('invalid size');
+    
+    function f(n, x, y) {
+      return (x + y * 2 + 1) % n;
+    }
+    
+    type = type !== undefined ? type : Float64Array;
+    var magic = Matrix.zeros(size, size, type),
+        i, j;
+    for(i = 0; i < size; i++) {
+      for(j = 0; j < size; j++) {
+        magic.set(size - i - 1, size - j - 1, f(size, size - j - 1, i) * size + f(size, j, i) + 1);
+      }
+    }
+    
+    return magic;
   };
 
   Matrix.prototype.diag = function() {
@@ -262,6 +343,26 @@
           result.push(this.get(i, j));
     
     return Vector.construct(result);
+  };
+  
+  Matrix.prototype.determinant = function() {
+    if(this.rows.length !== this.rows[0].length)
+      throw new Error('matrix is not square');
+    
+    var lu = this.lu();
+    var P = lu.pop(),
+        U = lu.pop(),
+        L = lu.pop();
+    
+    var sum = 0,
+        product = 1,
+        l = this.rows.length,
+        i, j;
+    
+    for(i = 0; i < l; i++)
+      product *= L.get(i, i) * U.get(i, i);
+    
+    return P.pop() * product;
   };
 
   Matrix.prototype.trace = function() {
@@ -276,7 +377,7 @@
   };
   
   Matrix.equals = function(a, b) {
-    return new Matrix(a).equals(b);
+    return a.equals(b);
   };
 
   Matrix.prototype.equals = function(matrix) {
