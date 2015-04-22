@@ -22,6 +22,9 @@
     .add('Vector.range(0, 1024)', function() {
       Vector.range(0, 1024);
     })
+    .add('Vector.combine(a, b)', function() {
+      Vector.combine(a, b);
+    })
     .add('a.add(b)', function() {
       a.add(b);
     })
@@ -45,9 +48,6 @@
     })
     .add('a.project(b)', function() {
       a.project(b);
-    })
-    .add('a.combine(b)', function() {
-      a.combine(b);
     })
     .on('cycle', function(event) {
       log(String(event.target));

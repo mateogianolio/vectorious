@@ -616,44 +616,122 @@ Convert matrix to array.
 
 ## Benchmarks [&uarr;](#vectorious)
 
+### [2.0.0](https://github.com/mateogianolio/vectorious/releases/tag/2.0.0)
+
+```
+$ node ./benchmarks/vector.js && node ./benchmarks/matrix.js
+
+a = Vector.ones(1024)
+b = Vector.ones(1024).scale(2)
+
+Vector.zeros(1024) x 27,400 ops/sec ±0.47% (94 runs sampled)
+Vector.ones(1024) x 26,838 ops/sec ±0.45% (98 runs sampled)
+Vector.range(0, 1024) x 32,830 ops/sec ±0.74% (95 runs sampled)
+Vector.combine(a, b) x 27,724 ops/sec ±0.36% (99 runs sampled)
+a.add(b) x 53,644 ops/sec ±0.41% (100 runs sampled)
+a.subtract(b) x 53,582 ops/sec ±0.39% (100 runs sampled)
+a.scale(Math.random()) x 10,452 ops/sec ±0.53% (99 runs sampled)
+a.normalize() x 5,212 ops/sec ±0.54% (99 runs sampled)
+a.dot(b) x 361,011 ops/sec ±0.42% (101 runs sampled)
+a.magnitude() x 420,937 ops/sec ±0.44% (101 runs sampled)
+a.angle(b) x 132,931 ops/sec ±0.34% (97 runs sampled)
+a.project(b) x 5,661 ops/sec ±0.35% (95 runs sampled)
+
+a = Matrix.ones(128, 128)
+b = Matrix.ones(128, 128).scale(2)
+
+Matrix.identity(128) x 1,454 ops/sec ±1.84% (92 runs sampled)
+Matrix.magic(128): 
+Matrix.zeros(128, 128) x 1,482 ops/sec ±2.08% (92 runs sampled)
+Matrix.ones(128, 128) x 1,581 ops/sec ±1.15% (96 runs sampled)
+Matrix.augment(a, b) x 1,561 ops/sec ±1.32% (96 runs sampled)
+a.add(b) x 3,238 ops/sec ±1.10% (97 runs sampled)
+a.subtract(b) x 3,224 ops/sec ±1.31% (97 runs sampled)
+a.scale(Math.random()) x 586 ops/sec ±1.09% (92 runs sampled)
+a.multiply(b) x 25.22 ops/sec ±1.65% (46 runs sampled)
+a.transpose() x 817 ops/sec ±2.54% (89 runs sampled)
+a.gauss() x 174 ops/sec ±4.27% (65 runs sampled)
+a.diag() x 18,717 ops/sec ±2.20% (88 runs sampled)
+a.trace() x 19,097 ops/sec ±1.28% (96 runs sampled)
+```
+
+### [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0)
+
+```
+$ node ./benchmarks/vector.js && node ./benchmarks/matrix.js
+
+a = Vector.ones(1024)
+b = Vector.ones(1024).scale(2)
+
+Vector.zeros(1024) x 138,658 ops/sec ±4.84% (67 runs sampled)
+Vector.ones(1024) x 140,214 ops/sec ±4.75% (66 runs sampled)
+Vector.range(0, 1024) x 37,543 ops/sec ±4.80% (81 runs sampled)
+Vector.combine(a, b) x 6,120 ops/sec ±2.94% (91 runs sampled)
+a.add(b) x 93,725 ops/sec ±7.82% (68 runs sampled)
+a.subtract(b) x 95,672 ops/sec ±7.67% (70 runs sampled)
+a.scale(Math.random()) x 99,214 ops/sec ±7.74% (72 runs sampled)
+a.normalize() x 84,459 ops/sec ±7.32% (72 runs sampled)
+a.dot(b) x 501,345 ops/sec ±0.43% (98 runs sampled)
+a.magnitude() x 623,274 ops/sec ±0.56% (94 runs sampled)
+a.angle(b) x 191,828 ops/sec ±0.52% (92 runs sampled)
+a.project(b) x 73,958 ops/sec ±6.82% (79 runs sampled)
+
+a = Matrix.ones(128, 128)
+b = Matrix.ones(128, 128).scale(2)
+
+Matrix.identity(128) x 4,042 ops/sec ±5.32% (76 runs sampled)
+Matrix.magic(128): 
+Matrix.zeros(128, 128) x 4,573 ops/sec ±7.11% (79 runs sampled)
+Matrix.ones(128, 128) x 5,480 ops/sec ±2.36% (81 runs sampled)
+Matrix.augment(a, b) x 292 ops/sec ±5.06% (78 runs sampled)
+a.add(b) x 3,688 ops/sec ±9.16% (68 runs sampled)
+a.subtract(b) x 4,299 ops/sec ±4.08% (75 runs sampled)
+a.scale(Math.random()) x 4,529 ops/sec ±3.01% (75 runs sampled)
+a.multiply(b) x 28.85 ops/sec ±0.80% (52 runs sampled)
+a.transpose() x 2,255 ops/sec ±5.07% (78 runs sampled)
+a.gauss() x 374 ops/sec ±3.55% (86 runs sampled)
+a.diag() x 893 ops/sec ±2.11% (93 runs sampled)
+a.trace() x 907 ops/sec ±1.63% (95 runs sampled)
+```
+
+### [2.2.0](https://github.com/mateogianolio/vectorious/releases/tag/2.2.0)
+
 ```
 $ npm run benchmark
 
-> vectorious@2.2.0 benchmark /path/to/vectorious
+> vectorious@2.2.0 benchmark /Users/mateogianolio/Desktop/projects/vectorious
 > node ./benchmarks/vector.js && node ./benchmarks/matrix.js
 
 a = Vector.ones(1024)
 b = Vector.ones(1024).scale(2)
 
-Vector.zeros(1024) x 136,816 ops/sec ±5.13% (66 runs sampled)
-Vector.ones(1024) x 138,310 ops/sec ±5.22% (67 runs sampled)
-Vector.range(0, 1024) x 41,263 ops/sec ±3.34% (84 runs sampled)
-a.add(b) x 97,360 ops/sec ±7.22% (72 runs sampled)
-a.subtract(b) x 87,613 ops/sec ±20.89% (65 runs sampled)
-a.scale(Math.random()) x 98,581 ops/sec ±7.74% (65 runs sampled)
-a.normalize() x 83,966 ops/sec ±6.99% (76 runs sampled)
-a.dot(b) x 505,832 ops/sec ±0.45% (101 runs sampled)
-a.magnitude() x 632,850 ops/sec ±0.31% (91 runs sampled)
-a.angle(b) x 193,917 ops/sec ±0.46% (93 runs sampled)
-a.project(b) x 72,737 ops/sec ±6.67% (71 runs sampled)
-a.combine(b) x 64.58 ops/sec ±42.44% (9 runs sampled)
+Vector.zeros(1024) x 135,355 ops/sec ±5.22% (68 runs sampled)
+Vector.ones(1024) x 146,065 ops/sec ±5.23% (72 runs sampled)
+Vector.range(0, 1024) x 41,358 ops/sec ±3.29% (90 runs sampled)
+Vector.combine(a, b) x 6,369 ops/sec ±2.79% (90 runs sampled)
+a.add(b) x 95,535 ops/sec ±7.24% (69 runs sampled)
+a.subtract(b) x 96,199 ops/sec ±7.31% (72 runs sampled)
+a.scale(Math.random()) x 100,021 ops/sec ±7.21% (68 runs sampled)
+a.normalize() x 85,098 ops/sec ±7.00% (73 runs sampled)
+a.dot(b) x 505,057 ops/sec ±0.38% (99 runs sampled)
+a.magnitude() x 627,442 ops/sec ±0.42% (94 runs sampled)
+a.angle(b) x 193,797 ops/sec ±0.36% (93 runs sampled)
+a.project(b) x 73,280 ops/sec ±6.85% (73 runs sampled)
 
 a = Matrix.ones(128, 128)
 b = Matrix.ones(128, 128).scale(2)
 
-Matrix.identity(128) x 4,919 ops/sec ±2.48% (84 runs sampled)
-Matrix.magic(128) x 1,173 ops/sec ±6.16% (62 runs sampled)
-Matrix.zeros(128, 128) x 5,507 ops/sec ±2.24% (77 runs sampled)
-Matrix.ones(128, 128) x 5,682 ops/sec ±2.33% (73 runs sampled)
-a.add(b) x 4,629 ops/sec ±3.08% (78 runs sampled)
-a.subtract(b) x 4,577 ops/sec ±3.15% (78 runs sampled)
-a.scale(Math.random()) x 4,763 ops/sec ±3.16% (80 runs sampled)
-a.multiply(b) x 30.35 ops/sec ±0.53% (54 runs sampled)
-a.transpose() x 2,481 ops/sec ±3.27% (85 runs sampled)
-a.gauss() x 490 ops/sec ±5.15% (70 runs sampled)
-a.diag() x 939 ops/sec ±1.71% (92 runs sampled)
-a.augment(b) x 11.51 ops/sec ±43.34% (9 runs sampled)
-a.trace() x 241 ops/sec ±0.75% (89 runs sampled)
-
-Done!
+Matrix.identity(128) x 4,806 ops/sec ±2.37% (86 runs sampled)
+Matrix.magic(128) x 1,161 ops/sec ±5.96% (61 runs sampled)
+Matrix.zeros(128, 128) x 5,406 ops/sec ±2.15% (77 runs sampled)
+Matrix.ones(128, 128) x 5,495 ops/sec ±2.54% (67 runs sampled)
+Matrix.augment(a, b) x 288 ops/sec ±7.03% (75 runs sampled)
+a.add(b) x 4,512 ops/sec ±3.26% (78 runs sampled)
+a.subtract(b) x 4,539 ops/sec ±3.09% (79 runs sampled)
+a.scale(Math.random()) x 4,681 ops/sec ±3.29% (78 runs sampled)
+a.multiply(b) x 30.17 ops/sec ±1.01% (54 runs sampled)
+a.transpose() x 2,455 ops/sec ±3.29% (83 runs sampled)
+a.gauss() x 396 ops/sec ±2.72% (89 runs sampled)
+a.diag() x 945 ops/sec ±1.66% (89 runs sampled)
+a.trace() x 940 ops/sec ±1.74% (94 runs sampled)
 ```

@@ -220,7 +220,7 @@
   };
   
   Matrix.augment = function(a, b) {
-    return a.augment(b);
+    return new Matrix(a).augment(b);
   };
 
   Matrix.prototype.augment = function(matrix) {

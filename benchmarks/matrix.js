@@ -25,6 +25,9 @@
     .add('Matrix.ones(128, 128)', function() {
       Matrix.ones(128, 128);
     })
+    .add('Matrix.augment(a, b)', function() {
+      Matrix.augment(a, b);
+    })
     .add('a.add(b)', function() {
       a.add(b);
     })
@@ -45,9 +48,6 @@
     })
     .add('a.diag()', function() {
       a.diag();
-    })
-    .add('a.augment(b)', function() {
-      a.augment(b);
     })
     .add('a.trace()', function() {
       a.trace();

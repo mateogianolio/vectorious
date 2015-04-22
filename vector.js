@@ -280,7 +280,7 @@
   };
   
   Vector.combine = function(a, b) {
-    return a.combine(b);
+    return new Vector(a).combine(b);
   };
   
   Vector.prototype.combine = function(vector) {
