@@ -665,7 +665,6 @@ a = Matrix.ones(128, 128)
 b = Matrix.ones(128, 128).scale(2)
 
 Matrix.identity(128) x 1,454 ops/sec ±1.84% (92 runs sampled)
-Matrix.magic(128): 
 Matrix.zeros(128, 128) x 1,482 ops/sec ±2.08% (92 runs sampled)
 Matrix.ones(128, 128) x 1,581 ops/sec ±1.15% (96 runs sampled)
 Matrix.augment(a, b) x 1,561 ops/sec ±1.32% (96 runs sampled)
@@ -704,7 +703,6 @@ a = Matrix.ones(128, 128)
 b = Matrix.ones(128, 128).scale(2)
 
 Matrix.identity(128) x 4,042 ops/sec ±5.32% (76 runs sampled)
-Matrix.magic(128): 
 Matrix.zeros(128, 128) x 4,573 ops/sec ±7.11% (79 runs sampled)
 Matrix.ones(128, 128) x 5,480 ops/sec ±2.36% (81 runs sampled)
 Matrix.augment(a, b) x 292 ops/sec ±5.06% (78 runs sampled)
