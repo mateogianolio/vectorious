@@ -222,6 +222,7 @@
   Matrix.prototype.pivotize = function() {
     var l = this.rows.length,
         result = Matrix.identity(l),
+        sign = 1,
         pivot,
         lead,
         row;
@@ -239,11 +240,13 @@
         }
       }
       
-      if(i !== row)
+      if(i !== row) {
         result.swap(i, row);
+        sign *= -1;
+      }
     }
     
-    return result;
+    return [result, sign];
   };
   
   Matrix.prototype.lu = function() {
@@ -252,7 +255,7 @@
     var L = Matrix.identity(l),
         U = Matrix.zeros(l, l),
         P = this.pivotize(),
-        A = Matrix.multiply(P, this);
+        A = Matrix.multiply(P[0], this);
     
     var i, j, k,
         sum = [0, 0];
@@ -342,44 +345,24 @@
     return Vector.construct(result);
   };
   
-  Matrix.prototype.determinant = function(matrix) {
+  Matrix.prototype.determinant = function() {
     if(this.rows.length !== this.rows[0].length)
       throw new Error('invalid size of matrix');
     
+    var lu = this.lu();
+    var P = lu.pop(),
+        U = lu.pop(),
+        L = lu.pop();
+    
     var sum = 0,
-        s, l;
+        product = 1,
+        l = this.rows.length,
+        i, j;
     
-    if(matrix === undefined)
-      matrix = new Matrix(this);
+    for(i = 0; i < l; i++)
+      product *= L.get(i, i) * U.get(i, i);
     
-    l = matrix.rows.length;
-    if(l === 1)
-      return matrix.get(0, 0);
-    
-    var smaller, 
-        i, j, k;
-    for(i = 0; i < l; i++) {
-      smaller = Matrix.zeros(l - 1, l - 1, this.type);
-      
-      for(j = 1; j < l; j++) {
-        for(k = 0; k < l; k++) {
-          if(k < i) {
-            smaller.set(j - 1, k, matrix.get(j, k));
-          } else if(k > i) {
-            smaller.set(j - 1, k - 1, matrix.get(j, k));
-          }
-        }
-      }
-      
-      if(!(i % 2))
-        s = 1;
-      else
-        s = -1;
-      
-      sum += s * matrix.get(0, i) * this.determinant(smaller);
-    }
-    
-    return sum;
+    return P.pop() * product;
   };
 
   Matrix.prototype.trace = function() {

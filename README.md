@@ -468,20 +468,20 @@ Convert a matrix to [reduced row echelon (RREF)](http://en.wikipedia.org/wiki/Ro
 <p id="matrix_pivotize"></p>
 
 ```javascript
-// (Matrix) => (Matrix)
+// (Matrix) => ([Matrix, Number])
 Matrix.prototype.pivotize = function()
 ```
 
-Get the pivot permutation matrix (used in [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition)).
+Get the pivot permutation matrix ```P``` and corresponding determinant ```sign``` in the form of the array ```[P, sign]``` (used in [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition)).
 
 <p id="matrix_lu"></p>
 
 ```javascript
-// (Matrix) => ([Matrix, Matrix, Matrix])
+// (Matrix) => ([Matrix, Matrix, [Matrix, Number]])
 Matrix.prototype.lu = function()
 ```
 
-Get the [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition) of a matrix in the form of the array of matrices ```[L, U, P]```, where ```P``` is the pivot permutation matrix.
+Get the [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition) of a matrix in the form of the array  ```[L, U, P]```, where ```P``` is the return value of [```pivotize()```](#user-content-matrix_pivotize).
 
 <p id="matrix_inverse"></p>
 
