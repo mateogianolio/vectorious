@@ -11,6 +11,9 @@ Vectorious is a generalized n-dimensional matrix and vector library written in J
 * [Vector](#vector-)
 * [Matrix](#matrix-)
 * [Benchmarks](#benchmarks-)
+    * [2.0.0](#200)
+    * [2.1.0](#210)
+    * [2.2.0](#220)
 
 
 ## Installation [&uarr;](#vectorious)
@@ -616,7 +619,7 @@ Convert matrix to array.
 
 ## Benchmarks [&uarr;](#vectorious)
 
-### [2.0.0](https://github.com/mateogianolio/vectorious/releases/tag/2.0.0)
+#### [2.0.0](https://github.com/mateogianolio/vectorious/releases/tag/2.0.0)
 
 ```
 $ node ./benchmarks/vector.js && node ./benchmarks/matrix.js
@@ -655,7 +658,7 @@ a.diag() x 18,717 ops/sec ±2.20% (88 runs sampled)
 a.trace() x 19,097 ops/sec ±1.28% (96 runs sampled)
 ```
 
-### [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0)
+#### [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0)
 
 ```
 $ node ./benchmarks/vector.js && node ./benchmarks/matrix.js
@@ -694,7 +697,7 @@ a.diag() x 893 ops/sec ±2.11% (93 runs sampled)
 a.trace() x 907 ops/sec ±1.63% (95 runs sampled)
 ```
 
-### [2.2.0](https://github.com/mateogianolio/vectorious/releases/tag/2.2.0)
+#### [2.2.0](https://github.com/mateogianolio/vectorious/releases/tag/2.2.0)
 
 ```
 $ npm run benchmark
