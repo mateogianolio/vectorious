@@ -347,7 +347,7 @@
   
   Matrix.prototype.determinant = function() {
     if(this.rows.length !== this.rows[0].length)
-      throw new Error('invalid size of matrix');
+      throw new Error('matrix is not square');
     
     var lu = this.lu();
     var P = lu.pop(),
