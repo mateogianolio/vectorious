@@ -30,18 +30,22 @@
     return self;
   }
   
-  /* array of arguments to function arguments
-     (e.g. f.construct([a, b, c]) => f(a, b, c)) */
+  // Function.prototype.construct
+  // ?> converts an array of arguments to function arguments
+  //    (e.g. f.construct([a, b, c]) <=> new f(a, b, c))
+  // => returns a new instance of an object with the specified args
   Function.prototype.construct = function(args) {
     var object = Object.create(this.prototype);
     this.apply(object, args);
     return object;
   };
   
+  // Vector(.prototype).add
+  // ?> adds two vectors a and b together
+  // => returns a new vector containing the sum of a and b
   Vector.add = function(a, b) {
     return a.add(b);
   };
-  
   Vector.prototype.add = function(vector) {
     if(this.length !== vector.length)
       throw new Error('sizes do not match!');
@@ -56,10 +60,12 @@
     return result;
   };
   
+  // Vector(.prototype).subtract
+  // ?> subtracts the vector b from vector a
+  // => returns a new vector containing the difference between a and b
   Vector.subtract = function(a, b) {
     return a.subtract(b);
   };
-  
   Vector.prototype.subtract = function(vector) {
     if(this.length !== vector.length)
       throw new Error('sizes do not match');
@@ -74,6 +80,9 @@
     return result;
   };
   
+  // Vector.prototype.scale
+  // ?> multiplies all elements of a vector with a specified scalar
+  // => returns a new resultant scaled vector
   Vector.prototype.scale = function(scalar) {
     var result = Vector.zeros(this.length),
         values = this.values,
@@ -84,19 +93,29 @@
     return result;
   };
   
+  // Vector.prototype.normalize
+  // ?> normalizes a vector, i.e. divides all elements with the magnitude
+  // => returns a new resultant normalized vector
   Vector.prototype.normalize = function() {
     var result = new Vector(this.values);
     return result.scale(1 / result.magnitude());
   };
   
+  // Vector(.prototype).project
+  // ?> projects the vector a onto the vector b using
+  //    the projection formula (b * (a * b / b * b))
+  // => returns a new resultant projected vector
   Vector.project = function(a, b) {
     return a.project(b);
   };
-  
   Vector.prototype.project = function(vector) {
     return vector.scale(this.dot(vector) / vector.dot(vector));
   };
   
+  // Vector.zeros
+  // ?> creates a vector containing zeros (0) of count size, takes
+  //    an optional type argument which should be an instance of TypedArray
+  // => returns a new vector of the specified size and type
   Vector.zeros = function(count, type) {
     if(count < 0)
       throw new Error('invalid size');
@@ -117,6 +136,10 @@
     return result;
   };
   
+  // Vector.ones
+  // ?> creates a vector containing ones (1) of count size, takes
+  //    an optional type argument which should be an instance of TypedArray
+  // => returns a new vector of the specified size and type
   Vector.ones = function(count, type) {
     if(count < 0)
       throw new Error('invalid size');
@@ -137,6 +160,13 @@
     return result;
   };
   
+  // Vector.range
+  // ?> creates a vector containing a range (can be either ascending or descending)
+  //    of numbers specified by the arguments provided (e.g. Vector.range(0, .5, 2)
+  //    gives a vector containing all numbers in the interval [0, 2) separated by
+  //    steps of 0.5), takes an optional type argument which should be an instance of
+  //    TypedArray
+  // => returns a new vector containing the specified range and type
   Vector.range = function() {
     var args = [].slice.call(arguments, 0),
         backwards = false,
@@ -179,10 +209,12 @@
     return vector;
   };
   
+  // Vector(.prototype).dot
+  // ?> performs dot multiplication with two vectors a and b
+  // => returns the dot product of the two vectors (always a number)
   Vector.dot = function(a, b) {
     return a.dot(b);
   };
-
   Vector.prototype.dot = function(vector) {
     if(this.length !== vector.length)
       throw new Error('sizes do not match');
@@ -198,6 +230,9 @@
     return result;
   };
   
+  // Vector.prototype.magnitude
+  // ?> calculates the magnitude of a vector using the Pythagorean theorem
+  // => returns the magnitude (norm) of the vector (always a number)
   Vector.prototype.magnitude = function() {
     var result = 0,
         values = this.values,
@@ -208,18 +243,22 @@
     return Math.sqrt(result);
   };
   
+  // Vector(.prototype).angle
+  // ?> determines the angle between two vectors a and b
+  // => returns the angle between the two vectors in radians
   Vector.angle = function(a, b) {
     return a.angle(b);
   };
-  
   Vector.prototype.angle = function(vector) {
     return Math.acos(this.dot(vector) / this.magnitude() * vector.magnitude());
   };
   
+  // Vector(.prototype).equals
+  // ?> checks the equality of two vectors a and b
+  // => returns true if the two vectors are equal, false otherwise
   Vector.equals = function(a, b) {
     return a.equals(b);
   };
-
   Vector.prototype.equals = function(vector) {
     if(this.length !== vector.length)
       return false;
@@ -234,6 +273,9 @@
     return i === l;
   };
 
+  // Vector.prototype.get
+  // ?> gets the element at index from a vector
+  // => returns the element at index
   Vector.prototype.get = function(index) {
     if(index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
@@ -241,6 +283,9 @@
     return this.values[index];
   };
   
+  // Vector.prototype.min
+  // ?> gets the minimum value (smallest) element of a vector
+  // => returns the smallest element of the vector
   Vector.prototype.min = function() {
     var min = Number.POSITIVE_INFINITY,
         values = this.values,
@@ -256,6 +301,9 @@
     return min;
   };
   
+  // Vector.prototype.max
+  // ?> gets the maximum value (largest) element of a vector
+  // => returns the largest element of the vector
   Vector.prototype.max = function() {
     var max = Number.NEGATIVE_INFINITY,
         values = this.values,
@@ -271,6 +319,9 @@
     return max;
   };
   
+  // Vector.prototype.set
+  // ?> sets the element at index to value
+  // => returns this for function chaining
   Vector.prototype.set = function(index, value) {
     if(index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
@@ -279,10 +330,12 @@
     return this;
   };
   
+  // Vector(.prototype).combine
+  // ?> combines two vectors a and b (appends b to a)
+  // => returns the vector b appended to vector a
   Vector.combine = function(a, b) {
     return new Vector(a).combine(b);
   };
-  
   Vector.prototype.combine = function(vector) {
     if(!vector.length)
       return this;
@@ -306,6 +359,9 @@
     return this;
   };
   
+  // Vector.prototype.push
+  // ?> pushes a new value into a vector
+  // => returns this for function chaining
   Vector.prototype.push = function(value) {
     if(!(this.values instanceof this.type)) {
       this.buffer = new ArrayBuffer(this.type.BYTES_PER_ELEMENT);
@@ -327,6 +383,9 @@
     return this;
   };
   
+  // Vector.prototype.map
+  // ?> maps a function callback to all elements of the vector
+  // => returns the resultant mapped vector
   Vector.prototype.map = function(callback) {
     var vector = new Vector(this.values),
         i;
@@ -336,6 +395,10 @@
     return vector;
   };
   
+  // Vector.prototype.each
+  // ?> functional version of for-looping the vector, is equivalent
+  //    to Array.prototype.forEach
+  // => returns this for function chaining
   Vector.prototype.each = function(callback) {
     var i;
     for(i = 0; i < this.length; i++)
@@ -344,6 +407,9 @@
     return this;
   };
 
+  // Vector.prototype.toString
+  // ?> converts a vector into a readable formatted string
+  // => returns a string of the vector's contents
   Vector.prototype.toString = function() {
     var result = '',
         i;
@@ -353,6 +419,9 @@
     return '[' + result + ']';
   };
   
+  // Vector.prototype.toArray
+  // ?> converts a vector into a javascript array
+  // => returns an array containing all elements of the vector
   Vector.prototype.toArray = function() {
     if(!this.values)
       return [];

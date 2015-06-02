@@ -6,11 +6,21 @@
   function Matrix() {
     var self = this;
     self.rows = [];
+    self.type = Float64Array;
     
-    var argument,
+    var args = [].slice.call(arguments),
+        argument,
         i;
-    for(i = 0; i < arguments.length; i++) {
-      argument = arguments[i];
+    
+    for(i = 0; i < args.length; i++) {
+      if(typeof args[i] === 'function') {
+        self.type = args[i];
+        args.splice(i, 1);
+      }
+    }
+    
+    for(i = 0; i < args.length; i++) {
+      argument = args[i];
       var j;
       if(argument instanceof Matrix) {
         self.augment(argument);
@@ -18,13 +28,13 @@
         self.rows.push(argument);
       } else if(typeof argument === 'number') {
         for(j = 0; j < argument; j++)
-          self.rows.push(Vector.zeros(argument));
+          self.rows.push(Vector.zeros(argument, self.type));
       } else if(typeof argument === 'object') {
         for(j = 0; j < argument.length; j++) {
           if(argument[j] instanceof Vector)
             self.rows.push(argument[j]);
           else
-            self.rows.push(Vector.construct(argument[j]));
+            self.rows.push(Vector.construct([argument[j], self.type]));
         }
       }
     }
@@ -32,10 +42,12 @@
     return self;
   }
   
+  // Matrix(.prototype).add
+  // ?> adds two matrices a and b together
+  // => returns a new matrix containing the sum of a and b
   Matrix.add = function(a, b) {
     return a.add(b);
   };
-
   Matrix.prototype.add = function(matrix) {
     var result = [],
         a = this.rows,
@@ -47,10 +59,12 @@
     return Matrix.construct(result);
   };
   
+  // Matrix(.prototype).subtract
+  // ?> subtracts the matrix b from matrix a
+  // => returns a new matrix containing the difference between a and b
   Matrix.subtract = function(a, b) {
     return a.subtract(b);
   };
-  
   Matrix.prototype.subtract = function(matrix) {
     var result = [],
         a = this.rows,
@@ -62,6 +76,9 @@
     return Matrix.construct(result);
   };
   
+  // Matrix.prototype.scale
+  // ?> multiplies all elements of a matrix with a specified scalar
+  // => returns a new resultant scaled matrix
   Matrix.prototype.scale = function(scalar) {
     var result = [],
         rows = this.rows,
@@ -72,6 +89,10 @@
     return Matrix.construct(result);
   };
   
+  // Matrix.zeros
+  // ?> creates an i x j matrix containing zeros (0), takes an
+  //    optional type argument which should be an instance of TypedArray
+  // => returns a matrix of the specified dimensions and type
   Matrix.zeros = function(i, j, type) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
@@ -84,6 +105,10 @@
     return Matrix.construct(result);
   };
   
+  // Matrix.ones
+  // ?> creates an i x j matrix containing ones (1), takes an
+  //    optional type argument which should be an instance of TypedArray
+  // => returns a matrix of the specified dimensions and type
   Matrix.ones = function(i, j, type) {
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
@@ -96,10 +121,12 @@
     return Matrix.construct(result);
   };
   
+  // Matrix(.prototype).multiply
+  // ?> multiplies two matrices a and b of matching dimensions together
+  // => returns a new resultant matrix containing the matrix product of a and b
   Matrix.multiply = function(a, b) {
     return a.multiply(b);
   };
-  
   Matrix.prototype.multiply = function(matrix) {
     if(this.rows[0].length !== matrix.rows.length)
       throw new Error('sizes do not match');
@@ -124,6 +151,9 @@
     return result;
   };
   
+  // Matrix.prototype.transpose
+  // ?> transposes a matrix (mirror across the diagonal)
+  // => returns a new resultant transposed matrix
   Matrix.prototype.transpose = function() {
     var l = this.rows.length,
         m = this.rows[0].length;
@@ -137,6 +167,10 @@
     return result;
   };
   
+  // Matrix.prototype.inverse
+  // ?> determines the inverse of any invertible square matrix using
+  //    Gaussian elimination
+  // => returns the inverse of the matrix
   Matrix.prototype.inverse = function() {
     var l = this.rows.length,
         m = this.rows[0].length;
@@ -167,6 +201,9 @@
     return right;
   };
   
+  // Matrix.prototype.gauss
+  // ?> performs Gaussian elimination on a matrix
+  // => returns the matrix in reduced row echelon form
   Matrix.prototype.gauss = function() {
     var l = this.rows.length,
         m = this.rows[0].length;
@@ -219,6 +256,10 @@
     return copy;
   };
   
+  // Matrix.prototype.pivotize
+  // ?> pivots a matrix until elements are in upper triangular form
+  // => returns a tuple (array) of the resultant pivotized matrix and its sign
+  //    (used in LU factorization)
   Matrix.prototype.pivotize = function() {
     var l = this.rows.length,
         result = Matrix.identity(l),
@@ -249,6 +290,10 @@
     return [result, sign];
   };
   
+  // Matrix.prototype.lu
+  // ?> performs LU factorization on a matrix
+  // => returns a triple (array) of the lower triangular resultant matrix L, the upper
+  //    triangular resultant matrix U and the pivot matrix P
   Matrix.prototype.lu = function() {
     var l = this.rows.length;
     
@@ -281,10 +326,12 @@
     return [L, U, P];
   };
 
+  // Matrix(.prototype).augment
+  // ?> augments two matrices a and b of matching dimensions (appends b to a)
+  // => returns the resultant matrix of b appended to a
   Matrix.augment = function(a, b) {
     return new Matrix(a).augment(b);
   };
-
   Matrix.prototype.augment = function(matrix) {
     var rows = this.rows,
         i, l;
@@ -298,6 +345,10 @@
     return this;
   };
   
+  // Matrix.identity
+  // ?> creates an identity matrix of size, takes an optional type argument
+  //    which should be an instance of TypedArray
+  // => returns an identity matrix of the specified size and type
   Matrix.identity = function(size, type) {
     if(size < 0)
       throw new Error('invalid size');
@@ -313,6 +364,10 @@
     return matrix;
   };
   
+  // Matrix.magic
+  // ?> creates a magic square matrix of size, takes an optional type argument
+  //    which should be an instance of TypedArray
+  // => returns a magic square matrix of the specified size and type
   Matrix.magic = function(size, type) {
     if(size < 0)
       throw new Error('invalid size');
@@ -333,6 +388,9 @@
     return magic;
   };
 
+  // Matrix.prototype.diag
+  // ?> gets the diagonal of a matrix
+  // => returns the diagonal of the matrix as a vector
   Matrix.prototype.diag = function() {
     var result = [],
         i, j, l, m;
@@ -345,6 +403,9 @@
     return Vector.construct(result);
   };
   
+  // Matrix.prototype.determinant
+  // ?> gets the determinant of any square matrix using LU factorization
+  // => returns the determinant of the matrix
   Matrix.prototype.determinant = function() {
     if(this.rows.length !== this.rows[0].length)
       throw new Error('matrix is not square');
@@ -365,6 +426,9 @@
     return P.pop() * product;
   };
 
+  // Matrix.trace
+  // ?> gets the trace of the matrix (the sum of all diagonal elements
+  // => returns the trace of the matrix
   Matrix.prototype.trace = function() {
     var diagonal = this.diag(),
         result = 0,
@@ -376,10 +440,12 @@
     return result;
   };
   
+  // Matrix(.prototype).equals
+  // ?> checks the equality of two matrices a and b
+  // => returns true if equal, false otherwise
   Matrix.equals = function(a, b) {
     return a.equals(b);
   };
-
   Matrix.prototype.equals = function(matrix) {
     if(this.rows.length !== matrix.rows.length)
       return false;
@@ -394,15 +460,24 @@
     return true;
   };
 
+  // Matrix.prototype.get
+  // ?> gets the value of the element in row i, column j of a matrix
+  // => returns the element at row i, column j of the matrix
   Matrix.prototype.get = function(i, j) {
     return this.rows[i].get(j);
   };
-      
+  
+  // Matrix.prototype.set
+  // ?> sets the element at row i, column j to value
+  // => returns this for function chaining
   Matrix.prototype.set = function(i, j, value) {
     this.rows[i].set(j, value);
     return this;
   };
   
+  // Matrix.prototype.swap
+  // ?> swaps two rows i and j in a matrix
+  // => returns this for function chaining
   Matrix.prototype.swap = function(i, j) {
     if(i < 0 || j < 0 || i > this.rows.length - 1 || j > this.rows.length - 1)
       throw new Error('index out of bounds');
@@ -414,6 +489,9 @@
     return this;
   };
   
+  // Matrix.prototype.map
+  // ?> maps a function callback to all rows in a matrix
+  // => returns the resultant mapped matrix
   Matrix.prototype.map = function(callback) {
     var result = new Matrix(this),
         rows = result.rows,
@@ -424,6 +502,10 @@
     return result;
   };
   
+  // Matrix.prototype.each
+  // ?> functional version of for-looping the rows in a matrix, is
+  //    equivalent to Array.prototype.forEach
+  // => returns this for function chaining
   Matrix.prototype.each = function(callback) {
     var rows = this.rows,
         i, l;
@@ -433,6 +515,9 @@
     return this;
   };
   
+  // Matrix.prototype.toString
+  // ?> converts a matrix into a readable formatted string
+  // => returns a string of the matrix' contents
   Matrix.prototype.toString = function() {
     var result = [],
         rows = this.rows,
@@ -443,6 +528,9 @@
     return '[' + result.join(', \n') + ']';
   };
   
+  // Matrix.prototype.toArray
+  // ?> converts a matrix into a two-dimensional array
+  // => returns an array of the matrix' contents
   Matrix.prototype.toArray = function() {
     var result = [],
         rows = this.rows,
