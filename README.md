@@ -4,6 +4,8 @@
 
 Vectorious is a generalized n-dimensional matrix and vector library written in JavaScript, which can be used both in node.js and the browser.
 
+**Requries node version <= 0.12.**
+
 * [Installation](#installation-)
     * [For the browser](#for-the-browser-)
 * [Extensions](#extensions-)
@@ -111,7 +113,7 @@ Now that you've got a hang of the basics, let me show you a useful application e
 ```javascript
 var time = Vector.range(0, Math.PI / 12, Math.PI);
 /* {
-  values: 
+  values:
    [ 0,
      0.2617993877991494,
      0.5235987755982988,
@@ -128,7 +130,7 @@ var time = Vector.range(0, Math.PI / 12, Math.PI);
 
 var sine = time.map(Math.sin);
 /* {
-  values: 
+  values:
    [ 0,
      0.25881904510252074,
      0.49999999999999994,

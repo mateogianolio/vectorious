@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "A generalized n-dimensional matrix and vector library in JavaScript.",
   "main": "vectorious.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "vinyl-transform": "^1.0.0"
   },
   "dependencies": {
-    "memcpy": "^0.5.0",
+    "memcpy": "^0.6.0",
     "mocha": "^2.2.1"
   }
 }
