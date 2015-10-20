@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "A generalized n-dimensional matrix and vector library in JavaScript.",
   "main": "vectorious.js",
   "scripts": {
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
     "async": "^0.9.0",
+    "benchmark": "^1.0.0",
     "browserify": "^9.0.3",
     "gulp": "^3.8.11",
     "gulp-sourcemaps": "^1.5.1",
