@@ -36,7 +36,6 @@
     "vinyl-transform": "^1.0.0"
   },
   "dependencies": {
-    "memcpy": "^0.6.0",
     "mocha": "^2.2.1"
   }
 }
