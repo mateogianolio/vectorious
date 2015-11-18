@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var memcpy = require('memcpy').native;
+  var memcpy = require('./memcpy');
 
   function Vector() {
     var self = this;
