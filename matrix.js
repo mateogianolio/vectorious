@@ -25,32 +25,32 @@
   }
 
   Matrix.fromFloat64Array = function(data, shape){
-      var self = Object.create(Matrix.prototype);
-      self.shape = shape;
-      self.data = data;
-      self.type = Float64Array;
+    var self = Object.create(Matrix.prototype);
+    self.shape = shape;
+    self.data = data;
+    self.type = Float64Array;
 
-      return self;
+    return self;
   }
 
   Matrix.fromArray = function(array){
-      var shape = [],
-          data,
-          c;   // number of columns
+    var shape = [],
+        data,
+        c;   // number of columns
 
-      shape[0] = array.length;
-      shape[1] = array[0].length;
-      c = shape[1];
+    shape[0] = array.length;
+    shape[1] = array[0].length;
+    c = shape[1];
 
-      data = new Float64Array(shape[0]*shape[1]);
+    data = new Float64Array(shape[0]*shape[1]);
 
-      for(var ii = 0; ii < shape[0]; ++ii){
-        for(var jj = 0; jj < shape[1]; ++jj){
-          data[ii*c + jj] = array[ii][jj];
-        }
+    for(var ii = 0; ii < shape[0]; ++ii){
+      for(var jj = 0; jj < shape[1]; ++jj){
+        data[ii*c + jj] = array[ii][jj];
       }
+    }
 
-      return Matrix.fromFloat64Array(data, shape);
+    return Matrix.fromFloat64Array(data, shape);
   }
 
   // Matrix(.prototype).add
@@ -61,22 +61,21 @@
   };
 
   Matrix.prototype.add = function(matrix){
-      var r = this.shape[0],          // rows in this matrix
-          c = this.shape[1],          // columns in this matrix
-          d1 = this.data,
-          d2 = matrix.data;
+    var r = this.shape[0],          // rows in this matrix
+        c = this.shape[1],          // columns in this matrix
+        d1 = this.data,
+        d2 = matrix.data;
 
-      if(r !== matrix.shape[0] || c !== matrix.shape[1])
-        throw new Error('sizes do not match');
+    if(r !== matrix.shape[0] || c !== matrix.shape[1])
+      throw new Error('sizes do not match');
 
-      var data = new Float64Array(r * c);
+    var data = new Float64Array(r * c);
 
-      for(var ii = 0; ii < r; ii++) {
-        for(var jj = 0; jj < c; jj++) {
-          data[ii*c + jj] = d1[ii*c + jj] + d2[ii*c + jj]
-        }
+    for(var ii = 0; ii < r; ii++) {
+      for(var jj = 0; jj < c; jj++) {
+        data[ii*c + jj] = d1[ii*c + jj] + d2[ii*c + jj]
       }
-    };
+    }
 
     return Matrix.fromFloat64Array(data, self.shape);
   }
