@@ -165,18 +165,23 @@
   // Matrix(.prototype).multiply
   // ?> multiplies two matrices a and b of matching dimensions together
   // => returns a new resultant matrix containing the matrix product of a and b
-  Matrix.multiply = function(a, b, out) {
-    var r1 = a.shape[0],          // rows in this matrix
-      c1 = a.shape[1],          // columns in this matrix
-      r2 = b.shape[0],      // rows in multiplicand
-      c2 = b.shape[1],   // columns in multiplicand
-      d1 = a.data,
-      d2 = b.data;
+  Matrix.multiply = function(a, b) {
+    return a.multiply(b);
+  };
+  Matrix.prototype.multiply = function(matrix) {
+
+    var r1 = this.shape[0],          // rows in this matrix
+      c1 = this.shape[1],          // columns in this matrix
+      r2 = matrix.shape[0],      // rows in multiplicand
+      c2 = matrix.shape[1],   // columns in multiplicand
+      d1 = matrix.data,
+      d2 = matrix.data;
 
     if(c1 !== r2)
         throw new Error('sizes do not match');
 
-    var data = out.data;
+    var out = Matrix.fromFloat64Array(new Float64Array(this.shape[0] * matrix.shape[1]), [this.shape[0] ,matrix.shape[1]]),
+        data = out.data;
 
     for(var ii = 0; ii < r1; ii++) {
         for(var jj = 0; jj < c2; jj++) {
@@ -189,11 +194,6 @@
           data[ii*c2+jj] = sum;
         }
     }
-  };
-  Matrix.prototype.multiply = function(matrix) {
-
-    var out = Matrix.fromFloat64Array(new Float64Array(this.shape[0] * matrix.shape[1]), [this.shape[0] ,matrix.shape[1]]);
-    Matrix.multiply(this, matrix, out);
 
     return out;
 }
@@ -531,7 +531,7 @@
   // ?> swaps two rows i and j in a matrix
   // => returns this for function chaining
   Matrix.prototype.swap = function(i, j) {
-    if(i < 0 || j < 0 || i > this.rows.length - 1 || j > this.rows.length - 1)
+    if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
     var copy = this.rows[i];
