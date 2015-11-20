@@ -504,14 +504,14 @@
   // ?> gets the value of the element in row i, column j of a matrix
   // => returns the element at row i, column j of the matrix
   Matrix.prototype.get = function(i, j) {
-    return this.rows[i].get(j);
+    return this.data[i*this.shape[0]+j];
   };
 
   // Matrix.prototype.set
   // ?> sets the element at row i, column j to value
   // => returns this for function chaining
   Matrix.prototype.set = function(i, j, value) {
-    this.rows[i].set(j, value);
+    this.data[i*this.shape[0]+j] = value;
     return this;
   };
 
