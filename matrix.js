@@ -29,6 +29,7 @@
 
       return self;
     }
+
   }
 
   Matrix.fromFloat64Array = function(data, shape){
@@ -379,14 +380,33 @@
     return new Matrix(a).augment(b);
   };
   Matrix.prototype.augment = function(matrix) {
-    var rows = this.rows,
-        i, l;
-    for(i = 0, l = matrix.rows.length; i < l; i++) {
-      if(!(rows[i] instanceof Vector))
-        rows[i] = new Vector();
+    var r1 = this.shape[0],
+        c1 = this.shape[1],
+        r2 = matrix.shape[0],
+        c2 = matrix.shape[1],
+        d1 = this.data,
+        d2 = matrix.data,
+        i, j;
 
-      rows[i].combine(matrix.rows[i]);
+    if(r1 !== r2)
+      throw new Error("Rows do not match.");
+
+    var data = new Float64Array((c1 + c2) * r1);
+
+    for(i = 0; i < r1; i++){
+      for(j = 0; j < c1; j++){
+        data[i * (c1 + c2) + j] = d1[i * r1 + j];
+      }
     }
+
+    for(i = 0; i < r1; i++){
+      for(j = 0; j < c2; j++){
+        data[i * (c1 + c2) + j + c1] = d2[i * r1 + j];
+      }
+    }
+
+    this.shape = [r1, c1 + c2];
+    this.data = data;
 
     return this;
   };
