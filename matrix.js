@@ -15,6 +15,7 @@
         }
         self.shape = options.shape;
         self.data = initial;
+        self.type = Float64Array;
 
         return self;
 
@@ -27,6 +28,7 @@
       var self = Object.create(Matrix.prototype);
       self.shape = shape;
       self.data = data;
+      self.type = Float64Array;
 
       return self;
   }
@@ -34,19 +36,18 @@
   Matrix.fromArray = function(array){
       var shape = [],
           data,
-          columns;
+          c;   // number of columns
 
       shape[0] = array.length;
       shape[1] = array[0].length;
-      columns = shape[1];
+      c = shape[1];
 
       data = new Float64Array(shape[0]*shape[1]);
 
       for(var ii = 0; ii < shape[0]; ++ii){
-          for(var jj = 0; jj < shape[1]; ++jj){
-
-              data[ii*columns+jj] = array[ii][jj];
-          }
+        for(var jj = 0; jj < shape[1]; ++jj){
+          data[ii*c + jj] = array[ii][jj];
+        }
       }
 
       return Matrix.fromFloat64Array(data, shape);
@@ -58,16 +59,27 @@
   Matrix.add = function(a, b) {
     return a.add(b);
   };
-  Matrix.prototype.add = function(matrix) {
-    var result = [],
-        a = this.rows,
-        b = matrix.rows,
-        i, l;
-    for(i = 0, l = a.length; i < l; i++)
-      result.push(a[i].add(b[i]));
 
-    return Matrix.construct(result);
-  };
+  Matrix.prototype.add = function(matrix){
+      var r = this.shape[0],          // rows in this matrix
+          c = this.shape[1],          // columns in this matrix
+          d1 = this.data,
+          d2 = matrix.data;
+
+      if(r !== matrix.shape[0] || c !== matrix.shape[1])
+        throw new Error('sizes do not match');
+
+      var data = new Float64Array(r * c);
+
+      for(var ii = 0; ii < r; ii++) {
+        for(var jj = 0; jj < c; jj++) {
+          data[ii*c + jj] = d1[ii*c + jj] + d2[ii*c + jj]
+        }
+      }
+    };
+
+    return Matrix.fromFloat64Array(data, self.shape);
+  }
 
   // Matrix(.prototype).subtract
   // ?> subtracts the matrix b from matrix a
@@ -76,27 +88,42 @@
     return a.subtract(b);
   };
   Matrix.prototype.subtract = function(matrix) {
-    var result = [],
-        a = this.rows,
-        b = matrix.rows,
-        i, l;
-    for(i = 0, l = a.length; i < l; i++)
-      result.push(a[i].subtract(b[i]));
+      var r = this.shape[0],          // rows in this matrix
+          c = this.shape[1],          // columns in this matrix
+          d1 = this.data,
+          d2 = matrix.data;
 
-    return Matrix.construct(result);
+      if(r !== matrix.shape[0] || c !== matrix.shape[1])
+        throw new Error('sizes do not match');
+
+      var data = new Float64Array(r * c);
+
+      for(var ii = 0; ii < r; ii++) {
+        for(var jj = 0; jj < c; jj++) {
+          data[ii*c + jj] = d1[ii*c + jj] - d2[ii*c + jj]
+        }
+      }
+
+      return Matrix.fromFloat64Array(data, self.shape);
   };
 
   // Matrix.prototype.scale
   // ?> multiplies all elements of a matrix with a specified scalar
   // => returns a new resultant scaled matrix
   Matrix.prototype.scale = function(scalar) {
-    var result = [],
-        rows = this.rows,
-        i, l;
-    for(i = 0, l = rows.length; i < l; i++)
-      result.push(rows[i].scale(scalar));
+    var r = this.shape[0],          // rows in this matrix
+        c = this.shape[1],          // columns in this matrix
+        d1 = this.data;
 
-    return Matrix.construct(result);
+    var data = new Float64Array(r * c);
+
+    for(var ii = 0; ii < r; ii++) {
+      for(var jj = 0; jj < c; jj++) {
+        data[ii*c + jj] = d1[ii*c + jj] * scalar;
+      }
+    }
+
+    return Matrix.fromFloat64Array(data, self.shape);
   };
 
   // Matrix.zeros
@@ -107,12 +134,11 @@
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
 
-    var result = [],
-        row;
-    for(row = 0; row < i; row++)
-      result.push(Vector.zeros(j, type !== undefined ? type : Float64Array));
 
-    return Matrix.construct(result);
+    var data = new Float64Array(i * j);
+    data.fill(0.0);
+
+    return Matrix.fromFloat64Array(data, [i, j]);
   };
 
   // Matrix.ones
@@ -123,12 +149,11 @@
     if(i <= 0 || j <= 0)
       throw new Error('invalid size');
 
-    var result = [],
-        row;
-    for(row = 0; row < i; row++)
-      result.push(Vector.ones(j, type !== undefined ? type : Float64Array));
 
-    return Matrix.construct(result);
+    var data = new Float64Array(i * j);
+    data.fill(0.0);
+
+    return Matrix.fromFloat64Array(data, [i, j]);
   };
 
   // Matrix(.prototype).multiply
