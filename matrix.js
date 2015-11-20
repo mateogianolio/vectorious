@@ -510,6 +510,9 @@
   // ?> gets the value of the element in row i, column j of a matrix
   // => returns the element at row i, column j of the matrix
   Matrix.prototype.get = function(i, j) {
+    if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+      throw new Error('index out of bounds');
+
     return this.data[i*this.shape[0]+j];
   };
 
@@ -517,6 +520,9 @@
   // ?> sets the element at row i, column j to value
   // => returns this for function chaining
   Matrix.prototype.set = function(i, j, value) {
+    if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+      throw new Error('index out of bounds');
+
     this.data[i*this.shape[0]+j] = value;
     return this;
   };
