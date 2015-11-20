@@ -218,8 +218,8 @@
   //    Gaussian elimination
   // => returns the inverse of the matrix
   Matrix.prototype.inverse = function() {
-    var l = this.rows.length,
-        m = this.rows[0].length;
+    var l = this.shape[0],
+        m = this.shape[1];
 
     if(l !== m)
       throw new Error('invalid dimensions');
@@ -490,15 +490,18 @@
     return a.equals(b);
   };
   Matrix.prototype.equals = function(matrix) {
-    if(this.rows.length !== matrix.rows.length)
+    var r = this.shape[0],
+        c = this.shape[1],
+        d1 = this.data,
+        d2 = this.data;
+
+    if(r !== matrix.shape[0] || c !== matrix.shape[1] || this.type != matrix.type)
       return false;
 
-    var a = this.rows,
-        b = matrix.rows,
-        i, l;
-    for(i = 0, l = a.length; i < l; i++)
-      if(!a[i].equals(b[i]))
+    for(var i = 0; i < r * c; i++){
+      if(d1[i] !== d2[i])
         return false;
+    }
 
     return true;
   };
