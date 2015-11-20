@@ -436,13 +436,12 @@
   // ?> gets the diagonal of a matrix
   // => returns the diagonal of the matrix as a vector
   Matrix.prototype.diag = function() {
-    var result = [],
-        i, j, l, m;
+    var r = this.shape[0],
+        c = this.shape[1],
+        result = [];
 
-    for(i = 0, l = this.rows.length; i < l; i++)
-      for(j = 0, m = this.rows[0].length; j < m; j++)
-        if(i === j)
-          result.push(this.get(i, j));
+    for(var i = 0; i < r && i < c; i++)
+      result.push(this.data[i * c + i]);
 
     return Vector.construct(result);
   };
