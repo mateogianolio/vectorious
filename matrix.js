@@ -67,7 +67,7 @@
         d2 = matrix.data;
 
     if(r !== matrix.shape[0] || c !== matrix.shape[1])
-      throw new Error('sizes do not match');
+      throw new Error('sizes do not match: ' + r + 'x' + c + ', ' + matrix.shape[0] + 'x' + matrix.shape[1]);
 
     var data = new Float64Array(r * c);
 
@@ -77,7 +77,7 @@
       }
     }
 
-    return Matrix.fromFloat64Array(data, self.shape);
+    return Matrix.fromFloat64Array(data, this.shape);
   }
 
   // Matrix(.prototype).subtract
@@ -103,7 +103,7 @@
         }
       }
 
-      return Matrix.fromFloat64Array(data, self.shape);
+      return Matrix.fromFloat64Array(data, this.shape);
   };
 
   // Matrix.prototype.scale
@@ -122,7 +122,7 @@
       }
     }
 
-    return Matrix.fromFloat64Array(data, self.shape);
+    return Matrix.fromFloat64Array(data, this.shape);
   };
 
   // Matrix.zeros
@@ -150,7 +150,7 @@
 
 
     var data = new Float64Array(i * j);
-    data.fill(0.0);
+    data.fill(1.0);
 
     return Matrix.fromFloat64Array(data, [i, j]);
   };
