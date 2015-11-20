@@ -21,6 +21,13 @@
 
     } else if(Object.prototype.toString.call(initial) === '[object Array]'){
         return Matrix.fromArray(initial);
+    } else if(initial instanceof Matrix){
+      // copy contructor
+      self.shape = [initial.shape[0], initial.shape[1]];
+      self.data = new Float64Array(initial.data);
+      self.type = Float64Array;
+
+      return self;
     }
   }
 
