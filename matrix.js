@@ -403,9 +403,7 @@
     var matrix = Matrix.zeros(size, size, type),
         i, j;
     for(i = 0; i < size; i++)
-      for(j = 0; j < size; j++)
-        if(i === j)
-          matrix.set(i, j, 1);
+      matrix.data[i * size + i] = 1.0;
 
     return matrix;
   };
