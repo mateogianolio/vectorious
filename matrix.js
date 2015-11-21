@@ -593,10 +593,10 @@
   //    equivalent to Array.prototype.forEach
   // => returns this for function chaining
   Matrix.prototype.each = function(callback) {
-    var rows = this.rows,
-        i, l;
-    for(i = 0, l = rows.length; i < l; i++)
-      callback(rows[i], i);
+
+    var c = this.shape[1];
+
+    this.data.forEach(function(value, i){ callback(value, i / c | 0, i % c)});
 
     return this;
   };
