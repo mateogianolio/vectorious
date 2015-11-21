@@ -3,28 +3,28 @@
 
   var Vector = require('./vector.js');
 
-  function Matrix(initial, options) {
+  function Matrix(data, options) {
     var self = this;
 
     self.shape = [];
 
-    if(initial instanceof Float64Array && options.shape){
+    if(data instanceof Float64Array && options.shape){
 
-        if(initial.length != options.shape[0] * options.shape[1]){
+        if(data.length != options.shape[0] * options.shape[1]){
             throw "Shape does not match typed array dimensions.";
         }
         self.shape = options.shape;
-        self.data = initial;
+        self.data = data;
         self.type = Float64Array;
 
         return self;
 
-    } else if(Object.prototype.toString.call(initial) === '[object Array]'){
-        return Matrix.fromArray(initial);
-    } else if(initial instanceof Matrix){
+    } else if(Object.prototype.toString.call(data) === '[object Array]'){
+        return Matrix.fromArray(data);
+    } else if(data instanceof Matrix){
       // copy contructor
-      self.shape = [initial.shape[0], initial.shape[1]];
-      self.data = new Float64Array(initial.data);
+      self.shape = [data.shape[0], data.shape[1]];
+      self.data = new Float64Array(data.data);
       self.type = Float64Array;
 
       return self;
@@ -592,10 +592,11 @@
   // => returns a string of the matrix' contents
   Matrix.prototype.toString = function() {
     var result = [],
-        rows = this.rows,
-        i, l;
-    for(i = 0, l = rows.length; i < l; i++)
-      result.push(rows[i].toString());
+        r = this.shape[0],
+        c = this.shape[1];
+
+    for(var i = 0; i < r; i++)
+      result.push('[' + this.data.subarray(i * c, i * c + r).toString() + ']');
 
     return '[' + result.join(', \n') + ']';
   };
@@ -605,10 +606,11 @@
   // => returns an array of the matrix' contents
   Matrix.prototype.toArray = function() {
     var result = [],
-        rows = this.rows,
-        i, l;
-    for(i = 0, l = rows.length; i < l; i++)
-      result.push(rows[i].toArray());
+        r = this.shape[0],
+        c = this.shape[1];
+
+    for(var i = 0; i < r; i++)
+      result.push(Array.prototype.slice.call(this.data.subarray(i * c, i * c + r)));
 
     return result;
   };
