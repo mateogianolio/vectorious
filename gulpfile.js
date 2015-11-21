@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  var package_json = require('./package');
+
   var browserify = require('browserify');
   var gulp = require('gulp');
   var source = require('vinyl-source-stream');
@@ -18,7 +20,7 @@
     });
 
     return b.bundle()
-      .pipe(source('vectorious-2.2.1.js'))
+      .pipe(source('vectorious-'+ package_json.version + '.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
           // Add transformation tasks to the pipeline here.
