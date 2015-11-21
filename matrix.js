@@ -391,6 +391,10 @@
     return new Matrix(a).augment(b);
   };
   Matrix.prototype.augment = function(matrix) {
+
+    if(matrix.shape.length === 0)
+     return this;
+
     var r1 = this.shape[0],
         c1 = this.shape[1],
         r2 = matrix.shape[0],
