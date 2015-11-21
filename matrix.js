@@ -231,7 +231,7 @@
 
     var left = Matrix.zeros(l, m),
         right = Matrix.zeros(l, m),
-        n = gauss.rows[0].length,
+        n = gauss.shape[1],
         i, j;
     for(i = 0; i < l; i++) {
       for(j = 0; j < n; j++) {
@@ -243,7 +243,7 @@
     }
 
     if(!left.equals(Matrix.identity(l)))
-      throw new Error('matrix is invertible');
+      throw new Error('matrix is not invertible');
 
     return right;
   };
@@ -524,7 +524,7 @@
     var r = this.shape[0],
         c = this.shape[1],
         d1 = this.data,
-        d2 = this.data;
+        d2 = matrix.data;
 
     if(r !== matrix.shape[0] || c !== matrix.shape[1] || this.type != matrix.type)
       return false;
@@ -581,11 +581,9 @@
   // ?> maps a function callback to all rows in a matrix
   // => returns the resultant mapped matrix
   Matrix.prototype.map = function(callback) {
-    var result = new Matrix(this),
-        rows = result.rows,
-        i, l;
-    for(i = 0, l = this.rows.length; i < l; i++)
-      rows[i] = callback(rows[i]);
+    var result = new Matrix(this);
+
+    result.data = this.data.map(callback);
 
     return result;
   };
