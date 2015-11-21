@@ -252,13 +252,14 @@
   // ?> performs Gaussian elimination on a matrix
   // => returns the matrix in reduced row echelon form
   Matrix.prototype.gauss = function() {
-    var l = this.rows.length,
-        m = this.rows[0].length;
+    var l = this.shape[0],
+        m = this.shape[1];
 
     var copy = new Matrix(this),
         lead = 0,
         pivot,
-        i, j;
+        i, j, k,
+        leadValue;
 
     for(i = 0; i < l; i++) {
       if(m <= lead)
@@ -279,12 +280,20 @@
       copy.swap(i, j);
 
       pivot = copy.get(i, lead);
-      if(pivot !== 0)
-        copy.rows[i] = copy.rows[i].scale(1 / pivot);
+      if(pivot !== 0){
+        // scale down the row by value of pivot
+        for(k = 0; k < m; k++)
+          copy.data[(i * m) + k] = copy.data[(i * m) + k] / pivot;
+
+      }
+
 
       for(j = 0; j < l; j++) {
+        leadValue = copy.data[j * m + lead];
         if(j !== i)
-          copy.rows[j] = copy.rows[j].subtract(copy.rows[i].scale(copy.get(j, lead)));
+          for(k = 0; k < m; k++)
+            copy.data[j * m + k] = copy.data[j * m + k] - (copy.data[i * m + k] * leadValue);
+
       }
 
       lead++;
@@ -297,7 +306,9 @@
           pivot = copy.get(i, j);
 
       if(pivot)
-        copy.rows[i] = copy.rows[i].scale(1 / pivot);
+        // scale down the row by value of pivot
+        for(k = 0; k < m; k++)
+          copy.data[(i * m) + k] = copy.data[(i * m) + k] / pivot;
     }
 
     return copy;
@@ -533,7 +544,7 @@
     if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    return this.data[i*this.shape[0]+j];
+    return this.data[i*this.shape[1]+j];
   };
 
   // Matrix.prototype.set
@@ -543,7 +554,7 @@
     if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    this.data[i*this.shape[0]+j] = value;
+    this.data[i*this.shape[1]+j] = value;
     return this;
   };
 
