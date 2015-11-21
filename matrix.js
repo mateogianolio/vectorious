@@ -175,7 +175,7 @@
       c1 = this.shape[1],          // columns in this matrix
       r2 = matrix.shape[0],      // rows in multiplicand
       c2 = matrix.shape[1],   // columns in multiplicand
-      d1 = matrix.data,
+      d1 = this.data,
       d2 = matrix.data;
 
     if(c1 !== r2)
@@ -319,7 +319,7 @@
   // => returns a tuple (array) of the resultant pivotized matrix and its sign
   //    (used in LU factorization)
   Matrix.prototype.pivotize = function() {
-    var l = this.rows.length,
+    var l = this.shape[0],
         result = Matrix.identity(l),
         sign = 1,
         pivot,
@@ -353,7 +353,7 @@
   // => returns a triple (array) of the lower triangular resultant matrix L, the upper
   //    triangular resultant matrix U and the pivot matrix P
   Matrix.prototype.lu = function() {
-    var l = this.rows.length;
+    var l = this.shape[0];
 
     var L = Matrix.identity(l),
         U = Matrix.zeros(l, l),
