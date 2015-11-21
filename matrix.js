@@ -551,12 +551,17 @@
   // ?> swaps two rows i and j in a matrix
   // => returns this for function chaining
   Matrix.prototype.swap = function(i, j) {
-    if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+    if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[0] - 1)
       throw new Error('index out of bounds');
 
-    var copy = this.rows[i];
-    this.rows[i] = this.rows[j];
-    this.rows[j] = copy;
+    var c = this.shape[1];
+
+    // copy first row
+    var copy = this.data.slice(i * c, (i + 1) * c);
+    // move second row into first row spot
+    this.data.copyWithin(i * c, j * c, (j + 1) * c);
+    // copy first row back into second row spot
+    this.data.set(copy, j * c);
 
     return this;
   };
@@ -596,7 +601,8 @@
         c = this.shape[1];
 
     for(var i = 0; i < r; i++)
-      result.push('[' + this.data.subarray(i * c, i * c + r).toString() + ']');
+      // get string version of current row and store it
+      result.push('[' + this.data.subarray(i * c, (i + 1) * c ).toString() + ']');
 
     return '[' + result.join(', \n') + ']';
   };
@@ -610,7 +616,8 @@
         c = this.shape[1];
 
     for(var i = 0; i < r; i++)
-      result.push(Array.prototype.slice.call(this.data.subarray(i * c, i * c + r)));
+      // copy current row into a native array and store it
+      result.push(Array.prototype.slice.call(this.data.subarray(i * c, (i + 1) * c)));
 
     return result;
   };
