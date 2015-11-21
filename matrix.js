@@ -481,7 +481,7 @@
   // ?> gets the determinant of any square matrix using LU factorization
   // => returns the determinant of the matrix
   Matrix.prototype.determinant = function() {
-    if(this.rows.length !== this.rows[0].length)
+    if(this.shape[0] !== this.shape[1])
       throw new Error('matrix is not square');
 
     var lu = this.lu();
@@ -491,7 +491,7 @@
 
     var sum = 0,
         product = 1,
-        l = this.rows.length,
+        l = this.shape[0],
         i, j;
 
     for(i = 0; i < l; i++)
