@@ -549,7 +549,11 @@
     if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    return this.data[i*this.shape[1]+j];
+    if(!this.transposed){
+      return this.data[i*this.shape[1]+j];
+    } else {
+      return this.data[j*this.shape[1]+i];
+    }
   };
 
   // Matrix.prototype.set
