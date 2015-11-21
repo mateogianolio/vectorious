@@ -7,6 +7,7 @@
     var self = this;
 
     self.shape = [];
+    self.transposed = false;
 
     if(data instanceof Float64Array && options.shape){
 
@@ -26,6 +27,7 @@
       self.shape = [data.shape[0], data.shape[1]];
       self.data = new Float64Array(data.data);
       self.type = Float64Array;
+      self.transposed = data.transposed;
 
       return self;
     }
@@ -37,6 +39,7 @@
     self.shape = shape;
     self.data = data;
     self.type = Float64Array;
+    self.transposed = false;
 
     return self;
   }
@@ -202,14 +205,12 @@
   // ?> transposes a matrix (mirror across the diagonal)
   // => returns a new resultant transposed matrix
   Matrix.prototype.transpose = function() {
-    var l = this.rows.length,
-        m = this.rows[0].length;
-
-    var result = Matrix.zeros(m, l),
-        i, j;
-    for(i = 0; i < l; i++)
-      for(j = 0; j < m; j++)
-        result.set(j, i, this.get(i, j));
+    var result = new Matrix(this);
+    // flag as transposed
+    result.transposed = !this.transposed;
+    // swap row and column counts
+    result.shape[0] = this.shape[1];
+    result.shape[1] = this.shape[0];
 
     return result;
   };
