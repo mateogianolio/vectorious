@@ -474,12 +474,12 @@
   Matrix.prototype.diag = function() {
     var r = this.shape[0],
         c = this.shape[1],
-        result = [];
+        data = new Float64Array(Math.min(r, c));
 
     for(var i = 0; i < r && i < c; i++)
-      result.push(this.data[i * c + i]);
+      data[i] = this.data[i * c + i];
 
-    return Vector.construct(result);
+    return new Vector(data);
   };
 
   // Matrix.prototype.determinant
