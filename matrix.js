@@ -267,7 +267,7 @@
         return new Error('matrix is singular');
 
       j = i;
-      while(copy.get(j, lead) === 0) {
+      while(copy.data[j * m + lead] === 0) {
         j++;
         if(l === j) {
           j = i;
@@ -280,7 +280,7 @@
 
       copy.swap(i, j);
 
-      pivot = copy.get(i, lead);
+      pivot = copy.data[i * m + lead];
       if(pivot !== 0){
         // scale down the row by value of pivot
         for(k = 0; k < m; k++)
@@ -304,7 +304,7 @@
       pivot = 0;
       for(j = 0; j < m; j++)
         if(!pivot)
-          pivot = copy.get(i, j);
+          pivot = copy.data[i * m + j];
 
       if(pivot)
         // scale down the row by value of pivot
