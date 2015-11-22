@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "2.2.4",
+  "version": "3.0.0",
   "description": "A generalized n-dimensional matrix and vector library in JavaScript.",
   "main": "vectorious.js",
   "scripts": {
