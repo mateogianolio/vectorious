@@ -461,7 +461,7 @@
         i, j;
     for(i = 0; i < size; i++) {
       for(j = 0; j < size; j++) {
-        magic.set(size - i - 1, size - j - 1, f(size, size - j - 1, i) * size + f(size, j, i) + 1);
+        magic.data[(size - i - 1) * size + (size - j - 1)] = f(size, size - j - 1, i) * size + f(size, j, i) + 1;
       }
     }
 
