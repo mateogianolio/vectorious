@@ -146,7 +146,14 @@
 
 
     var data = new Float64Array(i * j);
-    data.fill(0.0);
+    if(data.fill){
+      // fill not implmeneted on chrome version 43
+      data.fill(0.0);
+    } else {
+      for(var k = 0; k < i * j; k++){
+        data[k] = +0.0;
+      }
+    }
 
     return Matrix.fromFloat64Array(data, [i, j]);
   };
@@ -161,7 +168,14 @@
 
 
     var data = new Float64Array(i * j);
-    data.fill(1.0);
+    if(data.fill){
+      // fill not implmeneted on chrome version 43
+      data.fill(1.0);
+    } else {
+      for(var k = 0; k < i * j; k++){
+        data[k] = +1.0;
+      }
+    }
 
     return Matrix.fromFloat64Array(data, [i, j]);
   };
