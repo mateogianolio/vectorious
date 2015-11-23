@@ -186,7 +186,7 @@
           assert.deepEqual(c, a.multiply(b));
           assert.deepEqual(d, b.multiply(a));
           assert.deepEqual(f, e.multiply(e));
-          assert.deepEqual(i, g.multiply(h))
+          assert.deepEqual(i, g.multiply(h));
         });
       });
 
