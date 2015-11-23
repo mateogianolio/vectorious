@@ -3,18 +3,21 @@
 
   var Vector = require('./vector.js');
 
-  function Matrix(data, options) {
+  function Matrix (data, options) {
     var self = this;
 
+    self.type = Float64Array;
     self.shape = [];
 
-    if (data instanceof Float64Array && options.shape) {
+    if (typeof data === 'object' &&
+        Object.prototype.toString.call(data.buffer) === '[object ArrayBuffer]' &&
+        options.shape) {
       if (data.length !== options.shape[0] * options.shape[1])
         throw "Shape does not match typed array dimensions.";
 
       self.shape = options.shape;
       self.data = data;
-      self.type = Float64Array;
+      self.type = data.constructor;
 
       return self;
     } else if (Object.prototype.toString.call(data) === '[object Array]') {
@@ -26,19 +29,19 @@
     } else if (data instanceof Matrix) {
       // copy contructor
       self.shape = [data.shape[0], data.shape[1]];
-      self.data = new Float64Array(data.data);
-      self.type = Float64Array;
+      self.data = new data.type(data.data);
+      self.type = data.type;
 
       return self;
     }
 
   }
 
-  Matrix.fromFloat64Array = function (data, shape) {
+  Matrix.fromTypedArray = function (data, shape) {
     var self = Object.create(Matrix.prototype);
     self.shape = shape;
     self.data = data;
-    self.type = Float64Array;
+    self.type = data.constructor;
 
     return self;
   };
@@ -58,7 +61,7 @@
       for (var jj = 0; jj < shape[1]; ++jj)
         data[ii*c + jj] = array[ii][jj];
 
-    return Matrix.fromFloat64Array(data, shape);
+    return Matrix.fromTypedArray(data, shape);
   };
 
   // Matrix(.prototype).add
@@ -77,13 +80,13 @@
     if (r !== matrix.shape[0] || c !== matrix.shape[1])
       throw new Error('sizes do not match: ' + r + 'x' + c + ', ' + matrix.shape[0] + 'x' + matrix.shape[1]);
 
-    var data = new Float64Array(r * c);
+    var data = new this.type(r * c);
 
     for (var ii = 0; ii < r; ii++)
       for (var jj = 0; jj < c; jj++)
         data[ii*c + jj] = d1[ii*c + jj] + d2[ii*c + jj];
 
-    return Matrix.fromFloat64Array(data, this.shape);
+    return Matrix.fromTypedArray(data, this.shape);
   };
 
   // Matrix(.prototype).subtract
@@ -102,13 +105,13 @@
       if (r !== matrix.shape[0] || c !== matrix.shape[1])
         throw new Error('sizes do not match');
 
-      var data = new Float64Array(r * c);
+      var data = new this.type(r * c);
 
       for (var ii = 0; ii < r; ii++)
         for (var jj = 0; jj < c; jj++)
           data[ii*c + jj] = d1[ii*c + jj] - d2[ii*c + jj];
 
-      return Matrix.fromFloat64Array(data, this.shape);
+      return Matrix.fromTypedArray(data, this.shape);
   };
 
   // Matrix.prototype.scale
@@ -119,13 +122,13 @@
         c = this.shape[1],          // columns in this matrix
         d1 = this.data;
 
-    var data = new Float64Array(r * c);
+    var data = new this.type(r * c);
 
     for (var ii = 0; ii < r; ii++)
       for (var jj = 0; jj < c; jj++)
         data[ii*c + jj] = d1[ii*c + jj] * scalar;
 
-    return Matrix.fromFloat64Array(data, this.shape);
+    return Matrix.fromTypedArray(data, this.shape);
   };
 
   // Matrix.zeros
@@ -136,7 +139,8 @@
     if (i <= 0 || j <= 0)
       throw new Error('invalid size');
 
-    var data = new Float64Array(i * j);
+    type = type ? type : Float64Array;
+    var data = new type(i * j);
     if (data.fill) {
       // fill not implmeneted on chrome version 43
       data.fill(0.0);
@@ -145,7 +149,7 @@
         data[k] = +0.0;
     }
 
-    return Matrix.fromFloat64Array(data, [i, j]);
+    return Matrix.fromTypedArray(data, [i, j]);
   };
 
   // Matrix.ones
@@ -156,7 +160,8 @@
     if (i <= 0 || j <= 0)
       throw new Error('invalid size');
 
-    var data = new Float64Array(i * j);
+    type = type ? type : Float64Array;
+    var data = new type(i * j);
     if (data.fill) {
       // fill not implmeneted on chrome version 43
       data.fill(1.0);
@@ -165,7 +170,7 @@
         data[k] = +1.0;
     }
 
-    return Matrix.fromFloat64Array(data, [i, j]);
+    return Matrix.fromTypedArray(data, [i, j]);
   };
 
   // Matrix(.prototype).multiply
@@ -186,8 +191,8 @@
     if (c1 !== r2)
       throw new Error('sizes do not match');
 
-    var out = Matrix.fromFloat64Array(
-      new Float64Array(this.shape[0] * matrix.shape[1]),
+    var out = Matrix.fromTypedArray(
+      new this.type(this.shape[0] * matrix.shape[1]),
       [this.shape[0], matrix.shape[1]]
     );
     var data = out.data;
@@ -212,12 +217,12 @@
     var r = this.shape[0],
         c = this.shape[1];
 
-    var data = new Float64Array(c * r);
+    var data = new this.type(c * r);
     for (var i = 0; i < r; i++)
       for (var j = 0; j < c; j++)
         data[j * r + i] = this.data[i * c + j];
 
-    return Matrix.fromFloat64Array(data, [c, r]);
+    return Matrix.fromTypedArray(data, [c, r]);
   };
 
   // Matrix.prototype.inverse
@@ -410,7 +415,7 @@
     if (r1 !== r2)
       throw new Error("Rows do not match.");
 
-    var data = new Float64Array((c1 + c2) * r1);
+    var data = new this.type((c1 + c2) * r1);
 
     for (i = 0; i < r1; i++)
       for (j = 0; j < c1; j++)
@@ -434,7 +439,7 @@
     if (size < 0)
       throw new Error('invalid size');
 
-    type = type !== undefined ? type : Float64Array;
+    type = type ? type : Float64Array;
     var matrix = Matrix.zeros(size, size, type),
         i, j;
     for (i = 0; i < size; i++)
@@ -455,7 +460,7 @@
       return (x + y * 2 + 1) % n;
     }
 
-    type = type !== undefined ? type : Float64Array;
+    type = type ? type : Float64Array;
     var magic = Matrix.zeros(size, size, type),
         i, j;
     for (i = 0; i < size; i++)
@@ -472,12 +477,12 @@
   Matrix.prototype.diag = function () {
     var r = this.shape[0],
         c = this.shape[1],
-        data = new Float64Array(Math.min(r, c));
+        data = new this.type(Math.min(r, c));
 
     for (var i = 0; i < r && i < c; i++)
       data[i] = this.data[i * c + i];
 
-    return new Vector(data);
+    return new Vector(this.type, data);
   };
 
   // Matrix.prototype.determinant
