@@ -42,7 +42,7 @@ $ npm run benchmark
 Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-2.x.x.js"></script>
+<script src="vectorious-3.0.0.js"></script>
 <script>
   // e.g. var vector = new vectorious.Vector()
 </script>
