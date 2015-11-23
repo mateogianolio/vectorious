@@ -16,7 +16,7 @@ Vectorious is a high performance linear algebra library written in Javascript, w
     * [2.2.0](#220)
 
 
-## Installation [&uarr;](#vectorious)
+## [&uarr;](#vectorious) Installation
 
 Install with ```npm```
 
@@ -36,7 +36,7 @@ Run benchmarks with
 $ npm run benchmark
 ```
 
-#### For the browser [&uarr;](#vectorious)
+#### [&uarr;](#vectorious) For the browser
 
 Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
@@ -47,12 +47,12 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 </script>
 ```
 
-## Extensions [&uarr;](#vectorious)
+## [&uarr;](#vectorious) Extensions
 
 * [**Solve**](https://github.com/mateogianolio/vectorious-solve) &mdash; *Solves matrix equations of the form Ax = B.*
 * [**Plot**](https://github.com/mateogianolio/vectorious-plot) &mdash; *Generates a two-dimensional SVG plot from two input vectors.*
 
-## Usage [&uarr;](#vectorious)
+## [&uarr;](#vectorious) Usage
 
 The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments.
 
@@ -68,29 +68,40 @@ var vector,
 
 // Create an empty vector of default type Float64Array
 vector = new Vector();
+// Vector { type: [Function: Float64Array], length: 0 }
 
 // Create an empty vector of type Uint8Array
 vector = new Vector(Uint8Array);
+// Vector { type: [Function: Uint8Array], length: 0 }
 
 matrix = new Matrix();
-// { rows: [] }
+// Matrix { type: [Function: Float64Array], shape: [] }
 
 vector = Vector.zeros(5);
-// { values: [0, 0, 0, 0, 0], length: 5 }
+/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */
 
 vector = new Vector(1, 2, 3, 4, 5);
-// { values: [1, 2, 3, 4, 5], length: 5 }
+/* Vector {
+  type: [Function: Float64Array],
+  length: 5,
+  buffer: ArrayBuffer {},
+  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */
 
 matrix = new Matrix(vector);
-// { rows: [ { values: [1, 2, 3, 4, 5], length: 5 } ] }
+/* Matrix {
+  type: [Function: Float64Array],
+  shape: [ 5, 1 ],
+  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */
 
 matrix = Matrix.zeros(2, 2);
-/* {
-  rows: [
-    { values: [0, 0], length: 2 },
-    { values: [0, 0], length: 2 }
-  ]
-} */
+/* Matrix {
+  shape: [ 2, 2 ],
+  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
+  type: [Function: Float64Array] } */
 
 var input = [
   [1, 2],
@@ -98,12 +109,10 @@ var input = [
 ];
 
 matrix = new Matrix(input);
-/* {
-  rows: [
-    { values: [1, 2], length: 2 },
-    { values: [3, 4], length: 2 }
-  ]
-} */
+/* Matrix {
+  shape: [ 2, 2 ],
+  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4 },
+  type: [Function: Float64Array] } */
 ```
 
 Now that you've got a hang of the basics, let me show you a useful application example.
@@ -146,7 +155,7 @@ var sine = time.map(Math.sin);
 
 For more advanced uses, check out the extensions [solve](https://github.com/mateogianolio/vectorious-solve) and [plot](https://github.com/mateogianolio/vectorious-plot).
 
-## Vector [&uarr;](#vectorious)
+## [&uarr;](#vectorious) Vector
 
 The following vector operations and methods are implemented in ```vector.js```.
 
@@ -378,7 +387,7 @@ Vector.prototype.toArray = function()
 
 Convert vector to array.
 
-## Matrix [&uarr;](#vectorious)
+## [&uarr;](#vectorious) Matrix
 
 The following matrix operations and methods are implemented in ```matrix.js```.
 
@@ -638,7 +647,7 @@ Matrix.prototype.toArray = function()
 
 Convert matrix to array.
 
-## Benchmarks [&uarr;](#vectorious)
+## [&uarr;](#vectorious) Benchmarks
 
 #### [2.0.0](https://github.com/mateogianolio/vectorious/releases/tag/2.0.0)
 
