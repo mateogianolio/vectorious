@@ -24,7 +24,7 @@
     } else if (Object.prototype.toString.call(data) === '[object Array]') {
       return Matrix.fromArray(data);
     } else if (data instanceof Vector) {
-      self.shape = [data.length, 1];
+      self.shape = options && options.shape ? options.shape : [data.length, 1];
       self.data = data.values;
       self.type = data.type;
     } else if (data instanceof Matrix) {
