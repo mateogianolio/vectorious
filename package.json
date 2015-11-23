@@ -1,7 +1,7 @@
 {
   "name": "vectorious",
   "version": "3.0.0",
-  "description": "A generalized n-dimensional matrix and vector library in JavaScript.",
+  "description": "A high performance linear algebra library written in Javascript.",
   "main": "vectorious.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
