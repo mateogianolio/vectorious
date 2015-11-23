@@ -4,16 +4,17 @@
 
 Vectorious is a high performance linear algebra library written in Javascript, which can be used both in node.js and the browser.
 
-* [Installation](#installation-)
-    * [For the browser](#for-the-browser-)
-* [Extensions](#extensions-)
-* [Usage](#usage-)
-* [Vector](#vector-)
-* [Matrix](#matrix-)
-* [Benchmarks](#benchmarks-)
+* [Installation](#-installation)
+    * [For the browser](#-for-the-browser)
+* [Extensions](#-extensions)
+* [Usage](#-usage)
+* [Vector](#-vector)
+* [Matrix](#-matrix)
+* [Benchmarks](#-benchmark-)
     * [2.0.0](#200)
     * [2.1.0](#210)
     * [2.2.0](#220)
+    * [3.0.0](#300)
 
 
 ## [&uarr;](#vectorious) Installation
@@ -771,4 +772,47 @@ a.transpose() x 2,455 ops/sec ±3.29% (83 runs sampled)
 a.gauss() x 396 ops/sec ±2.72% (89 runs sampled)
 a.diag() x 945 ops/sec ±1.66% (89 runs sampled)
 a.trace() x 940 ops/sec ±1.74% (94 runs sampled)
+```
+
+#### [3.0.0](https://github.com/mateogianolio/vectorious/releases/tag/3.0.0)
+
+```
+$ npm run benchmark
+
+> vectorious@3.0.0 benchmark /Users/mg/Projects/javascript/vectorious
+> node ./benchmarks/vector.js && node ./benchmarks/matrix.js
+
+a = Vector.ones(1024)
+b = Vector.ones(1024).scale(2)
+
+Vector.zeros(1024) x 175,737 ops/sec ±3.88% (74 runs sampled)
+Vector.ones(1024) x 176,791 ops/sec ±3.55% (75 runs sampled)
+Vector.range(0, 1024) x 51,848 ops/sec ±2.50% (85 runs sampled)
+Vector.combine(a, b) x 12,330 ops/sec ±2.19% (89 runs sampled)
+a.add(b) x 102,070 ops/sec ±8.98% (70 runs sampled)
+a.subtract(b) x 101,471 ops/sec ±9.76% (67 runs sampled)
+a.scale(Math.random()) x 98,315 ops/sec ±18.46% (62 runs sampled)
+a.normalize() x 90,807 ops/sec ±11.18% (68 runs sampled)
+a.dot(b) x 675,131 ops/sec ±0.64% (95 runs sampled)
+a.magnitude() x 780,969 ops/sec ±4.75% (72 runs sampled)
+a.angle(b) x 262,190 ops/sec ±2.46% (90 runs sampled)
+a.project(b) x 82,436 ops/sec ±9.08% (70 runs sampled)
+
+data = randomArray(128, 128)
+a = Matrix(data)
+b = Matrix(data).scale(2)
+
+Matrix.identity(128) x 9,410 ops/sec ±6.46% (77 runs sampled)
+Matrix.magic(128) x 2,113 ops/sec ±6.80% (81 runs sampled)
+Matrix.zeros(128, 128) x 9,431 ops/sec ±6.51% (80 runs sampled)
+Matrix.ones(128, 128) x 9,533 ops/sec ±6.19% (83 runs sampled)
+Matrix.augment(a, b) x 3,324 ops/sec ±6.00% (80 runs sampled)
+a.add(b) x 9,160 ops/sec ±6.62% (79 runs sampled)
+a.subtract(b) x 9,350 ops/sec ±6.23% (85 runs sampled)
+a.scale(Math.random()) x 9,605 ops/sec ±6.50% (80 runs sampled)
+a.multiply(b) x 207 ops/sec ±1.00% (88 runs sampled)
+a.transpose() x 7,366 ops/sec ±4.43% (83 runs sampled)
+a.gauss() x 103 ops/sec ±2.37% (54 runs sampled)
+a.diag() x 513,075 ops/sec ±7.01% (60 runs sampled)
+a.trace() x 412,940 ops/sec ±7.39% (68 runs sampled)
 ```
