@@ -7,7 +7,6 @@
     var self = this;
 
     self.shape = [];
-    self.transposed = false;
 
     if(data instanceof Float64Array && options.shape){
 
@@ -27,7 +26,6 @@
       self.shape = [data.shape[0], data.shape[1]];
       self.data = new Float64Array(data.data);
       self.type = Float64Array;
-      self.transposed = data.transposed;
 
       return self;
     }
@@ -39,7 +37,6 @@
     self.shape = shape;
     self.data = data;
     self.type = Float64Array;
-    self.transposed = false;
 
     return self;
   }
@@ -219,14 +216,19 @@
   // ?> transposes a matrix (mirror across the diagonal)
   // => returns a new resultant transposed matrix
   Matrix.prototype.transpose = function() {
-    var result = new Matrix(this);
-    // flag as transposed
-    result.transposed = !this.transposed;
-    // swap row and column counts
-    result.shape[0] = this.shape[1];
-    result.shape[1] = this.shape[0];
+    var r = this.shape[0],
+        c = this.shape[1];
 
-    return result;
+    var data = new Float64Array(c * r);
+
+    for(var i = 0; i < r; i++){
+      for(var j = 0; j < c; j++){
+        data[j * r + i] = this.data[i * c + j];
+      }
+    }
+
+    return Matrix.fromFloat64Array(data, [c, r]);
+
   };
 
   // Matrix.prototype.inverse
@@ -563,11 +565,8 @@
     if(i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    if(!this.transposed){
-      return this.data[i*this.shape[1]+j];
-    } else {
-      return this.data[j*this.shape[1]+i];
-    }
+    return this.data[i*this.shape[1]+j];
+
   };
 
   // Matrix.prototype.set

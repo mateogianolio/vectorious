@@ -7,6 +7,21 @@
   var Matrix = vectorious.Matrix;
   var Vector = vectorious.Vector;
 
+  function randomArray(N, M){
+
+    var data = [];
+
+    for(var i = 0; i < N; i++){
+      var row = [];
+      for(var j = 0; j < M; j++){
+          row[j] = Math.random();
+      }
+      data.push(row);
+    }
+
+    return data;
+  }
+
   describe('Matrix', function() {
     describe('Matrix.add(a, b)', function() {
       it('should work as the static equivalent of a.add(b)', function() {
@@ -180,15 +195,18 @@
         var b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
         var c = new Matrix([[1], [2]]);
         var d = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
+        var e = new Matrix(randomArray(20, 20));
 
-        it('should compose properly with accessors', function() {
+        it('should work as expected', function() {
 
-          for(var i = 0; i < c.shape[0]; i++){
-            for(var j = 0; j < c.shape[1]; j++){
-              assert.equal(c.get(i, j), a.transpose().get(i, j));
-              assert.equal(d.get(i, j), b.transpose().get(i, j));
-            }
-          }
+          assert.deepEqual(a, c.transpose());
+          assert.deepEqual(c, a.transpose());
+
+          assert.deepEqual(b, d.transpose());
+          assert.deepEqual(d, b.transpose());
+
+          assert.deepEqual(e, e.transpose().transpose());
+
         });
       });
 
