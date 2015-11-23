@@ -5,16 +5,23 @@
 
   var Matrix = vectorious.Matrix;
 
-  var N = 128;
-  var data = [];
+  function randomArray(N, M){
 
-  for(var i = 0; i < N; i++){
-    var row = [];
-    for(var j = 0; j < N; j++){
-        row[j] = Math.random();
+    var data = [];
+
+    for(var i = 0; i < N; i++){
+      var row = [];
+      for(var j = 0; j < M; j++){
+          row[j] = Math.random();
+      }
+      data.push(row);
     }
-    data.push(row);
+
+    return data;
   }
+
+  var N = 128;
+  var data = randomArray(N, N);
 
   var a = new Matrix(data),
       b = new Matrix(data).scale(2);
