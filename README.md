@@ -2,7 +2,7 @@
 
 ![npm version](https://img.shields.io/npm/v/vectorious.svg?style=flat-square) ![npm downloads](https://img.shields.io/npm/dm/vectorious.svg?style=flat-square) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat-square)
 
-Vectorious is a generalized n-dimensional matrix and vector library written in JavaScript, which can be used both in node.js and the browser.
+Vectorious is a high performance linear algebra library written in Javascript, which can be used both in node.js and the browser.
 
 * [Installation](#installation-)
     * [For the browser](#for-the-browser-)

@@ -2,16 +2,35 @@
   var Benchmark = require('benchmark'),
       vectorious = require('../vectorious'),
       suite = new Benchmark.Suite;
-  
+
   var Matrix = vectorious.Matrix;
-  
-  var a = Matrix.ones(128, 128),
-      b = Matrix.ones(128, 128).scale(2);
-  
-  log('a = Matrix.ones(128, 128)');
-  log('b = Matrix.ones(128, 128).scale(2)');
+
+  function randomArray(N, M){
+
+    var data = [];
+
+    for(var i = 0; i < N; i++){
+      var row = [];
+      for(var j = 0; j < M; j++){
+          row[j] = Math.random();
+      }
+      data.push(row);
+    }
+
+    return data;
+  }
+
+  var N = 128;
+  var data = randomArray(N, N);
+
+  var a = new Matrix(data),
+      b = new Matrix(data).scale(2);
+
+  log('data = randomArray(128, 128)')
+  log('a = Matrix(data)');
+  log('b = Matrix(data).scale(2)');
   log();
-  
+
   suite
     .add('Matrix.identity(128)', function() {
       Matrix.identity(128);
