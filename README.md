@@ -68,14 +68,14 @@ var vector,
 
 // Create an empty vector of default type Float64Array
 vector = new Vector();
-// Vector { type: [Function: Float64Array], length: 0 }
+/* Vector { type: [Function: Float64Array], length: 0 } */
 
 // Create an empty vector of type Uint8Array
 vector = new Vector(Uint8Array);
-// Vector { type: [Function: Uint8Array], length: 0 }
+/* Vector { type: [Function: Uint8Array], length: 0 } */
 
 matrix = new Matrix();
-// Matrix { type: [Function: Float64Array], shape: [] }
+/* Matrix { type: [Function: Float64Array], shape: [] } */
 
 vector = Vector.zeros(5);
 /* Vector {
@@ -119,38 +119,44 @@ Now that you've got a hang of the basics, let me show you a useful application e
 
 ```javascript
 var time = Vector.range(0, Math.PI / 12, Math.PI);
-/* {
+/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
   values:
-   [ 0,
-     0.2617993877991494,
-     0.5235987755982988,
-     0.7853981633974483,
-     1.0471975511965976,
-     1.308996938995747,
-     1.5707963267948963,
-     1.8325957145940457,
-     2.0943951023931953,
-     2.356194490192345,
-     2.6179938779914944,
-     2.879793265790644 ],
-  length: 12 } */
+   Float64Array {
+     '0': 0,
+     '1': 0.2617993877991494,
+     '2': 0.5235987755982988,
+     '3': 0.7853981633974483,
+     '4': 1.0471975511965976,
+     '5': 1.308996938995747,
+     '6': 1.5707963267948963,
+     '7': 1.8325957145940457,
+     '8': 2.0943951023931953,
+     '9': 2.356194490192345,
+     '10': 2.6179938779914944,
+     '11': 2.879793265790644 } } */
 
 var sine = time.map(Math.sin);
-/* {
+/* Vector {
+  type: [Function: Float64Array],
+  length: 12,
+  buffer: ArrayBuffer {},
   values:
-   [ 0,
-     0.25881904510252074,
-     0.49999999999999994,
-     0.7071067811865475,
-     0.8660254037844386,
-     0.9659258262890682,
-     1,
-     0.9659258262890684,
-     0.8660254037844387,
-     0.7071067811865476,
-     0.49999999999999994,
-     0.2588190451025206 ],
-  length: 12 } */
+   Float64Array {
+     '0': 0,
+     '1': 0.25881904510252074,
+     '2': 0.49999999999999994,
+     '3': 0.7071067811865475,
+     '4': 0.8660254037844386,
+     '5': 0.9659258262890682,
+     '6': 1,
+     '7': 0.9659258262890684,
+     '8': 0.8660254037844387,
+     '9': 0.7071067811865476,
+     '10': 0.49999999999999994,
+     '11': 0.2588190451025206 } } */
 ```
 
 For more advanced uses, check out the extensions [solve](https://github.com/mateogianolio/vectorious-solve) and [plot](https://github.com/mateogianolio/vectorious-plot).
