@@ -10,6 +10,7 @@
     self.shape = [];
 
     if (typeof data === 'object' &&
+        !(data instanceof Vector) &&
         Object.prototype.toString.call(data.buffer) === '[object ArrayBuffer]' &&
         options.shape) {
       if (data.length !== options.shape[0] * options.shape[1])
