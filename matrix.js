@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  var Vector = require('./vector.js');
+  var Vector = require('./vector.js'),
+      nblas = require('nblas');
 
   function Matrix (data, options) {
     var self = this;
@@ -83,9 +84,17 @@
 
     var data = new this.type(r * c);
 
-    for (var ii = 0; ii < r; ii++)
-      for (var jj = 0; jj < c; jj++)
-        data[ii*c + jj] = d1[ii*c + jj] + d2[ii*c + jj];
+    if (this.type === Float64Array) {
+      nblas.dcopy(r * c, d1, 1, data, 1);
+      nblas.daxpy(r * c, 1, d2, 1, data, 1);
+    } else if (this.type === Float32Array) {
+      nblas.scopy(r * c, d1, 1, data, 1);
+      nblas.saxpy(r * c, 1, d2, 1, data, 1);
+    } else {
+      for (var ii = 0; ii < r; ii++)
+        for (var jj = 0; jj < c; jj++)
+          data[ii*c + jj] = d1[ii*c + jj] + d2[ii*c + jj];
+    }
 
     return Matrix.fromTypedArray(data, this.shape);
   };
@@ -108,9 +117,17 @@
 
       var data = new this.type(r * c);
 
-      for (var ii = 0; ii < r; ii++)
-        for (var jj = 0; jj < c; jj++)
-          data[ii*c + jj] = d1[ii*c + jj] - d2[ii*c + jj];
+      if (this.type === Float64Array) {
+        nblas.dcopy(r * c, d1, 1, data, 1);
+        nblas.daxpy(r * c, -1, d2, 1, data, 1);
+      } else if (this.type === Float32Array) {
+        nblas.scopy(r * c, d1, 1, data, 1);
+        nblas.saxpy(r * c, -1, d2, 1, data, 1);
+      } else {
+        for (var ii = 0; ii < r; ii++)
+          for (var jj = 0; jj < c; jj++)
+            data[ii*c + jj] = d1[ii*c + jj] - d2[ii*c + jj];
+      }
 
       return Matrix.fromTypedArray(data, this.shape);
   };
@@ -125,9 +142,15 @@
 
     var data = new this.type(r * c);
 
-    for (var ii = 0; ii < r; ii++)
-      for (var jj = 0; jj < c; jj++)
-        data[ii*c + jj] = d1[ii*c + jj] * scalar;
+    if (this.type === Float64Array) {
+      nblas.daxpy(r * c, scalar, d1, 1, data, 1);
+    } else if (this.type === Float32Array) {
+      nblas.saxpy(r * c, scalar, d1, 1, data, 1);
+    } else {
+      for (var ii = 0; ii < r; ii++)
+        for (var jj = 0; jj < c; jj++)
+          data[ii*c + jj] = d1[ii*c + jj] * scalar;
+    }
 
     return Matrix.fromTypedArray(data, this.shape);
   };

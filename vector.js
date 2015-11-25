@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  var memcpy = require('./memcpy');
+  var memcpy = require('./memcpy'),
+      nblas = require('nblas');
 
   function Vector () {
     var self = this;
@@ -50,9 +51,21 @@
     if (this.length !== vector.length)
       throw new Error('sizes do not match!');
 
+    if (!this.length && !vector.length)
+      return this;
+
+    var a = this.values,
+        b = vector.values.slice(0);
+
+    if (this.type === Float64Array) {
+      nblas.daxpy(this.length, 1, a, 1, b, 1);
+      return new Vector(b);
+    } else if (this.type === Float32Array) {
+      nblas.saxpy(this.length, 1, a, 1, b, 1);
+      return new Vector(Float32Array, b);
+    }
+
     var result = Vector.zeros(this.length),
-        a = this.values,
-        b = vector.values,
         i, l;
     for (i = 0, l = this.length; i < l; i++)
       result.values[i] = a[i] + b[i];
@@ -70,9 +83,21 @@
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
 
+    if (!this.length && !vector.length)
+      return this;
+
+    var a = this.values.slice(0),
+        b = vector.values;
+
+    if (this.type === Float64Array) {
+      nblas.daxpy(this.length, -1, b, 1, a, 1);
+      return new Vector(a);
+    } else if (this.type === Float32Array) {
+      nblas.saxpy(this.length, -1, b, 1, a, 1);
+      return new Vector(Float32Array, a);
+    }
+
     var result = Vector.zeros(this.length),
-        a = this.values,
-        b = vector.values,
         i, l;
     for (i = 0, l = this.length; i < l; i++)
       result.values[i] = a[i] - b[i];
@@ -84,10 +109,11 @@
   // ?> multiplies all elements of a vector with a specified scalar
   // => returns a new resultant scaled vector
   Vector.prototype.scale = function (scalar) {
-    var result = Vector.zeros(this.length),
+    var l = this.length,
+        result = Vector.zeros(l),
         values = this.values,
-        i, l;
-    for (i = 0, l = this.length; i < l; i++)
+        i;
+    for (i = l - 1; i >= 0; i--)
       result.values[i] = values[i] * scalar;
 
     return result;
@@ -219,9 +245,15 @@
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
 
+    var a = this.values,
+        b = vector.values;
+
+    if (this.type === Float64Array)
+      return nblas.ddot(this.length, a, 1, b, 1);
+    else if (this.type === Float32Array)
+      return nblas.sdot(this.length, a, 1, b, 1);
+
     var result = 0,
-        a = this.values,
-        b = vector.values,
         i, l;
 
     for (i = 0, l = this.length; i < l; i++)
@@ -339,7 +371,7 @@
   Vector.prototype.combine = function (vector) {
     if (!vector.length)
       return this;
-    else if (!(this.values instanceof this.type)) {
+    else if (!this.length) {
       this.buffer = new ArrayBuffer(vector.buffer.byteLength);
       this.type = vector.type;
       memcpy(this.buffer, vector.buffer);

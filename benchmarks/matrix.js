@@ -1,7 +1,9 @@
 (function(log) {
+  'use strict';
+
   var Benchmark = require('benchmark'),
       vectorious = require('../vectorious'),
-      suite = new Benchmark.Suite;
+      suite = new Benchmark.Suite();
 
   var Matrix = vectorious.Matrix;
 
@@ -26,7 +28,7 @@
   var a = new Matrix(data),
       b = new Matrix(data).scale(2);
 
-  log('data = randomArray(128, 128)')
+  log('data = randomArray(128, 128)');
   log('a = Matrix(data)');
   log('b = Matrix(data).scale(2)');
   log();
