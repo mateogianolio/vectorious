@@ -38,8 +38,5 @@
   "dependencies": {
     "mocha": "^2.2.1",
     "nblas": "github:mateogianolio/nblas",
-    "ndarray": "^1.0.18",
-    "ndarray-blas-level1": "^1.1.1",
-    "ndarray-blas-level2": "^1.0.2"
   }
 }
