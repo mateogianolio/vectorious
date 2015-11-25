@@ -3,8 +3,6 @@ node_js:
   - "4.0"
 before_install:
   - sudo apt-get install libblas-dev
-install:
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 env:
   - CXX=g++-4.8
 addons:
