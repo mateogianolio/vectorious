@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "mocha": "^2.2.1",
-    "nblas": "github:mateogianolio/nblas",
+    "nblas": "github:mateogianolio/nblas"
   }
 }

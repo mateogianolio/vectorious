@@ -109,10 +109,25 @@
   // ?> multiplies all elements of a vector with a specified scalar
   // => returns a new resultant scaled vector
   Vector.prototype.scale = function (scalar) {
-    var l = this.length,
-        result = Vector.zeros(l),
-        values = this.values,
+    var values = this.values,
+        l = this.length,
+        data;
+
+    if (this.type === Float64Array) {
+      data = new Float64Array(l);
+      nblas.dcopy(l, values, 1, data, 1);
+      nblas.dscal(l, scalar, data, 1);
+      return new Vector(data);
+    } else if (this.type === Float32Array) {
+      data = new Float32Array(l);
+      nblas.scopy(l, values, 1, data, 1);
+      nblas.dscal(l, scalar, data, 1);
+      return new Vector(data);
+    }
+
+    var result = Vector.zeros(l, this.type),
         i;
+
     for (i = l - 1; i >= 0; i--)
       result.values[i] = values[i] * scalar;
 
@@ -337,6 +352,11 @@
   // ?> gets the maximum value (largest) element of a vector
   // => returns the largest element of the vector
   Vector.prototype.max = function () {
+    if (this.type === Float64Array)
+      return this.values[nblas.idamax(this.length, this.values, 1)];
+    else if (this.type === Float32Array)
+      return this.values[nblas.isamax(this.length, this.values, 1)];
+
     var max = Number.NEGATIVE_INFINITY,
         values = this.values,
         value,
