@@ -68,7 +68,7 @@
   // ?> adds two matrices a and b together
   // => returns a new matrix containing the sum of a and b
   Matrix.add = function (a, b) {
-    return a.add(b);
+    return new Matrix(a).add(b);
   };
 
   Matrix.prototype.add = function (matrix) {
@@ -80,28 +80,24 @@
     if (r !== matrix.shape[0] || c !== matrix.shape[1])
       throw new Error('sizes do not match: ' + r + 'x' + c + ', ' + matrix.shape[0] + 'x' + matrix.shape[1]);
 
-    var data = new this.type(r * c);
-
     if (this.type === Float64Array) {
-      nblas.dcopy(r * c, d1, 1, data, 1);
-      nblas.daxpy(r * c, 1, d2, 1, data, 1);
+      nblas.daxpy(r * c, 1, d2, 1, d1, 1);
     } else if (this.type === Float32Array) {
-      nblas.scopy(r * c, d1, 1, data, 1);
-      nblas.saxpy(r * c, 1, d2, 1, data, 1);
+      nblas.saxpy(r * c, 1, d2, 1, d1, 1);
     } else {
       for (var ii = 0; ii < r; ii++)
         for (var jj = 0; jj < c; jj++)
-          data[ii*c + jj] = d1[ii*c + jj] + d2[ii*c + jj];
+          d1[ii*c + jj] += d2[ii*c + jj];
     }
 
-    return Matrix.fromTypedArray(data, this.shape);
+    return this;
   };
 
   // Matrix(.prototype).subtract
   // ?> subtracts the matrix b from matrix a
   // => returns a new matrix containing the difference between a and b
   Matrix.subtract = function (a, b) {
-    return a.subtract(b);
+    return new Matrix(a).subtract(b);
   };
 
   Matrix.prototype.subtract = function (matrix) {
@@ -113,44 +109,42 @@
       if (r !== matrix.shape[0] || c !== matrix.shape[1])
         throw new Error('sizes do not match');
 
-      var data = new this.type(r * c);
-
-      if (this.type === Float64Array) {
-        nblas.dcopy(r * c, d1, 1, data, 1);
-        nblas.daxpy(r * c, -1, d2, 1, data, 1);
-      } else if (this.type === Float32Array) {
-        nblas.scopy(r * c, d1, 1, data, 1);
-        nblas.saxpy(r * c, -1, d2, 1, data, 1);
-      } else {
+      if (this.type === Float64Array)
+        nblas.daxpy(r * c, -1, d2, 1, d1, 1);
+      else if (this.type === Float32Array)
+        nblas.saxpy(r * c, -1, d2, 1, d1, 1);
+      else {
         for (var ii = 0; ii < r; ii++)
           for (var jj = 0; jj < c; jj++)
-            data[ii*c + jj] = d1[ii*c + jj] - d2[ii*c + jj];
+            d1[ii*c + jj] -= d2[ii*c + jj];
       }
 
-      return Matrix.fromTypedArray(data, this.shape);
+      return this;
   };
 
   // Matrix.prototype.scale
   // ?> multiplies all elements of a matrix with a specified scalar
   // => returns a new resultant scaled matrix
+  Matrix.scale = function (a, scalar) {
+    return new Matrix(a).scale(scalar);
+  };
+
   Matrix.prototype.scale = function (scalar) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
         d1 = this.data;
 
-    var data = new this.type(r * c);
-
     if (this.type === Float64Array) {
-      nblas.daxpy(r * c, scalar, d1, 1, data, 1);
+      nblas.dscal(r * c, scalar, d1, 1);
     } else if (this.type === Float32Array) {
-      nblas.saxpy(r * c, scalar, d1, 1, data, 1);
+      nblas.sscal(r * c, scalar, d1, 1);
     } else {
       for (var ii = 0; ii < r; ii++)
         for (var jj = 0; jj < c; jj++)
-          data[ii*c + jj] = d1[ii*c + jj] * scalar;
+          d1[ii*c + jj] *= scalar;
     }
 
-    return Matrix.fromTypedArray(data, this.shape);
+    return this;
   };
 
   // Matrix.zeros
@@ -214,18 +208,25 @@
       throw new Error('sizes do not match');
 
     var out = Matrix.fromTypedArray(
-      new this.type(this.shape[0] * matrix.shape[1]),
-      [this.shape[0], matrix.shape[1]]
+      new this.type(r1 * c2),
+      [r1, c2]
     );
+
     var data = out.data;
 
-    for (var ii = 0; ii < r1; ii++) {
-      for (var jj = 0; jj < c2; jj++) {
-        var sum = +0;
-        for (var kk = 0; kk < c1; kk++)
-          sum += d1[ii*c1+kk] * d2[jj+kk*c2];
+    if (out.type === Float64Array) {
+      nblas.dgemm(101, 111, 111, r1, c2, c1, 1, d1, c1, d2, c2, 1, data, r1);
+    } else if (out.type === Float32Array)
+      nblas.sgemm(101, 111, 111, r1, c2, c1, 1, d1, c1, d2, c2, 1, data, r1);
+    else {
+      for (var ii = 0; ii < r1; ii++) {
+        for (var jj = 0; jj < c2; jj++) {
+          var sum = +0;
+          for (var kk = 0; kk < c1; kk++)
+            sum += d1[ii*c1+kk] * d2[jj+kk*c2];
 
-        data[ii*c2+jj] = sum;
+          data[ii*c2+jj] = sum;
+        }
       }
     }
 

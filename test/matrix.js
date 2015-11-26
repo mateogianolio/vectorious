@@ -43,8 +43,10 @@
 
     describe('Matrix.multiply(a, b)', function() {
       it('should work as the static equivalent of a.multiply(b)', function() {
-        var a = new Matrix([[1, 1, 1]]);
-        var b = new Matrix([[1], [2], [3]]);
+        var a = new Matrix([[1], [2], [3]]);
+        var b = new Matrix([[1, 1, 1]]);
+
+        console.log(a,b);
 
         assert.deepEqual(new Matrix(a).multiply(b), Matrix.multiply(a, b));
       });
