@@ -22,7 +22,7 @@
     return data;
   }
 
-  var N = 64;
+  var N = 4096;
   var data = randomArray(N, N);
 
   var a = new Matrix(data),
@@ -34,17 +34,17 @@
   log();
 
   suite
-    .add('Matrix.identity(128)', function() {
-      Matrix.identity(128);
+    .add('Matrix.identity(' + N + ')', function() {
+      Matrix.identity(N);
     })
-    .add('Matrix.magic(128)', function() {
-      Matrix.magic(128);
+    .add('Matrix.magic(' + N + ')', function() {
+      Matrix.magic(N);
     })
-    .add('Matrix.zeros(128, 128)', function() {
-      Matrix.zeros(128, 128);
+    .add('Matrix.zeros(' + N + ', ' + N + ')', function() {
+      Matrix.zeros(N, N);
     })
-    .add('Matrix.ones(128, 128)', function() {
-      Matrix.ones(128, 128);
+    .add('Matrix.ones(' + N + ', ' + N + ')', function() {
+      Matrix.ones(N, N);
     })
     .add('Matrix.augment(a, b)', function() {
       Matrix.augment(a, b);
@@ -63,9 +63,6 @@
     })
     .add('a.transpose()', function() {
       a.transpose();
-    })
-    .add('a.gauss()', function() {
-      a.gauss();
     })
     .add('a.diag()', function() {
       a.diag();

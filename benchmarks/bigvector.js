@@ -22,14 +22,14 @@
     return data;
   }
 
-  var N = 512;
+  var N = 262144;
   var data = randomArray(N);
   var a = Vector.ones(data),
-      b = Vector.ones(data);
+      b = Vector.ones(data).scale(2);
 
   log('data = randomArray(' + N + ')');
   log('a = Vector.ones(data)');
-  log('b = Vector.ones(data)');
+  log('b = Vector.ones(data).scale(2)');
   log();
 
   suite
