@@ -10,8 +10,7 @@
     self.type = Float64Array;
     self.shape = [];
 
-    if (typeof data === 'object' &&
-        !(data instanceof Vector) &&
+    if (data && data.buffer &&
         Object.prototype.toString.call(data.buffer) === '[object ArrayBuffer]' &&
         options.shape) {
       if (data.length !== options.shape[0] * options.shape[1])
@@ -36,7 +35,6 @@
 
       return self;
     }
-
   }
 
   Matrix.fromTypedArray = function (data, shape) {

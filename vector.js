@@ -16,15 +16,17 @@
 
       if (argument instanceof Vector) {
         self.combine(argument);
-      } else if (argument instanceof self.type) {
+      } else if (argument.buffer && argument.buffer &&
+        Object.prototype.toString.call(argument.buffer) === '[object ArrayBuffer]') {
         self.buffer = argument.buffer;
         self.values = argument;
         self.length = argument.length;
-      } else if (typeof argument === 'object')
+        self.type = argument.constructor;
+      } else if (typeof argument === 'object') {
         self.combine(Vector.construct(argument));
-      else if (typeof argument === 'function')
-        this.type = argument;
-      else
+      } else if (typeof argument === 'function') {
+        self.type = argument;
+      } else
         self.push(argument);
     }
 
@@ -45,7 +47,7 @@
   // ?> adds two vectors a and b together
   // => returns a new vector containing the sum of a and b
   Vector.add = function (a, b) {
-    return a.add(b);
+    return new Vector(a).add(b);
   };
   Vector.prototype.add = function (vector) {
     if (this.length !== vector.length)
@@ -54,30 +56,23 @@
     if (!this.length && !vector.length)
       return this;
 
-    var a = this.values,
-        b = vector.values.slice(0);
-
-    if (this.type === Float64Array) {
-      nblas.daxpy(this.length, 1, a, 1, b, 1);
-      return new Vector(b);
-    } else if (this.type === Float32Array) {
-      nblas.saxpy(this.length, 1, a, 1, b, 1);
-      return new Vector(Float32Array, b);
+    if (this.type === Float64Array)
+      nblas.daxpy(this.length, 1, vector.values, 1, this.values, 1);
+    else if (this.type === Float32Array)
+      nblas.saxpy(this.length, 1, vector.values, 1, this.values, 1);
+    else {
+      for (var i = 0; i < this.length; i++)
+        this.values[i] += b[i];
     }
 
-    var result = Vector.zeros(this.length),
-        i, l;
-    for (i = 0, l = this.length; i < l; i++)
-      result.values[i] = a[i] + b[i];
-
-    return result;
+    return this;
   };
 
   // Vector(.prototype).subtract
   // ?> subtracts the vector b from vector a
   // => returns a new vector containing the difference between a and b
   Vector.subtract = function (a, b) {
-    return a.subtract(b);
+    return new Vector(a).subtract(b);
   };
   Vector.prototype.subtract = function (vector) {
     if (this.length !== vector.length)
@@ -86,60 +81,49 @@
     if (!this.length && !vector.length)
       return this;
 
-    var a = this.values.slice(0),
-        b = vector.values;
-
-    if (this.type === Float64Array) {
-      nblas.daxpy(this.length, -1, b, 1, a, 1);
-      return new Vector(a);
-    } else if (this.type === Float32Array) {
+    if (this.type === Float64Array)
+      nblas.daxpy(this.length, -1, vector.values, 1, this.values, 1);
+    else if (this.type === Float32Array)
       nblas.saxpy(this.length, -1, b, 1, a, 1);
-      return new Vector(Float32Array, a);
+    else {
+      var i;
+      for (i = 0; i < this.length; i++)
+        this.values[i] += b[i];
     }
 
-    var result = Vector.zeros(this.length),
-        i, l;
-    for (i = 0, l = this.length; i < l; i++)
-      result.values[i] = a[i] - b[i];
-
-    return result;
+    return this;
   };
 
   // Vector.prototype.scale
   // ?> multiplies all elements of a vector with a specified scalar
   // => returns a new resultant scaled vector
-  Vector.prototype.scale = function (scalar) {
-    var values = this.values,
-        l = this.length,
-        data;
+  Vector.scale = function (a, scalar) {
+    return new Vector(a).scale(scalar);
+  };
 
-    if (this.type === Float64Array) {
-      data = new Float64Array(l);
-      nblas.dcopy(l, values, 1, data, 1);
-      nblas.dscal(l, scalar, data, 1);
-      return new Vector(data);
-    } else if (this.type === Float32Array) {
-      data = new Float32Array(l);
-      nblas.scopy(l, values, 1, data, 1);
-      nblas.dscal(l, scalar, data, 1);
-      return new Vector(data);
+  Vector.prototype.scale = function (scalar) {
+    if (this.type === Float64Array)
+      nblas.dscal(this.length, scalar, this.values, 1);
+    else if (this.type === Float32Array)
+      nblas.sscal(l, scalar, this.values, 1);
+    else {
+      var i;
+      for (i = this.length - 1; i >= 0; i--)
+        this.values[i] *= scalar;
     }
 
-    var result = Vector.zeros(l, this.type),
-        i;
-
-    for (i = l - 1; i >= 0; i--)
-      result.values[i] = values[i] * scalar;
-
-    return result;
+    return this;
   };
 
   // Vector.prototype.normalize
   // ?> normalizes a vector, i.e. divides all elements with the magnitude
-  // => returns a new resultant normalized vector
+  // => returns resultant normalized vector
+  Vector.normalize = function (a) {
+    return new Vector(a).normalize();
+  };
+
   Vector.prototype.normalize = function () {
-    var result = new Vector(this.values);
-    return result.scale(1 / result.magnitude());
+    return this.scale(1 / this.magnitude());
   };
 
   // Vector(.prototype).project
@@ -149,6 +133,7 @@
   Vector.project = function (a, b) {
     return a.project(b);
   };
+
   Vector.prototype.project = function (vector) {
     return vector.scale(this.dot(vector) / vector.dot(vector));
   };
@@ -163,18 +148,17 @@
     else if (count === 0)
       return new Vector();
 
-    var result = new Vector();
-    result.type = type !== undefined ? type : Float64Array;
-    result.buffer = new ArrayBuffer(count * result.type.BYTES_PER_ELEMENT);
-    var zeros = new result.type(result.buffer),
+    type = type ? type : Float64Array;
+    var data = new type(count),
         i;
-    for (i = 0; i < count; i++) {
-      zeros[i] = 0;
-      result.length++;
+    if (data.fill)
+      data.fill(+0.0);
+    else {
+      for (i = 0; i < count; i++)
+        data[i] = +0.0;
     }
 
-    result.values = zeros;
-    return result;
+    return new Vector(data);
   };
 
   // Vector.ones
@@ -187,18 +171,17 @@
     else if (count === 0)
       return new Vector();
 
-    var result = new Vector();
-    result.type = type !== undefined ? type : Float64Array;
-    result.buffer = new ArrayBuffer(count * result.type.BYTES_PER_ELEMENT);
-    var ones = new result.type(result.buffer),
+    type = type ? type : Float64Array;
+    var data = new type(count),
         i;
-    for (i = 0; i < count; i++) {
-      ones[i] = 1;
-      result.length++;
+    if (data.fill)
+      data.fill(1.0);
+    else {
+      for (i = 0; i < count; i++)
+        data[i] = 1;
     }
 
-    result.values = ones;
-    return result;
+    return new Vector(data);
   };
 
   // Vector.range
@@ -281,6 +264,14 @@
   // ?> calculates the magnitude of a vector using the Pythagorean theorem
   // => returns the magnitude (norm) of the vector (always a number)
   Vector.prototype.magnitude = function () {
+    if (!this.length)
+      return 0;
+      
+    if (this.type === Float64Array)
+      return nblas.dnrm2(this.length, this.values, 1);
+    else if (this.type === Float32Array)
+      return nblas.snrm2(this.length, this.values, 1);
+
     var result = 0,
         values = this.values,
         i, l;
@@ -313,7 +304,6 @@
     var a = this.values,
         b = vector.values,
         i = 0, l = this.length;
-
 
     while(i < l && a[i] === b[i]) { i++; }
 
