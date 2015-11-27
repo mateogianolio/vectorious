@@ -34,17 +34,17 @@
   log();
 
   suite
-    .add('Matrix.identity(128)', function() {
-      Matrix.identity(128);
+    .add('Matrix.identity(' + N + ')', function() {
+      Matrix.identity(N);
     })
-    .add('Matrix.magic(128)', function() {
-      Matrix.magic(128);
+    .add('Matrix.magic(' + N + ')', function() {
+      Matrix.magic(N);
     })
-    .add('Matrix.zeros(128, 128)', function() {
-      Matrix.zeros(128, 128);
+    .add('Matrix.zeros(' + N + ', ' + N + ')', function() {
+      Matrix.zeros(N, N);
     })
-    .add('Matrix.ones(128, 128)', function() {
-      Matrix.ones(128, 128);
+    .add('Matrix.ones(' + N + ', ' + N + ')', function() {
+      Matrix.ones(N, N);
     })
     .add('Matrix.augment(a, b)', function() {
       Matrix.augment(a, b);

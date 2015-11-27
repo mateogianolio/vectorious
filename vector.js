@@ -1,9 +1,50 @@
 (function () {
   'use strict';
 
+  /**
+   * @module Vector
+   * @name Vector
+   * @desc Creates a `Vector` from the supplied arguments.
+   * ```javascript
+   * $ node
+   * > var v = require('vectorious');
+   *
+   * > new v.Vector(1, 2, 3);
+   * Vector {
+   *   type: [Function: Float64Array],
+   *   length: 3,
+   *   buffer: ArrayBuffer {},
+   *   values: Float64Array { '0': 1, '1': 2, '2': 3 } }
+   *
+   * > new v.Vector(Float32Array, 1, 2, 3);
+   * Vector {
+   *   type: [Function: Float32Array],
+   *   length: 3,
+   *   buffer: ArrayBuffer {},
+   *   values: Float32Array { '0': 1, '1': 2, '2': 3 } }
+   *
+   * > new v.Vector([1, 2, 3]);
+   * Vector {
+   *   type: [Function: Float64Array],
+   *   length: 3,
+   *   buffer: ArrayBuffer {},
+   *   values: Float64Array { '0': 1, '1': 2, '2': 3 } }
+   * ```
+   **/
+
   var memcpy = require('./memcpy'),
       nblas = require('nblas');
 
+  Function.prototype.construct = function (args) {
+    var object = Object.create(this.prototype);
+    this.apply(object, args);
+    return object;
+  };
+
+  /**
+   * @method constructor
+   * @desc Creates a two-dimensional `Vector` from the supplied arguments.
+   **/
   function Vector () {
     var self = this;
     self.type = Float64Array;
@@ -33,22 +74,21 @@
     return self;
   }
 
-  // Function.prototype.construct
-  // ?> converts an array of arguments to function arguments
-  //    (e.g. f.construct([a, b, c]) <=> new f(a, b, c))
-  // => returns a new instance of an object with the specified args
-  Function.prototype.construct = function (args) {
-    var object = Object.create(this.prototype);
-    this.apply(object, args);
-    return object;
-  };
-
-  // Vector(.prototype).add
-  // ?> adds two vectors a and b together
-  // => returns a new vector containing the sum of a and b
+  /**
+   * Static method. Adds two vectors `a` and `b` together.
+   * @param {Vector} a -
+   * @param {Vector} b -
+   * @returns {Vector} a vector containing the sum of `a` and `b`
+   **/
   Vector.add = function (a, b) {
     return new Vector(a).add(b);
   };
+
+  /**
+   * Adds `vector` to the current vector.
+   * @param {Vector} vector -
+   * @returns {Vector} this
+   **/
   Vector.prototype.add = function (vector) {
     if (this.length !== vector.length)
       throw new Error('sizes do not match!');
@@ -68,12 +108,21 @@
     return this;
   };
 
-  // Vector(.prototype).subtract
-  // ?> subtracts the vector b from vector a
-  // => returns a new vector containing the difference between a and b
+  /**
+   * Static method. Subtracts the vector `b` from vector `a`.
+   * @param {Vector} a -
+   * @param {Vector} b -
+   * @returns {Vector} a vector containing the difference between `a` and `b`
+   **/
   Vector.subtract = function (a, b) {
     return new Vector(a).subtract(b);
   };
+
+  /**
+   * Subtracts `vector` from the current vector.
+   * @param {Vector} vector -
+   * @returns {Vector} this
+   **/
   Vector.prototype.subtract = function (vector) {
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
@@ -94,13 +143,21 @@
     return this;
   };
 
-  // Vector.prototype.scale
-  // ?> multiplies all elements of a vector with a specified scalar
-  // => returns a new resultant scaled vector
-  Vector.scale = function (a, scalar) {
-    return new Vector(a).scale(scalar);
+  /**
+   * Static method. Multiplies all elements of `vector` with a specified `scalar`.
+   * @param {Vector} vector -
+   * @param {Number} scalar -
+   * @returns {Vector} a resultant scaled vector
+   **/
+  Vector.scale = function (vector, scalar) {
+    return new Vector(vector).scale(scalar);
   };
 
+  /**
+   * Multiplies all elements of current vector with a specified `scalar`.
+   * @param {Number} scalar -
+   * @returns {Vector} this
+   **/
   Vector.prototype.scale = function (scalar) {
     if (this.type === Float64Array)
       nblas.dscal(this.length, scalar, this.values, 1);
@@ -115,33 +172,51 @@
     return this;
   };
 
-  // Vector.prototype.normalize
-  // ?> normalizes a vector, i.e. divides all elements with the magnitude
-  // => returns resultant normalized vector
-  Vector.normalize = function (a) {
-    return new Vector(a).normalize();
+  /**
+   * Static method. Normalizes `vector`, i.e. divides all elements with the magnitude.
+   * @param {Vector} vector -
+   * @returns {Vector} a resultant normalized vector
+   **/
+  Vector.normalize = function (vector) {
+    return new Vector(vector).normalize();
   };
 
+  /**
+   * Normalizes current vector.
+   * @returns {Vector} a resultant normalized vector
+   **/
   Vector.prototype.normalize = function () {
     return this.scale(1 / this.magnitude());
   };
 
-  // Vector(.prototype).project
-  // ?> projects the vector a onto the vector b using
-  //    the projection formula (b * (a * b / b * b))
-  // => returns a new resultant projected vector
+  /**
+   * Static method. Projects the vector `a` onto the vector `b` using
+   * the projection formula `(b * (a * b / b * b))`.
+   * @param {Vector} a -
+   * @param {Vector} b -
+   * @returns {Vector} a new resultant projected vector
+   **/
   Vector.project = function (a, b) {
-    return a.project(b);
+    return a.project(new Vector(b));
   };
 
+  /**
+   * Projects the current vector onto `vector` using
+   * the projection formula `(b * (a * b / b * b))`.
+   * @param {Vector} vector -
+   * @returns {Vector} `vector`
+   **/
   Vector.prototype.project = function (vector) {
     return vector.scale(this.dot(vector) / vector.dot(vector));
   };
 
-  // Vector.zeros
-  // ?> creates a vector containing zeros (0) of count size, takes
-  //    an optional type argument which should be an instance of TypedArray
-  // => returns a new vector of the specified size and type
+  /**
+   * Static method. Creates a vector containing zeros (`0`) of `count` size, takes
+   * an optional `type` argument which should be an instance of `TypedArray`.
+   * @param {Number} count -
+   * @param {TypedArray} type -
+   * @returns {Vector} a new vector of the specified size and `type`
+   **/
   Vector.zeros = function (count, type) {
     if (count < 0)
       throw new Error('invalid size');
@@ -161,10 +236,13 @@
     return new Vector(data);
   };
 
-  // Vector.ones
-  // ?> creates a vector containing ones (1) of count size, takes
-  //    an optional type argument which should be an instance of TypedArray
-  // => returns a new vector of the specified size and type
+  /**
+   * Static method. Creates a vector containing ones (`1`) of `count` size, takes
+   * an optional `type` argument which should be an instance of `TypedArray`.
+   * @param {Number} count -
+   * @param {TypedArray} type -
+   * @returns {Vector} a new vector of the specified size and `type`
+   **/
   Vector.ones = function (count, type) {
     if (count < 0)
       throw new Error('invalid size');
@@ -184,13 +262,17 @@
     return new Vector(data);
   };
 
-  // Vector.range
-  // ?> creates a vector containing a range (can be either ascending or descending)
-  //    of numbers specified by the arguments provided (e.g. Vector.range(0, .5, 2)
-  //    gives a vector containing all numbers in the interval [0, 2) separated by
-  //    steps of 0.5), takes an optional type argument which should be an instance of
-  //    TypedArray
-  // => returns a new vector containing the specified range and type
+  /**
+   * Static method. Creates a vector containing a range (can be either ascending or descending)
+   * of numbers specified by the arguments provided (e.g. `Vector.range(0, .5, 2)`
+   * gives a vector containing all numbers in the interval `[0, 2)` separated by
+   * steps of `0.5`), takes an optional `type` argument which should be an instance of
+   * `TypedArray`.
+   * @param {Number} start -
+   * @param {Number} step - optional
+   * @param {Number} end -
+   * @returns {Vector} a new vector containing the specified range of the specified `type`
+   **/
   Vector.range = function () {
     var args = [].slice.call(arguments, 0),
         backwards = false,
@@ -233,12 +315,21 @@
     return vector;
   };
 
-  // Vector(.prototype).dot
-  // ?> performs dot multiplication with two vectors a and b
-  // => returns the dot product of the two vectors (always a number)
+  /**
+   * Static method. Performs dot multiplication with two vectors `a` and `b`.
+   * @param {Vector} a -
+   * @param {Vector} b -
+   * @returns {Number} the dot product of the two vectors
+   **/
   Vector.dot = function (a, b) {
     return a.dot(b);
   };
+
+  /**
+   * Performs dot multiplication with current vector and `vector`
+   * @param {Vector} vector -
+   * @returns {Number} the dot product of the two vectors
+   **/
   Vector.prototype.dot = function (vector) {
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
@@ -260,13 +351,14 @@
     return result;
   };
 
-  // Vector.prototype.magnitude
-  // ?> calculates the magnitude of a vector using the Pythagorean theorem
-  // => returns the magnitude (norm) of the vector (always a number)
+  /**
+   * Calculates the magnitude of a vector (also called L2 norm or Euclidean length).
+   * @returns {Number} the magnitude (L2 norm) of the vector
+   **/
   Vector.prototype.magnitude = function () {
     if (!this.length)
       return 0;
-      
+
     if (this.type === Float64Array)
       return nblas.dnrm2(this.length, this.values, 1);
     else if (this.type === Float32Array)
@@ -281,22 +373,40 @@
     return Math.sqrt(result);
   };
 
-  // Vector(.prototype).angle
-  // ?> determines the angle between two vectors a and b
-  // => returns the angle between the two vectors in radians
+  /**
+   * Static method. Determines the angle between two vectors `a` and `b`.
+   * @param {Vector} a -
+   * @param {Vector} b -
+   * @returns {Number} the angle between the two vectors in radians
+   **/
   Vector.angle = function (a, b) {
     return a.angle(b);
   };
+
+  /**
+   * Determines the angle between the current vector and `vector`.
+   * @param {Vector} vector -
+   * @returns {Number} the angle between the two vectors in radians
+   **/
   Vector.prototype.angle = function (vector) {
     return Math.acos(this.dot(vector) / this.magnitude() * vector.magnitude());
   };
 
-  // Vector(.prototype).equals
-  // ?> checks the equality of two vectors a and b
-  // => returns true if the two vectors are equal, false otherwise
+  /**
+   * Static method. Checks the equality of two vectors `a` and `b`.
+   * @param {Vector} a -
+   * @param {Vector} b -
+   * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
+   **/
   Vector.equals = function (a, b) {
     return a.equals(b);
   };
+
+  /**
+   * Checks the equality of the current vector and `vector`.
+   * @param {Vector} vector -
+   * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
+   **/
   Vector.prototype.equals = function (vector) {
     if (this.length !== vector.length)
       return false;
@@ -310,9 +420,11 @@
     return i === l;
   };
 
-  // Vector.prototype.get
-  // ?> gets the element at index from a vector
-  // => returns the element at index
+  /**
+   * Gets the element at `index` from current vector.
+   * @param {Number} index -
+   * @returns {Number} the element at `index`
+   **/
   Vector.prototype.get = function (index) {
     if (index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
@@ -320,9 +432,10 @@
     return this.values[index];
   };
 
-  // Vector.prototype.min
-  // ?> gets the minimum value (smallest) element of a vector
-  // => returns the smallest element of the vector
+  /**
+   * Gets the minimum value (smallest) element of current vector.
+   * @returns {Number} the smallest element of the current vector
+   **/
   Vector.prototype.min = function () {
     var min = Number.POSITIVE_INFINITY,
         values = this.values,
@@ -338,9 +451,10 @@
     return min;
   };
 
-  // Vector.prototype.max
-  // ?> gets the maximum value (largest) element of a vector
-  // => returns the largest element of the vector
+  /**
+   * Gets the maximum value (largest) element of current vector.
+   * @returns {Number} the largest element of current vector
+   **/
   Vector.prototype.max = function () {
     if (this.type === Float64Array)
       return this.values[nblas.idamax(this.length, this.values, 1)];
@@ -361,9 +475,12 @@
     return max;
   };
 
-  // Vector.prototype.set
-  // ?> sets the element at index to value
-  // => returns this for function chaining
+  /**
+   * Sets the element at `index` to `value`.
+   * @param {Number} index -
+   * @param {Number} value -
+   * @returns {Vector} this
+   **/
   Vector.prototype.set = function (index, value) {
     if (index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
@@ -372,12 +489,21 @@
     return this;
   };
 
-  // Vector(.prototype).combine
-  // ?> combines two vectors a and b (appends b to a)
-  // => returns the vector b appended to vector a
+  /**
+   * Static method. Combines two vectors `a` and `b` (appends `b` to `a`).
+   * @param {Vector} a -
+   * @param {Vector} b -
+   * @returns {Vector} `b` appended to vector `a`
+   **/
   Vector.combine = function (a, b) {
     return new Vector(a).combine(b);
   };
+
+  /**
+   * Combines the current vector with `vector`
+   * @param {Vector} vector
+   * @returns {Vector} `vector` combined with current vector
+   **/
   Vector.prototype.combine = function (vector) {
     if (!vector.length)
       return this;
@@ -401,9 +527,11 @@
     return this;
   };
 
-  // Vector.prototype.push
-  // ?> pushes a new value into a vector
-  // => returns this for function chaining
+  /**
+   * Pushes a new `value` into current vector.
+   * @param {Number} value -
+   * @returns {Vector} `this`
+   **/
   Vector.prototype.push = function (value) {
     if (!(this.values instanceof this.type)) {
       this.buffer = new ArrayBuffer(this.type.BYTES_PER_ELEMENT);
@@ -425,22 +553,25 @@
     return this;
   };
 
-  // Vector.prototype.map
-  // ?> maps a function callback to all elements of the vector
-  // => returns the resultant mapped vector
+  /**
+   * Maps a function `callback` to all elements of current vector.
+   * @param {Function} callback -
+   * @returns {Vector} `this`
+   **/
   Vector.prototype.map = function (callback) {
-    var vector = new Vector(this.values),
-        i;
+    var i;
     for (i = 0; i < this.length; i++)
-      vector.values[i] = callback(vector.values[i]);
+      this.values[i] = callback(this.values[i]);
 
-    return vector;
+    return this;
   };
 
-  // Vector.prototype.each
-  // ?> functional version of for-looping the vector, is equivalent
-  //    to Array.prototype.forEach
-  // => returns this for function chaining
+  /**
+   * Functional version of for-looping the vector, is equivalent
+   * to `Array.prototype.forEach`.
+   * @param {Function} callback -
+   * @returns {Vector} `this`
+   **/
   Vector.prototype.each = function (callback) {
     var i;
     for (i = 0; i < this.length; i++)
@@ -449,9 +580,10 @@
     return this;
   };
 
-  // Vector.prototype.toString
-  // ?> converts a vector into a readable formatted string
-  // => returns a string of the vector's contents
+  /**
+   * Converts current vector into a readable formatted string.
+   * @returns {String} a string of the vector's contents
+   **/
   Vector.prototype.toString = function () {
     var result = '',
         i;
@@ -461,9 +593,10 @@
     return '[' + result + ']';
   };
 
-  // Vector.prototype.toArray
-  // ?> converts a vector into a javascript array
-  // => returns an array containing all elements of the vector
+  /**
+   * Converts current vector into a JavaScript array.
+   * @returns {Array} an array containing all elements of current vector
+   **/
   Vector.prototype.toArray = function () {
     if (!this.values)
       return [];
