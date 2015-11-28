@@ -102,7 +102,7 @@
       nblas.saxpy(this.length, 1, vector.values, 1, this.values, 1);
     else {
       for (var i = 0; i < this.length; i++)
-        this.values[i] += b[i];
+        this.values[i] += vector.values[i];
     }
 
     return this;
@@ -133,11 +133,11 @@
     if (this.type === Float64Array)
       nblas.daxpy(this.length, -1, vector.values, 1, this.values, 1);
     else if (this.type === Float32Array)
-      nblas.saxpy(this.length, -1, b, 1, a, 1);
+      nblas.saxpy(this.length, -1, vector.values, 1, this.values, 1);
     else {
       var i;
       for (i = 0; i < this.length; i++)
-        this.values[i] += b[i];
+        this.values[i] += vector.values[i];
     }
 
     return this;
@@ -162,7 +162,7 @@
     if (this.type === Float64Array)
       nblas.dscal(this.length, scalar, this.values, 1);
     else if (this.type === Float32Array)
-      nblas.sscal(l, scalar, this.values, 1);
+      nblas.sscal(this.length, scalar, this.values, 1);
     else {
       var i;
       for (i = this.length - 1; i >= 0; i--)
