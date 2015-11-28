@@ -76,4 +76,4 @@
       log();
     })
     .run({ 'async': true });
-})(console.log);
+}(console.log));

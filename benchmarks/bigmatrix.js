@@ -78,4 +78,4 @@
       log('Done!');
     })
     .run({ 'async': true });
-})(console.log);
+}(console.log));
