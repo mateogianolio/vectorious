@@ -32,8 +32,7 @@
    * ```
    **/
 
-  var memcpy = require('./memcpy'),
-      nblas = require('nblas');
+  var nblas = require('nblas');
 
   Function.prototype.construct = function (args) {
     var object = Object.create(this.prototype);
