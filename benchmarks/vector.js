@@ -25,11 +25,11 @@
   var N = 512;
   var data = randomArray(N);
   var a = Vector.ones(data),
-      b = Vector.ones(data);
+      b = Vector.ones(data).scale(2);
 
   console.log('data = randomArray(' + N + ')');
   console.log('a = Vector.ones(data)');
-  console.log('b = Vector.ones(data)');
+  console.log('b = Vector.ones(data).scale(2)');
   console.log();
 
   suite
