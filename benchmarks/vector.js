@@ -1,4 +1,4 @@
-(function(log) {
+(function() {
   'use strict';
 
   var Benchmark = require('benchmark'),
@@ -27,10 +27,10 @@
   var a = Vector.ones(data),
       b = Vector.ones(data);
 
-  log('data = randomArray(' + N + ')');
-  log('a = Vector.ones(data)');
-  log('b = Vector.ones(data)');
-  log();
+  console.log('data = randomArray(' + N + ')');
+  console.log('a = Vector.ones(data)');
+  console.log('b = Vector.ones(data)');
+  console.log();
 
   suite
     .add('Vector.zeros(' + N + ')', function() {
@@ -70,10 +70,10 @@
       a.project(b);
     })
     .on('cycle', function(event) {
-      log(String(event.target));
+      console.log(String(event.target));
     })
     .on('complete', function() {
-      log();
+      console.log();
     })
     .run({ 'async': true });
-})(console.log);
+}());

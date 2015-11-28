@@ -1,4 +1,4 @@
-(function(log) {
+(function() {
   'use strict';
 
   var Benchmark = require('benchmark'),
@@ -28,10 +28,10 @@
   var a = new Matrix(data),
       b = new Matrix(data).scale(2);
 
-  log('data = randomArray(' + N + ', ' + N + ')');
-  log('a = Matrix(data)');
-  log('b = Matrix(data).scale(2)');
-  log();
+  console.log('data = randomArray(' + N + ', ' + N + ')');
+  console.log('a = Matrix(data)');
+  console.log('b = Matrix(data).scale(2)');
+  console.log();
 
   suite
     .add('Matrix.identity(' + N + ')', function() {
@@ -74,11 +74,11 @@
       a.trace();
     })
     .on('cycle', function(event) {
-      log(String(event.target));
+      console.log(String(event.target));
     })
     .on('complete', function() {
-      log();
-      log('Done!');
+      console.log();
+      console.log('Done!');
     })
     .run({ 'async': true });
-})(console.log);
+}());
