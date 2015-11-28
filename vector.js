@@ -57,10 +57,9 @@
 
       if (argument instanceof Vector) {
         self.combine(argument);
-      } else if (argument.buffer && argument.buffer &&
-        Object.prototype.toString.call(argument.buffer) === '[object ArrayBuffer]') {
-        self.buffer = argument.buffer;
-        self.values = argument;
+      } else if (argument.data &&
+        Object.prototype.toString.call(argument.data.buffer) === '[object ArrayBuffer]') {
+        self.data = argument;
         self.length = argument.length;
         self.type = argument.constructor;
       } else if (typeof argument === 'object') {
@@ -97,12 +96,12 @@
       return this;
 
     if (this.type === Float64Array)
-      nblas.daxpy(this.length, 1, vector.values, 1, this.values, 1);
+      nblas.daxpy(this.length, 1, vector.data, 1, this.data, 1);
     else if (this.type === Float32Array)
-      nblas.saxpy(this.length, 1, vector.values, 1, this.values, 1);
+      nblas.saxpy(this.length, 1, vector.data, 1, this.data, 1);
     else {
       for (var i = 0; i < this.length; i++)
-        this.values[i] += vector.values[i];
+        this.data[i] += vector.data[i];
     }
 
     return this;
@@ -131,13 +130,13 @@
       return this;
 
     if (this.type === Float64Array)
-      nblas.daxpy(this.length, -1, vector.values, 1, this.values, 1);
+      nblas.daxpy(this.length, -1, vector.data, 1, this.data, 1);
     else if (this.type === Float32Array)
-      nblas.saxpy(this.length, -1, vector.values, 1, this.values, 1);
+      nblas.saxpy(this.length, -1, vector.data, 1, this.data, 1);
     else {
       var i;
       for (i = 0; i < this.length; i++)
-        this.values[i] += vector.values[i];
+        this.data[i] += vector.data[i];
     }
 
     return this;
@@ -160,13 +159,13 @@
    **/
   Vector.prototype.scale = function (scalar) {
     if (this.type === Float64Array)
-      nblas.dscal(this.length, scalar, this.values, 1);
+      nblas.dscal(this.length, scalar, this.data, 1);
     else if (this.type === Float32Array)
-      nblas.sscal(this.length, scalar, this.values, 1);
+      nblas.sscal(this.length, scalar, this.data, 1);
     else {
       var i;
       for (i = this.length - 1; i >= 0; i--)
-        this.values[i] *= scalar;
+        this.data[i] *= scalar;
     }
 
     return this;
@@ -310,7 +309,7 @@
     var vector = Vector.zeros(Math.ceil((end - start) / step), type),
         i, j;
     for (i = start, j = 0; i < end; i += step, j++)
-      vector.values[j] = backwards ? end - i + start : i;
+      vector.data[j] = backwards ? end - i + start : i;
 
     return vector;
   };
@@ -334,8 +333,8 @@
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
 
-    var a = this.values,
-        b = vector.values;
+    var a = this.data,
+        b = vector.data;
 
     if (this.type === Float64Array)
       return nblas.ddot(this.length, a, 1, b, 1);
@@ -360,12 +359,12 @@
       return 0;
 
     if (this.type === Float64Array)
-      return nblas.dnrm2(this.length, this.values, 1);
+      return nblas.dnrm2(this.length, this.data, 1);
     else if (this.type === Float32Array)
-      return nblas.snrm2(this.length, this.values, 1);
+      return nblas.snrm2(this.length, this.data, 1);
 
     var result = 0,
-        values = this.values,
+        values = this.data,
         i, l;
     for (i = 0, l = this.length; i < l; i++)
       result += values[i] * values[i];
@@ -411,8 +410,8 @@
     if (this.length !== vector.length)
       return false;
 
-    var a = this.values,
-        b = vector.values,
+    var a = this.data,
+        b = vector.data,
         i = 0, l = this.length;
 
     while(i < l && a[i] === b[i]) { i++; }
@@ -429,7 +428,7 @@
     if (index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
 
-    return this.values[index];
+    return this.data[index];
   };
 
   /**
@@ -438,7 +437,7 @@
    **/
   Vector.prototype.min = function () {
     var min = Number.POSITIVE_INFINITY,
-        values = this.values,
+        values = this.data,
         value,
         i, l;
 
@@ -457,12 +456,12 @@
    **/
   Vector.prototype.max = function () {
     if (this.type === Float64Array)
-      return this.values[nblas.idamax(this.length, this.values, 1)];
+      return this.data[nblas.idamax(this.length, this.data, 1)];
     else if (this.type === Float32Array)
-      return this.values[nblas.isamax(this.length, this.values, 1)];
+      return this.data[nblas.isamax(this.length, this.data, 1)];
 
     var max = Number.NEGATIVE_INFINITY,
-        values = this.values,
+        values = this.data,
         value,
         i, l;
 
@@ -485,7 +484,7 @@
     if (index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
 
-    this.values[index] = value;
+    this.data[index] = value;
     return this;
   };
 
@@ -508,21 +507,22 @@
     if (!vector.length)
       return this;
     else if (!this.length) {
-      this.buffer = new ArrayBuffer(vector.buffer.byteLength);
       this.type = vector.type;
-      memcpy(this.buffer, vector.buffer);
-      this.values = new this.type(this.buffer);
-      this.length = this.values.length;
+      this.data = new this.type(vector.data);
+      this.length = this.data.length;
       return this;
     }
 
-    var buffer = new ArrayBuffer(this.buffer.byteLength + vector.buffer.byteLength);
-    memcpy(buffer, this.buffer);
-    memcpy(buffer, this.buffer.byteLength, vector.buffer);
+    var l1 = this.length,
+        l2 = vector.length;
 
-    this.buffer = buffer;
-    this.values = new this.type(this.buffer);
-    this.length = this.values.length;
+    var r = new this.type(l1 + l2);
+
+    r.set(this.data);
+    r.set(vector.data, l1);
+
+    this.data = r;
+    this.length = l1 + l2;
 
     return this;
   };
@@ -533,20 +533,21 @@
    * @returns {Vector} `this`
    **/
   Vector.prototype.push = function (value) {
-    if (!(this.values instanceof this.type)) {
-      this.buffer = new ArrayBuffer(this.type.BYTES_PER_ELEMENT);
-      this.values = new this.type(this.buffer);
-      this.values[0] = value;
-    } else {
-      var l = this.buffer.byteLength,
-          buffer = new ArrayBuffer(l + this.type.BYTES_PER_ELEMENT);
+    if (!this.length)
+      this.data = new this.type([value]);
+    else {
+      var l = this.length,
+          r = new this.type(l + 1);
 
-      memcpy(buffer, this.buffer);
-      var values = new this.type(buffer);
-      values[this.length] = value;
+      if (this.type === Float64Array)
+        nblas.dcopy(l, this.data, 1, r, 1);
+      else if (this.type === Float32Array)
+        nblas.scopy(l, this.data, 1, r, 1);
+      else
+        r.set(this.data);
 
-      this.buffer = buffer;
-      this.values = values;
+      r[l] = value;
+      this.data = r;
     }
 
     this.length++;
@@ -561,7 +562,7 @@
   Vector.prototype.map = function (callback) {
     var i;
     for (i = 0; i < this.length; i++)
-      this.values[i] = callback(this.values[i]);
+      this.data[i] = callback(this.data[i]);
 
     return this;
   };
@@ -575,7 +576,7 @@
   Vector.prototype.each = function (callback) {
     var i;
     for (i = 0; i < this.length; i++)
-      callback(this.values[i], i);
+      callback(this.data[i], i);
 
     return this;
   };
@@ -588,7 +589,7 @@
     var result = '',
         i;
     for (i = 0; i < this.length; i++)
-      result += i > 0 ? ', ' + this.values[i] : this.values[i];
+      result += i > 0 ? ', ' + this.data[i] : this.data[i];
 
     return '[' + result + ']';
   };
@@ -598,10 +599,10 @@
    * @returns {Array} an array containing all elements of current vector
    **/
   Vector.prototype.toArray = function () {
-    if (!this.values)
+    if (!this.data)
       return [];
 
-    return Array.prototype.slice.call(this.values);
+    return Array.prototype.slice.call(this.data);
   };
 
   module.exports = Vector;
