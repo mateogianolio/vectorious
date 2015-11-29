@@ -34,42 +34,24 @@
 
   var nblas = require('nblas');
 
-  Function.prototype.construct = function (args) {
-    var object = Object.create(this.prototype);
-    this.apply(object, args);
-    return object;
-  };
-
   /**
    * @method constructor
    * @desc Creates a two-dimensional `Vector` from the supplied arguments.
    **/
-  function Vector () {
-    var self = this;
-    self.type = Float64Array;
-    self.length = 0;
+  function Vector (data) {
+    this.type = Float64Array;
+    this.length = 0;
 
-    var argument,
-        i;
-    for (i = 0; i < arguments.length; i++) {
-      argument = arguments[i];
-
-      if (argument instanceof Vector) {
-        self.combine(argument);
-      } else if (argument.data &&
-        Object.prototype.toString.call(argument.data.buffer) === '[object ArrayBuffer]') {
-        self.data = argument;
-        self.length = argument.length;
-        self.type = argument.constructor;
-      } else if (typeof argument === 'object') {
-        self.combine(Vector.construct(argument));
-      } else if (typeof argument === 'function') {
-        self.type = argument;
-      } else
-        self.push(argument);
+    if (data instanceof Vector) {
+      this.combine(data);
+    } else if (data instanceof Array) {
+      this.data = new this.type(data);
+      this.length = data.length;
+    } else if (data && data.buffer && Object.prototype.toString.call(data.buffer) === '[object ArrayBuffer]') {
+      this.data = data;
+      this.length = data.length;
+      this.type = data.constructor;
     }
-
-    return self;
   }
 
   /**
@@ -503,22 +485,15 @@
    * @returns {Vector} `vector` combined with current vector
    **/
   Vector.prototype.combine = function (vector) {
-    if (!vector.length)
-      return this;
-    else if (!this.length) {
-      this.type = vector.type;
-      this.data = new this.type(vector.data);
-      this.length = this.data.length;
-      return this;
-    }
-
     var l1 = this.length,
         l2 = vector.length;
 
     var r = new this.type(l1 + l2);
+    for (var i = 0; i < l1; i++)
+      r[i] = this.data[i];
 
-    r.set(this.data);
-    r.set(vector.data, l1);
+    for (var j = 0; j < l2; j++)
+      r[i + j] = vector.data[j];
 
     this.data = r;
     this.length = l1 + l2;
@@ -532,25 +507,7 @@
    * @returns {Vector} `this`
    **/
   Vector.prototype.push = function (value) {
-    if (!this.length)
-      this.data = new this.type([value]);
-    else {
-      var l = this.length,
-          r = new this.type(l + 1);
-
-      if (this.type === Float64Array)
-        nblas.dcopy(l, this.data, 1, r, 1);
-      else if (this.type === Float32Array)
-        nblas.scopy(l, this.data, 1, r, 1);
-      else
-        r.set(this.data);
-
-      r[l] = value;
-      this.data = r;
-    }
-
-    this.length++;
-    return this;
+    return this.combine(new Vector([value]));
   };
 
   /**

@@ -46,8 +46,6 @@
         var a = new Matrix([[1], [2], [3]]);
         var b = new Matrix([[1, 1, 1]]);
 
-        console.log(a,b);
-
         assert.deepEqual(new Matrix(a).multiply(b), Matrix.multiply(a, b));
       });
     });
@@ -201,13 +199,13 @@
 
         it('should work as expected', function() {
 
-          assert.deepEqual(a, c.transpose());
-          assert.deepEqual(c, a.transpose());
+          assert.deepEqual(a, Matrix.transpose(c));
+          assert.deepEqual(c, Matrix.transpose(a));
 
-          assert.deepEqual(b, d.transpose());
-          assert.deepEqual(d, b.transpose());
+          assert.deepEqual(b, Matrix.transpose(d));
+          assert.deepEqual(d, Matrix.transpose(b));
 
-          assert.deepEqual(e, e.transpose().transpose());
+          assert.deepEqual(e, Matrix.transpose(Matrix.transpose(e)));
 
         });
       });

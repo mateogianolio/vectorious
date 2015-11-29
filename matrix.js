@@ -309,16 +309,37 @@
   };
 
   /**
-   * Transposes a matrix (mirror across the diagonal).
+   * Static method. Transposes a matrix (mirror across the diagonal).
    * @returns {Matrix} a new resultant transposed matrix
+   **/
+  Matrix.transpose = function (matrix) {
+    return new Matrix(matrix).transpose();
+  };
+
+  /**
+   * Transposes a matrix (mirror across the diagonal).
+   * @returns {Matrix} `this`
    **/
   Matrix.prototype.transpose = function () {
     var r = this.shape[0],
         c = this.shape[1];
 
+    var i, j;
+
+    if (r === c) {
+      for (i = 0; i < r - 1; i++) {
+        for (j = i + 1; j < r; j++) {
+          var tmp = this.data[j * r + i];
+          this.data[j * r + i] = this.data[i * r + j];
+          this.data[i * r + j] = tmp;
+        }
+      }
+      return this;
+    }
+
     var data = new this.type(c * r);
-    for (var i = 0; i < r; i++)
-      for (var j = 0; j < c; j++)
+    for (i = 0; i < r; i++)
+      for (j = 0; j < c; j++)
         data[j * r + i] = this.data[i * c + j];
 
     return Matrix.fromTypedArray(data, [c, r]);
@@ -601,7 +622,7 @@
     for (var i = 0; i < r && i < c; i++)
       data[i] = this.data[i * c + i];
 
-    return new Vector(this.type, data);
+    return new Vector(data);
   };
 
   /**
