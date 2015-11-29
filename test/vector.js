@@ -4,7 +4,6 @@
   var vectorious = require('../vectorious'),
       assert = require('assert');
 
-  var Matrix = vectorious.Matrix;
   var Vector = vectorious.Vector;
 
   describe('Vector', function() {
