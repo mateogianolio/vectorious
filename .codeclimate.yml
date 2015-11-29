@@ -1,9 +1,3 @@
-engines:
-  eslint:
-    enabled: true
-    checks:
-      no-console:
-        enabled: false
 languages:
   Ruby: false
   JavaScript: true

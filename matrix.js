@@ -638,12 +638,10 @@
         U = lu.pop(),
         L = lu.pop();
 
-    var sum = 0,
-        product = 1,
-        l = this.shape[0],
-        i, j;
+    var product = 1,
+        l = this.shape[0];
 
-    for (i = 0; i < l; i++)
+    for (var i = 0; i < l; i++)
       product *= L.get(i, i) * U.get(i, i);
 
     return P.pop() * product;
