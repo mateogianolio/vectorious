@@ -3,6 +3,3 @@ exclude_paths:
 engines:
   eslint:
     enabled: true
-    checks:
-      no-console:
-        enabled: false
