@@ -2,4 +2,7 @@ exclude_paths:
   - "dist/vectorious-3.0.0.js"
 engines:
   eslint:
-    enabled: false
+    enabled: true
+    checks:
+      no-console:
+        enabled: false
