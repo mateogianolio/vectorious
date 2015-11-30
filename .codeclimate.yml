@@ -1,5 +1,4 @@
+languages:
+  JavaScript: true
 exclude_paths:
   - "dist/vectorious-3.0.0.js"
-engines:
-  eslint:
-    enabled: true
