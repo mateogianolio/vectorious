@@ -121,10 +121,8 @@
     if (r !== matrix.shape[0] || c !== matrix.shape[1])
       throw new Error('sizes do not match: ' + r + 'x' + c + ', ' + matrix.shape[0] + 'x' + matrix.shape[1]);
 
-    if (this.type === Float64Array)
-      nblas.daxpy(r * c, 1, d2, 1, d1, 1);
-    else if (this.type === Float32Array)
-      nblas.saxpy(r * c, 1, d2, 1, d1, 1);
+    if (this.type === Float64Array || this.type === Float32Array)
+      nblas.axpy(d2, d1);
     else {
       for (var ii = 0; ii < r; ii++)
         for (var jj = 0; jj < c; jj++)
@@ -159,10 +157,8 @@
       if (r !== matrix.shape[0] || c !== matrix.shape[1])
         throw new Error('sizes do not match');
 
-      if (this.type === Float64Array)
-        nblas.daxpy(r * c, -1, d2, 1, d1, 1);
-      else if (this.type === Float32Array)
-        nblas.saxpy(r * c, -1, d2, 1, d1, 1);
+      if (this.type === Float64Array || this.type === Float32Array)
+        nblas.axpy(d2, d1, -1);
       else {
         for (var ii = 0; ii < r; ii++)
           for (var jj = 0; jj < c; jj++)
@@ -192,10 +188,8 @@
         c = this.shape[1],          // columns in this matrix
         d1 = this.data;
 
-    if (this.type === Float64Array)
-      nblas.dscal(r * c, scalar, d1, 1);
-    else if (this.type === Float32Array)
-      nblas.sscal(r * c, scalar, d1, 1);
+    if (this.type === Float64Array || this.type === Float32Array)
+      nblas.scal(d1, scalar);
     else {
       for (var ii = 0; ii < r; ii++)
         for (var jj = 0; jj < c; jj++)
@@ -290,9 +284,9 @@
     var data = out.data;
 
     if (out.type === Float64Array)
-      nblas.dgemm(101, 111, 111, r1, c2, c1, 1, d1, c1, d2, c2, 1, data, r1);
+      nblas.gemm(d1, d2, data, r1, c2, c1);
     else if (out.type === Float32Array)
-      nblas.sgemm(101, 111, 111, r1, c2, c1, 1, d1, c1, d2, c2, 1, data, r1);
+      nblas.gemm(d1, d2, data, r1, c2, c1);
     else {
       for (var ii = 0; ii < r1; ii++) {
         for (var jj = 0; jj < c2; jj++) {

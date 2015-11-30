@@ -76,10 +76,8 @@
     if (!this.length && !vector.length)
       return this;
 
-    if (this.type === Float64Array)
-      nblas.daxpy(this.length, 1, vector.data, 1, this.data, 1);
-    else if (this.type === Float32Array)
-      nblas.saxpy(this.length, 1, vector.data, 1, this.data, 1);
+    if (this.type === Float64Array || this.type === Float32Array)
+      nblas.axpy(vector.data, this.data);
     else {
       for (var i = 0; i < this.length; i++)
         this.data[i] += vector.data[i];
@@ -110,10 +108,8 @@
     if (!this.length && !vector.length)
       return this;
 
-    if (this.type === Float64Array)
-      nblas.daxpy(this.length, -1, vector.data, 1, this.data, 1);
-    else if (this.type === Float32Array)
-      nblas.saxpy(this.length, -1, vector.data, 1, this.data, 1);
+    if (this.type === Float64Array || this.type === Float32Array)
+      nblas.axpy(vector.data, this.data, -1);
     else {
       var i;
       for (i = 0; i < this.length; i++)
@@ -139,10 +135,8 @@
    * @returns {Vector} this
    **/
   Vector.prototype.scale = function (scalar) {
-    if (this.type === Float64Array)
-      nblas.dscal(this.length, scalar, this.data, 1);
-    else if (this.type === Float32Array)
-      nblas.sscal(this.length, scalar, this.data, 1);
+    if (this.type === Float64Array || this.type === Float32Array)
+      nblas.scal(this.data, scalar);
     else {
       var i;
       for (i = this.length - 1; i >= 0; i--)
@@ -317,10 +311,8 @@
     var a = this.data,
         b = vector.data;
 
-    if (this.type === Float64Array)
-      return nblas.ddot(this.length, a, 1, b, 1);
-    else if (this.type === Float32Array)
-      return nblas.sdot(this.length, a, 1, b, 1);
+    if (this.type === Float64Array || this.type === Float32Array)
+      return nblas.dot(a, b);
 
     var result = 0,
         i, l;
@@ -339,10 +331,8 @@
     if (!this.length)
       return 0;
 
-    if (this.type === Float64Array)
-      return nblas.dnrm2(this.length, this.data, 1);
-    else if (this.type === Float32Array)
-      return nblas.snrm2(this.length, this.data, 1);
+    if (this.type === Float64Array || this.type === Float32Array)
+      return nblas.nrm2(this.data);
 
     var result = 0,
         values = this.data,
