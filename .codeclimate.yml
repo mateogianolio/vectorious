@@ -1,4 +1,10 @@
-languages:
-  JavaScript: true
+engines:
+  eslint:
+    enabled: true
+    checks:
+      no-console:
+        enabled: false
+      no-undef:
+        enabled: false
 exclude_paths:
   - "dist/vectorious-3.0.0.js"

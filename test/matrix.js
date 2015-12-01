@@ -279,7 +279,7 @@
           var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
           var b = [
             new Matrix([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]),
-            new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]),
+            new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]])
           ];
 
           assert.deepEqual(b, a.lu().splice(0, 2));
