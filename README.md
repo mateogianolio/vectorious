@@ -1,20 +1,21 @@
-# Vectorious
+# Vectorious ![npm version](https://img.shields.io/npm/v/vectorious.svg) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg) ![npm downloads](https://img.shields.io/npm/dm/vectorious.svg)
 
-![npm version](https://img.shields.io/npm/v/vectorious.svg?style=flat-square) ![npm downloads](https://img.shields.io/npm/dm/vectorious.svg?style=flat-square) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat-square)
-
-Vectorious is a high performance linear algebra library written in Javascript, which can be used both in node.js and the browser.
+Vectorious is a high performance linear algebra library. It is written in
+JavaScript using single- and double-precision C++ bindings to CBLAS — with native fallbacks,
+in case you want to use it in your browser.
 
 * [Installation](#-installation)
-    * [For the browser](#-for-the-browser)
+  * [For the browser](#-for-the-browser)
 * [Extensions](#-extensions)
 * [Usage](#-usage)
 * [Vector](#-vector)
 * [Matrix](#-matrix)
 * [Benchmarks](#-benchmark-)
-    * [2.0.0](#200)
-    * [2.1.0](#210)
-    * [2.2.0](#220)
-    * [3.0.0](#300)
+  * [2.0.0](#200)
+  * [2.1.0](#210)
+  * [2.2.0](#220)
+  * [3.0.0](#300)
+  * [4.0.0](#400)
 
 
 ## [&uarr;](#vectorious) Installation
@@ -48,14 +49,7 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 </script>
 ```
 
-## [&uarr;](#vectorious) Extensions
-
-* [**Solve**](https://github.com/mateogianolio/vectorious-solve) &mdash; *Solves matrix equations of the form Ax = B.*
-* [**Plot**](https://github.com/mateogianolio/vectorious-plot) &mdash; *Generates a two-dimensional SVG plot from two input vectors.*
-
 ## [&uarr;](#vectorious) Usage
-
-The constructors of both ```Matrix``` and ```Vector``` are designed to be flexible, so they can be initialized using several different arguments.
 
 Since [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0) ```Vector``` implements [JavaScript typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) for increased performance. The default ```Vector``` type is ```Float64Array```, but this can be specified upon creation.
 
@@ -162,497 +156,7 @@ var sine = time.map(Math.sin);
 
 For more advanced uses, check out the extensions [solve](https://github.com/mateogianolio/vectorious-solve) and [plot](https://github.com/mateogianolio/vectorious-plot).
 
-## [&uarr;](#vectorious) Vector
-
-The following vector operations and methods are implemented in ```vector.js```.
-
-* [```add```](#user-content-vector_add)
-* [```subtract```](#user-content-vector_subtract)
-* [```scale```](#user-content-vector_scale)
-* [```normalize```](#user-content-vector_normalize)
-* [```dot```](#user-content-vector_dot)
-* [```magnitude```](#user-content-vector_magnitude)
-* [```angle```](#user-content-vector_angle)
-* [```project```](#user-content-vector_project)
-* [```zeros```](#user-content-vector_zeros)
-* [```ones```](#user-content-vector_ones)
-* [```range```](#user-content-vector_range)
-* [```equals```](#user-content-vector_equals)
-* [```get```](#user-content-vector_get)
-* [```min```](#user-content-vector_min)
-* [```max```](#user-content-vector_max)
-* [```set```](#user-content-vector_set)
-* [```combine```](#user-content-vector_combine)
-* [```push```](#user-content-vector_push)
-* [```map```](#user-content-vector_map)
-* [```each```](#user-content-vector_each)
-* [```toString```](#user-content-vector_toString)
-* [```toArray```](#user-content-vector_toArray)
-
-<p id="vector_add"></p>
-
-```javascript
-// (Vector, Vector) => (Vector)
-Vector.add = function(a, b)
-Vector.prototype.add = function(vector)
-```
-
-Add two vectors together.
-
-<p id="vector_subtract"></p>
-
-```javascript
-// (Vector, Vector) => (Vector)
-Vector.subtract = function(a, b)
-Vector.prototype.subtract = function(vector)
-```
-
-Subtract two vectors.
-
-<p id="vector_scale"></p>
-
-```javascript
-// (Vector, Number) => (Vector)
-Vector.prototype.scale = function(scalar)
-```
-
-Multiply a vector by a [scalar](http://en.wikipedia.org/wiki/Scalar_multiplication).
-
-<p id="vector_normalize"></p>
-
-```javascript
-// (Vector) => (Vector)
-Vector.prototype.normalize = function()
-```
-
-[Normalize](http://en.wikipedia.org/wiki/Unit_vector) a vector.
-
-<p id="vector_dot"></p>
-
-```javascript
-// (Vector, Vector) => (Number)
-Vector.dot = function(a, b)
-Vector.prototype.dot = function(vector)
-```
-
-Get [dot product](http://en.wikipedia.org/wiki/Dot_product) of two vectors.
-
-<p id="vector_magnitude"></p>
-
-```javascript
-// (Vector) => (Number)
-Vector.prototype.magnitude = function()
-```
-
-Get [magnitude (norm)](http://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm) of vector.
-
-<p id="vector_angle"></p>
-
-```javascript
-// (Vector, Vector) => (Angle)
-Vector.angle = function(a, b)
-Vector.prototype.angle = function(vector)
-```
-
-Get the angle (in radians) between two vectors.
-
-<p id="vector_project"></p>
-
-```javascript
-// (Vector, Vector) => (Vector)
-Vector.project = function(a, b)
-Vector.prototype.project = function(vector)
-```
-
-[Project](http://en.wikipedia.org/wiki/Vector_projection) a vector onto another vector.
-
-<p id="vector_zeros"></p>
-
-```javascript
-// (Number) => (Vector)
-Vector.zeros = function(count, [type])
-```
-
-Create a vector of ```count``` zeros. ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
-
-<p id="vector_ones"></p>
-
-```javascript
-// (Number) => (Vector)
-Vector.ones = function(count, [type])
-```
-
-Create a vector of ```count``` ones. ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
-
-<p id="vector_range"></p>
-
-```javascript
-// (Number, [Number], Number) => (Vector)
-Vector.range = function(start, [step], end, [type])
-```
-
-Create a vector containing the range from ```start``` to ```end``` in steps of ```step``` (optional). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
-
-<p id="vector_equals"></p>
-
-```javascript
-// (Vector, Vector) => (Boolean)
-Vector.equals = function(a, b)
-Vector.prototype.equals = function(vector)
-```
-
-Compare two vectors.
-
-<p id="vector_get"></p>
-
-```javascript
-// (Vector, Number) => (Number)
-Vector.prototype.get = function(index)
-```
-
-Get value of an element at ```index```.
-
-<p id="vector_min"></p>
-
-```javascript
-// (Vector) => (Number)
-Vector.prototype.min = function()
-```
-
-Get the minimum value of a vector.
-
-<p id="vector_max"></p>
-
-```javascript
-// (Vector) => (Number)
-Vector.prototype.max = function()
-```
-
-Get the maximum value of a vector.
-
-<p id="vector_set"></p>
-
-```javascript
-// (Vector, Number, Number) => (Vector)
-Vector.prototype.set = function(index, value)
-```
-
-Set value of an element at ```index```.
-
-<p id="vector_combine"></p>
-
-```javascript
-// (Vector, Vector) => (Vector)
-Vector.combine = function(a, b)
-Vector.prototype.combine = function(vector)
-```
-
-Combines two vectors.
-
-<p id="vector_push"></p>
-
-```javascript
-// (Vector, Number) => (Vector)
-Vector.prototype.push = function(value)
-```
-
-Pushes ```value``` into the vector.
-
-<p id="vector_map"></p>
-
-```javascript
-// (Vector, Function) => (Vector)
-Vector.prototype.map = function(callback)
-```
-
-Maps a function ```callback``` to all elements of the vector.
-
-<p id="vector_each"></p>
-
-```javascript
-// (Vector, Function) => (Vector)
-Vector.prototype.each = function(callback)
-```
-
-Calls ```callback(value, index)``` for each element in the vector.
-
-<p id="vector_toString"></p>
-
-```javascript
-// (Vector) => (String)
-Vector.prototype.toString = function()
-```
-
-Convert vector to string.
-
-<p id="vector_toArray"></p>
-
-```javascript
-// (Vector) => (Array)
-Vector.prototype.toArray = function()
-```
-
-Convert vector to array.
-
-## [&uarr;](#vectorious) Matrix
-
-The following matrix operations and methods are implemented in ```matrix.js```.
-
-* [```add```](#user-content-matrix_add)
-* [```subtract```](#user-content-matrix_subtract)
-* [```scale```](#user-content-matrix_scale)
-* [```multiply```](#user-content-matrix_multiply)
-* [```transpose```](#user-content-matrix_transpose)
-* [```inverse```](#user-content-matrix_inverse)
-* [```gauss```](#user-content-matrix_gauss)
-* [```pivotize```](#user-content-matrix_pivotize)
-* [```lu```](#user-content-matrix_lu)
-* [```diag```](#user-content-matrix_diag)
-* [```augment```](#user-content-matrix_augment)
-* [```trace```](#user-content-matrix_trace)
-* [```determinant```](#user-content-matrix_determinant)
-* [```identity```](#user-content-matrix_identity)
-* [```magic```](#user-content-matrix_magic)
-* [```zeros```](#user-content-matrix_zeros)
-* [```ones```](#user-content-matrix_ones)
-* [```equals```](#user-content-matrix_equals)
-* [```get```](#user-content-matrix_get)
-* [```set```](#user-content-matrix_set)
-* [```swap```](#user-content-matrix_swap)
-* [```map```](#user-content-matrix_map)
-* [```each```](#user-content-matrix_each)
-* [```toString```](#user-content-matrix_toString)
-* [```toArray```](#user-content-matrix_toArray)
-
-<p id="matrix_add"></p>
-
-```javascript
-// (Matrix, Matrix) => (Matrix)
-Matrix.add = function(a, b)
-Matrix.prototype.add = function(matrix)
-```
-
-[Add](http://en.wikipedia.org/wiki/Matrix_addition) two matrices together.
-
-<p id="matrix_subtract"></p>
-
-```javascript
-// (Matrix, Matrix) => (Matrix)
-Matrix.subtract = function(a, b)
-Matrix.prototype.subtract = function(matrix)
-```
-
-Subtract two matrices.
-
-<p id="matrix_scale"></p>
-
-```javascript
-// (Matrix, Number) => (Matrix)
-Matrix.prototype.scale = function(scalar)
-```
-
-Multiply all elements in matrix with a [scalar](http://en.wikipedia.org/wiki/Matrix_multiplication#Scalar_multiplication).
-
-<p id="matrix_multiply"></p>
-
-```javascript
-// (Matrix, Matrix) => (Matrix)
-Matrix.multiply = function(a, b)
-Matrix.prototype.multiply = function(matrix)
-```
-
-[Multiply](http://en.wikipedia.org/wiki/Matrix_multiplication#Matrix_product_.28two_matrices.29) two matrices together.
-
-<p id="matrix_transpose"></p>
-
-```javascript
-// (Matrix) => (Matrix)
-Matrix.prototype.transpose = function()
-```
-
-[Transpose](http://en.wikipedia.org/wiki/Transpose) a matrix.
-
-<p id="matrix_gauss"></p>
-
-```javascript
-// (Matrix, Boolean) => (Matrix)
-Matrix.prototype.gauss = function()
-```
-
-Convert a matrix to [reduced row echelon (RREF)](http://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form) form using [Gauss-Jordan eliminiation](http://en.wikipedia.org/wiki/Gaussian_elimination).
-
-<p id="matrix_pivotize"></p>
-
-```javascript
-// (Matrix) => ([Matrix, Number])
-Matrix.prototype.pivotize = function()
-```
-
-Get the pivot permutation matrix ```P``` and corresponding determinant ```sign``` in the form of the array ```[P, sign]``` (used in [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition)).
-
-<p id="matrix_lu"></p>
-
-```javascript
-// (Matrix) => ([Matrix, Matrix, [Matrix, Number]])
-Matrix.prototype.lu = function()
-```
-
-Get the [LU factorization](http://en.wikipedia.org/wiki/LU_decomposition) of a matrix in the form of the array  ```[L, U, P]```, where ```P``` is the return value of [```pivotize()```](#user-content-matrix_pivotize).
-
-<p id="matrix_inverse"></p>
-
-```javascript
-// (Matrix) => (Matrix)
-Matrix.prototype.inverse = function()
-```
-
-Get the [inverse](http://en.wikipedia.org/wiki/Invertible_matrix) of any invertible square matrix using [Gauss-Jordan elimination](http://en.wikipedia.org/wiki/Gaussian_elimination#Finding_the_inverse_of_a_matrix).
-
-<p id="matrix_diag"></p>
-
-```javascript
-// (Matrix) => (Vector)
-Matrix.prototype.diag = function()
-```
-
-Get [matrix diagonal](http://en.wikipedia.org/wiki/Main_diagonal) as a ```Vector```.
-
-<p id="matrix_augment"></p>
-
-```javascript
-// (Matrix, Matrix) => (Matrix)
-Matrix.augment = function(a, b)
-Matrix.prototype.augment = function(matrix)
-```
-
-Create an [augmented matrix](http://en.wikipedia.org/wiki/Augmented_matrix).
-
-<p id="matrix_trace"></p>
-
-```javascript
-// (Matrix) => (Number)
-Matrix.prototype.trace = function()
-```
-
-Get [matrix trace](http://en.wikipedia.org/wiki/Trace_(linear_algebra)) (the sum of the diagonal).
-
-<p id="matrix_determinant"></p>
-
-```javascript
-// (Matrix) => (Number)
-Matrix.prototype.determinant = function()
-```
-
-Get [matrix determinant](http://en.wikipedia.org/wiki/Determinant) (*note:* inefficient for large matrices).
-
-<p id="matrix_identity"></p>
-
-```javascript
-// (Number) => (Matrix)
-Matrix.identity = function(size, [type])
-```
-
-Create a ```size x size``` [identity matrix](http://en.wikipedia.org/wiki/Identity_matrix). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
-
-<p id="matrix_magic"></p>
-
-```javascript
-// (Number) => (Matrix)
-Matrix.magic = function(size, [type])
-```
-
-Create a ```size x size``` [magic square matrix](http://en.wikipedia.org/wiki/Magic_square). ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
-
-<p id="matrix_zeros"></p>
-
-```javascript
-// (Number, Number) => (Matrix)
-Matrix.zeros = function(i, j, [type])
-```
-
-Create an ```i x j``` matrix of zeros. ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
-
-<p id="matrix_ones"></p>
-
-```javascript
-// (Number, Number) => (Matrix)
-Matrix.ones = function(i, j, [type])
-```
-
-Create an ```i x j``` matrix of ones. ```type``` is optional and specifies the type of ```TypedArray``` used in computations.
-
-<p id="matrix_equals"></p>
-
-```javascript
-// (Matrix, Matrix) => (Boolean)
-Matrix.equals = function(a, b)
-Matrix.prototype.equals = function(matrix)
-```
-
-Compare two matrices.
-
-<p id="matrix_get"></p>
-
-```javascript
-// (Matrix, Number, Number) => (Number)
-Matrix.prototype.get = function(i, j)
-```
-
-Get element at row ```i```, column ```j```.
-
-<p id="matrix_set"></p>
-
-```javascript
-// (Matrix, Number, Number, Number) => (Matrix)
-Matrix.prototype.set = function(i, j, value)
-```
-
-Set the value of an element at row ```i```, column ```j```.
-
-<p id="matrix_swap"></p>
-
-```javascript
-// (Matrix, Number, Number) => (Matrix)
-Matrix.prototype.swap = function(i, j)
-```
-
-Swaps the position of rows ```i``` and ```j```.
-
-<p id="matrix_map"></p>
-
-```javascript
-// (Matrix, Function) => (Matrix)
-Matrix.prototype.map = function(callback)
-```
-
-Maps a function ```callback``` to all elements of the matrix.
-
-<p id="matrix_each"></p>
-
-```javascript
-// (Matrix, Function) => (Matrix)
-Matrix.prototype.each = function(callback)
-```
-
-Calls ```callback(row, index)``` for each row in the matrix.
-
-<p id="matrix_toString"></p>
-
-```javascript
-// (Matrix) => (String)
-Matrix.prototype.toString = function()
-```
-
-Convert matrix to string.
-
-<p id="matrix_toArray"></p>
-
-```javascript
-// (Matrix) => (Array)
-Matrix.prototype.toArray = function()
-```
-
-Convert matrix to array.
+## [&uarr;](#vectorious) [API](https://github.com/mateogianolio/vectorious/wiki)
 
 ## [&uarr;](#vectorious) Benchmarks
 
@@ -815,4 +319,48 @@ a.transpose() x 7,366 ops/sec ±4.43% (83 runs sampled)
 a.gauss() x 103 ops/sec ±2.37% (54 runs sampled)
 a.diag() x 513,075 ops/sec ±7.01% (60 runs sampled)
 a.trace() x 412,940 ops/sec ±7.39% (68 runs sampled)
+```
+
+#### [4.0.0](https://github.com/mateogianolio/vectorious/releases/tag/4.0.0)
+
+```
+$ npm run benchmark
+
+> vectorious@4.0.0 benchmark /Users/mg/Projects/javascript/vectorious
+> node ./benchmarks/vector.js && node ./benchmarks/matrix.js
+
+data = randomArray(1024)
+a = Vector.ones(data)
+b = Vector.ones(data).scale(2)
+
+Vector.zeros(1024) x 161,656 ops/sec ±3.32% (72 runs sampled)
+Vector.ones(1024) x 166,243 ops/sec ±1.44% (78 runs sampled)
+Vector.range(0, 1024) x 53,888 ops/sec ±2.03% (87 runs sampled)
+Vector.combine(a, b) x 37,548 ops/sec ±7.38% (74 runs sampled)
+a.add(b) x 4,090,967 ops/sec ±0.63% (92 runs sampled)
+a.subtract(b) x 4,134,503 ops/sec ±0.64% (97 runs sampled)
+a.scale(Math.random()) x 5,278,867 ops/sec ±0.57% (98 runs sampled)
+a.normalize() x 3,869,698 ops/sec ±0.68% (92 runs sampled)
+a.dot(b) x 4,719,152 ops/sec ±0.72% (93 runs sampled)
+a.magnitude() x 10,948,655 ops/sec ±1.05% (88 runs sampled)
+a.angle(b) x 905,799 ops/sec ±0.62% (91 runs sampled)
+a.project(b) x 1,779,760 ops/sec ±0.63% (88 runs sampled)
+
+data = randomArray(128, 128)
+a = Matrix(data)
+b = Matrix(data).scale(2)
+
+Matrix.identity(128) x 9,497 ops/sec ±4.29% (83 runs sampled)
+Matrix.magic(128) x 2,231 ops/sec ±5.14% (82 runs sampled)
+Matrix.zeros(128, 128) x 9,410 ops/sec ±4.43% (78 runs sampled)
+Matrix.ones(128, 128) x 9,531 ops/sec ±4.40% (82 runs sampled)
+Matrix.augment(a, b) x 3,322 ops/sec ±4.88% (82 runs sampled)
+a.add(b) x 151,391 ops/sec ±0.63% (91 runs sampled)
+a.subtract(b) x 150,457 ops/sec ±0.70% (91 runs sampled)
+a.scale(Math.random()) x 207,431 ops/sec ±0.56% (94 runs sampled)
+a.multiply(b) x 5,651 ops/sec ±6.17% (83 runs sampled)
+a.transpose() x 42,127 ops/sec ±1.03% (96 runs sampled)
+a.gauss() x 6,127 ops/sec ±5.61% (77 runs sampled)
+a.diag() x 533,722 ops/sec ±1.44% (65 runs sampled)
+a.trace() x 426,450 ops/sec ±4.11% (64 runs sampled)
 ```

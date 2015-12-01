@@ -22,7 +22,7 @@
     return data;
   }
 
-  var N = 64;
+  var N = 128;
   var data = randomArray(N, N);
 
   var a = new Matrix(data),

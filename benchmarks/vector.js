@@ -22,7 +22,7 @@
     return data;
   }
 
-  var N = 512;
+  var N = 1024;
   var data = randomArray(N);
   var a = Vector.ones(data),
       b = Vector.ones(data).scale(2);
