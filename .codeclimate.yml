@@ -6,5 +6,10 @@ engines:
         enabled: false
       no-undef:
         enabled: false
+ratings:
+  paths:
+  - test/**
+  - benchmarks/**
+  - "**.js"
 exclude_paths:
   - "dist/vectorious-3.0.0.js"
