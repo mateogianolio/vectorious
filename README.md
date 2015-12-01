@@ -4,41 +4,13 @@ Vectorious is a high performance linear algebra library. It is written in
 JavaScript using single- and double-precision C++ bindings to CBLAS — with native fallbacks,
 in case you want to use it in your browser.
 
-* [Installation](#-installation)
-  * [For the browser](#-for-the-browser)
-* [Extensions](#-extensions)
-* [Usage](#-usage)
-* [Vector](#-vector)
-* [Matrix](#-matrix)
-* [Benchmarks](#-benchmark-)
-  * [2.0.0](#200)
-  * [2.1.0](#210)
-  * [2.2.0](#220)
-  * [3.0.0](#300)
-  * [4.0.0](#400)
-
-
-## [&uarr;](#vectorious) Installation
-
-Install with ```npm```
-
 ```bash
 $ npm install vectorious
+$ npm test
+$ npm run benchmark
 ```
 
-Test with
-
-```bash
-$ npm test
-```
-
-Run benchmarks with
-
-```bash
-$ npm run benchmark
-```
-
-#### [&uarr;](#vectorious) For the browser
+**Browser**
 
 Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
@@ -49,118 +21,11 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 </script>
 ```
 
-## [&uarr;](#vectorious) Usage
+##  [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 
-Since [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0) ```Vector``` implements [JavaScript typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays) for increased performance. The default ```Vector``` type is ```Float64Array```, but this can be specified upon creation.
+## Benchmarks
 
-```javascript
-var vectorious = require('vectorious'),
-    Vector = vectorious.Vector,
-    Matrix = vectorious.Matrix;
-
-var vector,
-    matrix;
-
-// Create an empty vector of default type Float64Array
-vector = new Vector();
-/* Vector { type: [Function: Float64Array], length: 0 } */
-
-// Create an empty vector of type Uint8Array
-vector = new Vector(Uint8Array);
-/* Vector { type: [Function: Uint8Array], length: 0 } */
-
-matrix = new Matrix();
-/* Matrix { type: [Function: Float64Array], shape: [] } */
-
-vector = Vector.zeros(5);
-/* Vector {
-  type: [Function: Float64Array],
-  length: 5,
-  buffer: ArrayBuffer {},
-  values: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0, '4': 0 } } */
-
-vector = new Vector(1, 2, 3, 4, 5);
-/* Vector {
-  type: [Function: Float64Array],
-  length: 5,
-  buffer: ArrayBuffer {},
-  values: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */
-
-matrix = new Matrix(vector);
-/* Matrix {
-  type: [Function: Float64Array],
-  shape: [ 5, 1 ],
-  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4, '4': 5 } } */
-
-matrix = Matrix.zeros(2, 2);
-/* Matrix {
-  shape: [ 2, 2 ],
-  data: Float64Array { '0': 0, '1': 0, '2': 0, '3': 0 },
-  type: [Function: Float64Array] } */
-
-var input = [
-  [1, 2],
-  [3, 4]
-];
-
-matrix = new Matrix(input);
-/* Matrix {
-  shape: [ 2, 2 ],
-  data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4 },
-  type: [Function: Float64Array] } */
-```
-
-Now that you've got a hang of the basics, let me show you a useful application example.
-
-```javascript
-var time = Vector.range(0, Math.PI / 12, Math.PI);
-/* Vector {
-  type: [Function: Float64Array],
-  length: 12,
-  buffer: ArrayBuffer {},
-  values:
-   Float64Array {
-     '0': 0,
-     '1': 0.2617993877991494,
-     '2': 0.5235987755982988,
-     '3': 0.7853981633974483,
-     '4': 1.0471975511965976,
-     '5': 1.308996938995747,
-     '6': 1.5707963267948963,
-     '7': 1.8325957145940457,
-     '8': 2.0943951023931953,
-     '9': 2.356194490192345,
-     '10': 2.6179938779914944,
-     '11': 2.879793265790644 } } */
-
-var sine = time.map(Math.sin);
-/* Vector {
-  type: [Function: Float64Array],
-  length: 12,
-  buffer: ArrayBuffer {},
-  values:
-   Float64Array {
-     '0': 0,
-     '1': 0.25881904510252074,
-     '2': 0.49999999999999994,
-     '3': 0.7071067811865475,
-     '4': 0.8660254037844386,
-     '5': 0.9659258262890682,
-     '6': 1,
-     '7': 0.9659258262890684,
-     '8': 0.8660254037844387,
-     '9': 0.7071067811865476,
-     '10': 0.49999999999999994,
-     '11': 0.2588190451025206 } } */
-```
-
-For more advanced uses, check out the extensions [solve](https://github.com/mateogianolio/vectorious-solve) and [plot](https://github.com/mateogianolio/vectorious-plot).
-
-## [&uarr;](#vectorious) [API](https://github.com/mateogianolio/vectorious/wiki)
-
-## [&uarr;](#vectorious) Benchmarks
-
-#### [2.0.0](https://github.com/mateogianolio/vectorious/releases/tag/2.0.0)
+### [2.0.0](https://github.com/mateogianolio/vectorious/releases/tag/2.0.0)
 
 ```
 $ node ./benchmarks/vector.js && node ./benchmarks/matrix.js
@@ -198,7 +63,7 @@ a.diag() x 18,717 ops/sec ±2.20% (88 runs sampled)
 a.trace() x 19,097 ops/sec ±1.28% (96 runs sampled)
 ```
 
-#### [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0)
+### [2.1.0](https://github.com/mateogianolio/vectorious/releases/tag/2.1.0)
 
 ```
 $ node ./benchmarks/vector.js && node ./benchmarks/matrix.js
@@ -236,7 +101,7 @@ a.diag() x 893 ops/sec ±2.11% (93 runs sampled)
 a.trace() x 907 ops/sec ±1.63% (95 runs sampled)
 ```
 
-#### [2.2.0](https://github.com/mateogianolio/vectorious/releases/tag/2.2.0)
+### [2.2.0](https://github.com/mateogianolio/vectorious/releases/tag/2.2.0)
 
 ```
 $ npm run benchmark
@@ -278,7 +143,7 @@ a.diag() x 945 ops/sec ±1.66% (89 runs sampled)
 a.trace() x 940 ops/sec ±1.74% (94 runs sampled)
 ```
 
-#### [3.0.0](https://github.com/mateogianolio/vectorious/releases/tag/3.0.0)
+### [3.0.0](https://github.com/mateogianolio/vectorious/releases/tag/3.0.0)
 
 ```
 $ npm run benchmark
@@ -321,7 +186,7 @@ a.diag() x 513,075 ops/sec ±7.01% (60 runs sampled)
 a.trace() x 412,940 ops/sec ±7.39% (68 runs sampled)
 ```
 
-#### [4.0.0](https://github.com/mateogianolio/vectorious/releases/tag/4.0.0)
+### [4.0.0](https://github.com/mateogianolio/vectorious/releases/tag/4.0.0)
 
 ```
 $ npm run benchmark
