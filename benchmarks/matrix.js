@@ -14,7 +14,7 @@
     for(var i = 0; i < N; i++){
       var row = [];
       for(var j = 0; j < M; j++){
-          row[j] = Math.random();
+          row[j] = 1 + Math.random();
       }
       data.push(row);
     }
@@ -49,11 +49,20 @@
     .add('Matrix.augment(a, b)', function() {
       Matrix.augment(a, b);
     })
+    .add('Matrix.add(a, b)', function() {
+      Matrix.add(a, b);
+    })
     .add('a.add(b)', function() {
       a.add(b);
     })
+    .add('Matrix.subtract(a, b)', function() {
+      Matrix.subtract(a, b);
+    })
     .add('a.subtract(b)', function() {
       a.subtract(b);
+    })
+    .add('Matrix.scale(Math.random())', function() {
+      Matrix.scale(a, Math.random());
     })
     .add('a.scale(Math.random())', function() {
       a.scale(Math.random());
@@ -61,17 +70,29 @@
     .add('a.multiply(b)', function() {
       a.multiply(b);
     })
+    .add('Matrix.transpose(a)', function() {
+      Matrix.transpose(a);
+    })
     .add('a.transpose()', function() {
       a.transpose();
     })
     .add('a.gauss()', function() {
       a.gauss();
     })
+    .add('a.lu()', function() {
+      a.lu();
+    })
+    .add('a.determinant()', function() {
+      a.determinant();
+    })
     .add('a.diag()', function() {
       a.diag();
     })
     .add('a.trace()', function() {
       a.trace();
+    })
+    .add('a.swap(i, j)', function() {
+      a.swap(Math.floor(Math.random() * N), Math.floor(Math.random() * N));
     })
     .on('cycle', function(event) {
       console.log(String(event.target));

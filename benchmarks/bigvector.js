@@ -8,16 +8,9 @@
   var Vector = vectorious.Vector;
 
   function randomArray(N, M){
-
     var data = [];
-
-    for(var i = 0; i < N; i++){
-      var row = [];
-      for(var j = 0; j < M; j++){
-          row[j] = Math.random();
-      }
-      data.push(row.length ? row : Math.random());
-    }
+    for(var i = 0; i < N; i++)
+      data.push(1 + Math.random());
 
     return data;
   }
@@ -45,11 +38,20 @@
     .add('Vector.combine(a, b)', function() {
       Vector.combine(a, b);
     })
+    .add('Vector.add(a, b)', function() {
+      Vector.add(a, b);
+    })
     .add('a.add(b)', function() {
       a.add(b);
     })
+    .add('Vector.subtract(a, b)', function() {
+      Vector.subtract(a, b);
+    })
     .add('a.subtract(b)', function() {
       a.subtract(b);
+    })
+    .add('Vector.scale(a, b)', function() {
+      Vector.scale(a, b);
     })
     .add('a.scale(Math.random())', function() {
       a.scale(Math.random());
@@ -65,6 +67,9 @@
     })
     .add('a.angle(b)', function() {
       a.angle(b);
+    })
+    .add('Vector.project(a, b)', function() {
+      Vector.project(a, b);
     })
     .add('a.project(b)', function() {
       a.project(b);

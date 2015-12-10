@@ -260,7 +260,7 @@
   };
 
   /**
-   * Multiplies current matrix with `matrix`.
+   * Multiplies two matrices `a` and `b` of matching dimensions.
    * @param {Matrix} a -
    * @param {Matrix} b -
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`

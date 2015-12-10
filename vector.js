@@ -43,7 +43,9 @@
     this.length = 0;
 
     if (data instanceof Vector) {
-      this.combine(data);
+      this.data = new data.type(data.data);
+      this.length = data.length;
+      this.type = data.type;
     } else if (data instanceof Array) {
       this.data = new this.type(data);
       this.length = data.length;
@@ -475,17 +477,22 @@
    * @returns {Vector} `vector` combined with current vector
    **/
   Vector.prototype.combine = function (vector) {
-    var l1 = this.length,
-        l2 = vector.length;
+    if (!vector.length)
+      return this;
 
-    var r = new this.type(l1 + l2);
+    var l1 = this.length,
+        l2 = vector.length,
+        d1 = this.data,
+        d2 = vector.data;
+
+    var data = new this.type(l1 + l2);
     for (var i = 0; i < l1; i++)
-      r[i] = this.data[i];
+      data[i] = d1[i];
 
     for (var j = 0; j < l2; j++)
-      r[i + j] = vector.data[j];
+      data[i + j] = d2[j];
 
-    this.data = r;
+    this.data = data;
     this.length = l1 + l2;
 
     return this;
