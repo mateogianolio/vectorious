@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A high performance linear algebra library written in Javascript.",
   "main": "vectorious.js",
   "scripts": {
@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
-    "async": "^0.9.0",
     "benchmark": "^1.0.0",
     "browserify": "^9.0.3",
     "chalk": "^1.1.1",
@@ -33,12 +32,11 @@
     "gulp-sourcemaps": "^1.5.1",
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.4",
-    "nblas": "^1.0.2",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "vinyl-transform": "^1.0.0"
+    "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "nblas": "^1.0.2"
   }
 }
