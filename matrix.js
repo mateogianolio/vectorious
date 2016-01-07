@@ -1,71 +1,40 @@
 (function () {
   'use strict';
 
-  /**
-   * @module Matrix
-   * @name Matrix
-   * @desc Creates a `Matrix` from the supplied arguments.
-   * ```javascript
-   * $ node
-   * > var v = require('vectorious');
-   *
-   * > new v.Matrix([[1, 2], [3, 4]]]);
-   * Matrix {
-   *   shape: [ 2, 2 ],
-   *   data: Float64Array { '0': 1, '1': 2, '2': 3, '3': 4 },
-   *   type: [Function: Float64Array] }
-   *
-   * > new v.Matrix(new Float32Array([1, 2, 3, 4]), { shape: [2, 2] });
-   * Matrix {
-   *   shape: [ 2, 2 ],
-   *   data: Float32Array { '0': 1, '1': 2, '2': 3, '3': 4 },
-   *   type: [Function: Float32Array] }
-   *
-   * > new v.Matrix(new v.Vector(1, 2));
-   * Matrix {
-   *   shape: [ 2, 1 ],
-   *   data: Float64Array { '0': 1, '1': 2 },
-   *   type: [Function: Float64Array] }
-   * ```
-   **/
+  var Vector = require('./vector'),
+      nblas = null;
 
-  var Vector = require('./vector.js'),
-      nblas = require('nblas');
+  try {
+    nblas = require('nblas');
+  } catch (error) {}
 
   /**
    * @method constructor
    * @desc Creates a `Matrix` from the supplied arguments.
    **/
   function Matrix (data, options) {
-    var self = this;
-
-    self.type = Float64Array;
-    self.shape = [];
+    this.type = Float64Array;
+    this.shape = [];
 
     if (data && data.buffer && !(data instanceof Vector) &&
         Object.prototype.toString.call(data.buffer) === '[object ArrayBuffer]' &&
         options.shape) {
       if (data.length !== options.shape[0] * options.shape[1])
-        throw "Shape does not match typed array dimensions.";
+        throw new Error("Shape does not match typed array dimensions.");
 
-      self.shape = options.shape;
-      self.data = data;
-      self.type = data.constructor;
-
-      return self;
+      this.shape = options.shape;
+      this.data = data;
+      this.type = data.constructor;
     } else if (Object.prototype.toString.call(data) === '[object Array]') {
       return Matrix.fromArray(data);
     } else if (data instanceof Vector) {
-      self.shape = options && options.shape ? options.shape : [data.length, 1];
-      self.data = data.values;
-      self.type = data.type;
+      this.shape = options && options.shape ? options.shape : [data.length, 1];
+      this.data = new data.type(data.data);
+      this.type = data.type;
     } else if (data instanceof Matrix) {
-      // copy contructor
-      self.shape = [data.shape[0], data.shape[1]];
-      self.data = new data.type(data.data);
-      self.type = data.type;
-
-      return self;
+      this.shape = [data.shape[0], data.shape[1]];
+      this.data = new data.type(data.data);
+      this.type = data.type;
     }
   }
 
@@ -98,8 +67,8 @@
 
   /**
    * Static method. Adds two matrices `a` and `b` together.
-   * @param {Matrix} a -
-   * @param {Matrix} b -
+   * @param {Matrix} a
+   * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the sum of `a` and `b`
    **/
   Matrix.add = function (a, b) {
@@ -108,8 +77,8 @@
 
   /**
    * Adds `matrix` to current matrix.
-   * @param {Matrix} a -
-   * @param {Matrix} b -
+   * @param {Matrix} a
+   * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.add = function (matrix) {
@@ -121,7 +90,7 @@
     if (r !== matrix.shape[0] || c !== matrix.shape[1])
       throw new Error('sizes do not match: ' + r + 'x' + c + ', ' + matrix.shape[0] + 'x' + matrix.shape[1]);
 
-    if (this.type === Float64Array || this.type === Float32Array)
+    if (nblas && (this.type === Float64Array || this.type === Float32Array))
       nblas.axpy(d2, d1);
     else {
       for (var ii = 0; ii < r; ii++)
@@ -134,8 +103,8 @@
 
   /**
    * Static method. Subtracts the matrix `b` from matrix `a`.
-   * @param {Matrix} a -
-   * @param {Matrix} b -
+   * @param {Matrix} a
+   * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the difference between `a` and `b`
    **/
   Matrix.subtract = function (a, b) {
@@ -144,8 +113,8 @@
 
   /**
    * Subtracts `matrix` from current matrix.
-   * @param {Matrix} a -
-   * @param {Matrix} b -
+   * @param {Matrix} a
+   * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.subtract = function (matrix) {
@@ -157,7 +126,7 @@
       if (r !== matrix.shape[0] || c !== matrix.shape[1])
         throw new Error('sizes do not match');
 
-      if (this.type === Float64Array || this.type === Float32Array)
+      if (nblas && (this.type === Float64Array || this.type === Float32Array))
         nblas.axpy(d2, d1, -1);
       else {
         for (var ii = 0; ii < r; ii++)
@@ -170,8 +139,8 @@
 
   /**
    * Static method. Multiplies all elements of a matrix `a` with a specified `scalar`.
-   * @param {Matrix} a -
-   * @param {Number} scalar -
+   * @param {Matrix} a
+   * @param {Number} scalar
    * @returns {Matrix} a new scaled matrix
    **/
   Matrix.scale = function (a, scalar) {
@@ -180,7 +149,7 @@
 
   /**
    * Multiplies all elements of current matrix with a specified `scalar`.
-   * @param {Number} scalar -
+   * @param {Number} scalar
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.scale = function (scalar) {
@@ -188,7 +157,7 @@
         c = this.shape[1],          // columns in this matrix
         d1 = this.data;
 
-    if (this.type === Float64Array || this.type === Float32Array)
+    if (nblas && (this.type === Float64Array || this.type === Float32Array))
       nblas.scal(d1, scalar);
     else {
       for (var ii = 0; ii < r; ii++)
@@ -202,9 +171,9 @@
   /**
    * Static method. Creates an `i x j` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i -
-   * @param {Number} j -
-   * @param {TypedArray} type -
+   * @param {Number} i
+   * @param {Number} j
+   * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.zeros = function (i, j, type) {
@@ -227,9 +196,9 @@
   /**
    * Static method. Creates an `i x j` matrix containing ones (`1`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i -
-   * @param {Number} j -
-   * @param {TypedArray} type -
+   * @param {Number} i
+   * @param {Number} j
+   * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.ones = function (i, j, type) {
@@ -250,9 +219,24 @@
   };
 
   /**
+   * Static method. Creates an `i x j` matrix containing random values between
+   * `0` and `1`, takes an optional `type` argument which should be an instance
+   * of `TypedArray`.
+   * @param {Number} i
+   * @param {Number} j
+   * @param {TypedArray} type
+   * @returns {Matrix} a matrix of the specified dimensions and `type`
+   **/
+  Matrix.random = function (i, j, type) {
+    return Matrix
+      .zeros(i, j, type)
+      .map(Math.random);
+  };
+
+  /**
    * Static method. Multiplies two matrices `a` and `b` of matching dimensions.
-   * @param {Matrix} a -
-   * @param {Matrix} b -
+   * @param {Matrix} a
+   * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
    **/
   Matrix.multiply = function (a, b) {
@@ -261,8 +245,8 @@
 
   /**
    * Multiplies two matrices `a` and `b` of matching dimensions.
-   * @param {Matrix} a -
-   * @param {Matrix} b -
+   * @param {Matrix} a
+   * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
    **/
   Matrix.prototype.multiply = function (matrix) {
@@ -282,10 +266,7 @@
     );
 
     var data = out.data;
-
-    if (out.type === Float64Array)
-      nblas.gemm(d1, d2, data, r1, c2, c1);
-    else if (out.type === Float32Array)
+    if (nblas && (out.type === Float64Array || out.type === Float32Array))
       nblas.gemm(d1, d2, data, r1, c2, c1);
     else {
       for (var ii = 0; ii < r1; ii++) {
@@ -514,9 +495,9 @@
   /**
    * Static method. Augments two matrices `a` and `b` of matching dimensions
    * (appends `b` to `a`).
-   * @param {Matrix} a -
-   * @param {Matrix} b -
-   * @returns {Matrix} the resultant matrix of `b` appended to `a`
+   * @param {Matrix} a
+   * @param {Matrix} b
+   * @returns {Matrix} the resultant matrix of `b` augmented to `a`
    **/
   Matrix.augment = function (a, b) {
     return new Matrix(a).augment(b);
@@ -524,7 +505,7 @@
 
   /**
    * Augments `matrix` with current matrix.
-   * @param {Matrix} matrix -
+   * @param {Matrix} matrix
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.augment = function (matrix) {
@@ -561,8 +542,8 @@
   /**
    * Static method. Creates an identity matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
-   * @param {Number} size -
-   * @param {TypedArray} type -
+   * @param {Number} size
+   * @param {TypedArray} type
    * @returns {Matrix} an identity matrix of the specified `size` and `type`
    **/
   Matrix.identity = function (size, type) {
@@ -581,8 +562,8 @@
   /**
    * Static method. Creates a magic square matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
-   * @param {Number} size -
-   * @param {Number} type -
+   * @param {Number} size
+   * @param {Number} type
    * @returns {Matrix} a magic square matrix of the specified `size` and `type`
    **/
   Matrix.magic = function (size, type) {
@@ -658,8 +639,8 @@
 
   /**
    * Static method. Checks the equality of two matrices `a` and `b`.
-   * @param {Matrix} a -
-   * @param {Matrix} b -
+   * @param {Matrix} a
+   * @param {Matrix} b
    * @returns {Boolean} `true` if equal, `false` otherwise
    **/
   Matrix.equals = function (a, b) {
@@ -668,7 +649,7 @@
 
   /**
    * Checks the equality of `matrix` and current matrix.
-   * @param {Matrix} matrix -
+   * @param {Matrix} matrix
    * @returns {Boolean} `true` if equal, `false` otherwise
    **/
   Matrix.prototype.equals = function (matrix) {
@@ -689,8 +670,8 @@
 
   /**
    * Gets the value of the element in row `i`, column `j` of current matrix
-   * @param {Number} i -
-   * @param {Number} j -
+   * @param {Number} i
+   * @param {Number} j
    * @returns {Number} the element at row `i`, column `j` of current matrix
    **/
   Matrix.prototype.get = function (i, j) {
@@ -702,9 +683,9 @@
 
   /**
    * Sets the element at row `i`, column `j` to value
-   * @param {Number} i -
-   * @param {Number} j -
-   * @param {Number} value -
+   * @param {Number} i
+   * @param {Number} j
+   * @param {Number} value
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.set = function (i, j, value) {
@@ -717,8 +698,8 @@
 
   /**
    * Swaps two rows `i` and `j` in a matrix
-   * @param {Number} i -
-   * @param {Number} j -
+   * @param {Number} i
+   * @param {Number} j
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.swap = function (i, j) {
@@ -739,7 +720,7 @@
 
   /**
    * Maps a function `callback` to all elements of a copy of current matrix.
-   * @param {Function} callback -
+   * @param {Function} callback
    * @returns {Matrix} the resultant mapped matrix
    **/
   Matrix.prototype.map = function (callback) {
@@ -752,7 +733,7 @@
   /**
    * Functional version of for-looping the rows in a matrix, is
    * equivalent to `Array.prototype.forEach`.
-   * @param {Function} callback -
+   * @param {Function} callback
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.each = function (callback) {
@@ -796,6 +777,20 @@
       result.push(Array.prototype.slice.call(this.data.subarray(i * c, (i + 1) * c)));
 
     return result;
+  };
+
+  /**
+   * Converts current matrix into a two-dimensional Vector
+   * @returns {Array} a Vector of the matrix' contents
+   **/
+  Matrix.prototype.toVector = function () {
+    var r = this.shape[0],
+        c = this.shape[1];
+
+    if (r !== 1 && c !== 1)
+      throw new Error('invalid matrix shape');
+
+    return new Vector(this.data);
   };
 
   module.exports = Matrix;

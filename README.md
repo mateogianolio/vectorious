@@ -1,9 +1,9 @@
-# ![Vectorious](logo.png)
+# Vectorious
 
 ![npm version](https://img.shields.io/npm/v/vectorious.svg) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg) ![npm downloads](https://img.shields.io/npm/dm/vectorious.svg)
 
 Vectorious is a high performance linear algebra library. It is written in
-JavaScript using [nblas](https://github.com/mateogianolio/nblas) and [nlapack](https://github.com/mateogianolio/nlapack) for single- and double-precision C++ bindings to CBLAS and LAPACK. With native fallbacks,
+JavaScript using [nblas](https://github.com/mateogianolio/nblas) for single- and double-precision C++ bindings to CBLAS. In the future the goal is to also include C++ bindings to LAPACK. With native fallbacks,
 it can be used without the bindings in supported browsers.
 
 ```bash
@@ -17,11 +17,13 @@ $ npm run benchmark
 Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-3.0.0.js"></script>
+<script src="vectorious-4.0.0.js"></script>
 <script>
   // e.g. var vector = new vectorious.Vector()
 </script>
 ```
+
+Or you can compile the release yourself by running `gulp javascript` in the repository root, which will generate a `vectorious-x.x.x.js`-file in the `dist` folder.
 
 ## [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 

@@ -2,38 +2,18 @@
   'use strict';
 
   var Benchmark = require('benchmark'),
-      vectorious = require('../vectorious'),
-      suite = new Benchmark.Suite();
+      Matrix = require('../matrix'),
+      chalk = require('chalk'),
+      copy = new Benchmark.Suite(),
+      inplace = new Benchmark.Suite();
 
-  var Matrix = vectorious.Matrix;
+  var N = 128,
+      a = Matrix.random(N, N),
+      b = Matrix.random(N, N);
 
-  function randomArray(N, M){
-
-    var data = [];
-
-    for(var i = 0; i < N; i++){
-      var row = [];
-      for(var j = 0; j < M; j++){
-          row[j] = 1 + Math.random();
-      }
-      data.push(row);
-    }
-
-    return data;
-  }
-
-  var N = 128;
-  var data = randomArray(N, N);
-
-  var a = new Matrix(data),
-      b = new Matrix(data).scale(2);
-
-  console.log('data = randomArray(' + N + ', ' + N + ')');
-  console.log('a = Matrix(data)');
-  console.log('b = Matrix(data).scale(2)');
-  console.log();
-
-  suite
+  console.log('a, b = Matrix.random(' + N + ', ' + N + ')');
+  console.log(chalk.yellow('copy'), chalk.green('in-place'));
+  copy
     .add('Matrix.identity(' + N + ')', function() {
       Matrix.identity(N);
     })
@@ -52,26 +32,32 @@
     .add('Matrix.add(a, b)', function() {
       Matrix.add(a, b);
     })
-    .add('a.add(b)', function() {
-      a.add(b);
-    })
     .add('Matrix.subtract(a, b)', function() {
       Matrix.subtract(a, b);
     })
-    .add('a.subtract(b)', function() {
-      a.subtract(b);
-    })
     .add('Matrix.scale(Math.random())', function() {
       Matrix.scale(a, Math.random());
+    })
+    .add('Matrix.transpose(a)', function() {
+      Matrix.transpose(a);
+    })
+    .on('cycle', function(event) {
+      console.log(chalk.yellow(String(event.target)));
+    })
+    .run();
+
+  inplace
+    .add('a.add(b)', function() {
+      a.add(b);
+    })
+    .add('a.subtract(b)', function() {
+      a.subtract(b);
     })
     .add('a.scale(Math.random())', function() {
       a.scale(Math.random());
     })
     .add('a.multiply(b)', function() {
       a.multiply(b);
-    })
-    .add('Matrix.transpose(a)', function() {
-      Matrix.transpose(a);
     })
     .add('a.transpose()', function() {
       a.transpose();
@@ -95,11 +81,10 @@
       a.swap(Math.floor(Math.random() * N), Math.floor(Math.random() * N));
     })
     .on('cycle', function(event) {
-      console.log(String(event.target));
+      console.log(chalk.green(String(event.target)));
     })
     .on('complete', function() {
       console.log();
-      console.log('Done!');
     })
-    .run({ 'async': true });
+    .run();
 }());

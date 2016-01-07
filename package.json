@@ -5,7 +5,8 @@
   "main": "vectorious.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
-    "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js"
+    "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
+    "benchmark_big": "node ./benchmarks/bigvector.js && node ./benchmarks/bigmatrix.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "async": "^0.9.0",
     "benchmark": "^1.0.0",
     "browserify": "^9.0.3",
+    "chalk": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-uglify": "^1.1.0",
