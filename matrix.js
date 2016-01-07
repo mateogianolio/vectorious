@@ -177,7 +177,7 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.zeros = function (i, j, type) {
-    if (i <= 0 || j <= 0)
+    if (i <= 0 || j <= 0)
       throw new Error('invalid size');
 
     type = type ? type : Float64Array;
@@ -202,7 +202,7 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.ones = function (i, j, type) {
-    if (i <= 0 || j <= 0)
+    if (i <= 0 || j <= 0)
       throw new Error('invalid size');
 
     type = type ? type : Float64Array;
@@ -481,7 +481,7 @@
       }
 
       for (j = i; j < l; j++) {
-        sum[1] = 0;
+        sum[1] = 0;
         for (k = 0; k < j; k++)
           sum[1] += U.get(k, i) * L.get(j, k);
 
@@ -675,7 +675,7 @@
    * @returns {Number} the element at row `i`, column `j` of current matrix
    **/
   Matrix.prototype.get = function (i, j) {
-    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
     return this.data[i*this.shape[1]+j];
@@ -689,7 +689,7 @@
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.set = function (i, j, value) {
-    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
     this.data[i*this.shape[1]+j] = value;
@@ -703,7 +703,7 @@
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.swap = function (i, j) {
-    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[0] - 1)
+    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[0] - 1)
       throw new Error('index out of bounds');
 
     var c = this.shape[1];
