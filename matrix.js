@@ -794,4 +794,4 @@
   };
 
   module.exports = Matrix;
-})();
+}());
