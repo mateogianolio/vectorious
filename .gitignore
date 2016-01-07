@@ -1,4 +1,5 @@
 node_modules
-.DS_Store
-doc
 coverage
+.DS_Store
+.codeclimate.yml
+.travis.yml
