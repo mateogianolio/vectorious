@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "4.0"
+before_install:
+  - sudo apt-get install libblas-dev
+env:
+  - CXX=g++-4.8
+addons:
+  code_climate:
+    repo_token: 7bc2ff765ac0619975d32fe57959db6374d14a96780a1438ec68ea14036748e1
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.8
+    - g++-4.8
+    - clang
