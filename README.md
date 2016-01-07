@@ -14,6 +14,9 @@ $ npm test
 $ npm run benchmark
 ```
 
+To enjoy the full performance of vectorious, you will need to have BLAS installed
+on your system. It is by default included in the **OSX** Accelerate framework. On **Ubuntu**/**Debian** you can e.g. use libblas (`apt-get libblas-dev`).
+
 **Browser**
 
 Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
