@@ -15,7 +15,7 @@ $ npm run benchmark
 ```
 
 To enjoy the full performance of vectorious, you will need to have BLAS installed
-on your system. It is by default included in the **OSX** Accelerate framework. On **Ubuntu**/**Debian** you can e.g. use libblas (`apt-get libblas-dev`).
+on your system. It is by default included in the **OSX** Accelerate framework. On **Ubuntu**/**Debian** you can e.g. use libblas (`apt-get libblas-dev`). If you use **Windows**, you can [install LAPACK](http://icl.cs.utk.edu/lapack-for-windows/lapack/).
 
 **Browser**
 
