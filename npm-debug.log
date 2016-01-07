@@ -1,0 +1,36 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/5.2.0/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   './' ]
+2 info using npm@3.3.12
+3 info using node@v5.3.0
+4 verbose publish [ './' ]
+5 verbose stack Error: Failed to parse json
+5 verbose stack Trailing comma in object at 30:3
+5 verbose stack   },
+5 verbose stack   ^
+5 verbose stack     at parseError (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:379:11)
+5 verbose stack     at parseJson (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:68:23)
+5 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:48:5
+5 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:76:16
+5 verbose stack     at tryToString (fs.js:414:3)
+5 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:401:12)
+6 verbose cwd /Users/mg/Projects/javascript/vectorious
+7 error Darwin 15.2.0
+8 error argv "/usr/local/Cellar/node/5.2.0/bin/node" "/usr/local/bin/npm" "publish" "./"
+9 error node v5.3.0
+10 error npm  v3.3.12
+11 error file /Users/mg/Projects/javascript/vectorious/package.json
+12 error code EJSONPARSE
+13 error Failed to parse json
+13 error Trailing comma in object at 30:3
+13 error   },
+13 error   ^
+14 error File: /Users/mg/Projects/javascript/vectorious/package.json
+15 error Failed to parse package.json data.
+15 error package.json must be actual JSON, not just JavaScript.
+15 error
+15 error This is not a bug in npm.
+15 error Tell the package author to fix their package.json file. JSON.parse
+16 verbose exit [ 1, true ]
