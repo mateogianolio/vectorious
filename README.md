@@ -25,8 +25,6 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 </script>
 ```
 
-Or you can compile the release yourself by running `gulp javascript` in the repository root, which will generate a `vectorious-x.x.x.js`-file in the `dist` folder.
-
 ## [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 
 ## [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
