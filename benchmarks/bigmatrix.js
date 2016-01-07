@@ -7,9 +7,9 @@
       copy = new Benchmark.Suite(),
       inplace = new Benchmark.Suite();
 
-  var N = 128,
-      a = Matrix.random(N, N),
-      b = Matrix.random(N, N);
+  var N = 4096,
+      a = Matrix.random(N),
+      b = Matrix.random(N);
 
   console.log('a, b = Matrix.random(' + N + ', ' + N + ')');
   console.log(chalk.yellow('copy'), chalk.green('in-place'));
@@ -61,9 +61,6 @@
     })
     .add('a.transpose()', function() {
       a.transpose();
-    })
-    .add('a.gauss()', function() {
-      a.gauss();
     })
     .add('a.lu()', function() {
       a.lu();

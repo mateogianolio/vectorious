@@ -3,12 +3,11 @@
 
   var Benchmark = require('benchmark'),
       Vector = require('../vector'),
-      nblas = require('nblas'),
       chalk = require('chalk'),
       copy = new Benchmark.Suite(),
       inplace = new Benchmark.Suite();
 
-  var N = 1024,
+  var N = 262144,
       a = Vector.random(N),
       b = Vector.random(N);
 

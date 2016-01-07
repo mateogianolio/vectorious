@@ -17,7 +17,7 @@
       entries: './vectorious.js',
       debug: false,
       standalone: 'vectorious'
-    });
+    }).ignore('nblas');
 
     return b.bundle()
       .pipe(source('vectorious-'+ package_json.version + '.js'))

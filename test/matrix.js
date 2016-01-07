@@ -43,8 +43,8 @@
 
     describe('Matrix.multiply(a, b)', function() {
       it('should work as the static equivalent of a.multiply(b)', function() {
-        var a = new Matrix([[1, 1, 1]]);
-        var b = new Matrix([[1], [2], [3]]);
+        var a = new Matrix([[1], [2], [3]]);
+        var b = new Matrix([[1, 1, 1]]);
 
         assert.deepEqual(new Matrix(a).multiply(b), Matrix.multiply(a, b));
       });
@@ -199,13 +199,13 @@
 
         it('should work as expected', function() {
 
-          assert.deepEqual(a, c.transpose());
-          assert.deepEqual(c, a.transpose());
+          assert.deepEqual(a, Matrix.transpose(c));
+          assert.deepEqual(c, Matrix.transpose(a));
 
-          assert.deepEqual(b, d.transpose());
-          assert.deepEqual(d, b.transpose());
+          assert.deepEqual(b, Matrix.transpose(d));
+          assert.deepEqual(d, Matrix.transpose(b));
 
-          assert.deepEqual(e, e.transpose().transpose());
+          assert.deepEqual(e, Matrix.transpose(Matrix.transpose(e)));
 
         });
       });
@@ -279,7 +279,7 @@
           var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
           var b = [
             new Matrix([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]),
-            new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]),
+            new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]])
           ];
 
           assert.deepEqual(b, a.lu().splice(0, 2));
