@@ -523,17 +523,18 @@
     if (r1 !== r2)
       throw new Error("Rows do not match.");
 
-    var data = new this.type((c1 + c2) * r1);
+    var length = c1 + c2,
+        data = new this.type(length * r1);
 
     for (i = 0; i < r1; i++)
       for (j = 0; j < c1; j++)
-        data[i * (c1 + c2) + j] = d1[i * r1 + j];
+        data[i * length + j] = d1[i * c1 + j];
 
-    for (i = 0; i < r1; i++)
+    for (i = 0; i < r2; i++)
       for (j = 0; j < c2; j++)
-        data[i * (c1 + c2) + j + c1] = d2[i * r1 + j];
+        data[i * length + j + c1] = d2[i * c2 + j];
 
-    this.shape = [r1, c1 + c2];
+    this.shape = [r1, length];
     this.data = data;
 
     return this;
