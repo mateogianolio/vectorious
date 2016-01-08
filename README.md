@@ -30,4 +30,8 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 
 ## [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 
+## [Examples](https://github.com/mateogianolio/vectorious/tree/master/examples)
+
+* [Solve Ax = B](https://github.com/mateogianolio/vectorious/tree/master/examples/linsolve.js)
+
 ## [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
