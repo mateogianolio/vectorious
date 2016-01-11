@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var vectorious = require('../vectorious');
+  var Matrix = require('../vectorious').Matrix;
 
   function linsolve(A, B) {
     var RREF = A.augment(B).gauss();
@@ -20,30 +20,21 @@
     return x;
   }
 
-  var A = vectorious
-    .Matrix
-    .random(5, 5)
-    .map(function (x) {
-      return Math.floor(10 * x);
-    });
+  function round(x) {
+    return Number(x.toPrecision(4));
+  }
+
+  var A = Matrix.random(5, 5).scale(10).map(round),
+      B = Matrix.random(5, 1).scale(10).map(round);
 
   console.log('A:');
   console.log(A.toArray());
   console.log();
 
-  var B = vectorious
-    .Matrix
-    .random(5, 1)
-    .map(function (x) {
-      return Math.floor(10 * x);
-    });
-
   console.log('B:');
   console.log(B.toArray());
   console.log();
 
-  console.log('Ax = B gives solutions:');
-  console.log(linsolve(A, B).map(function (x) {
-    return Number(x.toPrecision(6));
-  }));
+  console.log('linsolve(A, B):');
+  console.log(linsolve(A, B));
 }());
