@@ -35,3 +35,19 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 * [Solve Ax = B](https://github.com/mateogianolio/vectorious/tree/master/examples/linsolve.js)
 
 ## [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
+
+The following plot compares Vectorious (4.0.4) benchmarks for basic **vector** operations with three popular matrix/vector libraries: [numeric.js](http://www.numericjs.com), [sylvester](http://sylvester.jcoglan.com) and [math.js](http://mathjs.org).
+
+These benchmarks were performed on a MacBook Pro (i5 2.7GHz, OSX 10.11, 8GB RAM) with [benchmark.js](https://github.com/bestiejs/benchmark.js/) on random vectors of **1 048 576 elements**.
+
+[**Interactive plot**](https://plot.ly/~mateogianolio/123/basic-operations-on-vectors-of-1-048-576-elements/)
+
+![Vector operation comparison](https://github.com/mateogianolio/vectorious/blob/master/benchmarks/vector_ops.png)
+
+The following plot compares Vectorious (4.0.4) benchmarks for basic **matrix** operations with three popular matrix/vector libraries: [numeric.js](http://www.numericjs.com), [sylvester](http://sylvester.jcoglan.com) and [math.js](http://mathjs.org).
+
+These benchmarks were performed on a MacBook Pro (i5 2.7GHz, OSX 10.11, 8GB RAM) with [benchmark.js](https://github.com/bestiejs/benchmark.js/) on random matrices of **256x256 elements**.
+
+[**Interactive plot**](https://plot.ly/~mateogianolio/121/basic-operations-on-matrices-of-256x256-elements/)
+
+![Vector operation comparison](https://github.com/mateogianolio/vectorious/blob/master/benchmarks/matrix_ops.png)
