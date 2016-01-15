@@ -1,12 +1,7 @@
 (function () {
   'use strict';
 
-  var Vector = require('./vector'),
-      nblas = null;
-
-  try {
-    nblas = require('nblas');
-  } catch (error) {}
+  var Vector = require('./vector');
 
   /**
    * @method constructor
@@ -88,15 +83,11 @@
         d2 = matrix.data;
 
     if (r !== matrix.shape[0] || c !== matrix.shape[1])
-      throw new Error('sizes do not match: ' + r + 'x' + c + ', ' + matrix.shape[0] + 'x' + matrix.shape[1]);
+      throw new Error('sizes do not match!');
 
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      nblas.axpy(d2, d1);
-    else {
-      for (var ii = 0; ii < r; ii++)
-        for (var jj = 0; jj < c; jj++)
-          d1[ii*c + jj] += d2[ii*c + jj];
-    }
+    var i;
+    for (i = 0; i < r * c; i++)
+      d1[i] += d2[i];
 
     return this;
   };
@@ -126,13 +117,9 @@
       if (r !== matrix.shape[0] || c !== matrix.shape[1])
         throw new Error('sizes do not match');
 
-      if (nblas && (this.type === Float64Array || this.type === Float32Array))
-        nblas.axpy(d2, d1, -1);
-      else {
-        for (var ii = 0; ii < r; ii++)
-          for (var jj = 0; jj < c; jj++)
-            d1[ii*c + jj] -= d2[ii*c + jj];
-      }
+      var i;
+      for (i = 0; i < r * c; i++)
+        d1[i] -= d2[i];
 
       return this;
   };
@@ -155,15 +142,11 @@
   Matrix.prototype.scale = function (scalar) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
-        d1 = this.data;
+        d1 = this.data,
+        i;
 
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      nblas.scal(d1, scalar);
-    else {
-      for (var ii = 0; ii < r; ii++)
-        for (var jj = 0; jj < c; jj++)
-          d1[ii*c + jj] *= scalar;
-    }
+    for (i = 0; i < r * c; i++)
+      d1[i] *= scalar;
 
     return this;
   };
@@ -181,14 +164,10 @@
       throw new Error('invalid size');
 
     type = type ? type : Float64Array;
+
     var data = new type(i * j);
-    if (data.fill) {
-      // fill not implmeneted on chrome version 43
-      data.fill(0.0);
-    } else {
-      for (var k = 0; k < i * j; k++)
-        data[k] = +0.0;
-    }
+    for (var k = 0; k < i * j; k++)
+      data[k] = +0.0;
 
     return Matrix.fromTypedArray(data, [i, j]);
   };
@@ -206,14 +185,10 @@
       throw new Error('invalid size');
 
     type = type ? type : Float64Array;
+
     var data = new type(i * j);
-    if (data.fill) {
-      // fill not implmeneted on chrome version 43
-      data.fill(1.0);
-    } else {
-      for (var k = 0; k < i * j; k++)
-        data[k] = +1.0;
-    }
+    for (var k = 0; k < i * j; k++)
+      data[k] = +1.0;
 
     return Matrix.fromTypedArray(data, [i, j]);
   };
@@ -228,9 +203,14 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.random = function (i, j, type) {
-    return Matrix
-      .zeros(i, j, type)
-      .map(Math.random);
+    type = type ? type : Float64Array;
+    var data = new type(i * j),
+        k;
+
+    for (k = 0; k < i * j; k++)
+      data[k] = Math.random();
+
+    return Matrix.fromTypedArray(data, [i, j]);
   };
 
   /**
@@ -260,27 +240,18 @@
     if (c1 !== r2)
       throw new Error('sizes do not match');
 
-    var out = Matrix.fromTypedArray(
-      new this.type(r1 * c2),
-      [r1, c2]
-    );
+    var data = new this.type(r1 * c2);
+    for (var i = 0; i < r1; i++) {
+      for (var j = 0; j < c2; j++) {
+        var sum = +0;
+        for (var k = 0; k < c1; k++)
+          sum += d1[i * c1 + k] * d2[j + k * c2];
 
-    var data = out.data;
-    if (nblas && (out.type === Float64Array || out.type === Float32Array))
-      nblas.gemm(d1, d2, data, r1, c2, c1);
-    else {
-      for (var ii = 0; ii < r1; ii++) {
-        for (var jj = 0; jj < c2; jj++) {
-          var sum = +0;
-          for (var kk = 0; kk < c1; kk++)
-            sum += d1[ii*c1+kk] * d2[jj+kk*c2];
-
-          data[ii*c2+jj] = sum;
-        }
+        data[i * c2 + j] = sum;
       }
     }
 
-    return out;
+    return Matrix.fromTypedArray(data, [r1, c2]);
   };
 
   /**
@@ -297,10 +268,10 @@
    **/
   Matrix.prototype.transpose = function () {
     var r = this.shape[0],
-        c = this.shape[1];
+        c = this.shape[1],
+        i, j;
 
-    var i, j;
-
+    // prefer in-place
     if (r === c) {
       for (i = 0; i < r - 1; i++) {
         for (j = i + 1; j < r; j++) {
@@ -309,6 +280,7 @@
           this.data[i * r + j] = tmp;
         }
       }
+
       return this;
     }
 
@@ -576,14 +548,14 @@
     }
 
     type = type ? type : Float64Array;
-    var magic = Matrix.zeros(size, size, type),
+    var data = new type(size * size),
         i, j;
     for (i = 0; i < size; i++)
       for (j = 0; j < size; j++)
-        magic.data[(size - i - 1) * size + (size - j - 1)] =
+        data[(size - i - 1) * size + (size - j - 1)] =
           f(size, size - j - 1, i) * size + f(size, j, i) + 1;
 
-    return magic;
+    return Matrix.fromTypedArray(data, [size, size]);
   };
 
   /**
@@ -725,25 +697,30 @@
    * @returns {Matrix} the resultant mapped matrix
    **/
   Matrix.prototype.map = function (callback) {
-    var result = new Matrix(this);
-    result.data = this.data.map(callback);
+    var r = this.shape[0],
+        c = this.shape[1],
+        data = new this.type(this.data),
+        i;
 
-    return result;
+    for (i = 0; i < r * c; i++)
+      data[i] = callback(data[i], i / c | 0, i % c, data);
+
+    return Matrix.fromTypedArray(data, [r, c]);
   };
 
   /**
-   * Functional version of for-looping the rows in a matrix, is
+   * Functional version of for-looping the elements in a matrix, is
    * equivalent to `Array.prototype.forEach`.
    * @param {Function} callback
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.each = function (callback) {
+    var r = this.shape[0],
+        c = this.shape[1],
+        i;
 
-    var c = this.shape[1];
-
-    this.data.forEach(function (value, i) {
-      callback(value, i / c | 0, i % c);
-    });
+    for (i = 0; i < r * c; i++)
+      callback(this.data[i], i / c | 0, i % c, this.data);
 
     return this;
   };
