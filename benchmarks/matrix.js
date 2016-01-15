@@ -2,7 +2,7 @@
   'use strict';
 
   var Benchmark = require('benchmark'),
-      Matrix = require('../matrix'),
+      Matrix = require('../vectorious').Matrix,
       chalk = require('chalk'),
       copy = new Benchmark.Suite(),
       inplace = new Benchmark.Suite();

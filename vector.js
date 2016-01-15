@@ -452,7 +452,7 @@
     var data = new this.type(l1 + l2);
     data.set(d1);
     data.set(d2, l1);
-    
+
     this.data = data;
     this.length = l1 + l2;
 

@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  var Vector = require('./Vector'),
-      Matrix = require('./Matrix');
+  var Vector = require('./vector'),
+      Matrix = require('./matrix');
   try {
     var nblas = require('nblas');
   } catch (error) {
@@ -14,7 +14,7 @@
   // BLAS optimizations
   Vector.prototype.add =
   Matrix.prototype.add = function (data) {
-    var l1 = this instanceof Vector ? this.length : this.shape[0] * this.shape[1],
+    var l1 = this instanceof Vector ? this.length : this.shape[0] * this.shape[1],
         l2 = data instanceof Vector ? data.length : data.shape[0] * data.shape[1];
     if (l1 !== l2)
       throw new Error('sizes do not match!');

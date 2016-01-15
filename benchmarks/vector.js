@@ -2,7 +2,7 @@
   'use strict';
 
   var Benchmark = require('benchmark'),
-      Vector = require('../vector'),
+      Vector = require('../vectorious').Vector,
       nblas = require('nblas'),
       chalk = require('chalk'),
       copy = new Benchmark.Suite(),
