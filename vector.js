@@ -1,11 +1,6 @@
 (function () {
   'use strict';
 
-  var nblas = null;
-  try {
-    nblas = require('nblas');
-  } catch (error) {}
-
   /**
    * @method constructor
    * @desc Creates a two-dimensional `Vector` from the supplied arguments.
@@ -49,12 +44,9 @@
     if (!l1 && !l2)
       return this;
 
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      nblas.axpy(vector.data, this.data);
-    else {
-      for (var i = 0; i < l1; i++)
-        this.data[i] += vector.data[i];
-    }
+    var i;
+    for (i = 0; i < l1; i++)
+      this.data[i] += vector.data[i];
 
     return this;
   };
@@ -83,13 +75,9 @@
     if (!l1 && !l2)
       return this;
 
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      nblas.axpy(vector.data, this.data, -1);
-    else {
-      var i;
-      for (i = 0; i < l1; i++)
-        this.data[i] += vector.data[i];
-    }
+    var i;
+    for (i = 0; i < l1; i++)
+      this.data[i] += vector.data[i];
 
     return this;
   };
@@ -110,13 +98,9 @@
    * @returns {Vector} this
    **/
   Vector.prototype.scale = function (scalar) {
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      nblas.scal(this.data, scalar);
-    else {
-      var i;
-      for (i = this.length - 1; i >= 0; i--)
-        this.data[i] *= scalar;
-    }
+    var i;
+    for (i = this.length - 1; i >= 0; i--)
+      this.data[i] *= scalar;
 
     return this;
   };
@@ -175,12 +159,9 @@
     type = type ? type : Float64Array;
     var data = new type(count),
         i;
-    if (data.fill)
-      data.fill(+0.0);
-    else {
-      for (i = 0; i < count; i++)
-        data[i] = +0.0;
-    }
+
+    for (i = 0; i < count; i++)
+      data[i] = +0.0;
 
     return new Vector(data);
   };
@@ -201,12 +182,9 @@
     type = type ? type : Float64Array;
     var data = new type(count),
         i;
-    if (data.fill)
-      data.fill(1.0);
-    else {
-      for (i = 0; i < count; i++)
-        data[i] = 1;
-    }
+
+    for (i = 0; i < count; i++)
+      data[i] = 1;
 
     return new Vector(data);
   };
@@ -256,12 +234,12 @@
     if (step > end - start)
       throw new Error('invalid range');
 
-    var vector = Vector.zeros(Math.ceil((end - start) / step), type),
+    var data = new type(Math.ceil((end - start) / step)),
         i, j;
     for (i = start, j = 0; i < end; i += step, j++)
-      vector.data[j] = backwards ? end - i + start : i;
+      data[j] = backwards ? end - i + start : i;
 
-    return vector;
+    return new Vector(data);
   };
 
   /**
@@ -273,9 +251,14 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.random = function (count, type) {
-    return Vector
-      .zeros(count, type)
-      .map(Math.random);
+    type = type ? type : Float64Array;
+    var data = new type(count),
+        i;
+
+    for (i = 0; i < count; i++)
+      data[i] = Math.random();
+
+    return new Vector(data);
   };
 
   /**
@@ -298,12 +281,8 @@
       throw new Error('sizes do not match');
 
     var a = this.data,
-        b = vector.data;
-
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      return nblas.dot(a, b);
-
-    var result = 0,
+        b = vector.data,
+        result = 0,
         i, l;
 
     for (i = 0, l = this.length; i < l; i++)
@@ -320,14 +299,11 @@
     if (!this.length)
       return 0;
 
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      return nblas.nrm2(this.data);
-
     var result = 0,
-        values = this.data,
+        data = this.data,
         i, l;
     for (i = 0, l = this.length; i < l; i++)
-      result += values[i] * values[i];
+      result += data[i] * data[i];
 
     return Math.sqrt(result);
   };
@@ -397,12 +373,12 @@
    **/
   Vector.prototype.min = function () {
     var min = Number.POSITIVE_INFINITY,
-        values = this.data,
+        data = this.data,
         value,
         i, l;
 
-    for (i = 0, l = values.length; i < l; i++) {
-      value = values[i];
+    for (i = 0, l = data.length; i < l; i++) {
+      value = data[i];
       if (value < min)
         min = value;
     }
@@ -415,18 +391,13 @@
    * @returns {Number} the largest element of current vector
    **/
   Vector.prototype.max = function () {
-    if (nblas && this.type === Float64Array)
-      return this.data[nblas.idamax(this.length, this.data, 1)];
-    else if (nblas && this.type === Float32Array)
-      return this.data[nblas.isamax(this.length, this.data, 1)];
-
     var max = Number.NEGATIVE_INFINITY,
-        values = this.data,
+        data = this.data,
         value,
         i, l;
 
     for (i = 0, l = this.length; i < l; i++) {
-      value = values[i];
+      value = data[i];
       if (value > max)
         max = value;
     }
@@ -444,7 +415,7 @@
     if (index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
 
-    this.data[index] = value;
+    this.data[index] = value;
     return this;
   };
 
@@ -479,14 +450,8 @@
         d2 = vector.data;
 
     var data = new this.type(l1 + l2);
-    if (nblas && (this.type === Float64Array || this.type === Float32Array))
-      nblas.copy(d1, data);
-    else
-      for (var i = 0; i < l1; i++)
-        data[i] = d1[i];
-
-    for (var j = 0; j < l2; j++)
-      data[l1 + j] = d2[j];
+    data.set(d1);
+    data.set(d2, l1);
 
     this.data = data;
     this.length = l1 + l2;
@@ -555,4 +520,4 @@
   };
 
   module.exports = Vector;
-})();
+}());

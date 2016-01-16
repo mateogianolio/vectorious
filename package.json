@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "4.0.5",
+  "version": "4.1.0",
   "description": "A high performance linear algebra library written in Javascript.",
   "main": "vectorious.js",
   "scripts": {
@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
-    "benchmark": "^1.0.0",
-    "chalk": "^1.1.1"
+    "benchmark": "^1.0.0"
   },
   "dependencies": {
     "mocha": "^2.2.1",

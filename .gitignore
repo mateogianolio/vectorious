@@ -1,6 +1,5 @@
 node_modules
 coverage
 .DS_Store
-.codeclimate.yml
 benchmarks/bigvector.js
 benchmarks/bigmatrix.js

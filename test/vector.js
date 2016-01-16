@@ -95,6 +95,9 @@
           var a = new Vector();
           var b = new Vector();
 
+          console.log(a.length);
+          console.log(b.length);
+
           assert.deepEqual(new Vector(), a.add(b));
         });
 
