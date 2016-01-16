@@ -1,0 +1,16 @@
+engines:
+  eslint:
+    enabled: true
+    checks:
+      no-console:
+        enabled: false
+      no-undef:
+        enabled: false
+      callback-return:
+        enabled: false
+ratings:
+  paths:
+  - test/**
+  - "**.js"
+exclude_paths:
+  - dist/**
