@@ -62,6 +62,20 @@
     return this.data[nblas.idamax(this.length, this.data, 1)];
   };
 
+  Matrix.prototype.multiply = function(matrix) {
+    var r1 = this.shape[0],
+        c1 = this.shape[1],
+        r2 = matrix.shape[0],
+        c2 = matrix.shape[1],
+        data = new this.type(r1 * c2);
+
+    if (c1 !== r2)
+      throw new Error('sizes do not match');
+
+    nblas.gemm(this.data, matrix.data, data, r1, c2, c1);
+    return Matrix.fromTypedArray(data, [r1, c2]);
+  };
+
   module.exports.Vector = Vector;
   module.exports.Matrix = Matrix;
 }());

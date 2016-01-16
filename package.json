@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
-    "benchmark": "^1.0.0",
-    "chalk": "^1.1.1"
+    "benchmark": "^1.0.0"
   },
   "dependencies": {
     "mocha": "^2.2.1",
