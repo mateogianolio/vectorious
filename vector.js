@@ -415,7 +415,7 @@
     if (index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
 
-    this.data[index] = value;
+    this.data[index] = value;
     return this;
   };
 
@@ -520,4 +520,4 @@
   };
 
   module.exports = Vector;
-})();
+}());
