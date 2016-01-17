@@ -1,4 +1,5 @@
-![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.png)
+# ![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.png)
+
 [![NPM](https://nodei.co/npm/vectorious.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/vectorious/)
 
 ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg) [![code climate](https://codeclimate.com/github/mateogianolio/vectorious/badges/gpa.svg)](https://codeclimate.com/github/mateogianolio/vectorious) [![test coverage](https://codeclimate.com/github/mateogianolio/vectorious/badges/coverage.svg)](https://codeclimate.com/github/mateogianolio/vectorious/coverage)
