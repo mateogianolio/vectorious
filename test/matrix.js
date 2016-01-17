@@ -1,26 +1,9 @@
 (function() {
   'use strict';
 
-  var vectorious = require('../vectorious'),
-      assert = require('assert');
-
-  var Matrix = vectorious.Matrix;
-  var Vector = vectorious.Vector;
-
-  function randomArray(N, M){
-
-    var data = [];
-
-    for(var i = 0; i < N; i++){
-      var row = [];
-      for(var j = 0; j < M; j++){
-          row[j] = Math.random();
-      }
-      data.push(row);
-    }
-
-    return data;
-  }
+  var assert = require('assert'),
+      Matrix = require('../matrix'),
+      Vector = require('../vector');
 
   describe('Matrix', function() {
     describe('Matrix.add(a, b)', function() {
@@ -38,6 +21,14 @@
         var b = new Matrix([[1, 2, 3]]);
 
         assert.deepEqual(new Matrix(a).subtract(b), Matrix.subtract(a, b));
+      });
+    });
+
+    describe('Matrix.scale(a, scalar)', function() {
+      it('should work as the static equivalent of a.scale(scalar)', function() {
+        var a = new Matrix([[1, 1, 1]]);
+        
+        assert.deepEqual(new Matrix(a).scale(5), Matrix.scale(a, 5));
       });
     });
 
@@ -195,7 +186,7 @@
         var b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
         var c = new Matrix([[1], [2]]);
         var d = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
-        var e = new Matrix(randomArray(20, 20));
+        var e = new Matrix.random(20, 20);
 
         it('should work as expected', function() {
 
@@ -354,7 +345,7 @@
       describe('.equals()', function() {
         it('should work as expected', function() {
           var a = new Matrix([[1, 2], [3, 4]]),
-              b = new Matrix([3, 4], [1, 2]);
+              b = new Matrix([[3, 4], [1, 2]]);
 
           assert.equal(true, a.equals(new Matrix([[1, 2], [3, 4]])));
           assert.equal(true, new Matrix().equals(new Matrix()));

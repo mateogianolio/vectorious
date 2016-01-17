@@ -11,16 +11,9 @@
     this.type = Float64Array;
     this.shape = [];
 
-    if (data && data.buffer && !(data instanceof Vector) &&
-        Object.prototype.toString.call(data.buffer) === '[object ArrayBuffer]' &&
-        options.shape) {
-      if (data.length !== options.shape[0] * options.shape[1])
-        throw new Error("Shape does not match typed array dimensions.");
-
-      this.shape = options.shape;
-      this.data = data;
-      this.type = data.constructor;
-    } else if (Object.prototype.toString.call(data) === '[object Array]') {
+    if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
+      return Matrix.fromTypedArray(data, options.shape);
+    } else if (data instanceof Array) {
       return Matrix.fromArray(data);
     } else if (data instanceof Vector) {
       this.shape = options && options.shape ? options.shape : [data.length, 1];
@@ -34,6 +27,9 @@
   }
 
   Matrix.fromTypedArray = function (data, shape) {
+    if (data.length !== shape[0] * shape[1])
+      throw new Error("Shape does not match typed array dimensions.");
+
     var self = Object.create(Matrix.prototype);
     self.shape = shape;
     self.data = data;
@@ -43,21 +39,16 @@
   };
 
   Matrix.fromArray = function (array) {
-    var shape = [],
-        data,
-        c;   // number of columns
+    var r = array.length, // number of rows
+        c = array[0].length,  // number of columns
+        data = new Float64Array(r * c);
 
-    shape[0] = array.length;
-    shape[1] = array[0].length;
-    c = shape[1];
+    var i, j;
+    for (i = 0; i < r; ++i)
+      for (j = 0; j < c; ++j)
+        data[i * c + j] = array[i][j];
 
-    data = new Float64Array(shape[0]*shape[1]);
-
-    for (var ii = 0; ii < shape[0]; ++ii)
-      for (var jj = 0; jj < shape[1]; ++jj)
-        data[ii*c + jj] = array[ii][jj];
-
-    return Matrix.fromTypedArray(data, shape);
+    return Matrix.fromTypedArray(data, [r, c]);
   };
 
   /**
@@ -163,10 +154,11 @@
     if (i <= 0 || j <= 0)
       throw new Error('invalid size');
 
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
 
-    var data = new type(i * j);
-    for (var k = 0; k < i * j; k++)
+    var data = new type(i * j),
+        k;
+    for (k = 0; k < i * j; k++)
       data[k] = +0.0;
 
     return Matrix.fromTypedArray(data, [i, j]);
@@ -184,10 +176,11 @@
     if (i <= 0 || j <= 0)
       throw new Error('invalid size');
 
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
 
-    var data = new type(i * j);
-    for (var k = 0; k < i * j; k++)
+    var data = new type(i * j),
+        k = 0;
+    for (k = 0; k < i * j; k++)
       data[k] = +1.0;
 
     return Matrix.fromTypedArray(data, [i, j]);
@@ -203,7 +196,7 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.random = function (i, j, type) {
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
     var data = new type(i * j),
         k;
 
@@ -240,11 +233,13 @@
     if (c1 !== r2)
       throw new Error('sizes do not match');
 
-    var data = new this.type(r1 * c2);
-    for (var i = 0; i < r1; i++) {
-      for (var j = 0; j < c2; j++) {
-        var sum = +0;
-        for (var k = 0; k < c1; k++)
+    var data = new this.type(r1 * c2),
+        i, j, k,
+        sum;
+    for (i = 0; i < r1; i++) {
+      for (j = 0; j < c2; j++) {
+        sum = +0;
+        for (k = 0; k < c1; k++)
           sum += d1[i * c1 + k] * d2[j + k * c2];
 
         data[i * c2 + j] = sum;
@@ -523,7 +518,7 @@
     if (size < 0)
       throw new Error('invalid size');
 
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
     var matrix = Matrix.zeros(size, size, type),
         i, j;
     for (i = 0; i < size; i++)
@@ -547,7 +542,7 @@
       return (x + y * 2 + 1) % n;
     }
 
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
     var data = new type(size * size),
         i, j;
     for (i = 0; i < size; i++)
@@ -565,9 +560,10 @@
   Matrix.prototype.diag = function () {
     var r = this.shape[0],
         c = this.shape[1],
-        data = new this.type(Math.min(r, c));
+        data = new this.type(Math.min(r, c)),
+        i;
 
-    for (var i = 0; i < r && i < c; i++)
+    for (i = 0; i < r && i < c; i++)
       data[i] = this.data[i * c + i];
 
     return new Vector(data);
@@ -581,18 +577,18 @@
     if (this.shape[0] !== this.shape[1])
       throw new Error('matrix is not square');
 
-    var lu = this.lu();
-    var P = lu.pop(),
-        U = lu.pop(),
-        L = lu.pop();
+    var lup = this.lu();
+    var pivot = lup.pop(),
+        upper = lup.pop(),
+        lower = lup.pop();
 
     var product = 1,
-        l = this.shape[0];
+        i;
 
-    for (var i = 0; i < l; i++)
-      product *= L.get(i, i) * U.get(i, i);
+    for (i = 0; i < this.shape[0]; i++)
+      product *= lower.get(i, i) * upper.get(i, i);
 
-    return P.pop() * product;
+    return pivot.pop() * product;
   };
 
   /**
@@ -634,7 +630,8 @@
     if (r !== matrix.shape[0] || c !== matrix.shape[1] || this.type !== matrix.type)
       return false;
 
-    for (var i = 0; i < r * c; i++)
+    var i;
+    for (i = 0; i < r * c; i++)
       if (d1[i] !== d2[i])
         return false;
 
@@ -732,9 +729,10 @@
   Matrix.prototype.toString = function () {
     var result = [],
         r = this.shape[0],
-        c = this.shape[1];
+        c = this.shape[1],
+        i;
 
-    for (var i = 0; i < r; i++)
+    for (i = 0; i < r; i++)
       // get string version of current row and store it
       result.push('[' + this.data.subarray(i * c, (i + 1) * c ).toString() + ']');
 
@@ -748,9 +746,10 @@
   Matrix.prototype.toArray = function () {
     var result = [],
         r = this.shape[0],
-        c = this.shape[1];
+        c = this.shape[1],
+        i;
 
-    for (var i = 0; i < r; i++)
+    for (i = 0; i < r; i++)
       // copy current row into a native array and store it
       result.push(Array.prototype.slice.call(this.data.subarray(i * c, (i + 1) * c)));
 

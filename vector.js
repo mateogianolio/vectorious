@@ -14,7 +14,7 @@
     } else if (data instanceof Array) {
       this.data = new this.type(data);
       this.length = data.length;
-    } else if (data && data.buffer && Object.prototype.toString.call(data.buffer) === '[object ArrayBuffer]') {
+    } else if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
       this.data = data;
       this.length = data.length;
       this.type = data.constructor;
@@ -156,7 +156,7 @@
     else if (count === 0)
       return new Vector();
 
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
     var data = new type(count),
         i;
 
@@ -179,7 +179,7 @@
     else if (count === 0)
       return new Vector();
 
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
     var data = new type(count),
         i;
 
@@ -251,7 +251,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.random = function (count, type) {
-    type = type ? type : Float64Array;
+    type = type || Float64Array;
     var data = new type(count),
         i;
 
@@ -348,11 +348,12 @@
 
     var a = this.data,
         b = vector.data,
-        i = 0, l = this.length;
+        length = this.length,
+        i = 0;
 
-    while(i < l && a[i] === b[i]) { i++; }
-
-    return i === l;
+    while (i < length && a[i] === b[i])
+      i++;
+    return i === length;
   };
 
   /**

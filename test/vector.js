@@ -1,10 +1,8 @@
 (function() {
   'use strict';
 
-  var vectorious = require('../vectorious'),
-      assert = require('assert');
-
-  var Vector = vectorious.Vector;
+  var assert = require('assert'),
+      Vector = require('../vector');
 
   describe('Vector', function() {
     describe('Vector.add(a, b)', function() {
@@ -31,6 +29,14 @@
         var b = new Vector([1, 2, 3]);
 
         assert.deepEqual(new Vector(a).dot(b), Vector.dot(a, b));
+      });
+    });
+
+    describe('Vector.scale(a, scalar)', function() {
+      it('should work as the static equivalent of a.scale(scalar)', function() {
+        var a = new Vector([2, 3, 4]);
+
+        assert.deepEqual(new Vector(a).scale(5), Vector.scale(a, 5));
       });
     });
 
@@ -94,9 +100,6 @@
         it('should return empty vector if adding two empty vectors', function() {
           var a = new Vector();
           var b = new Vector();
-
-          console.log(a.length);
-          console.log(b.length);
 
           assert.deepEqual(new Vector(), a.add(b));
         });

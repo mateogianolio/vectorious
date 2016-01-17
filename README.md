@@ -1,5 +1,4 @@
-# Vectorious
-
+![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.png)
 [![NPM](https://nodei.co/npm/vectorious.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/vectorious/)
 
 ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg) [![code climate](https://codeclimate.com/github/mateogianolio/vectorious/badges/gpa.svg)](https://codeclimate.com/github/mateogianolio/vectorious) [![test coverage](https://codeclimate.com/github/mateogianolio/vectorious/badges/coverage.svg)](https://codeclimate.com/github/mateogianolio/vectorious/coverage)
@@ -17,37 +16,37 @@ $ npm run benchmark
 To enjoy the full performance of vectorious, you will need to have BLAS installed
 on your system. It is by default included in the **OSX** Accelerate framework. On **Ubuntu**/**Debian** you can e.g. use libblas (`apt-get libblas-dev`). If you use **Windows**, you can [install LAPACK](http://icl.cs.utk.edu/lapack-for-windows/lapack/).
 
-**Browser**
+### Browser
 
 Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-4.0.0.js"></script>
+<script src="vectorious-4.1.0.js"></script>
 <script>
   // e.g. var vector = new vectorious.Vector()
 </script>
 ```
 
-## [Documentation](https://github.com/mateogianolio/vectorious/wiki)
+### [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 
-## [Examples](https://github.com/mateogianolio/vectorious/tree/master/examples)
+##### [Matrix ](https://github.com/mateogianolio/vectorious/wiki/Matrix-API)
+##### [Vector](https://github.com/mateogianolio/vectorious/wiki/Vector-API)
 
-* [Solve Ax = B](https://github.com/mateogianolio/vectorious/tree/master/examples/linsolve.js)
+### [Examples](https://github.com/mateogianolio/vectorious/tree/master/examples)
 
-## [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
+##### [Solve linear systems of equations](https://github.com/mateogianolio/vectorious/tree/master/examples/linsolve.js)
 
-The following plot compares Vectorious (4.0.4) benchmarks for basic **vector** operations with three popular matrix/vector libraries: [numeric.js](http://www.numericjs.com), [sylvester](http://sylvester.jcoglan.com) and [math.js](http://mathjs.org).
+### [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
 
-These benchmarks were performed on a MacBook Pro (i5 2.7GHz, OSX 10.11, 8GB RAM) with [benchmark.js](https://github.com/bestiejs/benchmark.js/) on random vectors of **1 048 576 elements**.
+The following benchmarks compare Vectorious 4.1.0 with these three popular matrix/vector libraries:
 
-[**Interactive plot**](https://plot.ly/~mateogianolio/123/basic-operations-on-vectors-of-1-048-576-elements/)
+* [Numeric.js](http://www.numericjs.com)
+* [Sylvester](http://sylvester.jcoglan.com)
+* [Math.js](http://mathjs.org)
 
-![Vector operation comparison](https://github.com/mateogianolio/vectorious/blob/master/benchmarks/vector_ops.png)
+The graphs show operations per second on the vertical (y) axis.
 
-The following plot compares Vectorious (4.0.4) benchmarks for basic **matrix** operations with three popular matrix/vector libraries: [numeric.js](http://www.numericjs.com), [sylvester](http://sylvester.jcoglan.com) and [math.js](http://mathjs.org).
-
-These benchmarks were performed on a MacBook Pro (i5 2.7GHz, OSX 10.11, 8GB RAM) with [benchmark.js](https://github.com/bestiejs/benchmark.js/) on random matrices of **256x256 elements**.
-
-[**Interactive plot**](https://plot.ly/~mateogianolio/121/basic-operations-on-matrices-of-256x256-elements/)
-
-![Vector operation comparison](https://github.com/mateogianolio/vectorious/blob/master/benchmarks/matrix_ops.png)
+| Vector | Matrix |
+|:---|:---|
+| `Vector.random(1048576)` | `Matrix.random(512, 512)` |
+| ![Vector operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/vector_ops.png) | ![Matrix operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/matrix_ops.png) |
