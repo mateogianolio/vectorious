@@ -27,7 +27,7 @@
     describe('Matrix.scale(a, scalar)', function() {
       it('should work as the static equivalent of a.scale(scalar)', function() {
         var a = new Matrix([[1, 1, 1]]);
-        
+
         assert.deepEqual(new Matrix(a).scale(5), Matrix.scale(a, 5));
       });
     });
@@ -38,6 +38,14 @@
         var b = new Matrix([[1, 1, 1]]);
 
         assert.deepEqual(new Matrix(a).multiply(b), Matrix.multiply(a, b));
+      });
+    });
+
+    describe('Matrix.plu(a)', function() {
+      it('should work as the static equivalent of a.plu()', function() {
+        var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+
+        assert.deepEqual(new Matrix(a).plu(), Matrix.plu(a));
       });
     });
 
@@ -286,6 +294,18 @@
               return Number(value.toFixed(5));
             });
           }));
+        });
+      });
+
+      describe('.plu()', function() {
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+          var b = new Matrix([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]);
+          var ipiv = new Int32Array([1, 1, 2]);
+
+          var plu = a.plu();
+          assert.deepEqual(ipiv, plu.pop());
+          assert.deepEqual(b, plu.pop());
         });
       });
 

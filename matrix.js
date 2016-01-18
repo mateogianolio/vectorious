@@ -423,40 +423,85 @@
   };
 
   /**
-   * Performs LU factorization on a matrix.
+   * Performs full LU decomposition on a matrix.
    * @returns {Array} a triple (3-tuple) of the lower triangular resultant matrix `L`, the upper
-   * triangular resultant matrix `U` and the pivot matrix `P`
+   * triangular resultant matrix `U` and the pivot array `ipiv`
    **/
   Matrix.prototype.lu = function () {
-    var l = this.shape[0];
+    var r = this.shape[0],
+        c = this.shape[1],
+        plu = Matrix.plu(this),
+        ipiv = plu[1],
+        pivot = Matrix.identity(r),
+        lower = new Matrix(plu[0]),
+        upper = new Matrix(plu[0]),
+        i, j;
 
-    var L = Matrix.identity(l),
-        U = Matrix.zeros(l, l),
-        P = this.pivotize(),
-        A = Matrix.multiply(P[0], this);
+    for (i = 0; i < r; i++)
+      for (j = i; j < c; j++)
+        lower.data[i * c + j] = i === j ? 1 : 0;
 
-    var i, j, k,
-        sum = [0, 0];
+    for (i = 0; i < r; i++)
+      for (j = 0; j < i && j < c; j++)
+        upper.data[i * c + j] = 0;
 
-    for (i = 0; i < l; i++) {
-      for (j = 0; j < i + 1; j++) {
-        sum[0] = 0;
-        for (k = 0; k < j; k++)
-          sum[0] += U.get(k, i) * L.get(j, k);
+    return [lower, upper, ipiv];
+  };
 
-        U.set(j, i, A.get(j, i) - sum[0]);
+  /**
+   * Static method. Performs LU factorization on current matrix.
+   * @returns {Array} an array with a new instance of the current matrix LU-
+   * factorized and the corresponding pivot Int32Array
+   **/
+  Matrix.plu = function(matrix) {
+    return new Matrix(matrix).plu();
+  };
+
+  /**
+   * Performs LU factorization on current matrix.
+   * @returns {Array} an array with the current matrix LU-factorized and the
+   * corresponding pivot Int32Array
+   **/
+  Matrix.prototype.plu = function () {
+    var data = this.data,
+        n = this.shape[0],
+        ipiv = new Int32Array(n),
+        max, abs, diag, p,
+        i, j, k;
+
+    for (k = 0; k < n; ++k) {
+      p = k;
+      max = Math.abs(data[k * n + k]);
+      for (j = k + 1; j < n; ++j) {
+        abs = Math.abs(data[j * n + k]);
+        if (max < abs) {
+          max = abs;
+          p = j;
+        }
       }
 
-      for (j = i; j < l; j++) {
-        sum[1] = 0;
-        for (k = 0; k < j; k++)
-          sum[1] += U.get(k, i) * L.get(j, k);
+      ipiv[k] = p;
 
-        L.set(j, i, (A.get(j, i) - sum[1]) / U.get(i, i));
+      if (p !== k)
+        this.swap(k, p);
+
+      diag = data[k * n + k];
+      for (i = k + 1; i < n; ++i)
+        data[i * n + k] /= diag;
+
+      for (i = k + 1; i < n; ++i) {
+        for (j = k + 1; j < n - 1; ++j) {
+          data[i * n + j] -= data[i * n + k] * data[k * n + j];
+          ++j;
+          data[i * n + j] -= data[i * n + k] * data[k * n + j];
+        }
+
+        if(j === n - 1)
+          data[i * n + j] -= data[i * n + k] * data[k * n + j];
       }
     }
 
-    return [L, U, P];
+    return [this, ipiv];
   };
 
   /**
@@ -577,18 +622,24 @@
     if (this.shape[0] !== this.shape[1])
       throw new Error('matrix is not square');
 
-    var lup = this.lu();
-    var pivot = lup.pop(),
-        upper = lup.pop(),
-        lower = lup.pop();
-
-    var product = 1,
+    var plu = Matrix.plu(this),
+        ipiv = plu.pop(),
+        lu = plu.pop(),
+        r = this.shape[0],
+        c = this.shape[1],
+        product = 1,
+        sign = 1,
         i;
 
-    for (i = 0; i < this.shape[0]; i++)
-      product *= lower.get(i, i) * upper.get(i, i);
+    // get sign from ipiv
+    for (i = 0; i < r; i++)
+      if (i !== ipiv[i])
+        sign *= -1;
 
-    return pivot.pop() * product;
+    for (i = 0; i < r; i++)
+      product *= lu.data[i * c + i];
+
+    return sign * product;
   };
 
   /**
