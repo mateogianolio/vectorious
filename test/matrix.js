@@ -259,20 +259,6 @@
         });
       });
 
-      describe('.pivotize()', function() {
-        it('should work as expected', function() {
-          var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
-          var b = new Matrix([[0, 1, 0], [1, 0, 0], [0, 0, 1]]);
-
-          assert.deepEqual(b, a.pivotize().shift());
-
-          var c = new Matrix([[11, 9, 24, 2], [1, 5, 2, 6], [3, 17, 18, 1], [2, 5, 7, 1]]);
-          var d = new Matrix([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]);
-
-          assert.deepEqual(d, c.pivotize().shift());
-        });
-      });
-
       describe('.lu()', function() {
         it('should work as expected', function() {
           var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
@@ -298,6 +284,18 @@
       });
 
       describe('.plu()', function() {
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+          var b = new Matrix([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]);
+          var ipiv = new Int32Array([1, 1, 2]);
+
+          var plu = a.plu();
+          assert.deepEqual(ipiv, plu.pop());
+          assert.deepEqual(b, plu.pop());
+        });
+      });
+
+      describe('.lu_solve()', function() {
         it('should work as expected', function() {
           var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
           var b = new Matrix([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]);
