@@ -75,6 +75,6 @@ The operations were performed on vectors generated with `Vector.random(1048576)`
 
 Below is a graph comparing the matrix operations `add`, `scale` and `transpose`.
 
-The operations were performed on vectors generated with `Matrix.random(512, 512)`.
+The operations were performed on matrices generated with `Matrix.random(512, 512)`.
 
 ![Matrix operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/matrix_ops.png)
