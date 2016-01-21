@@ -77,7 +77,7 @@
 
     var i;
     for (i = 0; i < l1; i++)
-      this.data[i] += vector.data[i];
+      this.data[i] -= vector.data[i];
 
     return this;
   };

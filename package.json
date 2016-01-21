@@ -7,6 +7,13 @@
     "test": "./node_modules/mocha/bin/mocha",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js"
   },
+  "testling": {
+    "harness": "mocha",
+    "files": [
+      "test/vector.js",
+      "test/matrix.js"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mateogianolio/vectorious.git"
