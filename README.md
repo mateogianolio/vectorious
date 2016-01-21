@@ -1,37 +1,49 @@
-# ![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.png)
+![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.gif)
 
-[![NPM](https://nodei.co/npm/vectorious.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/vectorious/)
+![npm version](https://img.shields.io/npm/v/vectorious.svg?label=version&style=flat) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat)
+![code climate](https://img.shields.io/codeclimate/github/mateogianolio/vectorious.svg?style=flat) ![test coverage](https://img.shields.io/codeclimate/coverage/github/mateogianolio/vectorious.svg?style=flat&label=test coverage)
 
-![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg) [![code climate](https://codeclimate.com/github/mateogianolio/vectorious/badges/gpa.svg)](https://codeclimate.com/github/mateogianolio/vectorious) [![test coverage](https://codeclimate.com/github/mateogianolio/vectorious/badges/coverage.svg)](https://codeclimate.com/github/mateogianolio/vectorious/coverage)
-
-Vectorious is a high performance linear algebra library. It is written in
-JavaScript using [nBLAS](https://github.com/mateogianolio/nblas) for single- and double-precision C++ bindings to CBLAS. In the future the goal is to also include C++ bindings to LAPACK. With native fallbacks,
-it can be used without the bindings in supported browsers.
+Vectorious is a high performance linear algebra library, written in JavaScript and powered by [nBLAS](https://github.com/mateogianolio/nblas) for Node.js bindings to CBLAS.
 
 ```bash
 $ npm install vectorious
-$ npm test
-$ npm run benchmark
 ```
 
-To enjoy the full performance of vectorious, you will need to have BLAS installed
-on your system. It is by default included in the **OSX** Accelerate framework. On **Ubuntu**/**Debian** you can e.g. use libblas (`apt-get libblas-dev`). If you use **Windows**, you can [install LAPACK](http://icl.cs.utk.edu/lapack-for-windows/lapack/).
+```javascript
+var vectorious = require('vectorious');
+```
 
-### Browser
-
-Download a [release](https://github.com/mateogianolio/vectorious/releases) and use it like this:
+It can be used in the browser too! Download a  [**release**](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-4.1.0.js"></script>
+<script src="vectorious-4.1.3.js"></script>
 <script>
-  // e.g. var vector = new vectorious.Vector()
+  var A = new Matrix([
+    [1],
+    [2],
+    [3]
+  ]);
+
+  var B = new Matrix([
+    [1, 3, 5],
+  ]);
+
+  var C = A.multiply(B);
+  console.log('C:', C.toArray());
+  /* C: [
+    [1, 3, 5],
+    [2, 6, 10],
+    [3, 9, 15]
+  ] */
 </script>
 ```
 
 ### [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 
-##### [Matrix ](https://github.com/mateogianolio/vectorious/wiki/Matrix-API)
-##### [Vector](https://github.com/mateogianolio/vectorious/wiki/Vector-API)
+The documentation is located in the 'wiki' section of this repository.
+
+##### [Matrix API ](https://github.com/mateogianolio/vectorious/wiki/Matrix-API)
+##### [Vector API](https://github.com/mateogianolio/vectorious/wiki/Vector-API)
 
 ### [Examples](https://github.com/mateogianolio/vectorious/tree/master/examples)
 
@@ -39,7 +51,11 @@ Download a [release](https://github.com/mateogianolio/vectorious/releases) and u
 
 ### [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
 
-The following benchmarks compare Vectorious 4.1.0 with these three popular matrix/vector libraries:
+Internal benchmarks are located in the 'wiki' section of this repository.
+
+---
+
+The following benchmarks compare Vectorious 4.1.0 with three popular matrix/vector libraries:
 
 * [Numeric.js](http://www.numericjs.com)
 * [Sylvester](http://sylvester.jcoglan.com)
@@ -47,7 +63,18 @@ The following benchmarks compare Vectorious 4.1.0 with these three popular matri
 
 The graphs show operations per second on the vertical (y) axis.
 
-| Vector | Matrix |
-|:---|:---|
-| `Vector.random(1048576)` | `Matrix.random(512, 512)` |
-| ![Vector operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/vector_ops.png) | ![Matrix operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/matrix_ops.png) |
+#### Vector operations
+
+Below is a graph comparing the vector operations `add`, `angle`, `dot`, `magnitude` (aka `L2-norm`), `normalize` and `scale`.
+
+The operations were performed on vectors generated with `Vector.random(1048576)`.
+
+![Vector operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/vector_ops.png)
+
+#### Matrix operations
+
+Below is a graph comparing the matrix operations `add`, `scale` and `transpose`.
+
+The operations were performed on vectors generated with `Matrix.random(512, 512)`.
+
+![Matrix operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/matrix_ops.png)

@@ -1,7 +1,7 @@
 {
   "name": "vectorious",
-  "version": "4.1.2",
-  "description": "A high performance linear algebra library written in Javascript.",
+  "version": "4.1.3",
+  "description": "A high performance linear algebra library.",
   "main": "vectorious.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "mocha": "^2.3.4",
-    "nblas": "^1.0.7"
+    "nblas": "^1.1.2"
   }
 }
