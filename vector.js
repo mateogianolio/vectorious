@@ -475,11 +475,12 @@
    * @returns {Vector} `this`
    **/
   Vector.prototype.map = function (callback) {
-    var i;
+    var data = new this.type(this.length),
+        i;
     for (i = 0; i < this.length; i++)
-      this.data[i] = callback(this.data[i]);
+      data[i] = callback(this.data[i], i);
 
-    return this;
+    return new Vector(data);
   };
 
   /**
