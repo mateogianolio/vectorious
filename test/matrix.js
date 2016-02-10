@@ -295,15 +295,28 @@
         });
       });
 
-      describe('.lu_solve()', function() {
+      describe('.lusolve()', function() {
         it('should work as expected', function() {
           var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
-          var b = new Matrix([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]);
-          var ipiv = new Int32Array([1, 1, 2]);
+          var rhs = new Matrix([[1], [3], [5]]);
+          var x = new Matrix([[3.25], [1.75], [-1.5]]);
 
-          var plu = a.plu();
-          assert.deepEqual(ipiv, plu.pop());
-          assert.deepEqual(b, plu.pop());
+          var plu = a.plu(),
+              lu = plu[0],
+              ipiv = plu[1];
+
+          lu.lusolve(rhs, ipiv);
+          assert.deepEqual(x, rhs);
+        });
+      });
+
+      describe('.solve()', function() {
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+          var rhs = new Matrix([[1], [3], [5]]);
+          var x = new Matrix([[3.25], [1.75], [-1.5]]);
+
+          assert.deepEqual(x, a.solve(rhs));
         });
       });
 

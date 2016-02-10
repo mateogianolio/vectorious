@@ -475,7 +475,7 @@
    * @param {Int32Array} array of pivoted row indices
    * @returns {Matrix} rhs replaced by the solution
    **/
-  Matrix.prototype.lu_solve = function (rhs, ipiv) {
+  Matrix.prototype.lusolve = function (rhs, ipiv) {
     var lu = this.data,
         n = rhs.shape[0],
         nrhs = rhs.shape[1],
@@ -516,7 +516,7 @@
         lu = plu[0],
         ipiv = plu[1];
 
-    return lu.lu_solve(new Matrix(rhs), ipiv);
+    return lu.lusolve(new Matrix(rhs), ipiv);
   };
 
   /**
