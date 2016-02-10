@@ -522,4 +522,7 @@
   };
 
   module.exports = Vector;
+  try {
+    window.Vector = Vector;
+  } catch (e) {}
 }());

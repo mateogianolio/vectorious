@@ -1,7 +1,7 @@
 ![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.gif)
 
-![npm version](https://img.shields.io/npm/v/vectorious.svg?label=version&style=flat) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat)
-![code climate](https://img.shields.io/codeclimate/github/mateogianolio/vectorious.svg?style=flat) ![test coverage](https://img.shields.io/codeclimate/coverage/github/mateogianolio/vectorious.svg?style=flat&label=test coverage)
+![version](https://img.shields.io/npm/v/vectorious.svg?style=flat&label=version) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat)
+![climate](https://img.shields.io/codeclimate/github/mateogianolio/vectorious.svg?style=flat&label=climate) ![coverage](https://img.shields.io/codeclimate/coverage/github/mateogianolio/vectorious.svg?style=flat&label=coverage)
 
 Vectorious is a high performance linear algebra library, written in JavaScript and powered by [nBLAS](https://github.com/mateogianolio/nblas) for Node.js bindings to CBLAS.
 
@@ -16,7 +16,7 @@ var vectorious = require('vectorious');
 It can be used in the browser too! Download a  [**release**](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-4.1.3.js"></script>
+<script src="vectorious-4.1.5.js"></script>
 <script>
   var A = new Matrix([
     [1],

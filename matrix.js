@@ -822,4 +822,7 @@
   };
 
   module.exports = Matrix;
+  try {
+    window.Matrix = Matrix;
+  } catch (e) {}
 }());
