@@ -87,7 +87,7 @@
     return [this, ipiv];
   };
 
-  Matrix.prototype.lu_solve = function (rhs, ipiv) {
+  Matrix.prototype.lusolve = function (rhs, ipiv) {
     var r = this.shape[0],
         nrhs = rhs.shape[1];
 
