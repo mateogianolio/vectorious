@@ -11,6 +11,10 @@
 
     if (data instanceof Vector) {
       this.combine(data);
+    } else if (data && data.shape) {
+      this.data = new data.type(data.data);
+      this.length = data.shape[0] * data.shape[1];
+      this.type = data.type;
     } else if (data instanceof Array) {
       this.data = new this.type(data);
       this.length = data.length;

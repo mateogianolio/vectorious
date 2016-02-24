@@ -388,41 +388,6 @@
   };
 
   /**
-   * Pivots a matrix until elements are in upper triangular form
-   * @returns {Array} a tuple of the resultant pivotized matrix and its sign
-   * (used in LU factorization).
-   **/
-  Matrix.prototype.pivotize = function () {
-    var l = this.shape[0],
-        result = Matrix.identity(l),
-        sign = 1,
-        pivot,
-        lead,
-        row;
-
-    var i, j;
-    for (i = 0; i < l; i++) {
-      pivot = 0;
-      row = i;
-
-      for (j = i; j < l; j++) {
-        lead = Math.abs(this.get(j, i));
-        if (pivot < lead) {
-          pivot = lead;
-          row = j;
-        }
-      }
-
-      if (i !== row) {
-        result.swap(i, row);
-        sign *= -1;
-      }
-    }
-
-    return [result, sign];
-  };
-
-  /**
    * Performs full LU decomposition on a matrix.
    * @returns {Array} a triple (3-tuple) of the lower triangular resultant matrix `L`, the upper
    * triangular resultant matrix `U` and the pivot array `ipiv`
@@ -502,6 +467,56 @@
     }
 
     return [this, ipiv];
+  };
+
+  /**
+   * Solves an LU factorized matrix with the supplied right hand side(s)
+   * @param {Matrix} rhs, right hand side(s) to solve for
+   * @param {Int32Array} array of pivoted row indices
+   * @returns {Matrix} rhs replaced by the solution
+   **/
+  Matrix.prototype.lusolve = function (rhs, ipiv) {
+    var lu = this.data,
+        n = rhs.shape[0],
+        nrhs = rhs.shape[1],
+        x = rhs.data,
+        i, j, k;
+
+    // pivot right hand side
+    for (i = 0; i < ipiv.length; i++)
+      if (i !== ipiv[i])
+        rhs.swap(i, ipiv[i]);
+
+    for (k = 0; k < nrhs; k++) {
+      // forward solve
+      for (i = 0; i < n; i++)
+        for (j = 0; j < i; j++)
+          x[i * nrhs + k] -= lu[i * n + j] * x[j * nrhs + k];
+
+      // backward solve
+      for (i = n - 1; i >= 0; i--) {
+        for (j = i + 1; j < n; j++)
+          x[i * nrhs + k] -= lu[i * n + j] * x[j * nrhs + k];
+        x[i * nrhs + k] /= lu[i * n + i];
+      }
+    }
+
+    return rhs;
+  };
+
+  /**
+   * Solves AX = B using LU factorization, where A is the current matrix and
+   * B is a Vector/Matrix containing the right hand side(s) of the equation.
+   * @param {Matrix/Vector} rhs, right hand side(s) to solve for
+   * @param {Int32Array} array of pivoted row indices
+   * @returns {Matrix} a new matrix containing the solutions of the system
+   **/
+  Matrix.prototype.solve = function (rhs) {
+    var plu = Matrix.plu(this),
+        lu = plu[0],
+        ipiv = plu[1];
+
+    return lu.lusolve(new Matrix(rhs), ipiv);
   };
 
   /**
@@ -805,20 +820,6 @@
       result.push(Array.prototype.slice.call(this.data.subarray(i * c, (i + 1) * c)));
 
     return result;
-  };
-
-  /**
-   * Converts current matrix into a two-dimensional Vector
-   * @returns {Array} a Vector of the matrix' contents
-   **/
-  Matrix.prototype.toVector = function () {
-    var r = this.shape[0],
-        c = this.shape[1];
-
-    if (r !== 1 && c !== 1)
-      throw new Error('invalid matrix shape');
-
-    return new Vector(this.data);
   };
 
   module.exports = Matrix;
