@@ -47,7 +47,7 @@ It can be used in the browser too! Download a  [**release**](https://github.com/
 
 The documentation is located in the 'wiki' section of this repository.
 
-* [**Matrix **](https://github.com/mateogianolio/vectorious/wiki/Matrix-API)
+* [**Matrix**](https://github.com/mateogianolio/vectorious/wiki/Matrix-API)
 * [**Vector**](https://github.com/mateogianolio/vectorious/wiki/Vector-API)
 
 ### [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
