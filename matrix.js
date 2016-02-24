@@ -807,20 +807,6 @@
     return result;
   };
 
-  /**
-   * Converts current matrix into a two-dimensional Vector
-   * @returns {Array} a Vector of the matrix' contents
-   **/
-  Matrix.prototype.toVector = function () {
-    var r = this.shape[0],
-        c = this.shape[1];
-
-    if (r !== 1 && c !== 1)
-      throw new Error('invalid matrix shape');
-
-    return new Vector(this.data);
-  };
-
   module.exports = Matrix;
   try {
     window.Matrix = Matrix;
