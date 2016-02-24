@@ -3,25 +3,8 @@
 
   var Matrix = require('../vectorious').Matrix;
 
-  function linsolve(A, B) {
-    var RREF = A.augment(B).gauss();
-    var n = Math.min(RREF.shape[0], RREF.shape[1]),
-        x = new Array(n),
-        i, j;
-
-    for(i = n - 1; i >= 0; i--) {
-      x[i] = RREF.get(i, n);
-      for(j = i + 1; j < n; j++)
-        x[i] = x[i] - RREF.get(i, j) * x[j];
-
-      x[i] = x[i] / RREF.get(i, i);
-    }
-
-    return x;
-  }
-
   function round(x) {
-    return Number(x.toPrecision(4));
+    return Number(x.toPrecision(1));
   }
 
   var A = Matrix.random(5, 5).scale(10).map(round),
@@ -35,6 +18,6 @@
   console.log(B.toArray());
   console.log();
 
-  console.log('linsolve(A, B):');
-  console.log(linsolve(A, B));
+  console.log('A.solve(B):');
+  console.log(A.solve(B).map(round).toArray());
 }());
