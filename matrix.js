@@ -388,41 +388,6 @@
   };
 
   /**
-   * Pivots a matrix until elements are in upper triangular form
-   * @returns {Array} a tuple of the resultant pivotized matrix and its sign
-   * (used in LU factorization).
-   **/
-  Matrix.prototype.pivotize = function () {
-    var l = this.shape[0],
-        result = Matrix.identity(l),
-        sign = 1,
-        pivot,
-        lead,
-        row;
-
-    var i, j;
-    for (i = 0; i < l; i++) {
-      pivot = 0;
-      row = i;
-
-      for (j = i; j < l; j++) {
-        lead = Math.abs(this.get(j, i));
-        if (pivot < lead) {
-          pivot = lead;
-          row = j;
-        }
-      }
-
-      if (i !== row) {
-        result.swap(i, row);
-        sign *= -1;
-      }
-    }
-
-    return [result, sign];
-  };
-
-  /**
    * Performs full LU decomposition on a matrix.
    * @returns {Array} a triple (3-tuple) of the lower triangular resultant matrix `L`, the upper
    * triangular resultant matrix `U` and the pivot array `ipiv`
