@@ -38,16 +38,17 @@ It can be used in the browser too! Download a  [**release**](https://github.com/
 </script>
 ```
 
+### [Examples](https://github.com/mateogianolio/vectorious/tree/master/examples)
+
+* [Solving **linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/linsolve.js)
+* [Implementing a **neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js)
+
 ### [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 
 The documentation is located in the 'wiki' section of this repository.
 
-##### [Matrix API ](https://github.com/mateogianolio/vectorious/wiki/Matrix-API)
-##### [Vector API](https://github.com/mateogianolio/vectorious/wiki/Vector-API)
-
-### [Examples](https://github.com/mateogianolio/vectorious/tree/master/examples)
-
-##### [Solve linear systems of equations](https://github.com/mateogianolio/vectorious/tree/master/examples/linsolve.js)
+* [**Matrix **](https://github.com/mateogianolio/vectorious/wiki/Matrix-API)
+* [**Vector**](https://github.com/mateogianolio/vectorious/wiki/Vector-API)
 
 ### [Benchmarks](https://github.com/mateogianolio/vectorious/wiki/Benchmarks)
 
