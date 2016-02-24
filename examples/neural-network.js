@@ -43,8 +43,8 @@ var l1, l2, l2_delta, l1_delta;
 for (var i = 0; i < 60000; i++) {
   l1 = map(dot(X, syn0), sigmoid);
   l2 = map(dot(l1, syn1), sigmoid);
-  l2_delta = mul(Matrix.subtract(y, l2), mul(l2, (Matrix.subtract(Matrix.ones.apply(null, l2.shape), l2))));
-  l1_delta = mul(dot(l2_delta, syn1.transpose()), mul(l1 , Matrix.subtract(Matrix.ones.apply(null, l1.shape), l1)));
+  l2_delta = mul(Matrix.subtract(y, l2), mul(l2, addScalar(Matrix.scale(l2, -1), 1)));
+  l1_delta = mul(dot(l2_delta, syn1.transpose()), mul(l1 , addScalar(Matrix.scale(l1, -1), 1)));
   syn1 = syn1.add(dot(l1.transpose(), l2_delta));
   syn0 = syn0.add(dot(X.transpose(), l1_delta));
 }
