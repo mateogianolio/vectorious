@@ -4,7 +4,8 @@
   var Vector = require('./vector'),
       Matrix = require('./matrix');
   try {
-    var nblas = require('nblas');
+    var nblas = require('nblas'),
+        nlapack = require('nlapack');
   } catch (error) {
     module.exports.Vector = Vector;
     module.exports.Matrix = Matrix;
@@ -58,11 +59,11 @@
     return nblas.nrm2(this.data);
   };
 
-  Vector.prototype.max = function() {
+  Vector.prototype.max = function () {
     return this.data[nblas.idamax(this.length, this.data, 1)];
   };
 
-  Matrix.prototype.multiply = function(matrix) {
+  Matrix.prototype.multiply = function (matrix) {
     var r1 = this.shape[0],
         c1 = this.shape[1],
         r2 = matrix.shape[0],
@@ -74,6 +75,24 @@
 
     nblas.gemm(this.data, matrix.data, data, r1, c2, c1);
     return Matrix.fromTypedArray(data, [r1, c2]);
+  };
+
+  // LAPACK optimizations
+  Matrix.prototype.plu = function () {
+    var r = this.shape[0],
+        c = this.shape[1],
+        ipiv = new Int32Array(r);
+
+    nlapack.getrf(r, c, this.data, ipiv);
+    return [this, ipiv];
+  };
+
+  Matrix.prototype.lusolve = function (rhs, ipiv) {
+    var r = this.shape[0],
+        nrhs = rhs.shape[1];
+
+    nlapack.getrs(r, this.data, rhs.data, ipiv, nrhs);
+    return rhs;
   };
 
   module.exports.Vector = Vector;

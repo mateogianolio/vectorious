@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "mocha": "^2.3.4",
-    "nblas": "^1.1.2"
+    "nblas": "^1.1.2",
+    "nlapack": "github:mateogianolio/nlapack"
   }
 }
