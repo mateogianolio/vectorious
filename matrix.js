@@ -505,6 +505,56 @@
   };
 
   /**
+   * Solves an LU factorized matrix with the supplied right hand side(s)
+   * @param {Matrix} rhs, right hand side(s) to solve for
+   * @param {Int32Array} array of pivoted row indices
+   * @returns {Matrix} rhs replaced by the solution
+   **/
+  Matrix.prototype.lusolve = function (rhs, ipiv) {
+    var lu = this.data,
+        n = rhs.shape[0],
+        nrhs = rhs.shape[1],
+        x = rhs.data,
+        i, j, k;
+
+    // pivot right hand side
+    for (i = 0; i < ipiv.length; i++)
+      if (i !== ipiv[i])
+        rhs.swap(i, ipiv[i]);
+
+    for (k = 0; k < nrhs; k++) {
+      // forward solve
+      for (i = 0; i < n; i++)
+        for (j = 0; j < i; j++)
+          x[i * nrhs + k] -= lu[i * n + j] * x[j * nrhs + k];
+
+      // backward solve
+      for (i = n - 1; i >= 0; i--) {
+        for (j = i + 1; j < n; j++)
+          x[i * nrhs + k] -= lu[i * n + j] * x[j * nrhs + k];
+        x[i * nrhs + k] /= lu[i * n + i];
+      }
+    }
+
+    return rhs;
+  };
+
+  /**
+   * Solves AX = B using LU factorization, where A is the current matrix and
+   * B is a Vector/Matrix containing the right hand side(s) of the equation.
+   * @param {Matrix/Vector} rhs, right hand side(s) to solve for
+   * @param {Int32Array} array of pivoted row indices
+   * @returns {Matrix} a new matrix containing the solutions of the system
+   **/
+  Matrix.prototype.solve = function (rhs) {
+    var plu = Matrix.plu(this),
+        lu = plu[0],
+        ipiv = plu[1];
+
+    return lu.lusolve(new Matrix(rhs), ipiv);
+  };
+
+  /**
    * Static method. Augments two matrices `a` and `b` of matching dimensions
    * (appends `b` to `a`).
    * @param {Matrix} a
