@@ -22,16 +22,20 @@ function mul(m1, m2) {
   });
 }
 
-function sigmoid(val) {
-  return 1.0 / (1 + Math.exp(-val));
-}
-
 function map(matrix, fn) {
   var copy = zeros.apply(null, matrix.shape);
   matrix.each(function each(val, i, j) {
     copy.set(i, j, fn(val));
   });
   return copy;
+}
+
+function sigmoid(val) {
+  return 1.0 / (1 + Math.exp(-val));
+}
+
+function sigmoidDerivative(val) {
+  return val * (1 - val);
 }
 
 var X = new Matrix([[0,0,1],[0,1,1],[1,0,1],[1,1,1]]);
@@ -45,8 +49,8 @@ var l1, l2, l2_delta, l1_delta;
 for (var i = 0; i < 60000; i++) {
   l1 = map(dot(X, syn0), sigmoid);
   l2 = map(dot(l1, syn1), sigmoid);
-  l2_delta = mul(subtract(y, l2), mul(l2, addScalar(scale(l2, -1), 1)));
-  l1_delta = mul(dot(l2_delta, syn1.transpose()), mul(l1, addScalar(scale(l1, -1), 1)));
+  l2_delta = mul(subtract(y, l2), map(l2, sigmoidDerivative));
+  l1_delta = mul(dot(l2_delta, syn1.transpose()), map(l1, sigmoidDerivative));
   syn1 = add(syn1, dot(l1.transpose(), l2_delta));
   syn0 = add(syn0, dot(X.transpose(), l1_delta));
 }
