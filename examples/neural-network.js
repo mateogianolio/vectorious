@@ -1,23 +1,25 @@
 // example is based on the numpy neural network tutorial featured here
 // https://iamtrask.github.io/2015/07/12/basic-python-network/
+'use strict';
 
 var Matrix = require('../vectorious').Matrix;
+var add = Matrix.add;
+var subtract = Matrix.subtract;
+var dot = Matrix.multiply;
+var scale = Matrix.scale;
+var ones = Matrix.ones;
+var zeros = Matrix.zeros;
+var random = Matrix.random;
 
 function addScalar(matrix, scalar) {
-  return Matrix.scale(Matrix.ones.apply(null, matrix.shape), scalar).add(matrix);
+  return add(scale(ones.apply(null, matrix.shape), scalar), matrix);
 }
 
 function mul(m1, m2) {
-  var copy = Matrix.zeros.apply(null, m1.shape);
-  m1.each(function each(val, i, j) {
-    var result = val * m2.get(i, j);
-    copy.set(i, j, result);
+  var copy = zeros.apply(null, m1.shape);
+  return copy.map(function map(val, i, j) {
+    return m1.get(i, j) * m2.get(i, j);
   });
-  return copy;
-}
-
-function dot(m1, m2) {
-  return Matrix.multiply(m1, m2);
 }
 
 function sigmoid(val) {
@@ -25,7 +27,7 @@ function sigmoid(val) {
 }
 
 function map(matrix, fn) {
-  var copy = Matrix.zeros.apply(null, matrix.shape);
+  var copy = zeros.apply(null, matrix.shape);
   matrix.each(function each(val, i, j) {
     copy.set(i, j, fn(val));
   });
@@ -35,18 +37,18 @@ function map(matrix, fn) {
 var X = new Matrix([[0,0,1],[0,1,1],[1,0,1],[1,1,1]]);
 var y = new Matrix([[0,1,1,0]]).transpose();
 
-var syn0 = addScalar(Matrix.scale(Matrix.random(3, 4), 2), -1);
-var syn1 = addScalar(Matrix.scale(Matrix.random(4, 1), 2), -1);
+var syn0 = addScalar(scale(random(3, 4), 2), -1);
+var syn1 = addScalar(scale(random(4, 1), 2), -1);
 
 var l1, l2, l2_delta, l1_delta;
 
 for (var i = 0; i < 60000; i++) {
   l1 = map(dot(X, syn0), sigmoid);
   l2 = map(dot(l1, syn1), sigmoid);
-  l2_delta = mul(Matrix.subtract(y, l2), mul(l2, addScalar(Matrix.scale(l2, -1), 1)));
-  l1_delta = mul(dot(l2_delta, syn1.transpose()), mul(l1 , addScalar(Matrix.scale(l1, -1), 1)));
-  syn1 = syn1.add(dot(l1.transpose(), l2_delta));
-  syn0 = syn0.add(dot(X.transpose(), l1_delta));
+  l2_delta = mul(subtract(y, l2), mul(l2, addScalar(scale(l2, -1), 1)));
+  l1_delta = mul(dot(l2_delta, syn1.transpose()), mul(l1, addScalar(scale(l1, -1), 1)));
+  syn1 = add(syn1, dot(l1.transpose(), l2_delta));
+  syn0 = add(syn0, dot(X.transpose(), l1_delta));
 }
 
 // final trained neural network output!
