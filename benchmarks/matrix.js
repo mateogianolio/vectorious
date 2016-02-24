@@ -7,7 +7,8 @@
 
   var N = 128,
       a = Matrix.random(N, N),
-      b = Matrix.random(N, N);
+      b = Matrix.random(N, N),
+      rhs = Matrix.random(N, 1);
 
   console.log('a, b = Matrix.random(' + N + ', ' + N + ')');
 
@@ -30,6 +31,7 @@
     .add('a.gauss()', function () { a.gauss(); })
     .add('a.lu()', function () { a.lu(); })
     .add('a.plu()', function () { a.plu(); })
+    .add('a.solve()', function () { a.solve(rhs); })
     .add('a.trace()', function () { a.trace(); })
     .add('a.swap(i, j)', function () { a.swap(Math.floor(Math.random() * N), Math.floor(Math.random() * N)); })
     .on('cycle', function (event) { console.log(String(event.target)); })
