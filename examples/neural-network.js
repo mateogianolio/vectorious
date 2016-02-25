@@ -1,60 +1,65 @@
-// example is based on the numpy neural network tutorial featured here
-// https://iamtrask.github.io/2015/07/12/basic-python-network/
-'use strict';
+(function () {
+  // example is based on the numpy neural network tutorial featured here
+  // https://iamtrask.github.io/2015/07/12/basic-python-network/
+  'use strict';
 
-var Matrix = require('../vectorious').Matrix;
-var add = Matrix.add;
-var subtract = Matrix.subtract;
-var dot = Matrix.multiply;
-var scale = Matrix.scale;
-var ones = Matrix.ones;
-var zeros = Matrix.zeros;
-var random = Matrix.random;
+  var Matrix = require('../vectorious').Matrix;
 
-function addScalar(matrix, scalar) {
-  return add(scale(ones.apply(null, matrix.shape), scalar), matrix);
-}
+  // aliases
+  var add = Matrix.add,
+      subtract = Matrix.subtract,
+      dot = Matrix.multiply,
+      scale = Matrix.scale,
+      ones = Matrix.ones,
+      zeros = Matrix.zeros,
+      random = Matrix.random;
 
-function mul(m1, m2) {
-  var copy = zeros.apply(null, m1.shape);
-  return copy.map(function map(val, i, j) {
-    return m1.get(i, j) * m2.get(i, j);
-  });
-}
+  function addScalar(matrix, scalar) {
+    return add(scale(ones.apply(null, matrix.shape), scalar), matrix);
+  }
 
-function map(matrix, fn) {
-  var copy = zeros.apply(null, matrix.shape);
-  matrix.each(function each(val, i, j) {
-    copy.set(i, j, fn(val));
-  });
-  return copy;
-}
+  // element-wise multiplication
+  function mul(a, b) {
+    return a.map(function (val, i, j) {
+      return val * b.get(i, j);
+    });
+  }
 
-function sigmoid(val) {
-  return 1.0 / (1 + Math.exp(-val));
-}
+  // apply sigmoid function on a matrix
+  function sigmoid(matrix, deriv) {
+    return matrix.map(function (x) {
+      return deriv ?
+        x * (1 - x) :
+        1.0 / (1 + Math.exp(-x));
+    });
+  }
 
-function sigmoidDerivative(val) {
-  return val * (1 - val);
-}
+  // inputs and outputs
+  var X = new Matrix([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]]),
+      y = new Matrix([[0, 1, 1, 0]]).transpose();
 
-var X = new Matrix([[0,0,1],[0,1,1],[1,0,1],[1,1,1]]);
-var y = new Matrix([[0,1,1,0]]).transpose();
+  // weights
+  var syn0 = addScalar(scale(random(3, 4), 2), -1),
+      syn1 = addScalar(scale(random(4, 1), 2), -1);
 
-var syn0 = addScalar(scale(random(3, 4), 2), -1);
-var syn1 = addScalar(scale(random(4, 1), 2), -1);
+  // layers and deltas
+  var l0,
+      l1,
+      l0_delta,
+      l1_delta;
 
-var l1, l2, l2_delta, l1_delta;
+  for (var i = 0; i < 60000; i++) {
+    l0 = sigmoid(dot(X, syn0));
+    l1 = sigmoid(dot(l0, syn1));
 
-for (var i = 0; i < 60000; i++) {
-  l1 = map(dot(X, syn0), sigmoid);
-  l2 = map(dot(l1, syn1), sigmoid);
-  l2_delta = mul(subtract(y, l2), map(l2, sigmoidDerivative));
-  l1_delta = mul(dot(l2_delta, syn1.transpose()), map(l1, sigmoidDerivative));
-  syn1 = add(syn1, dot(l1.transpose(), l2_delta));
-  syn0 = add(syn0, dot(X.transpose(), l1_delta));
-}
+    l1_delta = mul(subtract(y, l1), sigmoid(l1, true));
+    l0_delta = mul(dot(l1_delta, syn1.transpose()), sigmoid(l0, true));
 
-// final trained neural network output!
-// should be closed to [[0, 1, 1, 0]] transpose
-console.log(l2.toArray());
+    syn1 = add(syn1, dot(l0.transpose(), l1_delta));
+    syn0 = add(syn0, dot(X.transpose(), l0_delta));
+  }
+
+  // final trained neural network output!
+  // should be closed to [[0, 1, 1, 0]] transpose
+  console.log(l1.toArray());
+}());

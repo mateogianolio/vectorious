@@ -14,9 +14,10 @@ $ npm install vectorious
 ```
 
 ```javascript
-var vectorious = require('vectorious'),
-    Matrix = vectorious.Matrix,
-    Vector = vectorious.Vector;
+var v = require('vectorious'),
+    Matrix = v.Matrix,
+    Vector = v.Vector,
+    BLAS = v.BLAS; // access BLAS routines
 ```
 
 ##### In browser
@@ -42,18 +43,23 @@ Download a [**release**](https://github.com/mateogianolio/vectorious/releases) a
 </script>
 ```
 
-### [Examples](https://github.com/mateogianolio/vectorious/tree/master/examples)
+### Examples
 
-* [Solving **linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/linsolve.js)
-* [Implementing a **neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js)
+* [Solving **linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/solve.js)
+* [Implementing a **neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js) (by [@lucidrains](https://github.com/lucidrains))
+* [Using low-level **BLAS routines**](https://github.com/mateogianolio/vectorious/tree/master/examples/blas.js)
 
 ### Documentation
 
-The documentation is located in [the wiki section](https://github.com/mateogianolio/vectorious/wiki) of this repository.
+The documentation is located in the wiki section of this repository.
+
+[**Go to wiki.**](https://github.com/mateogianolio/vectorious/wiki)
 
 ### Benchmarks
 
-Internal benchmarks are located in [the wiki section](https://github.com/mateogianolio/vectorious/wiki/Benchmarks) of this repository.
+Internal benchmarks are located in the wiki section of this repository.
+
+[**Go to wiki.**](https://github.com/mateogianolio/vectorious/wiki)
 
 #### Compared to other libraries
 

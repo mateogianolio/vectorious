@@ -78,4 +78,5 @@
 
   module.exports.Vector = Vector;
   module.exports.Matrix = Matrix;
+  module.exports.BLAS = nblas;
 }());
