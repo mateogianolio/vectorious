@@ -25,7 +25,7 @@ var v = require('vectorious'),
 Download a [**release**](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-4.2.0.min.js"></script>
+<script src="vectorious-4.x.x.min.js"></script>
 ```
 
 ```html
