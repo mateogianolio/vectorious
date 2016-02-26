@@ -20,6 +20,12 @@ var v = require('vectorious'),
     BLAS = v.BLAS; // access BLAS routines
 ```
 
+Will use your local BLAS copy (if any). Some notes for different operating systems:
+
+* **OSX** - by default included in the Accelerate framework
+* **Debian/Ubuntu** - different options, easiest is to `apt-get install libblas-dev`
+* **Windows** - https://icl.cs.utk.edu/lapack-for-windows/
+
 ##### In browser
 
 Download a [**release**](https://github.com/mateogianolio/vectorious/releases) and use it like this:
@@ -42,6 +48,10 @@ Download a [**release**](https://github.com/mateogianolio/vectorious/releases) a
   ] */
 </script>
 ```
+
+This library makes heavy use of `TypedArray`. To support browsers that currently do not implement all functionality yet you can use [this shim](https://github.com/ghcjs/shims/blob/master/lib/typedarray/typedarray.js) from ghcjs.
+
+At the moment, Google Chrome seems to offer the best TypedArray support.
 
 ### Examples
 
