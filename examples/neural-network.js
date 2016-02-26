@@ -14,14 +14,14 @@
       zeros = Matrix.zeros,
       random = Matrix.random;
 
-  // element-wise multiplication
+  // element-wise matrix multiplication
   function mul(a, b) {
     return a.map(function (val, i, j) {
       return val * b.get(i, j);
     });
   }
 
-  // element-wise sigmoid (and derivative)
+  // sigmoid function (and derivative)
   function sigmoid(ddx) {
     return function (x) {
       return ddx ?
