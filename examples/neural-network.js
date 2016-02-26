@@ -14,10 +14,6 @@
       zeros = Matrix.zeros,
       random = Matrix.random;
 
-  function addScalar(matrix, scalar) {
-    return add(scale(ones.apply(null, matrix.shape), scalar), matrix);
-  }
-
   // element-wise multiplication
   function mul(a, b) {
     return a.map(function (val, i, j) {
@@ -25,13 +21,13 @@
     });
   }
 
-  // apply sigmoid function on a matrix
-  function sigmoid(matrix, deriv) {
-    return matrix.map(function (x) {
-      return deriv ?
+  // element-wise sigmoid (and derivative)
+  function sigmoid(ddx) {
+    return function (x) {
+      return ddx ?
         x * (1 - x) :
         1.0 / (1 + Math.exp(-x));
-    });
+    };
   }
 
   // inputs and outputs
@@ -39,8 +35,8 @@
       y = new Matrix([[0, 1, 1, 0]]).transpose();
 
   // weights
-  var syn0 = addScalar(scale(random(3, 4), 2), -1),
-      syn1 = addScalar(scale(random(4, 1), 2), -1);
+  var syn0 = random(3, 4),
+      syn1 = random(4, 1);
 
   // layers and deltas
   var l0,
@@ -49,11 +45,11 @@
       l1_delta;
 
   for (var i = 0; i < 60000; i++) {
-    l0 = sigmoid(dot(X, syn0));
-    l1 = sigmoid(dot(l0, syn1));
+    l0 = dot(X, syn0).map(sigmoid());
+    l1 = dot(l0, syn1).map(sigmoid());
 
-    l1_delta = mul(subtract(y, l1), sigmoid(l1, true));
-    l0_delta = mul(dot(l1_delta, syn1.transpose()), sigmoid(l0, true));
+    l1_delta = mul(subtract(y, l1), l1.map(sigmoid(true)));
+    l0_delta = mul(dot(l1_delta, syn1.transpose()), l0.map(sigmoid(true)));
 
     syn1 = add(syn1, dot(l0.transpose(), l1_delta));
     syn0 = add(syn0, dot(X.transpose(), l0_delta));
