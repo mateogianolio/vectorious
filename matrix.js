@@ -187,21 +187,30 @@
   };
 
   /**
-   * Static method. Creates an `i x j` matrix containing random values between
-   * `0` and `1`, takes an optional `type` argument which should be an instance
-   * of `TypedArray`.
+   * Static method. Creates an `i x j` matrix containing random values
+   * according to a normal distribution, takes an optional `type` argument
+   * which should be an instance of `TypedArray`.
    * @param {Number} i
    * @param {Number} j
+   * @param {Number} mean (default 0)
+   * @param {Number} standard deviation (default 1)
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.random = function (i, j, type) {
+  Matrix.random = function (i, j, deviation, mean, type) {
+    if (deviation instanceof Function) {
+      type = deviation;
+      deviation = 1;
+    }
+
+    deviation = deviation || 1;
+    mean = mean || 0;
     type = type || Float64Array;
     var data = new type(i * j),
         k;
 
     for (k = 0; k < i * j; k++)
-      data[k] = Math.random();
+      data[k] = deviation * Math.random() + mean;
 
     return Matrix.fromTypedArray(data, [i, j]);
   };
@@ -250,34 +259,18 @@
   };
 
   /**
-   * Static method. Transposes a matrix (mirror across the diagonal).
-   * @returns {Matrix} a new resultant transposed matrix
-   **/
-  Matrix.transpose = function (matrix) {
-    return new Matrix(matrix).transpose();
-  };
-
-  /**
    * Transposes a matrix (mirror across the diagonal).
    * @returns {Matrix} `this`
    **/
+
+  Object.defineProperty(Matrix.prototype, 'T', {
+    get: function() { return this.transpose(); }
+  });
+
   Matrix.prototype.transpose = function () {
     var r = this.shape[0],
         c = this.shape[1],
         i, j;
-
-    // prefer in-place
-    if (r === c) {
-      for (i = 0; i < r - 1; i++) {
-        for (j = i + 1; j < r; j++) {
-          var tmp = this.data[j * r + i];
-          this.data[j * r + i] = this.data[i * r + j];
-          this.data[i * r + j] = tmp;
-        }
-      }
-
-      return this;
-    }
 
     var data = new this.type(c * r);
     for (i = 0; i < r; i++)
