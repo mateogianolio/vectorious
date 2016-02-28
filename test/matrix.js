@@ -198,14 +198,13 @@
 
         it('should work as expected', function() {
 
-          assert.deepEqual(a, Matrix.transpose(c));
-          assert.deepEqual(c, Matrix.transpose(a));
+          assert.deepEqual(a, c.T);
+          assert.deepEqual(c, a.T);
 
-          assert.deepEqual(b, Matrix.transpose(d));
-          assert.deepEqual(d, Matrix.transpose(b));
+          assert.deepEqual(b, d.T);
+          assert.deepEqual(d, b.T);
 
-          assert.deepEqual(e, Matrix.transpose(Matrix.transpose(e)));
-
+          assert.deepEqual(e, e.T.T);
         });
       });
 

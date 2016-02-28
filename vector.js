@@ -248,19 +248,23 @@
 
   /**
    * Static method. Creates a vector of `count` elements containing random
-   * values between `0` and `1`, takes an optional `type` argument which
-   * should be an instance of `TypedArray`.
+   * values according to a normal distribution, takes an optional `type`
+   * argument which should be an instance of `TypedArray`.
    * @param {Number} count
+   * @param {Number} deviation (default 1)
+   * @param {Number} mean (default 0)
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  Vector.random = function (count, type) {
+  Vector.random = function (count, deviation, mean, type) {
+    deviation = deviation || 1;
+    mean = mean || 0;
     type = type || Float64Array;
     var data = new type(count),
         i;
 
     for (i = 0; i < count; i++)
-      data[i] = Math.random();
+      data[i] = deviation * Math.random() + mean;
 
     return new Vector(data);
   };

@@ -9,9 +9,6 @@
   var add = Matrix.add,
       subtract = Matrix.subtract,
       dot = Matrix.multiply,
-      scale = Matrix.scale,
-      ones = Matrix.ones,
-      zeros = Matrix.zeros,
       random = Matrix.random;
 
   // element-wise matrix multiplication
@@ -32,11 +29,13 @@
 
   // inputs and outputs
   var X = new Matrix([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]]),
-      y = new Matrix([[0, 1, 1, 0]]).transpose();
+      y = new Matrix([[0, 1, 1, 0]]).T;
 
-  // weights
-  var syn0 = random(3, 4),
-      syn1 = random(4, 1);
+  console.log(X.shape, y.shape);
+
+  // initialize weights with a standard deviation of 2 and mean -1
+  var syn0 = random.apply(null, X.T.shape, 2, -1),
+      syn1 = random.apply(null, y.shape, 2, -1);
 
   // layers and deltas
   var l0,
@@ -49,10 +48,10 @@
     l1 = dot(l0, syn1).map(sigmoid());
 
     l1_delta = mul(subtract(y, l1), l1.map(sigmoid(true)));
-    l0_delta = mul(dot(l1_delta, syn1.transpose()), l0.map(sigmoid(true)));
+    l0_delta = mul(dot(l1_delta, syn1.T), l0.map(sigmoid(true)));
 
-    syn1 = add(syn1, dot(l0.transpose(), l1_delta));
-    syn0 = add(syn0, dot(X.transpose(), l0_delta));
+    syn1 = add(syn1, dot(l0.T, l1_delta));
+    syn0 = add(syn0, dot(X.T, l0_delta));
   }
 
   // final trained neural network output!
