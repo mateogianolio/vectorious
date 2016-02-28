@@ -198,11 +198,6 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.random = function (i, j, deviation, mean, type) {
-    if (deviation instanceof Function) {
-      type = deviation;
-      deviation = 1;
-    }
-
     deviation = deviation || 1;
     mean = mean || 0;
     type = type || Float64Array;
