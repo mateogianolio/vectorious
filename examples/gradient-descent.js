@@ -6,8 +6,7 @@
   var Matrix = require('../vectorious').Matrix;
 
   // aliases
-  var add = Matrix.add,
-      subtract = Matrix.subtract,
+  var subtract = Matrix.subtract,
       random = Matrix.random;
 
   // element-wise matrix multiplication
