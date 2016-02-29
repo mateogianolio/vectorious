@@ -10,11 +10,9 @@
 
   // perform row-wise softmax on matrix
   function softmax(m) {
-    var r = m.shape[0],
-        c = m.shape[1],
+    var c = m.shape[1],
         max = new Vector(m).max(),
-        sum = 0,
-        exp;
+        sum;
 
     return m.map(function (x, i, j) {
       if (j === 0) {
@@ -27,10 +25,9 @@
     });
   }
 
-  // get row-wise mean of matrix as vector
+  // get col-wise mean of matrix as vector
   function mean(m) {
-    var r = m.shape[0],
-        c = m.shape[1],
+    var c = m.shape[1],
         v = Vector.zeros(c),
         sum;
 
@@ -43,7 +40,7 @@
     });
   }
 
-  // add vector to matrix
+  // row-wise add vector to matrix
   function addMatVec(m, v) {
     return m.map(function (x, r, c) {
       return x + v.get(c);
@@ -69,8 +66,9 @@
   ]);
 
   var W = Matrix.zeros(X.shape[0], y.shape[1]),
-      b = Vector.zeros(y.shape[1]),
-      rate = 0.01,
+      b = Vector.zeros(y.shape[1]);
+
+  var rate = 0.01,
       prob,
       delta;
 
