@@ -37,7 +37,7 @@
     return v.map(function (x, i) {
       sum = 0;
       for (var j = 0; j < r; j++)
-        sum += m.data[i * c + j];
+        sum += m.get(i, j);
 
       return sum / c;
     });
