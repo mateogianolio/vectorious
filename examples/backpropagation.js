@@ -8,7 +8,6 @@
   // aliases
   var add = Matrix.add,
       subtract = Matrix.subtract,
-      dot = Matrix.multiply,
       random = Matrix.random;
 
   // element-wise matrix multiplication
@@ -31,8 +30,6 @@
   var X = new Matrix([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]]),
       y = new Matrix([[0, 1, 1, 0]]).T;
 
-  console.log(X.shape, y.shape);
-
   // initialize weights with a standard deviation of 2 and mean -1
   var syn0 = random.apply(null, X.T.shape, 2, -1),
       syn1 = random.apply(null, y.shape, 2, -1);
@@ -44,14 +41,14 @@
       l1_delta;
 
   for (var i = 0; i < 60000; i++) {
-    l0 = dot(X, syn0).map(sigmoid());
-    l1 = dot(l0, syn1).map(sigmoid());
+    l0 = X.multiply(syn0).map(sigmoid());
+    l1 = l0.multiply(syn1).map(sigmoid());
 
     l1_delta = mul(subtract(y, l1), l1.map(sigmoid(true)));
-    l0_delta = mul(dot(l1_delta, syn1.T), l0.map(sigmoid(true)));
+    l0_delta = mul(l1_delta.multiply(syn1.T), l0.map(sigmoid(true)));
 
-    syn1 = add(syn1, dot(l0.T, l1_delta));
-    syn0 = add(syn0, dot(X.T, l0_delta));
+    syn1 = add(syn1, l0.T.multiply(l1_delta));
+    syn0 = add(syn0, X.T.multiply(l0_delta));
   }
 
   // final trained neural network output!
