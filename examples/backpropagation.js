@@ -9,13 +9,6 @@
       subtract = Matrix.subtract,
       random = Matrix.random;
 
-  // element-wise matrix multiplication
-  function mul(a, b) {
-    return a.map(function (val, i, j) {
-      return val * b.get(i, j);
-    });
-  }
-
   // sigmoid function (and derivative)
   function sigmoid(ddx) {
     return function (x) {
@@ -42,8 +35,8 @@
     l0 = X.multiply(syn0).map(sigmoid());
     l1 = l0.multiply(syn1).map(sigmoid());
 
-    l1_delta = mul(subtract(y, l1), l1.map(sigmoid(true)));
-    l0_delta = mul(l1_delta.multiply(syn1.T), l0.map(sigmoid(true)));
+    l1_delta = subtract(y, l1).product(l1.map(sigmoid(true)));
+    l0_delta = l1_delta.multiply(syn1.T).product(l0.map(sigmoid(true)));
 
     syn1 = add(syn1, l0.T.multiply(l1_delta));
     syn0 = add(syn0, X.T.multiply(l0_delta));
