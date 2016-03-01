@@ -32,6 +32,15 @@
       });
     });
 
+    describe('Matrix.product(a, b)', function() {
+      it('should work as the static equivalent of a.product(b)', function() {
+        var a = new Matrix([[3, 2, 1]]);
+        var b = new Matrix([[1, 2, 3]]);
+
+        assert.deepEqual(new Matrix(a).product(b), Matrix.product(a, b));
+      });
+    });
+
     describe('Matrix.multiply(a, b)', function() {
       it('should work as the static equivalent of a.multiply(b)', function() {
         var a = new Matrix([[1], [2], [3]]);
@@ -158,6 +167,16 @@
           var b = new Matrix([[2, 4], [6, 8]]);
 
           assert.deepEqual(b, a.scale(2));
+        });
+      });
+
+      describe('.product(b)', function() {
+        it('should work as the static equivalent of a.product(b)', function() {
+          var a = new Matrix([[3, 2, 1]]);
+          var b = new Matrix([[1, 2, 3]]);
+          var c = new Matrix([[3, 4, 3]]);
+
+          assert.deepEqual(c, a.product(b));
         });
       });
 
@@ -467,6 +486,20 @@
           });
 
           assert.deepEqual(new Matrix([[0, 2], [0, 4]]), b);
+        });
+      });
+
+      describe('.reduce()', function() {
+        it('should work as expected', function() {
+          function sum(a, b) {
+            return a + b;
+          }
+
+          var a = new Matrix([[1, 2, 3]]);
+          var b = new Matrix([[1, 2, 3], [4, 5, 6]]);
+
+          assert.deepEqual(6, a.reduce(sum));
+          assert.deepEqual(21, b.reduce(sum));
         });
       });
 

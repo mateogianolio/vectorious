@@ -339,6 +339,20 @@
         });
       });
 
+      describe('.reduce()', function() {
+        it('should work as expected', function() {
+          function sum(a, b) {
+            return a + b;
+          }
+
+          var a = new Vector([1, 2, 3]);
+          var b = new Vector([1, 2, 3, 4, 5, 6]);
+
+          assert.deepEqual(6, a.reduce(sum));
+          assert.deepEqual(21, b.reduce(sum));
+        });
+      });
+
       describe('.toString()', function() {
         it('should work as expected', function() {
           assert.equal('[1, 2, 3]', new Vector([1, 2, 3]).toString());
