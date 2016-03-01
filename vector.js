@@ -483,12 +483,13 @@
    * @returns {Vector} `this`
    **/
   Vector.prototype.map = function (callback) {
-    var data = new this.type(this.length),
+    var mapped = new Vector(this),
+        data = mapped.data,
         i;
     for (i = 0; i < this.length; i++)
-      data[i] = callback(this.data[i], i);
+      data[i] = callback.call(mapped, data[i], i);
 
-    return new Vector(data);
+    return mapped;
   };
 
   /**
@@ -500,9 +501,18 @@
   Vector.prototype.each = function (callback) {
     var i;
     for (i = 0; i < this.length; i++)
-      callback(this.data[i], i);
+      callback.call(this, this.data[i], i);
 
     return this;
+  };
+
+  /**
+   * Equivalent to `TypedArray.prototype.reduce`.
+   * @param {Function} callback
+   * @returns {Number} result of reduction
+   **/
+  Vector.prototype.reduce = function (callback) {
+    return this.data.reduce(callback.bind(this));
   };
 
   /**

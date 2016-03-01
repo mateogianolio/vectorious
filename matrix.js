@@ -143,6 +143,38 @@
   };
 
   /**
+   * Static method. Hadamard product of matrices
+   * @param {Matrix} a
+   * @param {Matrix} b
+   * @returns {Matrix} a new matrix containing the hadamard product
+   **/
+  Matrix.product = function (a, b) {
+    return new Matrix(a).product(b);
+  };
+
+  /**
+   * Hadamard product of matrices
+   * @param {Matrix} a
+   * @param {Matrix} b
+   * @returns {Matrix} `this`
+   **/
+  Matrix.prototype.product = function (matrix) {
+    if (this.shape[0] !== matrix.shape[0] || this.shape[1] !== matrix.shape[1])
+      return new Error('invalid size');
+
+    var r = this.shape[0],          // rows in this matrix
+        c = this.shape[1],          // columns in this matrix
+        d1 = this.data,
+        d2 = matrix.data,
+        i;
+
+    for (i = 0; i < r * c; i++)
+      d1[i] *= d2[i];
+
+    return this;
+  };
+
+  /**
    * Static method. Creates an `i x j` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
    * @param {Number} i
@@ -702,7 +734,7 @@
     if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    return this.data[i*this.shape[1]+j];
+    return this.data[i * this.shape[1] + j];
   };
 
   /**
@@ -716,7 +748,7 @@
     if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    this.data[i*this.shape[1]+j] = value;
+    this.data[i * this.shape[1] + j] = value;
     return this;
   };
 
@@ -750,13 +782,14 @@
   Matrix.prototype.map = function (callback) {
     var r = this.shape[0],
         c = this.shape[1],
-        data = new this.type(this.data),
+        mapped = new Matrix(this),
+        data = mapped.data,
         i;
 
     for (i = 0; i < r * c; i++)
-      data[i] = callback(data[i], i / c | 0, i % c, data);
+      data[i] = callback.call(mapped, data[i], i / c | 0, i % c, data);
 
-    return Matrix.fromTypedArray(data, [r, c]);
+    return mapped;
   };
 
   /**
@@ -771,9 +804,18 @@
         i;
 
     for (i = 0; i < r * c; i++)
-      callback(this.data[i], i / c | 0, i % c, this.data);
+      callback.call(this, this.data[i], i / c | 0, i % c);
 
     return this;
+  };
+
+  /**
+   * Equivalent to `TypedArray.prototype.reduce`.
+   * @param {Function} callback
+   * @returns {Number} result of reduction
+   **/
+  Matrix.prototype.reduce = function (callback) {
+    return this.data.reduce(callback.bind(this));
   };
 
   /**

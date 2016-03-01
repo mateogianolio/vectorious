@@ -8,21 +8,29 @@
 
   var subtract = Matrix.subtract;
 
+  function maximum(a, b) {
+    return a < b ? b : a;
+  }
+
   // perform row-wise softmax on matrix
   function softmax(m) {
     var c = m.shape[1],
-        max = new Vector(m).max(),
+        max = m.reduce(maximum),
         sum;
 
-    return m.map(function (x, i, j) {
-      if (j === 0) {
-        sum = 0;
-        for (var k = 0; k < c; k++)
-          sum += Math.exp(m.get(i, k) - max);
-      }
+    return m
+      .map(function (x) {
+        return Math.exp(x - max);
+      })
+      .map(function (x, i, j) {
+        if (j === 0) {
+          sum = 0;
+          for (var k = 0; k < c; k++)
+            sum += this.get(i, k);
+        }
 
-      return Math.exp(x - max) / sum;
-    });
+        return x / sum;
+      });
   }
 
   // get col-wise mean of matrix as vector
@@ -42,8 +50,8 @@
 
   // row-wise add vector to matrix
   function addMatVec(m, v) {
-    return m.map(function (x, r, c) {
-      return x + v.get(c);
+    return m.map(function (x, i, j) {
+      return x + v.get(j);
     });
   }
 
