@@ -153,7 +153,7 @@
   };
 
   /**
-   * Static method. Hadamard product of matrices
+   * Hadamard product of matrices
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} `this`
@@ -804,7 +804,7 @@
         i;
 
     for (i = 0; i < r * c; i++)
-      callback.call(this, this.data[i], i / c | 0, i % c, this.data);
+      callback.call(this, this.data[i], i / c | 0, i % c);
 
     return this;
   };
