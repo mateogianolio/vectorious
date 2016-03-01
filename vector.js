@@ -507,6 +507,15 @@
   };
 
   /**
+   * Equivalent to `TypedArray.prototype.reduce`.
+   * @param {Function} callback
+   * @returns {Number} result of reduction
+   **/
+  Vector.prototype.reduce = function (callback) {
+    return this.data.reduce(callback.bind(this));
+  };
+
+  /**
    * Converts current vector into a readable formatted string.
    * @returns {String} a string of the vector's contents
    **/

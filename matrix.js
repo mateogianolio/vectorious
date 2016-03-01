@@ -734,7 +734,7 @@
     if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    return this.data[i*this.shape[1]+j];
+    return this.data[i * this.shape[1] + j];
   };
 
   /**
@@ -748,7 +748,7 @@
     if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
 
-    this.data[i*this.shape[1]+j] = value;
+    this.data[i * this.shape[1] + j] = value;
     return this;
   };
 
@@ -807,6 +807,15 @@
       callback.call(this, this.data[i], i / c | 0, i % c, this.data);
 
     return this;
+  };
+
+  /**
+   * Equivalent to `TypedArray.prototype.reduce`.
+   * @param {Function} callback
+   * @returns {Number} result of reduction
+   **/
+  Matrix.prototype.reduce = function (callback) {
+    return this.data.reduce(callback.bind(this));
   };
 
   /**
