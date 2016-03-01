@@ -5,7 +5,6 @@
 
   var Matrix = require('../vectorious').Matrix;
 
-  // aliases
   var add = Matrix.add,
       subtract = Matrix.subtract,
       random = Matrix.random;
@@ -26,7 +25,7 @@
     };
   }
 
-  // inputs and outputs
+  // input and output
   var X = new Matrix([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]]),
       y = new Matrix([[0, 1, 1, 0]]).T;
 
@@ -34,7 +33,6 @@
   var syn0 = random.apply(null, X.T.shape, 2, -1),
       syn1 = random.apply(null, y.shape, 2, -1);
 
-  // layers and deltas
   var l0,
       l1,
       l0_delta,
