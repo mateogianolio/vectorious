@@ -862,7 +862,7 @@
     // use optimized loops to count number of vectors that have non-zero values
     for (i = 0; i < r; i++) {
       for (j = 0; j < c; j++) {
-        if (vectors[i].data[j]) {
+        if (vectors[i].get(j)) {
           counter++;
           break;
         }
