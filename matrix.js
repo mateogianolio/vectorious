@@ -823,14 +823,19 @@
    * @returns {Number} rank
    **/
   Matrix.prototype.rank = function () {
-    var vectors = this.toArray().map(function(r) { return new Vector(r); }),
-        r = this.shape[0],
+    var vectors = this
+      .toArray()
+      .map(function(r) {
+        return new Vector(r);
+      });
+
+    var r = this.shape[0],
         c = this.shape[1],
         counter = 0,
         i, j, tmp,
         pivot, target, scalar;
 
-    for (i = 0; i < (r - 1); i++) {
+    for (i = 0; i < r - 1; i++) {
       // go through each row until the row before the last
       pivot = null;
       for (j = i; j < r; j++) {
@@ -854,7 +859,7 @@
       for (j = (i + 1); j < r; j++) {
         target = vectors[j];
         scalar = target.get(i) / pivot.get(i);
-        vectors[j] = (target.subtract(pivot.scale(scalar)));
+        vectors[j] = target.subtract(pivot.scale(scalar));
       }
     }
 
@@ -874,8 +879,8 @@
   };
 
   Matrix.rank = function (matrix) {
-    return (new Matrix(matrix)).rank();
-  }
+    return new Matrix(matrix).rank();
+  };
 
   /**
    * Converts current matrix into a readable formatted string
