@@ -503,6 +503,20 @@
         });
       });
 
+      describe('.rank()', function() {
+        it('should work as expected', function() {
+          var a = new Matrix([[1, 2, 1], [-2, -3, 1], [3, 5, 0]]);
+          var b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]);
+          var c = new Matrix([[1, 1, 1], [2, 2, 2], [3, 3, 3]]);
+          
+          assert.equal(a.rank(), 2);
+          assert.equal(b.rank(), 2);
+          assert.equal(c.rank(), 1);
+
+          assert.equal(a.rank(), Matrix.rank(a));
+        });
+      });
+
       describe('.toString()', function() {
         it('should work as expected', function() {
           assert.equal('[[1,2], \n[3,4]]', new Matrix([[1, 2], [3, 4]]).toString());
