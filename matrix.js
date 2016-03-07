@@ -819,6 +819,65 @@
   };
 
   /**
+   * Finds the rank of the matrix using row echelon form
+   * @returns {Number} rank
+   **/
+  Matrix.prototype.rank = function () {
+    var vectors = this.toArray().map(function(r) { return new Vector(r); }),
+        r = this.shape[0],
+        c = this.shape[1],
+        counter = 0,
+        i, j, tmp,
+        pivot, target, scalar;
+
+    for (i = 0; i < (r - 1); i++) {
+      // go through each row until the row before the last
+      pivot = null;
+      for (j = i; j < r; j++) {
+        // find the pivot (first row where column of same index is non-zero)
+        if (vectors[i].get(i)) {
+          if (i !== j) {
+            // if not the current row, swap the rows, bring pivot the current row index
+            tmp = vectors[i];
+            vectors[i] = vectors[j];
+            vectors[j] = tmp;
+          }
+          pivot = vectors[i];
+          break;
+        }
+      }
+      // if pivot not found, continue
+      if (!pivot)
+        continue;
+
+      // otherwise, for all rows underneath pivot, cancel all column index to zero
+      for (j = (i + 1); j < r; j++) {
+        target = vectors[j];
+        scalar = target.get(i) / pivot.get(i);
+        vectors[j] = (target.subtract(pivot.scale(scalar)));
+      }
+    }
+
+    // now vectors should be in row echelon form!
+    // use optimized loops to count number of vectors that have non-zero values
+    for (i = 0; i < r; i++) {
+      for (j = 0; j < c; j++) {
+        if (vectors[i].get(j)) {
+          counter++;
+          break;
+        }
+      }
+    }
+
+    // should be rank
+    return counter;
+  };
+
+  Matrix.rank = function (matrix) {
+    return (new Matrix(matrix)).rank();
+  }
+
+  /**
    * Converts current matrix into a readable formatted string
    * @returns {String} a string of the matrix' contents
    **/
