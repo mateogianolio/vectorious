@@ -56,44 +56,35 @@
   }
 
   var X = new Matrix([
-    [1, 1, 1, 0, 0, 0],
-    [1, 0, 1, 0, 0, 0],
-    [1, 1, 1, 0, 0, 0],
-    [0, 0, 1, 1, 1, 0],
-    [0, 0, 1, 0, 1, 0],
-    [0, 0, 1, 1, 1, 0]
+    [1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1]
   ]);
 
   var y = new Matrix([
     [1, 0],
-    [1, 0],
-    [1, 0],
-    [0, 1],
-    [0, 1],
     [0, 1]
   ]);
 
-  var W = Matrix.zeros(X.shape[0], y.shape[1]),
+  var W = Matrix.zeros(X.shape[1], y.shape[1]),
       b = Vector.zeros(y.shape[1]);
 
-  var rate = 0.01,
-      prob,
-      delta;
+  var alpha = 0.01, // learning rate
+      prob, delta;
 
   // train
   for (var i = 0; i < 800; i++) {
     prob = softmax(addMatVec(X.multiply(W), b));
     delta = subtract(y, prob);
 
-    W.add(X.T.multiply(delta).scale(rate));
-    b.add(mean(delta).scale(rate));
+    W.add(X.T.multiply(delta).scale(alpha));
+    b.add(mean(delta).scale(alpha));
   }
 
   // predict
   var x = new Matrix([
-    [1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 0],
-    [1, 1, 1, 1, 1, 0]
+    [1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 1],
+    [1, 1, 1, 1, 1]
   ]);
 
   console.log(softmax(addMatVec(x.multiply(W), b)).toArray());

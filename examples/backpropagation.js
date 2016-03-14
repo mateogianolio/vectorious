@@ -9,7 +9,6 @@
       subtract = Matrix.subtract,
       random = Matrix.random;
 
-  // sigmoid function (and derivative)
   function sigmoid(ddx) {
     return function (x) {
       return ddx ?
@@ -18,18 +17,25 @@
     };
   }
 
-  // input and output
-  var X = new Matrix([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]]),
-      y = new Matrix([[0, 1, 1, 0]]).T;
+  // input
+  var X = new Matrix([
+    [0, 0, 1],
+    [0, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1]
+  ]);
+
+  // output
+  var y = new Matrix([
+    [0, 1, 1, 0]
+  ]).T;
 
   // initialize weights with a standard deviation of 2 and mean -1
   var syn0 = random.apply(null, X.T.shape, 2, -1),
       syn1 = random.apply(null, y.shape, 2, -1);
 
-  var l0,
-      l1,
-      l0_delta,
-      l1_delta;
+  // layers and deltas
+  var l0, l1, l0_delta, l1_delta;
 
   for (var i = 0; i < 60000; i++) {
     l0 = X.multiply(syn0).map(sigmoid());
@@ -43,6 +49,6 @@
   }
 
   // final trained neural network output!
-  // should be closed to [[0, 1, 1, 0]] transpose
+  // should be close to [[0, 1, 1, 0]] transpose
   console.log(l1.toArray());
 }());
