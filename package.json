@@ -28,6 +28,6 @@
     "mocha": "^2.4.5"
   },
   "dependencies": {
-    "nblas": "^1.1.3"
+    "nblas": "^1.2.0"
   }
 }

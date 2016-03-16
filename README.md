@@ -61,8 +61,7 @@ At the moment, Google Chrome seems to offer the best TypedArray support.
 * [**Using low-level BLAS routines**](https://github.com/mateogianolio/vectorious/tree/master/examples/blas.js)
 
 **Machine learning**
-* [**Backpropagation**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js) (by [@lucidrains](https://github.com/lucidrains))
-* [**Gradient descent**](https://github.com/mateogianolio/vectorious/tree/master/examples/gradient-descent.js)
+* [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js) (by [@lucidrains](https://github.com/lucidrains))
 * [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.js)
 
 ### Documentation
