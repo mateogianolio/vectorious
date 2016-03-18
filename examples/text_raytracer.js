@@ -33,12 +33,6 @@
     this.value = value;
   }
 
-  var WHITE = new Vector([1.0, 1.0, 1.0]),
-      RED   = new Vector([1.0, 0.0, 0.0]),
-      GREEN = new Vector([0.0, 1.0, 0.0]),
-      BLUE  = new Vector([0.0, 0.0, 1.0]),
-      LIGHT1 = new Light(new Vector([0.7, -1.0, 1.7]), WHITE)
-
   function shadePixel(ray, obj, tval) {
     var pi = add(ray.orig, scale(ray.dir, tval));
     var color = diffuseShading(pi, obj, LIGHT1);
@@ -87,17 +81,28 @@
     }
   }
 
+  // declare colors
+  var WHITE = new Vector([1.0, 1.0, 1.0]),
+      RED   = new Vector([1.0, 0.0, 0.0]),
+      GREEN = new Vector([0.0, 1.0, 0.0]),
+      BLUE  = new Vector([0.0, 0.0, 1.0]);
+
+  // declare lighting
+  var LIGHT1 = new Light(new Vector([0.7, -1.0, 1.7]), WHITE)
+
+  // declare pixel intensities & screen size
   var lut = ['.', '-', '+', '*', 'X', 'M'],
       w = 20 * 4,
       h = 10 * 4;
 
+  // declare scene
   var scene = [
     new Sphere(new Vector([-1.0, 0.0, 3.0]), 0.3, RED),
     new Sphere(new Vector([0.0, 0.0, 3.0]), 0.8, GREEN),
     new Sphere(new Vector([1.0, 0.0, 3.0]), 0.4, BLUE)
   ];
 
-
+  // render scene
   range(0, h, function row(j) {
     range(0, w, function col(i) {
       var fw = parseFloat(w),
@@ -116,6 +121,8 @@
         var obj = scene[k];
         var ret = intersectSphere(ray, obj.center, obj.radius);
         if (!ret) continue;
+
+        // draw the closest intersecting point
         if (!minRet || ret < minRet) {
           minRet = ret;
           hit = new Hit(obj, ret);
