@@ -509,10 +509,20 @@
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
    * @param {Function} callback
+   * @param {Number} initialValue
    * @returns {Number} result of reduction
    **/
-  Vector.prototype.reduce = function (callback) {
-    return this.data.reduce(callback.bind(this));
+  Vector.prototype.reduce = function (callback, initialValue) {
+    var l = this.length;
+    if (l === 0 && !initialValue)
+      throw new Error('Reduce of empty matrix with no initial value.');
+
+    var i = 0,
+        value = initialValue || this.data[i++];
+
+    for (; i < l; i++)
+      value = callback.call(this, value, this.data[i], i);
+    return value;
   };
 
   /**
