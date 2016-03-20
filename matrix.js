@@ -812,10 +812,22 @@
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
    * @param {Function} callback
+   * @param {Number} initialValue
    * @returns {Number} result of reduction
    **/
-  Matrix.prototype.reduce = function (callback) {
-    return this.data.reduce(callback.bind(this));
+  Matrix.prototype.reduce = function (callback, initialValue) {
+    var r = this.shape[0],
+        c = this.shape[1];
+
+    if (r * c === 0 && !initialValue)
+      throw new Error('Reduce of empty matrix with no initial value.');
+
+    var i = 0,
+        value = initialValue || this.data[i++];
+
+    for (; i < r * c; i++)
+      value = callback.call(this, value, this.data[i], i / c | 0, i % c);
+    return value;
   };
 
   /**

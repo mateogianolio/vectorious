@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "A high performance linear algebra library.",
   "main": "vectorious.js",
   "scripts": {
