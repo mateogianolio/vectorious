@@ -49,10 +49,6 @@ Download a [**release**](https://github.com/mateogianolio/vectorious/releases) a
 </script>
 ```
 
-This library makes heavy use of `TypedArray`. To support browsers that currently do not implement all functionality yet you can use [this shim](https://github.com/ghcjs/shims/blob/master/lib/typedarray/typedarray.js) from ghcjs.
-
-At the moment, Google Chrome seems to offer the best TypedArray support.
-
 ### Examples
 
 **Basic**
