@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Benchmarks</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"><strong> Benchmarks </strong></div>
+					<div id="main" class="container">
+						
+                        <h3> 2.0.0 </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                $ node ./benchmarks/vector.js &amp;&amp; node ./benchmarks/matrix.js<br />
+                                <br />
+                                a = Vector.ones(1024)<br />
+                                b = Vector.ones(1024).scale(2)<br />
+                                <br />
+                                Vector.zeros(1024) x 27,400 ops/sec ±0.47% (94 runs sampled)<br />
+                                Vector.ones(1024) x 26,838 ops/sec ±0.45% (98 runs sampled)<br />
+                                Vector.range(0, 1024) x 32,830 ops/sec ±0.74% (95 runs sampled)<br />
+                                Vector.combine(a, b) x 27,724 ops/sec ±0.36% (99 runs sampled)<br />
+                                a.add(b) x 53,644 ops/sec ±0.41% (100 runs sampled)<br />
+                                a.subtract(b) x 53,582 ops/sec ±0.39% (100 runs sampled)<br />
+                                a.scale(Math.random()) x 10,452 ops/sec ±0.53% (99 runs sampled)<br />
+                                a.normalize() x 5,212 ops/sec ±0.54% (99 runs sampled)<br />
+                                a.dot(b) x 361,011 ops/sec ±0.42% (101 runs sampled)<br />
+                                a.magnitude() x 420,937 ops/sec ±0.44% (101 runs sampled)<br />
+                                a.angle(b) x 132,931 ops/sec ±0.34% (97 runs sampled)<br />
+                                a.project(b) x 5,661 ops/sec ±0.35% (95 runs sampled)<br />
+                                <br />
+                                a = Matrix.ones(128, 128)<br />
+                                b = Matrix.ones(128, 128).scale(2)<br />
+                                <br />
+                                Matrix.identity(128) x 1,454 ops/sec ±1.84% (92 runs sampled)<br />
+                                Matrix.zeros(128, 128) x 1,482 ops/sec ±2.08% (92 runs sampled)<br />
+                                Matrix.ones(128, 128) x 1,581 ops/sec ±1.15% (96 runs sampled)<br />
+                                Matrix.augment(a, b) x 1,561 ops/sec ±1.32% (96 runs sampled)<br />
+                                a.add(b) x 3,238 ops/sec ±1.10% (97 runs sampled)<br />
+                                a.subtract(b) x 3,224 ops/sec ±1.31% (97 runs sampled)<br />
+                                a.scale(Math.random()) x 586 ops/sec ±1.09% (92 runs sampled)<br />
+                                a.multiply(b) x 25.22 ops/sec ±1.65% (46 runs sampled)<br />
+                                a.transpose() x 817 ops/sec ±2.54% (89 runs sampled)<br />
+                                a.gauss() x 174 ops/sec ±4.27% (65 runs sampled)<br />
+                                a.diag() x 18,717 ops/sec ±2.20% (88 runs sampled)<br />
+                                a.trace() x 19,097 ops/sec ±1.28% (96 runs sampled)
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <h3> 2.1.0 </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                            	$ node ./benchmarks/vector.js &amp;&amp; node ./benchmarks/matrix.js<br />
+                                <br />
+                                a = Vector.ones(1024)<br />
+                                b = Vector.ones(1024).scale(2)<br />
+                                <br />
+                                Vector.zeros(1024) x 138,658 ops/sec ±4.84% (67 runs sampled)<br />
+                                Vector.ones(1024) x 140,214 ops/sec ±4.75% (66 runs sampled)<br />
+                                Vector.range(0, 1024) x 37,543 ops/sec ±4.80% (81 runs sampled)<br />
+                                Vector.combine(a, b) x 6,120 ops/sec ±2.94% (91 runs sampled)<br />
+                                a.add(b) x 93,725 ops/sec ±7.82% (68 runs sampled)<br />
+                                a.subtract(b) x 95,672 ops/sec ±7.67% (70 runs sampled)<br />
+                                a.scale(Math.random()) x 99,214 ops/sec ±7.74% (72 runs sampled)<br />
+                                a.normalize() x 84,459 ops/sec ±7.32% (72 runs sampled)<br />
+                                a.dot(b) x 501,345 ops/sec ±0.43% (98 runs sampled)<br />
+                                a.magnitude() x 623,274 ops/sec ±0.56% (94 runs sampled)<br />
+                                a.angle(b) x 191,828 ops/sec ±0.52% (92 runs sampled)<br />
+                                a.project(b) x 73,958 ops/sec ±6.82% (79 runs sampled)<br />
+                                <br />
+                                a = Matrix.ones(128, 128)<br />
+                                b = Matrix.ones(128, 128).scale(2)<br />
+                                <br />
+                                Matrix.identity(128) x 4,042 ops/sec ±5.32% (76 runs sampled)<br />
+                                Matrix.zeros(128, 128) x 4,573 ops/sec ±7.11% (79 runs sampled)<br />
+                                Matrix.ones(128, 128) x 5,480 ops/sec ±2.36% (81 runs sampled)<br />
+                                Matrix.augment(a, b) x 292 ops/sec ±5.06% (78 runs sampled)<br />
+                                a.add(b) x 3,688 ops/sec ±9.16% (68 runs sampled)<br />
+                                a.subtract(b) x 4,299 ops/sec ±4.08% (75 runs sampled)<br />
+                                a.scale(Math.random()) x 4,529 ops/sec ±3.01% (75 runs sampled)<br />
+                                a.multiply(b) x 28.85 ops/sec ±0.80% (52 runs sampled)<br />
+                                a.transpose() x 2,255 ops/sec ±5.07% (78 runs sampled)<br />
+                                a.gauss() x 374 ops/sec ±3.55% (86 runs sampled)<br />
+                                a.diag() x 893 ops/sec ±2.11% (93 runs sampled)<br />
+                                a.trace() x 907 ops/sec ±1.63% (95 runs sampled)
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <h3> 2.2.0 </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                            	$ npm run benchmark<br />
+                                <br />
+                                &gt; vectorious@2.2.0 benchmark /path/to/vectorious<br />
+                                &gt; node ./benchmarks/vector.js &amp;&amp; node ./benchmarks/matrix.js<br />
+                                <br />
+                                a = Vector.ones(1024)<br />
+                                b = Vector.ones(1024).scale(2)<br />
+                                <br />
+                                Vector.zeros(1024) x 135,355 ops/sec ±5.22% (68 runs sampled)<br />
+                                Vector.ones(1024) x 146,065 ops/sec ±5.23% (72 runs sampled)<br />
+                                Vector.range(0, 1024) x 41,358 ops/sec ±3.29% (90 runs sampled)<br />
+                                Vector.combine(a, b) x 6,369 ops/sec ±2.79% (90 runs sampled)<br />
+                                a.add(b) x 95,535 ops/sec ±7.24% (69 runs sampled)<br />
+                                a.subtract(b) x 96,199 ops/sec ±7.31% (72 runs sampled)<br />
+                                a.scale(Math.random()) x 100,021 ops/sec ±7.21% (68 runs sampled)<br />
+                                a.normalize() x 85,098 ops/sec ±7.00% (73 runs sampled)<br />
+                                a.dot(b) x 505,057 ops/sec ±0.38% (99 runs sampled)<br />
+                                a.magnitude() x 627,442 ops/sec ±0.42% (94 runs sampled)<br />
+                                a.angle(b) x 193,797 ops/sec ±0.36% (93 runs sampled)<br />
+                                a.project(b) x 73,280 ops/sec ±6.85% (73 runs sampled)<br />
+                                <br />
+                                a = Matrix.ones(128, 128)<br />
+                                b = Matrix.ones(128, 128).scale(2)<br />
+                                <br />
+                                Matrix.identity(128) x 4,806 ops/sec ±2.37% (86 runs sampled)<br />
+                                Matrix.magic(128) x 1,161 ops/sec ±5.96% (61 runs sampled)<br />
+                                Matrix.zeros(128, 128) x 5,406 ops/sec ±2.15% (77 runs sampled)<br />
+                                Matrix.ones(128, 128) x 5,495 ops/sec ±2.54% (67 runs sampled)<br />
+                                Matrix.augment(a, b) x 288 ops/sec ±7.03% (75 runs sampled)<br />
+                                a.add(b) x 4,512 ops/sec ±3.26% (78 runs sampled)<br />
+                                a.subtract(b) x 4,539 ops/sec ±3.09% (79 runs sampled)<br />
+                                a.scale(Math.random()) x 4,681 ops/sec ±3.29% (78 runs sampled)<br />
+                                a.multiply(b) x 30.17 ops/sec ±1.01% (54 runs sampled)<br />
+                                a.transpose() x 2,455 ops/sec ±3.29% (83 runs sampled)<br />
+                                a.gauss() x 396 ops/sec ±2.72% (89 runs sampled)<br />
+                                a.diag() x 945 ops/sec ±1.66% (89 runs sampled)<br />
+                                a.trace() x 940 ops/sec ±1.74% (94 runs sampled)
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <h3> 3.0.0 </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                            	$ npm run benchmark<br />
+                                <br />
+                                &gt; vectorious@3.0.0 benchmark /Users/mg/Projects/javascript/vectorious<br />
+                                &gt; node ./benchmarks/vector.js &amp;&amp; node ./benchmarks/matrix.js<br />
+                                <br />
+                                a = Vector.ones(1024)<br />
+                                b = Vector.ones(1024).scale(2)<br />
+                                <br />
+                                Vector.zeros(1024) x 175,737 ops/sec ±3.88% (74 runs sampled)<br />
+                                Vector.ones(1024) x 176,791 ops/sec ±3.55% (75 runs sampled)<br />
+                                Vector.range(0, 1024) x 51,848 ops/sec ±2.50% (85 runs sampled)<br />
+                                Vector.combine(a, b) x 12,330 ops/sec ±2.19% (89 runs sampled)<br />
+                                a.add(b) x 102,070 ops/sec ±8.98% (70 runs sampled)<br />
+                                a.subtract(b) x 101,471 ops/sec ±9.76% (67 runs sampled)<br />
+                                a.scale(Math.random()) x 98,315 ops/sec ±18.46% (62 runs sampled)<br />
+                                a.normalize() x 90,807 ops/sec ±11.18% (68 runs sampled)<br />
+                                a.dot(b) x 675,131 ops/sec ±0.64% (95 runs sampled)<br />
+                                a.magnitude() x 780,969 ops/sec ±4.75% (72 runs sampled)<br />
+                                a.angle(b) x 262,190 ops/sec ±2.46% (90 runs sampled)<br />
+                                a.project(b) x 82,436 ops/sec ±9.08% (70 runs sampled)<br />
+                                <br />
+                                data = randomArray(128, 128)<br />
+                                a = Matrix(data)<br />
+                                b = Matrix(data).scale(2)<br />
+                                <br />
+                                Matrix.identity(128) x 9,410 ops/sec ±6.46% (77 runs sampled)<br />
+                                Matrix.magic(128) x 2,113 ops/sec ±6.80% (81 runs sampled)<br />
+                                Matrix.zeros(128, 128) x 9,431 ops/sec ±6.51% (80 runs sampled)<br />
+                                Matrix.ones(128, 128) x 9,533 ops/sec ±6.19% (83 runs sampled)<br />
+                                Matrix.augment(a, b) x 3,324 ops/sec ±6.00% (80 runs sampled)<br />
+                                a.add(b) x 9,160 ops/sec ±6.62% (79 runs sampled)<br />
+                                a.subtract(b) x 9,350 ops/sec ±6.23% (85 runs sampled)<br />
+                                a.scale(Math.random()) x 9,605 ops/sec ±6.50% (80 runs sampled)<br />
+                                a.multiply(b) x 207 ops/sec ±1.00% (88 runs sampled)<br />
+                                a.transpose() x 7,366 ops/sec ±4.43% (83 runs sampled)<br />
+                                a.gauss() x 103 ops/sec ±2.37% (54 runs sampled)<br />
+                                a.diag() x 513,075 ops/sec ±7.01% (60 runs sampled)<br />
+                                a.trace() x 412,940 ops/sec ±7.39% (68 runs sampled)
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <h3> 4.0.0 </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                            	$ npm run benchmark<br />
+                                <br />
+                                &gt; vectorious@4.0.0 benchmark /Users/mg/Projects/javascript/vectorious<br />
+                                &gt; node ./benchmarks/vector.js &amp;&amp; node ./benchmarks/matrix.js<br />
+                                <br />
+                                a, b = Vector.random(1024)<br />
+                                copy in-place<br />
+                                Vector.zeros(1024) x 167,204 ops/sec ±1.76% (77 runs sampled)<br />
+                                Vector.ones(1024) x 167,094 ops/sec ±1.80% (74 runs sampled)<br />
+                                Vector.range(0, 1024) x 56,221 ops/sec ±1.73% (90 runs sampled)<br />
+                                Vector.combine(a, b) x 59,431 ops/sec ±7.71% (62 runs sampled)<br />
+                                Vector.add(a, b) x 187,194 ops/sec ±6.37% (63 runs sampled)<br />
+                                Vector.subtract(a, b) x 182,755 ops/sec ±6.69% (55 runs sampled)<br />
+                                Vector.scale(a, Math.random()) x 191,597 ops/sec ±6.38% (51 runs sampled)<br />
+                                Vector.project(a, b) x 168,798 ops/sec ±6.91% (65 runs sampled)<br />
+                                a.add(b) x 4,242,086 ops/sec ±0.76% (94 runs sampled)<br />
+                                a.subtract(b) x 4,336,762 ops/sec ±0.65% (93 runs sampled)<br />
+                                a.scale(Math.random()) x 5,348,757 ops/sec ±0.64% (94 runs sampled)<br />
+                                a.normalize() x 3,811,024 ops/sec ±1.06% (94 runs sampled)<br />
+                                a.dot(b) x 4,561,144 ops/sec ±1.48% (93 runs sampled)<br />
+                                a.magnitude() x 10,633,642 ops/sec ±1.13% (96 runs sampled)<br />
+                                a.angle(b) x 921,736 ops/sec ±0.73% (95 runs sampled)<br />
+                                a.project(b) x 1,822,113 ops/sec ±0.78% (96 runs sampled)<br />
+                                <br />
+                                a, b = Matrix.random(128, 128)<br />
+                                copy in-place<br />
+                                Matrix.identity(128) x 9,430 ops/sec ±6.82% (79 runs sampled)<br />
+                                Matrix.magic(128) x 2,178 ops/sec ±5.51% (81 runs sampled)<br />
+                                Matrix.zeros(128, 128) x 9,453 ops/sec ±5.81% (79 runs sampled)<br />
+                                Matrix.ones(128, 128) x 9,698 ops/sec ±5.79% (83 runs sampled)<br />
+                                Matrix.augment(a, b) x 3,394 ops/sec ±4.69% (83 runs sampled)<br />
+                                Matrix.add(a, b) x 10,471 ops/sec ±5.14% (80 runs sampled)<br />
+                                Matrix.subtract(a, b) x 10,579 ops/sec ±5.14% (81 runs sampled)<br />
+                                Matrix.scale(Math.random()) x 10,650 ops/sec ±5.99% (80 runs sampled)<br />
+                                Matrix.transpose(a) x 9,122 ops/sec ±4.74% (59 runs sampled)<br />
+                                a.add(b) x 154,977 ops/sec ±0.94% (95 runs sampled)<br />
+                                a.subtract(b) x 161,002 ops/sec ±0.47% (100 runs sampled)<br />
+                                a.scale(Math.random()) x 215,694 ops/sec ±0.56% (98 runs sampled)<br />
+                                a.multiply(b) x 5,756 ops/sec ±5.68% (88 runs sampled)<br />
+                                a.transpose() x 45,589 ops/sec ±0.68% (97 runs sampled)<br />
+                                a.gauss() x 6,776 ops/sec ±4.45% (87 runs sampled)<br />
+                                a.lu() x 19.06 ops/sec ±0.88% (52 runs sampled)<br />
+                                a.determinant() x 18.81 ops/sec ±1.25% (45 runs sampled)<br />
+                                a.diag() x 566,662 ops/sec ±1.77% (69 runs sampled)<br />
+                                a.trace() x 445,064 ops/sec ±3.71% (70 runs sampled)<br />
+                                a.swap(i, j) x 108,871 ops/sec ±4.25% (92 runs sampled)
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <h3> 4.3.0 </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                            	$ npm run benchmark<br />
+                                <br />
+                                &gt; vectorious@4.3.0 benchmark /Users/mg/Projects/javascript/vectorious<br />
+                                &gt; node ./benchmarks/vector.js &amp;&amp; node ./benchmarks/matrix.js<br />
+                                <br />
+                                a, b = Vector.random(1024)<br />
+                                Vector.zeros(1024) x 181,442 ops/sec ±7.67% (53 runs sampled)<br />
+                                Vector.ones(1024) x 154,667 ops/sec ±12.96% (50 runs sampled)<br />
+                                Vector.range(0, 1024) x 61,595 ops/sec ±5.61% (69 runs sampled)<br />
+                                Vector.combine(a, b) x 35,747 ops/sec ±17.06% (42 runs sampled)<br />
+                                Vector.add(a, b) x 156,857 ops/sec ±8.60% (52 runs sampled)<br />
+                                Vector.subtract(a, b) x 175,857 ops/sec ±9.05% (56 runs sampled)<br />
+                                Vector.scale(a, Math.random()) x 188,762 ops/sec ±7.78% (59 runs sampled)<br />
+                                Vector.project(a, b) x 172,576 ops/sec ±7.34% (53 runs sampled)<br />
+                                a.add(b) x 4,232,630 ops/sec ±1.01% (88 runs sampled)<br />
+                                a.subtract(b) x 4,327,008 ops/sec ±0.78% (90 runs sampled)<br />
+                                a.scale(Math.random()) x 5,685,433 ops/sec ±0.80% (92 runs sampled)<br />
+                                a.normalize() x 3,385,927 ops/sec ±5.39% (78 runs sampled)<br />
+                                a.dot(b) x 2,617,157 ops/sec ±5.58% (64 runs sampled)<br />
+                                a.magnitude() x 11,150,429 ops/sec ±3.95% (84 runs sampled)<br />
+                                a.angle(b) x 915,853 ops/sec ±0.88% (88 runs sampled)<br />
+                                a.project(b) x 1,071,345 ops/sec ±11.46% (55 runs sampled)<br />
+                                <br />
+                                a, b = Matrix.random(128, 128)<br />
+                                Matrix.identity(128) x 9,598 ops/sec ±10.59% (59 runs sampled)<br />
+                                Matrix.magic(128) x 1,947 ops/sec ±9.40% (60 runs sampled)<br />
+                                Matrix.zeros(128, 128) x 8,752 ops/sec ±9.35% (53 runs sampled)<br />
+                                Matrix.ones(128, 128) x 8,545 ops/sec ±7.02% (58 runs sampled)<br />
+                                Matrix.plu(a) x 354 ops/sec ±3.53% (74 runs sampled)<br />
+                                Matrix.augment(a, b) x 2,384 ops/sec ±6.79% (65 runs sampled)<br />
+                                Matrix.add(a, b) x 10,049 ops/sec ±7.15% (73 runs sampled)<br />
+                                Matrix.subtract(a, b) x 10,139 ops/sec ±5.31% (71 runs sampled)<br />
+                                Matrix.scale(Math.random()) x 10,386 ops/sec ±5.74% (71 runs sampled)<br />
+                                a.add(b) x 116,331 ops/sec ±7.54% (70 runs sampled)<br />
+                                a.subtract(b) x 86,876 ops/sec ±15.89% (63 runs sampled)<br />
+                                a.scale(Math.random()) x 209,245 ops/sec ±1.67% (86 runs sampled)<br />
+                                a.multiply(b) x 4,472 ops/sec ±4.65% (72 runs sampled)<br />
+                                a.transpose() x 7,027 ops/sec ±5.73% (71 runs sampled)<br />
+                                a.gauss() x 6,071 ops/sec ±6.64% (69 runs sampled)<br />
+                                a.lu() x 594 ops/sec ±4.06% (79 runs sampled)<br />
+                                a.plu() x 814 ops/sec ±2.58% (83 runs sampled)<br />
+                                a.solve() x 681 ops/sec ±4.29% (74 runs sampled)<br />
+                                a.trace() x 394,579 ops/sec ±4.28% (61 runs sampled)<br />
+                                a.swap(i, j) x 89,819 ops/sec ±5.08% (71 runs sampled)
+                            </code>
+                        </div>
+                        
+					</div>			
+						
+				</div>
+                
+                
+       
+                
+
+		</div>
+        
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>BLAS optimizations</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"> BLAS optimizations </div>
+					<div id="main" class="container">
+						 
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var BLAS = require('vectorious').BLAS;<br />
+                                <br />
+                                // e.g. ?asum:<br />
+                                // BLAS.dasum(size, data, stride)<br />
+                                // BLAS.sasum(size, data, stride)<br />
+                                // BLAS.asum(data);
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                     <a href="https://software.intel.com/en-us/node/468392#E49CF403-8071-4252-A85F-28964AC3DA9E " target="_blank" class="btn btn-danger">?asum</a>
+                     <a href="https://software.intel.com/en-us/node/468394#E25D8E10-0440-4827-BC58-BC71128EA6EE " target="_blank" class="btn btn-danger">?axpy</a>
+                     <a href="https://software.intel.com/node/20a9ac46-ce44-4a6a-8ce4-6a53d802a0b5#20A9AC46-CE44-4A6A-8CE4-6A53D802A0B5 " target="_blank" class="btn btn-danger">?copy</a>
+                     <a href="https://software.intel.com/en-us/node/468398#D4E53C70-D8FA-4095-A800-4203CAFE64FE " target="_blank" class="btn btn-danger">?dot</a>
+                     <a href=" https://software.intel.com/en-us/node/468406#EA1DF8E7-FC12-4A82-A804-B62956334C40" target="_blank" class="btn btn-danger">?nrm2</a>
+                     <a href="https://software.intel.com/en-us/node/468408#742238C6-E459-4444-A694-7CC7500CF00F " target="_blank" class="btn btn-danger">?rot</a>
+                     <a href="https://software.intel.com/en-us/node/468410#50049E08-B0F8-4270-80CC-7AB5D25EEA3F " target="_blank" class="btn btn-danger">?rotg</a>
+                     <a href="https://software.intel.com/node/8ce9d22e-f4df-46a6-9a8a-faba22bdcc93#8CE9D22E-F4DF-46A6-9A8A-FABA22BDCC93 " target="_blank" class="btn btn-danger">?rotm</a>
+                     <a href="https://software.intel.com/en-us/node/468414#A28000EB-EA0B-488B-8058-4E1CB0E97074" target="_blank" class="btn btn-danger">?rotmg</a>
+                     <a href="https://software.intel.com/en-us/node/468416#7269DCFE-7235-4690-A69E-D08712D8FC44 " target="_blank" class="btn btn-danger">?scal</a>
+                     <a href="https://software.intel.com/en-us/node/468418#423EA638-1A23-46D8-A882-E022064EDAD7 " target="_blank" class="btn btn-danger">?swap</a>
+                     <a href="https://software.intel.com/en-us/node/468420#C43C2490-109A-4A3B-8C5C-E8B67224BC03" target="_blank" class="btn btn-danger">i?amax</a>
+         <br><br>    <a href="https://software.intel.com/node/bc780af8-f243-4a20-b264-06424a8b5621#BC780AF8-F243-4A20-B264-06424A8B5621 " target="_blank" class="btn btn-danger">?gbmv</a>
+                     <a href="https://software.intel.com/en-us/node/468430#443228C4-626E-48A7-B230-26FB061EACF2 " target="_blank" class="btn btn-danger">?gemv</a>
+                     <a href="https://software.intel.com/en-us/node/468432#26A7BEFC-1A1D-4C19-B482-5E72E6B02417 " target="_blank" class="btn btn-danger">?ger</a>
+                     <a href="https://software.intel.com/en-us/node/468452#C80F5EB2-D6C3-44E5-B0C8-9813A0C2340A " target="_blank" class="btn btn-danger">?sbmv</a>				
+                     <a href="https://software.intel.com/en-us/node/468454#16CB58C4-105B-486C-B6AA-42BB0C721A76 " target="_blank" class="btn btn-danger">?spmv</a>
+                        <a href="https://software.intel.com/node/f460bc61-5a47-4c0d-a2e0-a29adaa1b613#F460BC61-5A47-4C0D-A2E0-A29ADAA1B613 " target="_blank" class="btn btn-danger">?spr</a>
+                        <a href="https://software.intel.com/en-us/node/468458#C8DD665D-5E52-4214-AEAB-BA4DE61418E1 " target="_blank" class="btn btn-danger">?spr2</a>
+                        <a href="https://software.intel.com/en-us/node/468460#6265BA37-6E58-4C27-8035-92D836F58EC4 " target="_blank" class="btn btn-danger">?symv</a>
+                        <a href="https://software.intel.com/en-us/node/468462#FCFBA6DB-8859-42E9-A626-3C74FC34B6C1 " target="_blank" class="btn btn-danger">?syr</a>
+                        <a href="https://software.intel.com/en-us/node/468464#34EFA07B-4A2A-42C3-90E2-D27B8A8F744E " target="_blank" class="btn btn-danger">?syr2</a>
+                        <a href="https://software.intel.com/en-us/node/468466#14DFA68E-00C5-44C5-9E61-7279602AF0C7 " target="_blank" class="btn btn-danger">?tbmv</a>
+                        <a href="https://software.intel.com/en-us/node/468468#0E673AED-9C3A-44AF-92A5-4A5326D6A007 " target="_blank" class="btn btn-danger">?tbsv</a><br><br>
+                        <a href="https://software.intel.com/en-us/node/468470#F6666C0E-B843-4E12-9AD4-8898A6EF4018 " target="_blank" class="btn btn-danger">?tpmv</a>
+                        <a href="https://software.intel.com/en-us/node/468472#0EECD264-9871-4097-8AF5-68EEDAE0D00A " target="_blank" class="btn btn-danger">?tpsv</a>
+                        <a href="https://software.intel.com/en-us/node/468474#FEB986DB-24FF-4E64-9C44-289DDE419EEB " target="_blank" class="btn btn-danger">?trmv</a>
+                        <a href="https://software.intel.com/en-us/node/468476#D8733073-F041-4AA1-B82C-123DFA993AD7 " target="_blank" class="btn btn-danger">?trsv</a><br><br>
+                        <a href="https://software.intel.com/node/90eaa001-d4c8-4211-9ea0-b62f5ade9cf0#90EAA001-D4C8-4211-9EA0-B62F5ADE9CF0 " target="_blank" class="btn btn-danger">?gemm</a>
+                        <a href="https://software.intel.com/en-us/node/468488#CAE55CBE-8E83-4C7F-9C54-0A8598F8A8EF " target="_blank" class="btn btn-danger">?symm</a>
+                        <a href="https://software.intel.com/en-us/node/468490#E8986CE9-3048-4295-86FF-C2512669B498 " target="_blank" class="btn btn-danger">?syrk</a>
+                        <a href="https://software.intel.com/en-us/node/468492#1233BA19-4666-4233-BA59-106B9E644893 " target="_blank" class="btn btn-danger">?syr2k</a>
+                        <a href="https://software.intel.com/en-us/node/468494#FE86B64A-4620-4E8F-8263-8442ACE782DF " target="_blank" class="btn btn-danger">?trmm</a>
+                        <a href="https://software.intel.com/en-us/node/468496#CE40548F-549D-4AF8-9668-B63B28C8C63F " target="_blank" class="btn btn-danger">?trsm</a>
+                        
+					</div>			
+						
+				</div>
+                
+                
+       
+                
+
+		</div>
+        
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

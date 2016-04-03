@@ -1,0 +1,932 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Matrix</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"> Matrix API </div>
+					<div id="main" class="container">
+						
+                        <h3> Matrix API </h3><br>
+                        <p class="style4"> A matrix is a two-dimensional representation of a vector stored in a one-dimensional array. 
+                        For performance reasons the data is stored by default in a <strong>Float64Array.</strong><br><br>
+                        You can create a matrix by passing a two-dimensional array to the <strong>Matrix</strong> constructor: </p>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var matrix = new Matrix([[1, 2], [3, 4]]);
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <p class="style4"> or with a <strong>TypedArray:</strong></p>
+                        
+                		<div class="jumbotron">
+                            <code class="codeStyle">
+                                var data = new Uint8Array([1, 2, 3, 4]),<br />
+                                    shape = [2, 2];<br />
+                                <br />
+                                var matrix = new Matrix(data, { shape: shape });<br />
+                                // matrix type is now Uint8Array
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <p class="style4"> 
+                            You can also create a matrix with a <strong>Vector</strong>, as long as you supply the desired matrix shape:
+                        </p>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var vector = new Vector([1, 2, 3, 4]),<br />
+                                    shape = [2, 2];<br />
+                                <br />
+                                var matrix = new Matrix(vector, { shape: shape });
+                            </code>
+                        </div>
+                       
+                        <br><br>
+                        
+                        <p class="style4"> 
+                            The following matrix operations and methods are implemented in <strong>matrix.js:</strong>
+                        </p>
+                       
+                        <br>
+
+                        <a href="#identity " class="btn btn-danger">identity</a>
+                        <a href="#magic " class="btn btn-danger">magic</a>
+                        <a href="#zeros " class="btn btn-danger">zeros </a>
+                        <a href="#ones " class="btn btn-danger">one </a>
+                        <a href="#random " class="btn btn-danger">random  </a><br><br>
+                        <a href="#add " class="btn btn-danger"> add </a>
+                        <a href="#sub " class="btn btn-danger"> subtract </a>
+                        <a href="#scale " class="btn btn-danger">scale  </a>
+                        <a href="#pro " class="btn btn-danger">product  </a>
+                        <a href="#mul " class="btn btn-danger">multiply  </a>
+                        <a href="#trans " class="btn btn-danger">transpose  </a>
+                        <a href="#inv " class="btn btn-danger"> inverse </a>
+                        <a href="#gauss " class="btn btn-danger"> gauss </a>
+                        <a href="#lu " class="btn btn-danger"> lu </a>
+                        <a href="#plu " class="btn btn-danger"> plu </a>
+                        <a href="#lusolve" class="btn btn-danger">lusolve  </a>
+                        <a href="#solve " class="btn btn-danger">solve  </a><br><br>
+                        <a href="#diag " class="btn btn-danger"> diag </a>
+                        <a href="#trace " class="btn btn-danger"> trace </a>
+                        <a href="#deter " class="btn btn-danger"> determinant</a>
+                        <a href="#equals " class="btn btn-danger"> equals </a>
+                        <a href="#get " class="btn btn-danger"> get </a>
+                        <a href="#set " class="btn btn-danger"> set </a>
+                        <a href="#aug " class="btn btn-danger"> augment </a>
+                        <a href="#swap " class="btn btn-danger">swap </a><br><br>
+                        <a href="#map " class="btn btn-danger">map  </a>
+                        <a href="#each " class="btn btn-danger"> each </a>
+                        <a href="#reduce " class="btn btn-danger"> reduce </a><br><br>
+                        <a href="#tostr " class="btn btn-danger"> toString </a>
+                        <a href="#toarr " class="btn btn-danger">toArray  </a><br><br>
+                        
+                        <!--Add -->
+                        
+                        
+                        <h3 id="add"> add </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                // (Matrix, Matrix) =&gt; (Matrix)<br />
+                                Matrix.add = function(a, b)<br />
+                                <br />
+                                // (this, Matrix) =&gt; (this)<br />
+                                Matrix.prototype.add = function(matrix)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Add two matrices together.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]),<br />
+                                    b = new Matrix([[5, 6], [7, 8]]);<br />
+                                <br />
+                                Matrix.add(a, b);<br />
+                                // [[6, 8], [10, 12]]<br />
+                                <br />
+                                a.add(b);<br />
+                                // a := [[6, 8], [10, 12]]
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                        <!-- Subtract -->
+                        
+                        
+                        <h3 id="sub"> subtract </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                // (Matrix, Matrix) =&gt; (Matrix)<br />
+                                Matrix.subtract = function(a, b)<br />
+                                <br />
+                                // (this, Matrix) =&gt; (this)<br />
+                                Matrix.prototype.subtract = function(matrix)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Subtract two matrices.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]),<br />
+                                    b = new Matrix([[5, 6], [7, 8]]);<br />
+                                <br />
+                                Matrix.subtract(a, b);<br />
+                                // [[-4, -4], [-4, -4]]<br />
+                                <br />
+                                a.subtract(b);<br />
+                                // a := [[-4, -4], [-4, -4]]
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                        <!-- Scale -->
+                        
+                        
+                        <h3 id="scale"> scale </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                // (Matrix, Number) =&gt; (Matrix)<br />
+                                Matrix.scale = function(a, scalar)<br />
+                                <br />
+                                // (this, Number) =&gt; (this)<br />
+                                Matrix.prototype.scale = function(scalar)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Multiply all elements in matrix with a scalar.</p><br>
+                        
+                        <br>
+                        
+                        <!-- Product -->
+                        
+                        
+                        <h3 id="pro"> product </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                // (Matrix, Matrix) =&gt; (Matrix)<br />
+                                Matrix.product = function(a, b)<br />
+                                <br />
+                                // (this, Matrix) =&gt; (this)<br />
+                                Matrix.prototype.product = function(matrix)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Gets the Hadamard product (element-wise multiplication) of two matrices.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]),<br />
+                                    b = new Matrix([[5, 6], [7, 8]]);<br />
+                                <br />
+                                Matrix.product(a, b);<br />
+                                // [[5, 12], [21, 32]]<br />
+                                <br />
+                                a.product(b);<br />
+                                // a := [[5, 12], [21, 32]]
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                        <!-- Multiply -->
+                        
+                        
+                        <h3 id="mul"> multiply </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Matrix, Matrix) =&gt; (Matrix)<br />
+                                Matrix.multiply = function(a, b)<br />
+                                <br />
+                                // (this, Matrix) =&gt; (Matrix)<br />
+                                Matrix.prototype.multiply = function(matrix)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Multiply two matrices together.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]),<br />
+                                    b = new Matrix([[5, 6], [7, 8]]);<br />
+                                <br />
+                                Matrix.multiply(a, b);<br />
+                                // [[19, 22], [43, 50]]<br />
+                                <br />
+                                a.multiply(b);<br />
+                                // a := [[19, 22], [43, 50]]
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                         <!-- transpose -->
+                        
+                        
+                        <h3 id="trans"> transpose </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) =&gt; (Matrix)<br />
+                                Matrix.prototype.T = get function ()<br />
+                                Matrix.prototype.transpose = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Transpose of a matrix.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br>
+
+                                a.transpose()<br>
+                                // [[1, 3], [2, 4]]<br>
+                                
+                                a.T;<br>
+                                // [[1, 3], [2, 4]]
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                        <!-- gauss -->
+                        
+                        
+                        <h3 id="gauss"> gauss </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) =&gt; (Matrix)<br />
+								Matrix.prototype.gauss = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Convert a matrix to reduced row echelon (RREF) form using Gauss-Jordan eliminiation..</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.gauss();<br />
+                                // [[1, 0], [0, 1]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- lu -->
+                        
+                        
+                        <h3 id="lu"> lu </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) =&gt; ([Matrix, Matrix, Int32Array])<br />
+                                Matrix.prototype.lu = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get the full LU decomposition of a matrix in the form of the array [L, U, P], where P an Int32Array of the pivoted row indices.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.lu();<br />
+                                // L: [[1, 0], [0.333., 1]]<br />
+                                // U: [[3, 4], [0, 0.666.]]<br />
+                                // P: [1, 1]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                         <!-- plu -->
+                        
+                        
+                        <h3 id="plu"> plu </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) =&gt; ([Matrix, Int32Array])<br />
+                                Matrix.plu = function(matrix)<br />
+                                <br />
+                                // (this) =&gt; ([this, Int32Array])<br />
+                                Matrix.prototype.plu = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get the LU factorization of a matrix in the form of the array [LU, P], where P an Int32Array of the pivoted row indices and LU is the current matrix.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.plu();<br />
+                                // LU: [[3, 4], [0.333., 0.666.]]<br />
+                                // P: [1, 1]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- lusolve -->
+                        
+                        
+                        <h3 id="lusolve"> lusolve </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Matrix, Int32Array) =&gt; (Matrix)<br />
+                                Matrix.prototype.lusolve = function(rhs, ipiv)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Solves an LU factorized matrix this with the supplied right hand side(s) rhs.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]),<br />
+                                    rhs = new Matrix([[1], [3], [5]]);<br />
+                                <br />
+                                var plu = a.plu(),<br />
+                                    lu = plu[0],<br />
+                                    ipiv = plu[1];<br />
+                                <br />
+                                lu.lusolve(rhs, ipiv);<br />
+                                // rhs: [[3.25], [1.75], [-1.5]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- solve -->
+                        
+                        
+                        <h3 id="solve"> solve </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Matrix) => (Matrix)<br>
+                                Matrix.prototype.solve = function(rhs))
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Solves AX = B using LU factorization, where A is the current matrix this and B is a Vector/Matrix containing the right hand side(s) rhs of the equation.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]),<br />
+                                    rhs = new Matrix([[1], [3], [5]]);<br />
+                                <br />
+                                a.solve(rhs);<br />
+                                // [[3.25], [1.75], [-1.5]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- Inverse -->
+                        
+                        
+                        <h3 id="inv"> inverse </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) =&gt; (Matrix)<br />
+                                Matrix.prototype.inverse = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get the inverse of any invertible square matrix using Gauss-Jordan elimination.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.inverse();<br />
+                                // [[-2, 1], [1.5, -0.5]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- diag -->
+                        
+                        
+                        <h3 id="diag"> diag </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) =&gt; (Vector)<br />
+                                Matrix.prototype.diag = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get matrix diagonal as a Vector. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.diag();<br />
+                                // [1, 4]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- augment -->
+                        
+                        
+                        <h3 id="aug"> augment </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Matrix, Matrix) =&gt; (Matrix)<br />
+                                Matrix.augment = function(a, b)<br />
+                                <br />
+                                // (this, Matrix) =&gt; (this)<br />
+                                Matrix.prototype.augment = function(matrix)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create an augmented matrix. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]),<br />
+                                    b = new Matrix([[0], [0]]);<br />
+                                <br />
+                                Matrix.augment(a, b);<br />
+                                // [[1, 2, 0], [3, 4, 0]]<br />
+                                <br />
+                                a.augment(b);<br />
+                                // a := [[1, 2, 0], [3, 4, 0]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- trace -->
+                        
+                        
+                        <h3 id="trace"> trace </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (Number)
+                                Matrix.prototype.trace = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get matrix trace (the sum of the diagonal) </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.trace();<br />
+                                // 5
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- determinant -->
+                        
+                        
+                        <h3 id="deter"> determinant </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) =&gt; (Number)<br />
+                                Matrix.prototype.determinant = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get matrix determinant (note: inefficient for large matrices). </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.determinant();<br />
+                                // -2
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                        <!-- identity -->
+                        
+                        
+                        <h3 id="identity"> identity </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number) =&gt; (Matrix)<br />
+                                Matrix.identity = function(size, [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create a size x size identity matrix. type is optional and specifies the type of TypedArray used in computations. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                Matrix.identity(3);
+                                // [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- magic -->
+                        
+                        
+                        <h3 id="magic"> magic </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number) =&gt; (Matrix)<br />
+                                Matrix.magic = function(size, [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create a size x size magic square matrix. type is optional and specifies the type of TypedArray used in computations. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                Matrix.magic(3);<br>
+                                // [[8, 1, 6], [3, 5, 7], [4, 9, 2]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- zeros -->
+                        
+                        
+                        <h3 id="zeros"> zeros </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number, Number) => (Matrix)<br>
+                                Matrix.zeros = function(i, j, [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4"> Create an i x j matrix of zeros. type is optional and specifies the type of TypedArray used in computations.</p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                Matrix.zeros(2, 2);<br>
+                                // [[0, 0], [0, 0]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- ones -->
+                        
+                        
+                        <h3 id="ones"> ones </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number, Number) => (Matrix)<br>
+                                Matrix.ones = function(i, j, [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create an i x j matrix of ones. type is optional and specifies the type of TypedArray used in computations. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                Matrix.ones(2, 2);<br>
+                                // [[1, 1], [1, 1]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- random -->
+                        
+                        
+                        <h3 id="random"> random </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number, Number) => (Matrix)<br>
+                                Matrix.random = function(i, j, [deviation], [mean], [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create an i x j matrix containing according to a normal distribution of standard deviation and mean. type is optional and specifies the type of TypedArray used in computations. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               Matrix.random(2, 2);<br />
+                                // e.g. [[0.6343338065780699, 0.04757974110543728], [0.9861055898945779, 0.38244577031582594]]<br />
+                                <br />
+                                Matrix.random(2, 2, 4, -4);<br />
+                                // e.g. [[-2.9426519656553864, -3.7901507886126637], [-0.3142812643200159, -3.3312301049008965]] 
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- equals -->
+                        
+                        <h3 id="equals"> equals </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Matrix, Matrix) =&gt; (Boolean)<br />
+                                Matrix.equals = function(a, b)<br />
+                                <br />
+                                // (this, Matrix) =&gt; (Boolean)<br />
+                                Matrix.prototype.equals = function(matrix)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Compare two matrices. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]),<br />
+                                    b = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                Matrix.equals(a, b);<br />
+                                a.equals(b);<br />
+                                // true
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- get -->
+                        
+                        
+                        <h3 id="get"> get </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Number, Number) => (Number)<br>
+                                Matrix.prototype.get = function(i, j)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get element at row i, column j. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.get(0, 0);<br />
+                                // 1<br />
+                                <br />
+                                a.get(0, 1);<br />
+                                // 2<br />
+                                <br />
+                                a.get(1, 0)<br />
+                                // 3<br />
+                                <br />
+                                a.get(1, 1);<br />
+                                // 4
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- set -->
+                          
+                        <h3 id="set"> set </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Number, Number, Number) => (this)<br>
+                                Matrix.prototype.set = function(i, j, value)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Set the value of an element at row i, column j. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br>
+                                 <br>   
+                                a.set(1, 0, 10);<br>
+                                // a := [[1, 2], [10, 4]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- swap -->
+                          
+                        <h3 id="swap"> swap </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Number, Number) => (this)<br>
+                                Matrix.prototype.swap = function(i, j)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Swaps the position of rows i and j. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.swap(0, 1);<br />
+                                // a := [[3, 4], [1, 2]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- map -->
+                          
+                        <h3 id="map"> map </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Function) => (Matrix)<br>
+                                Matrix.prototype.map = function(callback)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Maps a function callback to all elements of the matrix. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br>
+                                 <br>   
+                                a.map(x => x / 2);<br>
+                                // [[0.5, 1], [1.5, 2]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!--each  -->
+                          
+                        <h3 id="each">each  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Function) => (this)<br>
+                                Matrix.prototype.each = function(callback)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Calls callback(value, i, j) for each element in the matrix. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                function log(x, i, j) {<br />
+                                  console.log(x, i, j);<br />
+                                }<br />
+                                <br />
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.each(log);<br />
+                                // 1 0 0<br />
+                                // 2 0 1<br />
+                                // 3 1 0<br />
+                                // 4 1 1
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- reduce -->
+                          
+                        <h3 id="reduce"> reduce </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Function) => (Number)<br>
+                                Matrix.prototype.reduce = function(callback)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Matrix reduction. Equivalent to TypedArray.prototype.reduce. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                function sum(a, b) {<br />
+                                  return a + b;<br />
+                                }<br />
+                                <br />
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.reduce(sum);<br />
+                                // 10
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- toString -->
+                          
+                        <h3 id="tostr"> toString </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (String)<br>
+                                Matrix.prototype.toString = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Convert matrix to string. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a.toString();<br />
+                                // '[[1,2], \n[3,4]]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- toArray -->
+                          
+                        <h3 id="toarr">toArray  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (Array)<br>
+                                Matrix.prototype.toArray = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Convert matrix to array. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Matrix([[1, 2], [3, 4]]);<br />
+                                <br />
+                                a = a.toArray();<br />
+                                // a instanceof Array === true
+                            </code>
+                        </div>
+                       
+                        <br>
+
+					</div>			
+						
+				</div>
+                
+		</div>
+        
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

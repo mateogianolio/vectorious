@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Home Page</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Intro -->
+				<div id="intro-wrapper" class="wrapper style1">
+					<div class="title"><strong> The Introduction </strong></div>
+					<section id="intro" class="container">
+						<p class="style1">So in case you were wondering what this is all about ...</p>
+						<p class="style2">
+							A high performance linear algebra library,<br class="mobile-hide" />
+						written in JavaScript and optimized with C++ bindings to BLAS.
+						</p>
+						<ul class="actions">
+							<li><a href="http://www.netlib.org/blas/" class="button style3 big">Proceed BLAS</a></li>
+						</ul>
+					</section>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"><strong> Usage Details </strong></div>
+					<div id="main" class="container">
+						<h3> In node.js </h3>
+                        
+                        <div class="jumbotron">
+                        <code class="codeStyle"> $ npm install vectorious </code>
+                        </div>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var v = require('vectorious'),<br />
+                                    &nbsp;&nbsp;Matrix = v.Matrix,<br />
+                                    &nbsp;&nbsp;Vector = v.Vector,<br />
+                                    &nbsp;&nbsp;BLAS = v.BLAS; // access BLAS routines
+                            </code>
+                        </div>
+                        
+                        
+						<p class="style4"> Will use your local BLAS copy (if any). Some notes for different operating systems: </p>
+                        
+                        <ul class="list-group">
+                        	<li class="style4 list-group-item"> <strong> OSX </strong> - by default included in the Accelerate framework </li>
+                            <li class="style4 list-group-item"><strong>Debian/Ubuntu</strong> - different options, easiest is to apt-get install libblas-dev </li>
+                            <li class="style4 list-group-item"> <strong> Windows </strong> - 
+                            <a href="https://icl.cs.utk.edu/lapack-for-windows/">  https://icl.cs.utk.edu/lapack-for-windows/ </a> </li>
+                        </ul>
+                        
+                        <br><br>
+                        <h3> In Browser </h3>
+                        
+                        <p class="style4"> Download a <a href="https://github.com/mateogianolio/vectorious/releases"> release </a> and use it like this: </p>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               &lt;script src="vectorious-4.x.x.min.js"&gt;&lt;/script&gt;
+                            </code>
+                        </div>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               &lt;script&gt;<br />
+                                  var A = new Matrix([[1], [2], [3]]),<br />
+                                      B = new Matrix([[1, 3, 5]]),<br />
+                                      C = A.multiply(B);<br />
+                                <br />
+                                  console.log('C:', C.toArray());<br />
+                                  /* C: [<br />
+                                    [1, 3, 5],<br />
+                                    [2, 6, 10],<br />
+                                    [3, 9, 15]<br />
+                                  ] */<br />
+                                &lt;/script&gt;
+                            </code>
+                        </div>
+                        
+                        
+					</div>			
+						
+				</div>
+                
+                
+       
+                
+
+		</div>
+        
+        <!--<div style="margin-bottom:10%">
+              
+			<img src="images/footer.jpg" class=" img-responsive col-sm-12"alt="" />
+        </div>
+        -->
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

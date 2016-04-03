@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Comparison</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"> Comparison </div>
+					<div id="main" class="container">
+						
+                        <h3> Compared to other libraries </h3><br>
+                        <p class="style4"> The following benchmarks compare<strong> Vectorious 4.1.0 </strong> with three popular matrix/vector libraries: </p>
+                         <ul class="list-group">
+                        	<li class="style4 list-group-item"> <a href="http://www.numericjs.com/" target="_blank"> Numeric.js </a>  </li>
+                            <li class="style4 list-group-item"> <a href="http://sylvester.jcoglan.com/" target="_blank"> Sylvester </a></li>
+                            <li class="style4 list-group-item"> <a href="http://mathjs.org/" target="_blank"> Math.js </a> </li>
+                        </ul>
+                        
+                        <br><br>
+                        
+                        <p class="style4"> 
+                        
+                        The graphs show operations per second on the vertical (y) axis. <br><br>
+
+                        Below is a graph comparing the <strong> vector operations </strong> add, angle, dot, magnitude (aka L2-norm), normalize and scale.<br><br>
+                        
+                        The operations were performed on vectors generated with Vector.random(1048576).<br><br>
+                        
+                        </p>
+                        
+                        <div class="col-sm-12">
+                        	<img src="images/vector_ops.png" class="img-responsive" >
+                        </div>
+                        
+                        <br><br>
+                        
+                        <p class="style4"> 
+                            
+                            <br><br>Below is a graph comparing the matrix operations add, scale and transpose.. <br><br>
+    
+                            The operations were performed on matrices generated with Matrix.random(512, 512).<br><br>
+                            
+                        </p>
+                       
+                        
+                        <div class="col-sm-10">
+                        	<img src="images/matrix_ops.png" class="img-responsive" >
+                        </div>
+                        
+					</div>			
+						
+				</div>
+                
+                
+       
+                
+
+		</div>
+        
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

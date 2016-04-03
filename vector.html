@@ -1,0 +1,801 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Vector</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"> Vector API </div>
+					<div id="main" class="container">
+						
+                        <h3> Vector API </h3><br>
+                        <p class="style4"> A vector is a one-dimensional representation of data, analogous to an array. 
+                        Under the hood it is by default represented by a <strong>Float64Array.</strong><br><br>
+
+						A <strong>Vector</strong> can be created with a regular array: </p>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var vector = new Vector([1, 2, 3]);
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <p class="style4"> or with a <strong>TypedArray:</strong></p>
+                        
+                		<div class="jumbotron">
+                            <code class="codeStyle">
+                                var data = new Uint8Array([1, 2, 3]);<br />
+                                var vector = new Vector(data);<br />
+                                // vector is now of type Uint8Array
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <p class="style4"> or with a <strong>Matrix:</strong></p>
+                        
+                		<div class="jumbotron">
+                            <code class="codeStyle">
+                                var matrix = new Matrix([[1], [2], [3]]);<br />
+                                var vector = new Vector(matrix);<br />
+                                // vector is now a two-dimensional representation of the matrix
+                            </code>
+                        </div>
+                       
+                        <br><br>
+                        
+                        <p class="style4"> 
+                            The following vector operations and methods are implemented in <strong>vector.js:</strong>
+                        </p>
+                       
+                        <br>
+
+                        <a href="#zeros " class="btn btn-danger">zeros </a>
+                        <a href="#ones " class="btn btn-danger">ones </a>
+                        <a href="#range" class="btn btn-danger">range </a>
+                        <a href="#random " class="btn btn-danger">random  </a><br><br>
+                        <a href="#add " class="btn btn-danger"> add </a>
+                        <a href="#sub " class="btn btn-danger"> subtract </a>
+                        <a href="#scale " class="btn btn-danger">scale  </a>
+                        <a href="#norm" class="btn btn-danger">normlize</a>
+                        <a href="#dot" class="btn btn-danger">dot</a>
+                        <a href="#mag" class="btn btn-danger">magnitude</a>
+                        <a href="#angle" class="btn btn-danger">angle</a>
+                        <a href="#project" class="btn btn-danger">project</a>
+                        <a href="#min" class="btn btn-danger">min</a>
+                        <a href="#max" class="btn btn-danger">max</a>
+                        <a href="#equals " class="btn btn-danger"> equals </a>
+                        <a href="#get " class="btn btn-danger"> get </a>
+                        <a href="#set " class="btn btn-danger"> set </a>
+                        <a href="#combine" class="btn btn-danger">combine </a>
+                        <a href="#push " class="btn btn-danger">push </a><br><br>
+                        <a href="#map " class="btn btn-danger">map  </a>
+                        <a href="#each " class="btn btn-danger"> each </a>
+                        <a href="#reduce " class="btn btn-danger"> reduce </a><br><br>
+                        <a href="#tostr " class="btn btn-danger"> toString </a>
+                        <a href="#toarr " class="btn btn-danger">toArray  </a><br><br>
+                        
+                        <!--Add -->
+                        
+                        
+                        <h3 id="add"> add </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                // (Vector, Vector) =&gt; (Vector)<br />
+								Vector.add = function(a, b)<br />
+								<br />
+								// (this, Vector) =&gt; (this)<br />
+								Vector.prototype.add = function(vector)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Add two vectors together.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]),<br />
+								    b = new Vector([4, 5, 6]);<br />
+								<br />
+								Vector.add(a, b);<br />
+								// [5, 7, 9]<br />
+								<br />
+								a.add(b);<br />
+								// a := [5, 7, 9]
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                        <!-- Subtract -->
+                        
+                        
+                        <h3 id="sub"> subtract </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                // (Vector, Vector) =&gt; (Vector)<br />
+								Vector.subtract = function(a, b)<br />
+								<br />
+								// (this, Vector) =&gt; (this)<br />
+								Vector.prototype.subtract = function(vector)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Subtract two vectors.</p><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]),<br />
+								    b = new Vector([4, 5, 6]);<br />
+								<br />
+								Vector.subtract(a, b);<br />
+								// [-3, -3, -3]<br />
+								<br />
+								a.subtract(b);<br />
+								// a := [-3, -3, -3]
+                            </code>
+                        </div>
+                       
+                        <br>
+                        
+                        <!-- Scale -->
+                        
+                        
+                        <h3 id="scale"> scale </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                // (Vector, Number) =&gt; (Vector)<br />
+								Vector.scale = function(vector, scalar)<br />
+								<br />
+								// (this, Vector) =&gt; (this)<br />
+								Vector.prototype.scale = function(scalar)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Multiply a vector by a scalar.</p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								Vector.scale(a, 2);<br />
+								// [2, 4, 6]<br />
+								<br />
+								a.scale(2);<br />
+								// a := [2, 4, 6]
+                            </code>
+                        </div>
+
+                        <br>
+                        
+                        <!--normalize  -->
+                          
+                        <h3 id="norm">normalize  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Vector) =&gt; (Vector)<br />
+								Vector.normalize = function()<br />
+								<br />
+								// (this) =&gt; (this)<br />
+								Vector.prototype.normalize = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Normalize a vector. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								Vector.normalize();<br />
+								// [0.2672612419124244, 0.5345224838248488, 0.8017837257372732]<br />
+								<br />
+								a.normalize();<br />
+								// a := [0.2672612419124244, 0.5345224838248488, 0.8017837257372732]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- dot-->
+                          
+                        <h3 id="dot"> dot </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Vector, Vector) =&gt; (Number)<br />
+								Vector.dot = function(a, b)<br />
+								<br />
+								// (this, Vector) =&gt; (Number)<br />
+								Vector.prototype.dot = function(vector)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get the dot product of two vectors. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]),
+								    b = new Vector([4, 5, 6]);
+
+								Vector.dot(a, b);
+								a.dot(b);
+								// 32
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- magnitude -->
+                          
+                        <h3 id="mag"> magnitude </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (Number)<br>
+								Vector.prototype.magnitude = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get magnitude (norm) of vector. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.magnitude();<br />
+								// 3.7416573867739413
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- angle -->
+                          
+                        <h3 id="angle">angle  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Vector, Vector) =&gt; (Angle)<br />
+								Vector.angle = function(a, b)<br />
+								<br />
+								// (this, Vector) =&gt; (Angle)<br />
+								Vector.prototype.angle = function(vector)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get the angle (in radians) between two vectors. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([0, 1]),<br />
+								    b = new Vector([1, 0]);<br />
+								<br />
+								Vector.angle(a, b);<br />
+								a.angle(b);<br />
+								// 1.5707963267948966 (π/2)
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- project -->
+                          
+                        <h3 id="project"> project </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Vector, Vector) =&gt; (Vector)<br />
+								Vector.project = function(a, b)<br />
+								<br />
+								// (this, Vector) =&gt; (Vector)<br />
+								Vector.prototype.project = function(vector)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Project a vector onto another vector. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]),<br />
+								    b = new Vector([4, 5, 6]);<br />
+								<br />
+								Vector.project(a, b);<br />
+								// [1.6623376623376624, 2.077922077922078, 2.4935064935064934]<br />
+								<br />
+								a.project(b);<br />
+								// b := [1.6623376623376624, 2.077922077922078, 2.4935064935064934]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- zeros -->
+                        
+                        
+                        <h3 id="zeros"> zeros </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number) => (Vector)<br>
+								Vector.zeros = function(count, [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4"> Create a vector of count zeros. type is optional and specifies the type of TypedArray used in computations.</p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                Vector.zeros(5);<br>
+								// [0, 0, 0, 0, 0]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- ones -->
+                        
+                        
+                        <h3 id="ones"> ones </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number) => (Vector)<br>
+								Vector.ones = function(count, [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create a vector of count ones. type is optional and specifies the type of TypedArray used in computations. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                Vector.ones(5);<br>
+								// [1, 1, 1, 1, 1]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- range -->
+                          
+                        <h3 id="range"> range </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number, [Number], Number) => (Vector)<br>
+								Vector.range = function(start, [step], end, [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create a vector containing the range from start to end in steps of step (optional). type is optional and specifies the type of TypedArray used in computations. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                Vector.range(0, 5);<br />
+								// [0, 1, 2, 3, 4]<br />
+								<br />
+								Vector.range(0, 0.5, 2);<br />
+								// [0, 0.5, 1, 1.5]<br />
+								<br />
+								Vector.range(5, 0);<br />
+								// [5, 4, 3, 2, 1]<br />
+								<br />
+								Vector.range(2, 0.5, 0);<br />
+								// [2, 1.5, 1, 0.5]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- random -->
+                        
+                        
+                        <h3 id="random"> random </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Number) => (Vector)<br>
+								Vector.random = function(count, [deviation], [mean], [type])
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Create a vector of count elements containing random values according to a normal distribution of standard deviation and mean. type is optional and specifies the type of TypedArray used in computations. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               Vector.random(3);<br />
+								// e.g. [0.9449769428465515, 0.07831531320698559, 0.15513482666574419]<br />
+								<br />
+								Vector.random(3, 4, -4);<br />
+								// e.g. [-0.9220099672675133, -0.20406165812164545, -3.104398760944605]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- equals -->
+                        
+                        <h3 id="equals"> equals </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Vector, Vector) =&gt; (Boolean)<br />
+								Vector.equals = function(a, b)<br />
+								<br />
+								// (this, Vector) =&gt; (Boolean)<br />
+								Vector.prototype.equals = function(vector)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Compare two vectors. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]),<br />
+								    b = new Vector([4, 5, 6]);<br />
+								<br />
+								Vector.equals(a, b);<br />
+								a.equals(b);<br />
+								// false<br />
+								<br />
+								b = new Vector([1, 2, 3]);<br />
+								<br />
+								Vector.equals(a, b);<br />
+								a.equals(b);<br />
+								// true
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- get -->
+                        
+                        
+                        <h3 id="get"> get </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Number) => (Number)<br>
+								Vector.prototype.get = function(index)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get value of an element at index. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.get(1);<br />
+								// 2<br />
+								<br />
+								a.get(2);<br />
+								// 3
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- min -->
+                          
+                        <h3 id="min"> min </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (Number)<br>
+								Vector.prototype.min = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get the minimum value of a vector. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.min();<br />
+								// 1
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- max -->
+                          
+                        <h3 id="max">max  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (Number)<br>
+								Vector.prototype.max = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Get the maximum value of a vector. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.max();<br />
+								// 3
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- set -->
+                          
+                        <h3 id="set"> set </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Number, Number) => (this)<br>
+								Vector.prototype.set = function(index, value)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Set value of an element at index. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.set(0, 10);<br />
+								// a := [10, 2, 3]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- combine -->
+                          
+                        <h3 id="combine">combine  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (Vector, Vector) =&gt; (Vector)<br />
+								Vector.combine = function(a, b)<br />
+								<br />
+								// (this, Vector) =&gt; (Vector)<br />
+								Vector.prototype.combine = function(vector)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Combines two vectors. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]),<br />
+								    b = new Vector([4, 5, 6]);<br />
+								<br />
+								Vector.combine(a, b)<br />
+								// [1, 2, 3, 4, 5, 6]<br />
+								<br />
+								a.combine(b);<br />
+								// a := [1, 2, 3, 4, 5, 6]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!--push  -->
+                          
+                        <h3 id="push">push  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Number) => (this)<br>
+								Vector.prototype.push = function(value)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Pushes value into the vector. </p><br>
+						
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.push(4);<br />
+								// a := [1, 2, 3, 4]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        
+                        <!-- map -->
+                          
+                        <h3 id="map"> map </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Function) => (Vector)<br>
+								Vector.prototype.map = function(callback)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Maps a function callback(value, index) to all elements of the vector. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.map(x =&gt; x / 2);<br />
+								// [0.5, 1, 1.5]
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!--each  -->
+                          
+                        <h3 id="each">each  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Function) => (this)<br>
+								Vector.prototype.each = function(callback)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Calls callback(value, index) for each element in the vector. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                function log(x) {<br />
+								  console.log(x);<br />
+								}<br />
+								<br />
+								var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.each(log);<br />
+								// 1<br />
+								// 2<br />
+								// 3
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- reduce -->
+                          
+                        <h3 id="reduce"> reduce </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this, Function) => (Number)<br>
+								Vector.prototype.reduce = function(callback)
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Vector reduction. Equivalent to TypedArray.prototype.reduce. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                function sum(a, b) {<br />
+								  return a + b;<br />
+								}<br />
+								<br />
+								var a = new Vector([1, 2, 3, 4]);<br />
+								<br />
+								a.reduce(sum);<br />
+								// 10
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- toString -->
+                          
+                        <h3 id="tostr"> toString </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (String)<br>
+								Vector.prototype.toString = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Convert vector to string. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a.toString();<br />
+								// '[1, 2, 3]'
+                            </code>
+                        </div>
+                       
+                        <br>
+
+                        <!-- toArray -->
+                          
+                        <h3 id="toarr">toArray  </h3><br>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                               // (this) => (Array)<br>
+							   Vector.prototype.toArray = function()
+                            </code>
+                        </div>
+                       
+                        <p class="style4">Convert vector to array. </p><br>
+                        
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                var a = new Vector([1, 2, 3]);<br />
+								<br />
+								a = a.toArray();<br />
+								// a instanceof Array === true
+                            </code>
+                        </div>
+                       
+                        <br>
+
+
+
+                        
+					</div>			
+						
+				</div>
+                
+                
+       
+                
+
+		</div>
+        
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
