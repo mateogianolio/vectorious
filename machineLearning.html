@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Machine Learning</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"><strong> Machine Learning </strong></div>
+					<div id="main" class="container">
+						
+                        <h3> Neural network (by <a href="https://github.com/lucidrains"  target="_blank"> 
+                        <span style="color:#3CF;"> @lucidrains </span></a> )</h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                (function () {<br />
+                                  // example is based on the numpy neural network tutorial featured here<br />
+                                  // https://iamtrask.github.io/2015/07/12/basic-python-network/<br />
+                                  'use strict';<br />
+                                <br />
+                                  var Matrix = require('../vectorious').Matrix;<br />
+                                <br />
+                                  function sigmoid(ddx) {<br />
+                                    return function (x) {<br />
+                                      return ddx ?<br />
+                                        x * (1 - x) :<br />
+                                        1.0 / (1 + Math.exp(-x));<br />
+                                    };<br />
+                                  }<br />
+                                <br />
+                                  // input<br />
+                                  var X = new Matrix([<br />
+                                    [0, 0, 1],<br />
+                                    [0, 1, 1],<br />
+                                    [1, 0, 1],<br />
+                                    [1, 1, 1]<br />
+                                  ]);<br />
+                                <br />
+                                  // output<br />
+                                  var y = new Matrix([[0, 1, 1, 0]]).T;<br />
+                                <br />
+                                  // initialize weights with a standard deviation of 2 and mean -1<br />
+                                  var syn0 = Matrix.random.apply(null, X.T.shape, 2, -1),<br />
+                                      syn1 = Matrix.random.apply(null, y.shape, 2, -1);<br />
+                                <br />
+                                  // layers and deltas<br />
+                                  var l0, l1, l0_delta, l1_delta;<br />
+                                <br />
+                                  for (var i = 0; i &lt; 60000; i++) {<br />
+                                    l0 = X.multiply(syn0).map(sigmoid());<br />
+                                    l1 = l0.multiply(syn1).map(sigmoid());<br />
+                                <br />
+                                    l1_delta = Matrix.subtract(y, l1).product(l1.map(sigmoid(true)));<br />
+                                    l0_delta = l1_delta.multiply(syn1.T).product(l0.map(sigmoid(true)));<br />
+                                <br />
+                                    syn1.add(l0.T.multiply(l1_delta));<br />
+                                    syn0.add(X.T.multiply(l0_delta));<br />
+                                  }<br />
+                                <br />
+                                  // final trained neural network output!<br />
+                                  // should be close to [[0, 1, 1, 0]] transpose<br />
+                                  console.log(l1.toArray());<br />
+                                }());
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <h3> Logistic regression </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                (function () {<br>
+                                 // logistic regression example based on https://github.com/junku901/dnn<br />
+                                  'use strict';<br />
+                                <br />
+                                  var v = require('../vectorious'),<br />
+                                      Matrix = v.Matrix,<br />
+                                      Vector = v.Vector;<br />
+                                <br />
+                                  var subtract = Matrix.subtract;<br />
+                                <br />
+                                  function maximum(a, b) {<br />
+                                    return a &lt; b ? b : a;<br />
+                                  }<br />
+                                <br />
+                                  // perform row-wise softmax on matrix<br />
+                                  function softmax(m) {<br />
+                                    var c = m.shape[1],<br />
+                                        max = m.reduce(maximum),<br />
+                                        sum;<br />
+                                <br />
+                                    return m<br />
+                                      .map(function (x) {<br />
+                                        return Math.exp(x - max);<br />
+                                      })<br />
+                                      .map(function (x, i, j) {<br />
+                                        if (j === 0) {<br />
+                                          sum = 0;<br />
+                                          for (var k = 0; k &lt; c; k++)<br />
+                                            sum += this.get(i, k);<br />
+                                        }<br />
+                                <br />
+                                        return x / sum;<br />
+                                      });<br />
+                                  }<br />
+                                <br />
+                                  // get col-wise mean of matrix as vector<br />
+                                  function mean(m) {<br />
+                                    var c = m.shape[1],<br />
+                                        v = Vector.zeros(c),<br />
+                                        sum;<br />
+                                <br />
+                                    return v.map(function (x, i) {<br />
+                                      sum = 0;<br />
+                                      for (var j = 0; j &lt; c; j++)<br />
+                                        sum += m.get(i, j);<br />
+                                <br />
+                                      return sum / c;<br />
+                                    });<br />
+                                  }<br />
+                                <br />
+                                  // row-wise add vector to matrix<br />
+                                  function addMatVec(m, v) {<br />
+                                    return m.map(function (x, i, j) {<br />
+                                      return x + v.get(j);<br />
+                                    });<br />
+                                  }<br />
+                                <br />
+                                  var X = new Matrix([<br />
+                                    [1, 1, 1, 0, 0],<br />
+                                    [0, 0, 1, 1, 1]<br />
+                                  ]);<br />
+                                <br />
+                                  var y = new Matrix([<br />
+                                    [1, 0],<br />
+                                    [0, 1]<br />
+                                  ]);<br />
+                                <br />
+                                  var W = Matrix.zeros(X.shape[1], y.shape[1]),<br />
+                                      b = Vector.zeros(y.shape[1]);<br />
+                                <br />
+                                  var alpha = 0.01, // learning rate<br />
+                                      prob, delta;<br />
+                                <br />
+                                  // train<br />
+                                  for (var i = 0; i &lt; 800; i++) {<br />
+                                    prob = softmax(addMatVec(X.multiply(W), b));<br />
+                                    delta = subtract(y, prob);<br />
+                                <br />
+                                    W.add(X.T.multiply(delta).scale(alpha));<br />
+                                    b.add(mean(delta).scale(alpha));<br />
+                                  }<br />
+                                <br />
+                                  // predict<br />
+                                  var x = new Matrix([<br />
+                                    [1, 1, 0, 0, 0],<br />
+                                    [0, 0, 0, 1, 1],<br />
+                                    [1, 1, 1, 1, 1]<br />
+                                  ]);<br />
+                                <br />
+                                  console.log(softmax(addMatVec(x.multiply(W), b)).toArray());<br />
+                                  // prediction should be close to [[1, 0], [0, 1], [0.5, 0.5]]<br />
+                                }());<br />
+
+                            </code>
+                        </div>
+                        
+					</div>			
+						
+				</div>
+                
+                
+       
+                
+
+		</div>
+        
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

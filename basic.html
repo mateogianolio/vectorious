@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Basic</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+       
+        <!-- Bootstrap files -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+       
+	</head>
+	<body class="homepage">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper" class="wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html">Vector Lous</a></h1>
+								<p style="font-size:16px; ">A high performance linear algebra library, <br>written in JavaScript and optimized 
+                                with C++ bindings to BLAS.</p>
+							</div>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li class="current"><a href="index.html">Home</a></li>
+									<li>
+										<a href="#">Examples</a>
+										<ul>
+											<li><a href="basic.html">Basic</a></li>
+											<li><a href="machineLearning.html">Machine Learning</a></li>
+										</ul>
+									</li>
+                                    
+                                    <li>
+										<a href="#">Documentation</a>
+										<ul>
+											<li><a href="matrix.html">Matrix</a></li>
+											<li><a href="vector.html">Vector</a></li>
+                                            <li><a href="blas.html">BLAS optimizations</a></li>
+										</ul>
+									</li>
+                                    <li><a href="benchmarks.html">Benchmarks</a></li>
+									<li><a href="comparison.html">Comparison</a></li>
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div class="wrapper style2">
+					<div class="title"><b> Basic </b></div>
+					<div id="main" class="container">
+						
+                        <h3> Solving linear systems of equations </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                (function() {<br />
+                                  'use strict';<br />
+                                <br />
+                                  var Matrix = require('../vectorious').Matrix;<br />
+                                <br />
+                                  var a = Matrix.random(3, 3).scale(10),<br />
+                                      b = Matrix.random(3, 1).scale(10);<br />
+                                <br />
+                                  console.log('a:');<br />
+                                  console.log(a.toArray());<br />
+                                <br />
+                                  console.log('b:');<br />
+                                  console.log(b.toArray());<br />
+                                <br />
+                                  console.log('a.solve(b):');<br />
+                                  console.log(a.solve(b).toArray());<br />
+                                }());
+                            </code>
+                        </div>
+                        
+                        <br><br>
+                        
+                        <h3> Using low-level BLAS routines </h3>
+                        <div class="jumbotron">
+                            <code class="codeStyle">
+                                (function () {<br />
+                                  'use strict';<br />
+                                <br />
+                                  var v = require('../vectorious'),<br />
+                                      Matrix = v.Matrix,<br />
+                                      BLAS = v.BLAS;<br />
+                                <br />
+                                  if (!BLAS)<br />
+                                    throw new Error('no blas support!');<br />
+                                <br />
+                                  var a = new Matrix([[1, 2, 3]]),<br />
+                                      b = new Matrix([[3], [2], [1]]);<br />
+                                <br />
+                                  console.log('a:', a.toArray());<br />
+                                  console.log('b:', b.toArray());<br />
+                                <br />
+                                  // BLAS sum of absolute values<br />
+                                  var sum = BLAS.dasum(3, a.data, 1);<br />
+                                  console.log('dasum:', sum);<br />
+                                <br />
+                                  // BLAS dot product<br />
+                                  var dot = BLAS.ddot(3, a.data, 1, b.data, 1);<br />
+                                  console.log('ddot:', dot);<br />
+                                <br />
+                                  // BLAS memory swap<br />
+                                  BLAS.dswap(3, a.data, 1, b.data, 1);<br />
+                                  console.log('a:', a.toArray());<br />
+                                  console.log('b:', b.toArray());<br />
+                                <br />
+                                  // see http://www.netlib.org/blas/ for a complete list of routines<br />
+                                }());
+                            </code>
+                        </div>
+                        
+					</div>			
+						
+				</div>
+                
+                
+       
+                
+
+		</div>
+        
+
+		<!-- Scripts -->
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
