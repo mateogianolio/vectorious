@@ -332,7 +332,7 @@
    * @returns {Number} the angle between the two vectors in radians
    **/
   Vector.prototype.angle = function (vector) {
-    return Math.acos(this.dot(vector) / this.magnitude() * vector.magnitude());
+    return Math.acos(this.dot(vector) / this.magnitude() / vector.magnitude());
   };
 
   /**
