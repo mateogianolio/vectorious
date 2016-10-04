@@ -139,12 +139,12 @@
 
   /**
    * Projects the current vector onto `vector` using
-   * the projection formula `(b * (a * b / b * b))`.
+   * the projection formula `a * b / |b|))`.
    * @param {Vector} vector
    * @returns {Vector} `vector`
    **/
   Vector.prototype.project = function (vector) {
-    return vector.scale(this.dot(vector) / vector.dot(vector));
+    return this.dot(vector) / vector.magnitude();
   };
 
   /**
