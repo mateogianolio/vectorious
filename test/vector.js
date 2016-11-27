@@ -262,6 +262,32 @@
         });
       });
 
+      describe('.x, .y, .z, .w', function() {
+        it('should retrieve properties as expected', function() {
+          var a = new Vector([1,2,3,4,5]);
+
+          assert.equal(a.x, 1)
+          assert.equal(a.y, 2)
+          assert.equal(a.z, 3)
+          assert.equal(a.w, 4)
+        });
+
+        it('should set proeprties as expected', function() {
+          var a = new Vector([-1,-1,-1,-1]);
+
+          a.x = 0;
+          a.y = 1;
+          a.z = 2;
+          a.w = 3;
+
+          assert.equal(a.get(0), 0);
+          assert.equal(a.get(1), 1);
+          assert.equal(a.get(2), 2);
+          assert.equal(a.get(3), 3);
+
+        })
+      })
+
       describe('.min()', function() {
         it('should find the minimum number in vectors', function() {
           var a = new Vector([1, 2, 3]);
