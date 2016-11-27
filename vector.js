@@ -429,6 +429,44 @@
   };
 
   /**
+   * Convenience property for vector[0]
+   * @property {Number}
+   * @name Vector#x
+   */
+
+  /**
+   * Convenience property for vector[1]
+   * @property {Number}
+   * @name Vector#y
+   */
+
+  /**
+   * Convenience property for vector[2]
+   * @property {Number}
+   * @name Vector#z
+   */
+
+  /**
+   * Convenience property for vector[3]
+   * @property {Number}
+   * @name Vector#w
+   */
+
+  function indexProperty(index) {
+    return {
+      get: function() { return this.get(index); },
+      set: function(value) { return this.set(index, value) }
+    };
+  }
+
+  Object.defineProperties(Vector.prototype, {
+    x: indexProperty(0),
+    y: indexProperty(1),
+    z: indexProperty(2),
+    w: indexProperty(3)
+  });
+
+  /**
    * Static method. Combines two vectors `a` and `b` (appends `b` to `a`).
    * @param {Vector} a
    * @param {Vector} b
