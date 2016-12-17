@@ -8,14 +8,10 @@
 
   var subtract = Matrix.subtract;
 
-  function maximum(a, b) {
-    return a < b ? b : a;
-  }
-
   // perform row-wise softmax on matrix
   function softmax(m) {
     var c = m.shape[1],
-        max = m.reduce(maximum),
+        max = m.reduce(Math.max),
         sum;
 
     return m
