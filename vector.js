@@ -180,19 +180,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.zeros = function (count, type) {
-    if (count < 0)
-      throw new Error('invalid size');
-    else if (count === 0)
-      return new Vector();
-
-    type = type || Float64Array;
-    var data = new type(count),
-        i;
-
-    for (i = 0; i < count; i++)
-      data[i] = +0.0;
-
-    return new Vector(data);
+    return Vector.fill(count, type);
   };
 
   /**
@@ -203,19 +191,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.ones = function (count, type) {
-    if (count < 0)
-      throw new Error('invalid size');
-    else if (count === 0)
-      return new Vector();
-
-    type = type || Float64Array;
-    var data = new type(count),
-        i;
-
-    for (i = 0; i < count; i++)
-      data[i] = 1;
-
-    return new Vector(data);
+    return Vector.fill(count, type, 1);
   };
 
   /**
