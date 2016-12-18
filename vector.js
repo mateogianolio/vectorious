@@ -147,6 +147,31 @@
     return vector.scale(this.dot(vector) / vector.dot(vector));
   };
 
+   /**
+   * Static method. Creates a vector containing optional 'value' (default 0) of `count` size, takes
+   * an optional `type` argument which should be an instance of `TypedArray`.
+   * @param {Number} count
+   * @param {Number} value
+   * @param {TypedArray} type
+   * @returns {Vector} a new vector of the specified size and `type`
+   **/
+  Vector.fill = function (count, value, type) {
+    if (count < 0)
+      throw new Error('invalid size');
+    else if (count === 0)
+      return new Vector();
+   
+    value = value || +0.0;
+    type = type || Float64Array;
+    var data = new type(count),
+        i;
+
+    for (i = 0; i < count; i++)
+      data[i] = value;
+
+    return new Vector(data);
+  };
+  
   /**
    * Static method. Creates a vector containing zeros (`0`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
@@ -155,19 +180,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.zeros = function (count, type) {
-    if (count < 0)
-      throw new Error('invalid size');
-    else if (count === 0)
-      return new Vector();
-
-    type = type || Float64Array;
-    var data = new type(count),
-        i;
-
-    for (i = 0; i < count; i++)
-      data[i] = +0.0;
-
-    return new Vector(data);
+    return Vector.fill(count, +0.0, type);
   };
 
   /**
@@ -178,19 +191,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.ones = function (count, type) {
-    if (count < 0)
-      throw new Error('invalid size');
-    else if (count === 0)
-      return new Vector();
-
-    type = type || Float64Array;
-    var data = new type(count),
-        i;
-
-    for (i = 0; i < count; i++)
-      data[i] = 1;
-
-    return new Vector(data);
+    return Vector.fill(count, 1, type);
   };
 
   /**
