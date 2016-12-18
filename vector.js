@@ -148,14 +148,14 @@
   };
 
    /**
-   * Static method. Creates a vector containing 'value' of `count` size, takes
+   * Static method. Creates a vector containing optional 'value' (default 0) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    * @param {Number} count
-   * @param {TypedArray} type
    * @param {Number} value
+   * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  Vector.fill = function (count, type, value) {
+  Vector.fill = function (count, value, type) {
     if (count < 0)
       throw new Error('invalid size');
     else if (count === 0)
@@ -180,7 +180,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.zeros = function (count, type) {
-    return Vector.fill(count, type);
+    return Vector.fill(count, +0.0, type);
   };
 
   /**
@@ -191,7 +191,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.ones = function (count, type) {
-    return Vector.fill(count, type, 1);
+    return Vector.fill(count, 1, type);
   };
 
   /**
