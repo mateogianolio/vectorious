@@ -5,7 +5,8 @@
   "main": "vectorious.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
-    "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js"
+    "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
+    "coverage": "istanbul cover _mocha -- -R spec"
   },
   "repository": {
     "type": "git",
