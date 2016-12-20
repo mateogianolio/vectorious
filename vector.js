@@ -569,12 +569,14 @@
    * @returns {String} a string of the vector's contents
    **/
   Vector.prototype.toString = function () {
-    var result = '',
+    var result = ['['],
         i;
     for (i = 0; i < this.length; i++)
-      result += i > 0 ? ', ' + this.data[i] : this.data[i];
+      result.push(i > 0 ? ', ' + this.data[i] : this.data[i]);
+    
+    result.push(']');
 
-    return '[' + result + ']';
+    return result.join('');
   };
 
   /**
