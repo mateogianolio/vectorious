@@ -52,7 +52,7 @@
 
     var i;
     for (i = 0; i < l1; i++)
-      this.data[i] = op(this.data[i], vector.data[i]);
+      this.data[i] = op(this.data[i], vector.data[i], i);
 
     return this;
   };
@@ -73,18 +73,7 @@
    * @returns {Vector} this
    **/
   Vector.prototype.add = function (vector) {
-    var l1 = this.length,
-        l2 = vector.length;
-    if (l1 !== l2)
-      throw new Error('sizes do not match!');
-    if (!l1 && !l2)
-      return this;
-
-    var i;
-    for (i = 0; i < l1; i++)
-      this.data[i] += vector.data[i];
-
-    return this;
+    return this.binOp(vector, function(a, b) { return a + b });
   };
 
   /**
@@ -103,19 +92,7 @@
    * @returns {Vector} this
    **/
   Vector.prototype.subtract = function (vector) {
-    var l1 = this.length,
-        l2 = vector.length;
-    if (l1 !== l2)
-      throw new Error('sizes do not match');
-
-    if (!l1 && !l2)
-      return this;
-
-    var i;
-    for (i = 0; i < l1; i++)
-      this.data[i] -= vector.data[i];
-
-    return this;
+    return this.binOp(vector, function(a, b) { return a - b });
   };
 
   /**
