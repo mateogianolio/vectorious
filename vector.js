@@ -26,6 +26,38 @@
   }
 
   /**
+   * Static method. Perform binary operation on two vectors `a` and `b` together.
+   * @param {Vector} a
+   * @param {Vector} b
+   * @param {function } op
+   * @returns {Vector} a vector containing the results of binaery operation of `a` and `b`
+   **/
+  Vector.binOp = function(a, b, op) {
+    return new Vector(a).binOp(b, op);
+  };
+
+  /**
+   * Perform binary operation on `vector` to the current vector.
+   * @param {Vector} vector
+   * @param {function } op
+   * @returns {Vector} this
+   **/
+  Vector.prototype = function(vector, op) {
+    var l1 = this.length,
+        l2 = vector.length;
+    if (l1 !== l2)
+      throw new Error('sizes do not match!');
+    if (!l1 && !l2)
+      return this;
+
+    var i;
+    for (i = 0; i < l1; i++)
+      this.data[i] = op(this.data[i], vector.data[i]);
+
+    return this;
+  };
+
+  /**
    * Static method. Adds two vectors `a` and `b` together.
    * @param {Vector} a
    * @param {Vector} b
