@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-  var pkg = require('./package');
   var gulp = require('gulp'),
       streamify = require('gulp-streamify'),
       uglify = require('gulp-uglify'),
@@ -20,7 +19,7 @@
     ];
 
     return browserify({ entries: files }).bundle()
-      .pipe(source('vectorious-' + pkg.version + '.min.js'))
+      .pipe(source('vectorious.min.js'))
       .pipe(streamify(uglify()))
       .pipe(gulp.dest('./dist'));
   });
