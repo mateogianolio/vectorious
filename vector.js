@@ -42,7 +42,7 @@
    * @param {function } op
    * @returns {Vector} this
    **/
-  Vector.prototype = function(vector, op) {
+  Vector.prototype.binOp = function(vector, op) {
     var l1 = this.length,
         l2 = vector.length;
     if (l1 !== l2)
