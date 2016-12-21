@@ -384,7 +384,7 @@
   Vector.prototype.min = function () {
     return this.reduce(function(acc, item) {
       return Math.min(acc, item);
-    }), Number.POSITIVE_INFINITY);
+    }, Number.POSITIVE_INFINITY);
   };
 
   /**
@@ -394,7 +394,7 @@
   Vector.prototype.max = function () {
     return this.reduce(function(acc, item) {
       return Math.max(acc, item);
-    }), Number.NEGATIVE_INFINITY);
+    }, Number.NEGATIVE_INFINITY);
   };
 
   /**
