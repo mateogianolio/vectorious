@@ -382,18 +382,9 @@
    * @returns {Number} the smallest element of the current vector
    **/
   Vector.prototype.min = function () {
-    var min = Number.POSITIVE_INFINITY,
-        data = this.data,
-        value,
-        i, l;
-
-    for (i = 0, l = data.length; i < l; i++) {
-      value = data[i];
-      if (value < min)
-        min = value;
-    }
-
-    return min;
+    return this.reduce(function(acc, item) {
+      return Math.min(acc, item);
+    }, Number.POSITIVE_INFINITY);
   };
 
   /**
@@ -401,18 +392,9 @@
    * @returns {Number} the largest element of current vector
    **/
   Vector.prototype.max = function () {
-    var max = Number.NEGATIVE_INFINITY,
-        data = this.data,
-        value,
-        i, l;
-
-    for (i = 0, l = this.length; i < l; i++) {
-      value = data[i];
-      if (value > max)
-        max = value;
-    }
-
-    return max;
+    return this.reduce(function(acc, item) {
+      return Math.max(acc, item);
+    }, Number.NEGATIVE_INFINITY);
   };
 
   /**
