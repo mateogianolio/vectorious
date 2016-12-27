@@ -52,6 +52,39 @@
   };
 
   /**
+   * Static method. Perform binary operation on two matrices `a` and `b` together.
+   * @param {Matrix} a
+   * @param {Matrix} b
+   * @param {function } op
+   * @returns {Matrix} a new matrix containing the results of binary operation of `a` and `b`
+   **/
+  Matrix.binOp = function(a, b, op) {
+    return new Matrix(a).binOp(b, op);
+  };
+
+  /**
+   * Perform binary operation on `matrix` to the current matrix.
+   * @param {Matrix} matrix
+   * @param {function } op
+   * @returns {Matrix} this
+   **/
+  Matrix.prototype.binOp = function(matrix, op) {
+    var r = this.shape[0],          // rows in this matrix
+        c = this.shape[1],          // columns in this matrix
+        d1 = this.data,
+        d2 = matrix.data;
+
+    if (r !== matrix.shape[0] || c !== matrix.shape[1])
+      throw new Error('sizes do not match!');
+
+    var i;
+    for (i = 0; i < r * c; i++)
+      d1[i] = op(d1[i], d2[i], i);
+
+    return this;
+  };
+
+  /**
    * Static method. Adds two matrices `a` and `b` together.
    * @param {Matrix} a
    * @param {Matrix} b
