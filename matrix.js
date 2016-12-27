@@ -208,17 +208,7 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.zeros = function (i, j, type) {
-    if (i <= 0 || j <= 0)
-      throw new Error('invalid size');
-
-    type = type || Float64Array;
-
-    var data = new type(i * j),
-        k;
-    for (k = 0; k < i * j; k++)
-      data[k] = +0.0;
-
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fill(i, j, +0.0, type);
   };
 
   /**
@@ -230,17 +220,7 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.ones = function (i, j, type) {
-    if (i <= 0 || j <= 0)
-      throw new Error('invalid size');
-
-    type = type || Float64Array;
-
-    var data = new type(i * j),
-        k = 0;
-    for (k = 0; k < i * j; k++)
-      data[k] = +1.0;
-
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fill(i, j, +1.0, type);
   };
 
   /**
