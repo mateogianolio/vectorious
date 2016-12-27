@@ -175,6 +175,31 @@
   };
 
   /**
+   * Static method. Creates a `i x j` matrix containing optional 'value' (default 0), takes
+   * an optional `type` argument which should be an instance of `TypedArray`.
+   * @param {Number} i
+   * @param {Number} j
+   * @param {Number} value
+   * @param {TypedArray} type
+   * @returns {Vector} a new matrix of the specified size and `type`
+   **/
+  Matrix.fill = function (i, j, value, type) {
+    if (i <= 0 || j <= 0)
+      throw new Error('invalid size');
+
+    value = value || +0.0;
+    type = type || Float64Array;
+
+    var size = i * j,
+        data = new type(size),
+        k;
+    for (k = 0; k < size; k++)
+      data[k] = value;
+
+    return Matrix.fromTypedArray(data, [i, j]);
+  };
+
+  /**
    * Static method. Creates an `i x j` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
    * @param {Number} i
@@ -183,17 +208,7 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.zeros = function (i, j, type) {
-    if (i <= 0 || j <= 0)
-      throw new Error('invalid size');
-
-    type = type || Float64Array;
-
-    var data = new type(i * j),
-        k;
-    for (k = 0; k < i * j; k++)
-      data[k] = +0.0;
-
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fill(i, j, +0.0, type);
   };
 
   /**
@@ -205,17 +220,7 @@
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
   Matrix.ones = function (i, j, type) {
-    if (i <= 0 || j <= 0)
-      throw new Error('invalid size');
-
-    type = type || Float64Array;
-
-    var data = new type(i * j),
-        k = 0;
-    for (k = 0; k < i * j; k++)
-      data[k] = +1.0;
-
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fill(i, j, +1.0, type);
   };
 
   /**
