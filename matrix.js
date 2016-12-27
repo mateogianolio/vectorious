@@ -175,6 +175,31 @@
   };
 
   /**
+   * Static method. Creates a `i x j` matrix containing optional 'value' (default 0), takes
+   * an optional `type` argument which should be an instance of `TypedArray`.
+   * @param {Number} i
+   * @param {Number} j
+   * @param {Number} value
+   * @param {TypedArray} type
+   * @returns {Vector} a new matrix of the specified size and `type`
+   **/
+  Matrix.fill = function (i, j, value, type) {
+    if (i <= 0 || j <= 0)
+      throw new Error('invalid size');
+
+    value = value || +0.0;
+    type = type || Float64Array;
+
+    var size = i * j,
+        data = new type(size),
+        k;
+    for (k = 0; k < size; k++)
+      data[k] = value;
+
+    return Matrix.fromTypedArray(data, [i, j]);
+  };
+
+  /**
    * Static method. Creates an `i x j` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
    * @param {Number} i
