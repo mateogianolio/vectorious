@@ -517,7 +517,7 @@
         data = mapped.data,
         i;
     for (i = 0; i < this.length; i++)
-      data[i] = callback.call(mapped, data[i], i);
+      data[i] = callback.call(mapped, data[i], i, data);
 
     return mapped;
   };
@@ -531,7 +531,7 @@
   Vector.prototype.each = function (callback) {
     var i;
     for (i = 0; i < this.length; i++)
-      callback.call(this, this.data[i], i);
+      callback.call(this, this.data[i], i, this.data);
 
     return this;
   };
@@ -551,7 +551,7 @@
         value = initialValue || this.data[i++];
 
     for (; i < l; i++)
-      value = callback.call(this, value, this.data[i], i);
+      value = callback.call(this, value, this.data[i], i, this.data);
     return value;
   };
 
