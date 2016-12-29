@@ -111,11 +111,9 @@
    * @returns {Vector} this
    **/
   Vector.prototype.scale = function (scalar) {
-    var i;
-    for (i = this.length - 1; i >= 0; i--)
-      this.data[i] *= scalar;
-
-    return this;
+    return this.each(function(value, i, data){
+      data[i] *= scalar;
+    });
   };
 
   /**
