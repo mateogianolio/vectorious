@@ -160,7 +160,7 @@
    * Static method. Creates a vector containing optional 'value' (default 0) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    * @param {Number} count
-   * @param {Number} value
+   * @param {Number || function } value
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
@@ -173,10 +173,11 @@
     value = value || +0.0;
     type = type || Float64Array;
     var data = new type(count),
+        isValueFn = typeof value === 'function',
         i;
 
     for (i = 0; i < count; i++)
-      data[i] = value;
+      data[i] = (isValueFn && value()) || value;
 
     return new Vector(data);
   };
