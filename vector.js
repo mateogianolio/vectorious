@@ -205,6 +205,24 @@
   };
 
   /**
+   * Static method. Creates a vector of `count` elements containing random
+   * values according to a normal distribution, takes an optional `type`
+   * argument which should be an instance of `TypedArray`.
+   * @param {Number} count
+   * @param {Number} deviation (default 1)
+   * @param {Number} mean (default 0)
+   * @param {TypedArray} type
+   * @returns {Vector} a new vector of the specified size and `type`
+   **/
+  Vector.random = function (count, deviation, mean, type) {
+    deviation = deviation || 1;
+    mean = mean || 0;
+    return Vector.fill(count, function() {
+      return deviation * Math.random() + mean;
+    }, type);
+  };
+
+  /**
    * Static method. Creates a vector containing a range (can be either ascending or descending)
    * of numbers specified by the arguments provided (e.g. `Vector.range(0, .5, 2)`
    * gives a vector containing all numbers in the interval `[0, 2)` separated by
@@ -253,29 +271,6 @@
         i, j;
     for (i = start, j = 0; i < end; i += step, j++)
       data[j] = backwards ? end - i + start : i;
-
-    return new Vector(data);
-  };
-
-  /**
-   * Static method. Creates a vector of `count` elements containing random
-   * values according to a normal distribution, takes an optional `type`
-   * argument which should be an instance of `TypedArray`.
-   * @param {Number} count
-   * @param {Number} deviation (default 1)
-   * @param {Number} mean (default 0)
-   * @param {TypedArray} type
-   * @returns {Vector} a new vector of the specified size and `type`
-   **/
-  Vector.random = function (count, deviation, mean, type) {
-    deviation = deviation || 1;
-    mean = mean || 0;
-    type = type || Float64Array;
-    var data = new type(count),
-        i;
-
-    for (i = 0; i < count; i++)
-      data[i] = deviation * Math.random() + mean;
 
     return new Vector(data);
   };
