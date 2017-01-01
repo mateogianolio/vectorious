@@ -71,6 +71,7 @@
   Matrix.prototype.binOp = function(matrix, op) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
+        size = r * c,
         d1 = this.data,
         d2 = matrix.data;
 
@@ -78,7 +79,7 @@
       throw new Error('sizes do not match!');
 
     var i;
-    for (i = 0; i < r * c; i++)
+    for (i = 0; i < size; i++)
       d1[i] = op(d1[i], d2[i], i);
 
     return this;
@@ -162,10 +163,11 @@
   Matrix.prototype.scale = function (scalar) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
+        size = r * c,
         d1 = this.data,
         i;
 
-    for (i = 0; i < r * c; i++)
+    for (i = 0; i < size; i++)
       d1[i] *= scalar;
 
     return this;
@@ -712,6 +714,7 @@
   Matrix.prototype.equals = function (matrix) {
     var r = this.shape[0],
         c = this.shape[1],
+        size = r * c,
         d1 = this.data,
         d2 = matrix.data;
 
@@ -719,7 +722,7 @@
       return false;
 
     var i;
-    for (i = 0; i < r * c; i++)
+    for (i = 0; i < size; i++)
       if (d1[i] !== d2[i])
         return false;
 
@@ -784,11 +787,12 @@
   Matrix.prototype.map = function (callback) {
     var r = this.shape[0],
         c = this.shape[1],
+        size = r * c,
         mapped = new Matrix(this),
         data = mapped.data,
         i;
 
-    for (i = 0; i < r * c; i++)
+    for (i = 0; i < size; i++)
       data[i] = callback.call(mapped, data[i], i / c | 0, i % c, data);
 
     return mapped;
@@ -803,9 +807,10 @@
   Matrix.prototype.each = function (callback) {
     var r = this.shape[0],
         c = this.shape[1],
+        size = r * c,
         i;
 
-    for (i = 0; i < r * c; i++)
+    for (i = 0; i < size; i++)
       callback.call(this, this.data[i], i / c | 0, i % c);
 
     return this;
@@ -819,15 +824,16 @@
    **/
   Matrix.prototype.reduce = function (callback, initialValue) {
     var r = this.shape[0],
-        c = this.shape[1];
+        c = this.shape[1],
+        size = r * c,;
 
-    if (r * c === 0 && !initialValue)
+    if (size === 0 && !initialValue)
       throw new Error('Reduce of empty matrix with no initial value.');
 
     var i = 0,
         value = initialValue || this.data[i++];
 
-    for (; i < r * c; i++)
+    for (; i < size; i++)
       value = callback.call(this, value, this.data[i], i / c | 0, i % c);
     return value;
   };
