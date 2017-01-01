@@ -176,7 +176,7 @@
    * an optional `type` argument which should be an instance of `TypedArray`.
    * @param {Number} i
    * @param {Number} j
-   * @param {Number} value
+   * @param {Number || function} value
    * @param {TypedArray} type
    * @returns {Vector} a new matrix of the specified size and `type`
    **/
@@ -189,9 +189,10 @@
 
     var size = i * j,
         data = new type(size),
+        isValueFn = typeof value === 'function',
         k;
     for (k = 0; k < size; k++)
-      data[k] = value;
+      data[k] = (isValueFn && value()) || value;
 
     return Matrix.fromTypedArray(data, [i, j]);
   };
