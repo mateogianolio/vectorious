@@ -235,14 +235,9 @@
   Matrix.random = function (i, j, deviation, mean, type) {
     deviation = deviation || 1;
     mean = mean || 0;
-    type = type || Float64Array;
-    var data = new type(i * j),
-        k;
-
-    for (k = 0; k < i * j; k++)
-      data[k] = deviation * Math.random() + mean;
-
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fill(count, function() {
+      return deviation * Math.random() + mean;
+    }, type);
   };
 
   /**
