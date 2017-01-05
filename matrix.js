@@ -235,7 +235,7 @@
   Matrix.random = function (i, j, deviation, mean, type) {
     deviation = deviation || 1;
     mean = mean || 0;
-    return Matrix.fill(count, function() {
+    return Matrix.fill(i, j, function() {
       return deviation * Math.random() + mean;
     }, type);
   };
