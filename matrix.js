@@ -825,7 +825,7 @@
   Matrix.prototype.reduce = function (callback, initialValue) {
     var r = this.shape[0],
         c = this.shape[1],
-        size = r * c,;
+        size = r * c;
 
     if (size === 0 && !initialValue)
       throw new Error('Reduce of empty matrix with no initial value.');
