@@ -6,6 +6,99 @@
       Vector = require('../vector');
 
   describe('Matrix', function() {
+    describe('Matrix(data, options)', function() {
+      it('should work equivalent to Matrix.fromTypedArray when data is a typed array', function() {
+        var a = new Matrix(new Float64Array([1, 2, 3]), { shape: [1, 3] });
+        var b = Matrix.fromTypedArray(new Float64Array([1, 2, 3]), [1, 3]);
+
+        assert.deepEqual(a, b);
+      });
+
+      it('should work equivalent to Matrix.fromArray when data is a regular 2d array', function() {
+        var a = new Matrix([[1, 2, 3]]);
+        var b = Matrix.fromArray([[1, 2, 3]]);
+
+        assert.deepEqual(a, b);
+      });
+
+      it('should work equivalent to Matrix.fromMatrix when data is a Matrix', function() {
+        var a = new Matrix(new Matrix([[1, 2, 3]]));
+        var b = Matrix.fromMatrix(new Matrix([[1, 2, 3]]));
+
+        assert.deepEqual(a, b);
+      });
+
+      it('should work equivalent to Matrix.fromVector when data is a Vector', function() {
+        var a = new Matrix(new Vector([1, 2, 3]));
+        var b = Matrix.fromVector(new Vector([1, 2, 3]));
+
+        assert.deepEqual(a, b);
+      });
+
+      it('should work equivalent to Matrix.fromShape when data is a shape', function() {
+        var a = new Matrix(3, 2);
+        var b = new Matrix({ shape: [3, 2] });
+        var c = Matrix.fromShape([3, 2]);
+
+        assert.deepEqual(a, c);
+        assert.deepEqual(b, c);
+      });
+    });
+
+    describe('Matrix.fromTypedArray(data, shape)', function() {
+      it('should work as expected', function() {
+        var a = new Matrix(new Float64Array([1, 2, 3]), { shape: [1, 3] });
+
+        assert(a instanceof Matrix);
+        assert.equal(a.type, Float64Array);
+        assert.deepEqual(a.shape, [1, 3]);
+      });
+    });
+
+    describe('Matrix.fromArray(array)', function() {
+      it('should work as expected', function() {
+        var a = Matrix.fromArray([[1, 2, 3]]);
+
+        assert(a instanceof Matrix);
+        assert.equal(a.type, Float64Array);
+        assert.deepEqual(a.data, [1, 2, 3]);
+        assert.deepEqual(a.shape, [1, 3]);
+      });
+    });
+
+    describe('Matrix.fromMatrix(matrix)', function() {
+      it('should work as expected', function() {
+        var a = Matrix.fromArray([[1, 2, 3]]);
+        var b = Matrix.fromMatrix(a);
+
+        assert(b instanceof Matrix);
+        assert.deepEqual(a, b);
+      });
+    });
+
+    describe('Matrix.fromVector(vector, shape)', function() {
+      it('should work as expected', function() {
+        var v = new Vector([1, 2, 3]);
+        var a = Matrix.fromVector(v);
+
+        assert(a instanceof Matrix);
+        assert.equal(a.type, v.type);
+        assert.deepEqual(a.data, [1, 2, 3]);
+        assert.deepEqual(a.shape, [3, 1]);
+      });
+    });
+
+    describe('Matrix.fromShape(shape)', function() {
+      it('should work as expected', function() {
+        var a = Matrix.fromShape([3, 2]);
+
+        assert(a instanceof Matrix);
+        assert.equal(a.type, Float64Array);
+        assert.deepEqual(a.data, [0, 0, 0, 0, 0, 0]);
+        assert.deepEqual(a.shape, [3, 2]);
+      });
+    });
+
     describe('Matrix.add(a, b)', function() {
       it('should work as the static equivalent of a.add(b)', function() {
         var a = new Matrix([[1, 1, 1]]);
@@ -509,7 +602,7 @@
           var b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]);
           var c = new Matrix([[1, 1, 1], [2, 2, 2], [3, 3, 3]]);
           var d = new Matrix([[0, 0, 0], [0, 0, 0]]);
-          
+
           assert.equal(a.rank(), 2);
           assert.equal(b.rank(), 2);
           assert.equal(c.rank(), 1);
