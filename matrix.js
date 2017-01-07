@@ -190,9 +190,11 @@
     var size = i * j,
         data = new type(size),
         isValueFn = typeof value === 'function',
-        k;
-    for (k = 0; k < size; k++)
-      data[k] = (isValueFn && value()) || value;
+        k, x, y;
+    
+    for (x = 0; x < i; x++)
+      for (y = 0; y < j; y++, k++)
+        data[k] = isValueFn ? value(x, y) : value;
 
     return Matrix.fromTypedArray(data, [i, j]);
   };
