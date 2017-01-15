@@ -174,72 +174,72 @@
   };
 
   /**
-   * Static method. Creates a `i x j` matrix containing optional 'value' (default 0), takes
+   * Static method. Creates a `r x c` matrix containing optional 'value' (default 0), takes
    * an optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
+   * @param {Number} r
+   * @param {Number} c
    * @param {Number || function} value
    * @param {TypedArray} type
    * @returns {Vector} a new matrix of the specified size and `type`
    **/
-  Matrix.fill = function (i, j, value, type) {
-    if (i <= 0 || j <= 0)
+  Matrix.fill = function (r, c, value, type) {
+    if (r <= 0 || c <= 0)
       throw new Error('invalid size');
 
     value = value || +0.0;
     type = type || Float64Array;
 
-    var size = i * j,
+    var size = r * c,
         data = new type(size),
         isValueFn = typeof value === 'function',
-        k, x, y;
+        i, j, k = 0;
     
-    for (x = 0; x < i; x++)
-      for (y = 0; y < j; y++, k++)
-        data[k] = isValueFn ? value(x, y) : value;
+    for (i = 0; i < r; i++)
+      for (j = 0; j < c; j++, k++)
+        data[k] = isValueFn ? value(i, j) : value;
 
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fromTypedArray(data, [r, c]);
   };
 
   /**
-   * Static method. Creates an `i x j` matrix containing zeros (`0`), takes an
+   * Static method. Creates an `r x c` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
+   * @param {Number} r
+   * @param {Number} c
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.zeros = function (i, j, type) {
-    return Matrix.fill(i, j, +0.0, type);
+  Matrix.zeros = function (r, c, type) {
+    return Matrix.fill(r, c, +0.0, type);
   };
 
   /**
-   * Static method. Creates an `i x j` matrix containing ones (`1`), takes an
+   * Static method. Creates an `r x c` matrix containing ones (`1`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
+   * @param {Number} r
+   * @param {Number} c
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.ones = function (i, j, type) {
-    return Matrix.fill(i, j, +1.0, type);
+  Matrix.ones = function (r, c, type) {
+    return Matrix.fill(r, c, +1.0, type);
   };
 
   /**
-   * Static method. Creates an `i x j` matrix containing random values
+   * Static method. Creates an `r x c` matrix containing random values
    * according to a normal distribution, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
+   * @param {Number} r
+   * @param {Number} c
    * @param {Number} mean (default 0)
    * @param {Number} standard deviation (default 1)
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.random = function (i, j, deviation, mean, type) {
+  Matrix.random = function (r, c, deviation, mean, type) {
     deviation = deviation || 1;
     mean = mean || 0;
-    return Matrix.fill(i, j, function() {
+    return Matrix.fill(r, c, function() {
       return deviation * Math.random() + mean;
     }, type);
   };
@@ -597,16 +597,9 @@
    * @returns {Matrix} an identity matrix of the specified `size` and `type`
    **/
   Matrix.identity = function (size, type) {
-    if (size < 0)
-      throw new Error('invalid size');
-
-    type = type || Float64Array;
-    var matrix = Matrix.zeros(size, size, type),
-        i, j;
-    for (i = 0; i < size; i++)
-      matrix.data[i * size + i] = 1.0;
-
-    return matrix;
+    return Matrix.fill(size, size, function (i, j) {
+      return i === j ? +1.0 : +0.0;
+    })
   };
 
   /**
