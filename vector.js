@@ -375,18 +375,6 @@
   };
 
   /**
-   * Gets the element at `index` from current vector.
-   * @param {Number} index
-   * @returns {Number} the element at `index`
-   **/
-  Vector.prototype.get = function (index) {
-    if (index < 0 || index > this.length - 1)
-      throw new Error('index out of bounds');
-
-    return this.data[index];
-  };
-
-  /**
    * Gets the minimum value (smallest) element of current vector.
    * @returns {Number} the smallest element of the current vector
    **/
@@ -407,15 +395,32 @@
   };
 
   /**
+   * Check if `index` is within the bound for current vector.
+   * @param {Number} index
+   **/
+  Vector.prototype.check = function (index) {  
+    if (index < 0 || index > this.length - 1)
+      throw new Error('index out of bounds');
+  }
+
+  /**
+   * Gets the element at `index` from current vector.
+   * @param {Number} index
+   * @returns {Number} the element at `index`
+   **/
+  Vector.prototype.get = function (index) {
+    this.check(index);
+    return this.data[index];
+  };
+
+  /**
    * Sets the element at `index` to `value`.
    * @param {Number} index
    * @param {Number} value
    * @returns {Vector} this
    **/
   Vector.prototype.set = function (index, value) {
-    if (index < 0 || index > this.length - 1)
-      throw new Error('index out of bounds');
-
+    this.check(index);
     this.data[index] = value;
     return this;
   };
