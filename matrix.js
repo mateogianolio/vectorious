@@ -178,7 +178,7 @@
    * an optional `type` argument which should be an instance of `TypedArray`.
    * @param {Number} i
    * @param {Number} j
-   * @param {Number} value
+   * @param {Number || function} value
    * @param {TypedArray} type
    * @returns {Vector} a new matrix of the specified size and `type`
    **/
@@ -191,9 +191,12 @@
 
     var size = i * j,
         data = new type(size),
-        k;
-    for (k = 0; k < size; k++)
-      data[k] = value;
+        isValueFn = typeof value === 'function',
+        k, x, y;
+    
+    for (x = 0; x < i; x++)
+      for (y = 0; y < j; y++, k++)
+        data[k] = isValueFn ? value(x, y) : value;
 
     return Matrix.fromTypedArray(data, [i, j]);
   };
@@ -236,14 +239,9 @@
   Matrix.random = function (i, j, deviation, mean, type) {
     deviation = deviation || 1;
     mean = mean || 0;
-    type = type || Float64Array;
-    var data = new type(i * j),
-        k;
-
-    for (k = 0; k < i * j; k++)
-      data[k] = deviation * Math.random() + mean;
-
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fill(i, j, function() {
+      return deviation * Math.random() + mean;
+    }, type);
   };
 
   /**
