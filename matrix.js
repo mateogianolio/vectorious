@@ -12,20 +12,22 @@
     this.shape = [];
 
     if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
-      return Matrix.fromTypedArray(data, options.shape);
+      return Matrix.fromTypedArray(data, options && options.shape);
     } else if (data instanceof Array) {
       return Matrix.fromArray(data);
     } else if (data instanceof Vector) {
-      this.shape = options && options.shape ? options.shape : [data.length, 1];
-      this.data = new data.type(data.data);
-      this.type = data.type;
+      return Matrix.fromVector(data, options && options.shape);
     } else if (data instanceof Matrix) {
-      this.shape = [data.shape[0], data.shape[1]];
-      this.data = new data.type(data.data);
-      this.type = data.type;
+      return Matrix.fromMatrix(data);
+    } else if (typeof data === "number" && typeof options === "number") {
+      // Handle new Matrix(r, c)
+      return Matrix.fromShape([data, options]);
+    } else if (data && !data.buffer && data.shape) {
+      // Handle new Matrix({ shape: [r, c] })
+      return Matrix.fromShape(data.shape);
     }
   }
-
+  
   Matrix.fromTypedArray = function (data, shape) {
     if (data.length !== shape[0] * shape[1])
       throw new Error("Shape does not match typed array dimensions.");
@@ -50,6 +52,34 @@
 
     return Matrix.fromTypedArray(data, [r, c]);
   };
+  
+  Matrix.fromMatrix = function (matrix) {
+    var self = Object.create(Matrix.prototype);
+    self.shape = [matrix.shape[0], matrix.shape[1]];
+    self.data = new matrix.type(matrix.data);
+    self.type = matrix.type;
+    
+    return self;
+  }
+  
+  Matrix.fromVector = function (vector, shape) {
+    if (shape && vector.length !== shape[0] * shape[1])
+      throw new Error("Shape does not match vector dimensions.");
+
+    var self = Object.create(Matrix.prototype);
+    self.shape = shape ? shape : [vector.length, 1];
+    self.data = new vector.type(vector.data);
+    self.type = vector.type;
+
+    return self;
+  }
+
+  Matrix.fromShape = function (shape) {
+    var r = shape[0], // number of rows
+        c = shape[1]; // number of columns
+
+    return Matrix.fromTypedArray(new Float64Array(r * c), shape);
+  }
 
   /**
    * Static method. Perform binary operation on two matrices `a` and `b` together.
@@ -174,76 +204,74 @@
   };
 
   /**
-   * Static method. Creates a `i x j` matrix containing optional 'value' (default 0), takes
+   * Static method. Creates a `r x c` matrix containing optional 'value' (default 0), takes
    * an optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
-   * @param {Number} value
+   * @param {Number} r
+   * @param {Number} c
+   * @param {Number || function} value
    * @param {TypedArray} type
    * @returns {Vector} a new matrix of the specified size and `type`
    **/
-  Matrix.fill = function (i, j, value, type) {
-    if (i <= 0 || j <= 0)
+  Matrix.fill = function (r, c, value, type) {
+    if (r <= 0 || c <= 0)
       throw new Error('invalid size');
 
     value = value || +0.0;
     type = type || Float64Array;
 
-    var size = i * j,
+    var size = r * c,
         data = new type(size),
-        k;
-    for (k = 0; k < size; k++)
-      data[k] = value;
+        isValueFn = typeof value === 'function',
+        i, j, k = 0;
+    
+    for (i = 0; i < r; i++)
+      for (j = 0; j < c; j++, k++)
+        data[k] = isValueFn ? value(i, j) : value;
 
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fromTypedArray(data, [r, c]);
   };
 
   /**
-   * Static method. Creates an `i x j` matrix containing zeros (`0`), takes an
+   * Static method. Creates an `r x c` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
+   * @param {Number} r
+   * @param {Number} c
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.zeros = function (i, j, type) {
-    return Matrix.fill(i, j, +0.0, type);
+  Matrix.zeros = function (r, c, type) {
+    return Matrix.fill(r, c, +0.0, type);
   };
 
   /**
-   * Static method. Creates an `i x j` matrix containing ones (`1`), takes an
+   * Static method. Creates an `r x c` matrix containing ones (`1`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
+   * @param {Number} r
+   * @param {Number} c
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.ones = function (i, j, type) {
-    return Matrix.fill(i, j, +1.0, type);
+  Matrix.ones = function (r, c, type) {
+    return Matrix.fill(r, c, +1.0, type);
   };
 
   /**
-   * Static method. Creates an `i x j` matrix containing random values
+   * Static method. Creates an `r x c` matrix containing random values
    * according to a normal distribution, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
-   * @param {Number} i
-   * @param {Number} j
+   * @param {Number} r
+   * @param {Number} c
    * @param {Number} mean (default 0)
    * @param {Number} standard deviation (default 1)
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.random = function (i, j, deviation, mean, type) {
+  Matrix.random = function (r, c, deviation, mean, type) {
     deviation = deviation || 1;
     mean = mean || 0;
-    type = type || Float64Array;
-    var data = new type(i * j),
-        k;
-
-    for (k = 0; k < i * j; k++)
-      data[k] = deviation * Math.random() + mean;
-
-    return Matrix.fromTypedArray(data, [i, j]);
+    return Matrix.fill(r, c, function() {
+      return deviation * Math.random() + mean;
+    }, type);
   };
 
   /**
@@ -599,16 +627,9 @@
    * @returns {Matrix} an identity matrix of the specified `size` and `type`
    **/
   Matrix.identity = function (size, type) {
-    if (size < 0)
-      throw new Error('invalid size');
-
-    type = type || Float64Array;
-    var matrix = Matrix.zeros(size, size, type),
-        i, j;
-    for (i = 0; i < size; i++)
-      matrix.data[i * size + i] = 1.0;
-
-    return matrix;
+    return Matrix.fill(size, size, function (i, j) {
+      return i === j ? +1.0 : +0.0;
+    })
   };
 
   /**

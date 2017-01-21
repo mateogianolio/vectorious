@@ -175,7 +175,7 @@
         i;
 
     for (i = 0; i < count; i++)
-      data[i] = (isValueFn && value()) || value;
+      data[i] = isValueFn ? value(i) : value;
 
     return new Vector(data);
   };
