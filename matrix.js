@@ -12,20 +12,22 @@
     this.shape = [];
 
     if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
-      return Matrix.fromTypedArray(data, options.shape);
+      return Matrix.fromTypedArray(data, options && options.shape);
     } else if (data instanceof Array) {
       return Matrix.fromArray(data);
     } else if (data instanceof Vector) {
-      this.shape = options && options.shape ? options.shape : [data.length, 1];
-      this.data = new data.type(data.data);
-      this.type = data.type;
+      return Matrix.fromVector(data, options && options.shape);
     } else if (data instanceof Matrix) {
-      this.shape = [data.shape[0], data.shape[1]];
-      this.data = new data.type(data.data);
-      this.type = data.type;
+      return Matrix.fromMatrix(data);
+    } else if (typeof data === "number" && typeof options === "number") {
+      // Handle new Matrix(r, c)
+      return Matrix.fromShape([data, options]);
+    } else if (data && !data.buffer && data.shape) {
+      // Handle new Matrix({ shape: [r, c] })
+      return Matrix.fromShape(data.shape);
     }
   }
-
+  
   Matrix.fromTypedArray = function (data, shape) {
     if (data.length !== shape[0] * shape[1])
       throw new Error("Shape does not match typed array dimensions.");
@@ -50,6 +52,34 @@
 
     return Matrix.fromTypedArray(data, [r, c]);
   };
+  
+  Matrix.fromMatrix = function (matrix) {
+    var self = Object.create(Matrix.prototype);
+    self.shape = [matrix.shape[0], matrix.shape[1]];
+    self.data = new matrix.type(matrix.data);
+    self.type = matrix.type;
+    
+    return self;
+  }
+  
+  Matrix.fromVector = function (vector, shape) {
+    if (shape && vector.length !== shape[0] * shape[1])
+      throw new Error("Shape does not match vector dimensions.");
+
+    var self = Object.create(Matrix.prototype);
+    self.shape = shape ? shape : [vector.length, 1];
+    self.data = new vector.type(vector.data);
+    self.type = vector.type;
+
+    return self;
+  }
+
+  Matrix.fromShape = function (shape) {
+    var r = shape[0], // number of rows
+        c = shape[1]; // number of columns
+
+    return Matrix.fromTypedArray(new Float64Array(r * c), shape);
+  }
 
   /**
    * Static method. Perform binary operation on two matrices `a` and `b` together.
