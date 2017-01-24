@@ -28,7 +28,7 @@
     "benchmark": "^2.1.0",
     "mocha": "^2.4.5"
   },
-  "dependencies": {
+  "optionalDependencies": {
     "nblas": "^1.2.0"
   }
 }
