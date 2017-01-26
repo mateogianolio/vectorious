@@ -4,7 +4,7 @@
   "description": "A high performance linear algebra library.",
   "main": "vectorious.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "mocha",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
     "coverage": "istanbul cover _mocha -- -R spec"
   },
