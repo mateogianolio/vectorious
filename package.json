@@ -19,6 +19,13 @@
     "algebra"
   ],
   "author": "Mateo Gianolio",
+  "contributors": [
+    "Bart van Andel <bavanandel@gmail.com>",
+    "James Vickers",
+    "Phillip Wang",
+    "Waylon Flinn",
+    "Xuefeng Zhu"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mateogianolio/vectorious/issues"
