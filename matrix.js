@@ -1,10 +1,15 @@
 (function () {
   'use strict';
 
+  /**
+   * @class Matrix
+   */
+
   var Vector = require('./vector');
 
   /**
    * @method constructor
+   * @memberof Matrix
    * @desc Creates a `Matrix` from the supplied arguments.
    **/
   function Matrix (data, options) {
@@ -83,9 +88,10 @@
 
   /**
    * Static method. Perform binary operation on two matrices `a` and `b` together.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
-   * @param {function } op
+   * @param {Function} op
    * @returns {Matrix} a new matrix containing the results of binary operation of `a` and `b`
    **/
   Matrix.binOp = function(a, b, op) {
@@ -94,8 +100,9 @@
 
   /**
    * Perform binary operation on `matrix` to the current matrix.
+   * @memberof Matrix
    * @param {Matrix} matrix
-   * @param {function } op
+   * @param {Function} op
    * @returns {Matrix} this
    **/
   Matrix.prototype.binOp = function(matrix, op) {
@@ -117,6 +124,7 @@
 
   /**
    * Static method. Adds two matrices `a` and `b` together.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the sum of `a` and `b`
@@ -127,6 +135,7 @@
 
   /**
    * Adds `matrix` to current matrix.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} `this`
@@ -137,6 +146,7 @@
 
   /**
    * Static method. Subtracts the matrix `b` from matrix `a`.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the difference between `a` and `b`
@@ -147,6 +157,7 @@
 
   /**
    * Subtracts `matrix` from current matrix.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} `this`
@@ -157,6 +168,7 @@
 
   /**
    * Static method. Hadamard product of matrices
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the hadamard product
@@ -167,6 +179,7 @@
 
   /**
    * Hadamard product of matrices
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} `this`
@@ -177,6 +190,7 @@
 
   /**
    * Static method. Multiplies all elements of a matrix `a` with a specified `scalar`.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Number} scalar
    * @returns {Matrix} a new scaled matrix
@@ -187,6 +201,7 @@
 
   /**
    * Multiplies all elements of current matrix with a specified `scalar`.
+   * @memberof Matrix
    * @param {Number} scalar
    * @returns {Matrix} `this`
    **/
@@ -206,9 +221,10 @@
   /**
    * Static method. Creates a `r x c` matrix containing optional 'value' (default 0), takes
    * an optional `type` argument which should be an instance of `TypedArray`.
+   * @memberof Matrix
    * @param {Number} r
    * @param {Number} c
-   * @param {Number || function} value
+   * @param {Number|Function} value
    * @param {TypedArray} type
    * @returns {Vector} a new matrix of the specified size and `type`
    **/
@@ -234,6 +250,7 @@
   /**
    * Static method. Creates an `r x c` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
+   * @memberof Matrix
    * @param {Number} r
    * @param {Number} c
    * @param {TypedArray} type
@@ -246,6 +263,7 @@
   /**
    * Static method. Creates an `r x c` matrix containing ones (`1`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
+   * @memberof Matrix
    * @param {Number} r
    * @param {Number} c
    * @param {TypedArray} type
@@ -259,6 +277,7 @@
    * Static method. Creates an `r x c` matrix containing random values
    * according to a normal distribution, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
+   * @memberof Matrix
    * @param {Number} r
    * @param {Number} c
    * @param {Number} mean (default 0)
@@ -276,6 +295,7 @@
 
   /**
    * Static method. Multiplies two matrices `a` and `b` of matching dimensions.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
@@ -286,6 +306,7 @@
 
   /**
    * Multiplies two matrices `a` and `b` of matching dimensions.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
@@ -319,9 +340,11 @@
 
   /**
    * Transposes a matrix (mirror across the diagonal).
+   * @property T
+   * @name Matrix#T
+   * @memberof Matrix
    * @returns {Matrix} `this`
    **/
-
   Object.defineProperty(Matrix.prototype, 'T', {
     get: function() { return this.transpose(); }
   });
@@ -342,6 +365,7 @@
   /**
    * Determines the inverse of any invertible square matrix using
    * Gaussian elimination.
+   * @memberof Matrix
    * @returns {Matrix} the inverse of the matrix
    **/
   Matrix.prototype.inverse = function () {
@@ -376,6 +400,7 @@
 
   /**
    * Performs Gaussian elimination on a matrix.
+   * @memberof Matrix
    * @returns {Matrix} the matrix in reduced row echelon form
    **/
   Matrix.prototype.gauss = function () {
@@ -441,6 +466,7 @@
 
   /**
    * Performs full LU decomposition on a matrix.
+   * @memberof Matrix
    * @returns {Array} a triple (3-tuple) of the lower triangular resultant matrix `L`, the upper
    * triangular resultant matrix `U` and the pivot array `ipiv`
    **/
@@ -467,6 +493,7 @@
 
   /**
    * Static method. Performs LU factorization on current matrix.
+   * @memberof Matrix
    * @returns {Array} an array with a new instance of the current matrix LU-
    * factorized and the corresponding pivot Int32Array
    **/
@@ -476,6 +503,7 @@
 
   /**
    * Performs LU factorization on current matrix.
+   * @memberof Matrix
    * @returns {Array} an array with the current matrix LU-factorized and the
    * corresponding pivot Int32Array
    **/
@@ -523,6 +551,7 @@
 
   /**
    * Solves an LU factorized matrix with the supplied right hand side(s)
+   * @memberof Matrix
    * @param {Matrix} rhs, right hand side(s) to solve for
    * @param {Int32Array} array of pivoted row indices
    * @returns {Matrix} rhs replaced by the solution
@@ -559,7 +588,8 @@
   /**
    * Solves AX = B using LU factorization, where A is the current matrix and
    * B is a Vector/Matrix containing the right hand side(s) of the equation.
-   * @param {Matrix/Vector} rhs, right hand side(s) to solve for
+   * @memberof Matrix
+   * @param {Matrix|Vector} rhs, right hand side(s) to solve for
    * @param {Int32Array} array of pivoted row indices
    * @returns {Matrix} a new matrix containing the solutions of the system
    **/
@@ -574,6 +604,7 @@
   /**
    * Static method. Augments two matrices `a` and `b` of matching dimensions
    * (appends `b` to `a`).
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Matrix} the resultant matrix of `b` augmented to `a`
@@ -584,6 +615,7 @@
 
   /**
    * Augments `matrix` with current matrix.
+   * @memberof Matrix
    * @param {Matrix} matrix
    * @returns {Matrix} `this`
    **/
@@ -622,6 +654,7 @@
   /**
    * Static method. Creates an identity matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
+   * @memberof Matrix
    * @param {Number} size
    * @param {TypedArray} type
    * @returns {Matrix} an identity matrix of the specified `size` and `type`
@@ -635,6 +668,7 @@
   /**
    * Static method. Creates a magic square matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
+   * @memberof Matrix
    * @param {Number} size
    * @param {Number} type
    * @returns {Matrix} a magic square matrix of the specified `size` and `type`
@@ -660,6 +694,7 @@
 
   /**
    * Gets the diagonal of a matrix.
+   * @memberof Matrix
    * @returns {Vector} the diagonal of the matrix as a vector
    **/
   Matrix.prototype.diag = function () {
@@ -676,6 +711,7 @@
 
   /**
    * Gets the determinant of any square matrix using LU factorization.
+   * @memberof Matrix
    * @returns {Number} the determinant of the matrix
    **/
   Matrix.prototype.determinant = function () {
@@ -704,6 +740,7 @@
 
   /**
    * Gets the trace of the matrix (the sum of all diagonal elements).
+   * @memberof Matrix
    * @returns {Number} the trace of the matrix
    **/
   Matrix.prototype.trace = function () {
@@ -719,6 +756,7 @@
 
   /**
    * Static method. Checks the equality of two matrices `a` and `b`.
+   * @memberof Matrix
    * @param {Matrix} a
    * @param {Matrix} b
    * @returns {Boolean} `true` if equal, `false` otherwise
@@ -729,6 +767,7 @@
 
   /**
    * Checks the equality of `matrix` and current matrix.
+   * @memberof Matrix
    * @param {Matrix} matrix
    * @returns {Boolean} `true` if equal, `false` otherwise
    **/
@@ -752,6 +791,7 @@
 
   /**
    * Gets the value of the element in row `i`, column `j` of current matrix
+   * @memberof Matrix
    * @param {Number} i
    * @param {Number} j
    * @returns {Number} the element at row `i`, column `j` of current matrix
@@ -765,6 +805,7 @@
 
   /**
    * Sets the element at row `i`, column `j` to value
+   * @memberof Matrix
    * @param {Number} i
    * @param {Number} j
    * @param {Number} value
@@ -780,6 +821,7 @@
 
   /**
    * Swaps two rows `i` and `j` in a matrix
+   * @memberof Matrix
    * @param {Number} i
    * @param {Number} j
    * @returns {Matrix} `this`
@@ -802,6 +844,7 @@
 
   /**
    * Maps a function `callback` to all elements of a copy of current matrix.
+   * @memberof Matrix
    * @param {Function} callback
    * @returns {Matrix} the resultant mapped matrix
    **/
@@ -822,6 +865,7 @@
   /**
    * Functional version of for-looping the elements in a matrix, is
    * equivalent to `Array.prototype.forEach`.
+   * @memberof Matrix
    * @param {Function} callback
    * @returns {Matrix} `this`
    **/
@@ -839,6 +883,7 @@
 
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
+   * @memberof Matrix
    * @param {Function} callback
    * @param {Number} initialValue
    * @returns {Number} result of reduction
@@ -861,6 +906,7 @@
 
   /**
    * Finds the rank of the matrix using row echelon form
+   * @memberof Matrix
    * @returns {Number} rank
    **/
   Matrix.prototype.rank = function () {
@@ -925,6 +971,7 @@
 
   /**
    * Converts current matrix into a readable formatted string
+   * @memberof Matrix
    * @returns {String} a string of the matrix' contents
    **/
   Matrix.prototype.toString = function () {
@@ -942,6 +989,7 @@
 
   /**
    * Converts current matrix into a two-dimensional array
+   * @memberof Matrix
    * @returns {Array} an array of the matrix' contents
    **/
   Matrix.prototype.toArray = function () {

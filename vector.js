@@ -2,7 +2,12 @@
   'use strict';
 
   /**
+   * @class Vector
+   **/
+
+  /**
    * @method constructor
+   * @memberof Vector
    * @desc Creates a two-dimensional `Vector` from the supplied arguments.
    **/
   function Vector (data) {
@@ -27,9 +32,10 @@
 
   /**
    * Static method. Perform binary operation on two vectors `a` and `b` together.
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
-   * @param {function } op
+   * @param {Function} op
    * @returns {Vector} a vector containing the results of binaery operation of `a` and `b`
    **/
   Vector.binOp = function(a, b, op) {
@@ -38,8 +44,9 @@
 
   /**
    * Perform binary operation on `vector` to the current vector.
+   * @memberof Vector
    * @param {Vector} vector
-   * @param {function } op
+   * @param {Function} op
    * @returns {Vector} this
    **/
   Vector.prototype.binOp = function(vector, op) {
@@ -59,6 +66,7 @@
 
   /**
    * Static method. Adds two vectors `a` and `b` together.
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
    * @returns {Vector} a vector containing the sum of `a` and `b`
@@ -69,6 +77,7 @@
 
   /**
    * Adds `vector` to the current vector.
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Vector} this
    **/
@@ -78,6 +87,7 @@
 
   /**
    * Static method. Subtracts the vector `b` from vector `a`.
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
    * @returns {Vector} a vector containing the difference between `a` and `b`
@@ -88,6 +98,7 @@
 
   /**
    * Subtracts `vector` from the current vector.
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Vector} this
    **/
@@ -97,6 +108,7 @@
 
   /**
    * Static method. Multiplies all elements of `vector` with a specified `scalar`.
+   * @memberof Vector
    * @param {Vector} vector
    * @param {Number} scalar
    * @returns {Vector} a resultant scaled vector
@@ -107,6 +119,7 @@
 
   /**
    * Multiplies all elements of current vector with a specified `scalar`.
+   * @memberof Vector
    * @param {Number} scalar
    * @returns {Vector} this
    **/
@@ -118,6 +131,7 @@
 
   /**
    * Static method. Normalizes `vector`, i.e. divides all elements with the magnitude.
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Vector} a resultant normalized vector
    **/
@@ -127,6 +141,7 @@
 
   /**
    * Normalizes current vector.
+   * @memberof Vector
    * @returns {Vector} a resultant normalized vector
    **/
   Vector.prototype.normalize = function () {
@@ -136,6 +151,7 @@
   /**
    * Static method. Projects the vector `a` onto the vector `b` using
    * the projection formula `(b * (a * b / b * b))`.
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
    * @returns {Vector} a new resultant projected vector
@@ -147,6 +163,7 @@
   /**
    * Projects the current vector onto `vector` using
    * the projection formula `(b * (a * b / b * b))`.
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Vector} `vector`
    **/
@@ -157,8 +174,9 @@
    /**
    * Static method. Creates a vector containing optional 'value' (default 0) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
+   * @memberof Vector
    * @param {Number} count
-   * @param {Number || function } value
+   * @param {Number|Function} value
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
@@ -183,6 +201,7 @@
   /**
    * Static method. Creates a vector containing zeros (`0`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
+   * @memberof Vector
    * @param {Number} count
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
@@ -194,6 +213,7 @@
   /**
    * Static method. Creates a vector containing ones (`1`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
+   * @memberof Vector
    * @param {Number} count
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
@@ -206,6 +226,7 @@
    * Static method. Creates a vector of `count` elements containing random
    * values according to a normal distribution, takes an optional `type`
    * argument which should be an instance of `TypedArray`.
+   * @memberof Vector
    * @param {Number} count
    * @param {Number} deviation (default 1)
    * @param {Number} mean (default 0)
@@ -226,6 +247,7 @@
    * gives a vector containing all numbers in the interval `[0, 2)` separated by
    * steps of `0.5`), takes an optional `type` argument which should be an instance of
    * `TypedArray`.
+   * @memberof Vector
    * @param {Number} start
    * @param {Number} step - optional
    * @param {Number} end
@@ -275,6 +297,7 @@
 
   /**
    * Static method. Performs dot multiplication with two vectors `a` and `b`.
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
    * @returns {Number} the dot product of the two vectors
@@ -285,6 +308,7 @@
 
   /**
    * Performs dot multiplication with current vector and `vector`
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Number} the dot product of the two vectors
    **/
@@ -305,6 +329,7 @@
 
   /**
    * Calculates the magnitude of a vector (also called L2 norm or Euclidean length).
+   * @memberof Vector
    * @returns {Number} the magnitude (L2 norm) of the vector
    **/
   Vector.prototype.magnitude = function () {
@@ -322,6 +347,7 @@
 
   /**
    * Static method. Determines the angle between two vectors `a` and `b`.
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
    * @returns {Number} the angle between the two vectors in radians
@@ -332,6 +358,7 @@
 
   /**
    * Determines the angle between the current vector and `vector`.
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Number} the angle between the two vectors in radians
    **/
@@ -341,6 +368,7 @@
 
   /**
    * Static method. Checks the equality of two vectors `a` and `b`.
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
    * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
@@ -351,6 +379,7 @@
 
   /**
    * Checks the equality of the current vector and `vector`.
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
    **/
@@ -370,6 +399,7 @@
 
   /**
    * Gets the minimum value (smallest) element of current vector.
+   * @memberof Vector
    * @returns {Number} the smallest element of the current vector
    **/
   Vector.prototype.min = function () {
@@ -380,6 +410,7 @@
 
   /**
    * Gets the maximum value (largest) element of current vector.
+   * @memberof Vector
    * @returns {Number} the largest element of current vector
    **/
   Vector.prototype.max = function () {
@@ -390,6 +421,7 @@
 
   /**
    * Check if `index` is within the bound for current vector.
+   * @memberof Vector
    * @param {Number} index
    **/
   Vector.prototype.check = function (index) {  
@@ -399,6 +431,7 @@
 
   /**
    * Gets the element at `index` from current vector.
+   * @memberof Vector
    * @param {Number} index
    * @returns {Number} the element at `index`
    **/
@@ -409,6 +442,7 @@
 
   /**
    * Sets the element at `index` to `value`.
+   * @memberof Vector
    * @param {Number} index
    * @param {Number} value
    * @returns {Vector} this
@@ -421,24 +455,28 @@
 
   /**
    * Convenience property for vector[0]
+   * @memberof Vector
    * @property {Number}
    * @name Vector#x
    */
 
   /**
    * Convenience property for vector[1]
+   * @memberof Vector
    * @property {Number}
    * @name Vector#y
    */
 
   /**
    * Convenience property for vector[2]
+   * @memberof Vector
    * @property {Number}
    * @name Vector#z
    */
 
   /**
    * Convenience property for vector[3]
+   * @memberof Vector
    * @property {Number}
    * @name Vector#w
    */
@@ -459,6 +497,7 @@
 
   /**
    * Static method. Combines two vectors `a` and `b` (appends `b` to `a`).
+   * @memberof Vector
    * @param {Vector} a
    * @param {Vector} b
    * @returns {Vector} `b` appended to vector `a`
@@ -469,6 +508,7 @@
 
   /**
    * Combines the current vector with `vector`
+   * @memberof Vector
    * @param {Vector} vector
    * @returns {Vector} `vector` combined with current vector
    **/
@@ -499,6 +539,7 @@
 
   /**
    * Pushes a new `value` into current vector.
+   * @memberof Vector
    * @param {Number} value
    * @returns {Vector} `this`
    **/
@@ -508,6 +549,7 @@
 
   /**
    * Maps a function `callback` to all elements of current vector.
+   * @memberof Vector
    * @param {Function} callback
    * @returns {Vector} `this`
    **/
@@ -524,6 +566,7 @@
   /**
    * Functional version of for-looping the vector, is equivalent
    * to `Array.prototype.forEach`.
+   * @memberof Vector
    * @param {Function} callback
    * @returns {Vector} `this`
    **/
@@ -537,6 +580,7 @@
 
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
+   * @memberof Vector
    * @param {Function} callback
    * @param {Number} initialValue
    * @returns {Number} result of reduction
@@ -556,6 +600,7 @@
 
   /**
    * Converts current vector into a readable formatted string.
+   * @memberof Vector
    * @returns {String} a string of the vector's contents
    **/
   Vector.prototype.toString = function () {
@@ -571,6 +616,7 @@
 
   /**
    * Converts current vector into a JavaScript array.
+   * @memberof Vector
    * @returns {Array} an array containing all elements of current vector
    **/
   Vector.prototype.toArray = function () {
