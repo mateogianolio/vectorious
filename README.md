@@ -32,7 +32,13 @@ Will use your local BLAS copy (if any). Some notes for different operating syste
 Download a [**release**](https://github.com/mateogianolio/vectorious/releases) and use it like this:
 
 ```html
-<script src="vectorious-4.x.x.min.js"></script>
+<script src="vectorious.min.js"></script>
+```
+
+Or if you prefer to use a CDN:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/4.8.1/vectorious.min.js"></script>
 ```
 
 ```html
@@ -74,6 +80,8 @@ Internal benchmarks are located in the wiki section of this repository.
 [**Go to wiki.**](https://github.com/mateogianolio/vectorious/wiki)
 
 #### Compared to other libraries
+
+> Note: I'm in the process of creating better benchmarks and plots. Until then, below you'll find a simple comparison between vectorious and three other popular linear algebra libraries.
 
 The following benchmarks compare **Vectorious 4.1.0** with three popular matrix/vector libraries:
 
