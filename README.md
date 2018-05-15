@@ -8,6 +8,8 @@
 
 ### Usage
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mateogianolio/vectorious.svg)](https://greenkeeper.io/)
+
 ##### In node.js
 
 ```bash
