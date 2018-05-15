@@ -790,6 +790,17 @@
   };
 
   /**
+   * Check if `i` and `j` is within the bounds for current matrix.
+   * @memberof Matrix
+   * @param {Number} i
+   * @param {Number} j
+   **/
+  Matrix.prototype.check = function (i, j) {  
+    if (Number.isNaN(i) || Number.isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+      throw new Error('index out of bounds');
+  }
+
+  /**
    * Gets the value of the element in row `i`, column `j` of current matrix
    * @memberof Matrix
    * @param {Number} i
@@ -797,9 +808,7 @@
    * @returns {Number} the element at row `i`, column `j` of current matrix
    **/
   Matrix.prototype.get = function (i, j) {
-    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
-      throw new Error('index out of bounds');
-
+    this.check(i, j);
     return this.data[i * this.shape[1] + j];
   };
 
@@ -812,9 +821,7 @@
    * @returns {Matrix} `this`
    **/
   Matrix.prototype.set = function (i, j, value) {
-    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
-      throw new Error('index out of bounds');
-
+    this.check(i, j);
     this.data[i * this.shape[1] + j] = value;
     return this;
   };
