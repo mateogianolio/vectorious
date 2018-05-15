@@ -6,7 +6,6 @@
   "scripts": {
     "test": "mocha",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
-    "coverage": "istanbul cover _mocha -- -R spec",
     "docs": "jsdoc -c doc.json"
   },
   "repository": {

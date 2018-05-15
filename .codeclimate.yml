@@ -10,7 +10,7 @@ engines:
         enabled: false
 ratings:
   paths:
-  - test/**
   - "**.js"
 exclude_paths:
+  - test/**
   - dist/**
