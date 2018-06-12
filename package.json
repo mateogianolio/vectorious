@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
-    "docs": "jsdoc -c doc.json"
+    "docs": "jsdoc -c doc.json",
+    "build": "gulp clean && gulp build"
   },
   "repository": {
     "type": "git",
@@ -33,9 +34,15 @@
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
     "benchmark": "^2.1.0",
+    "browserify": "^16.2.2",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^3.0.0",
     "jsdoc": "^3.4.3",
     "minami": "^1.1.1",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
     "nblas": "^1.2.0"

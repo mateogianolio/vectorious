@@ -1,14 +1,12 @@
 ![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.gif)
 
-![version](https://img.shields.io/npm/v/vectorious.svg?style=flat&label=version) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat)
-![climate](https://img.shields.io/codeclimate/github/mateogianolio/vectorious.svg?style=flat&label=climate) ![coverage](https://img.shields.io/codeclimate/coverage/github/mateogianolio/vectorious.svg?style=flat&label=coverage)
-[![CDNJS](https://img.shields.io/cdnjs/v/vectorious.svg)](https://cdnjs.com/libraries/vectorious)
+![version](https://img.shields.io/npm/v/vectorious.svg?style=flat&label=version) [![CDNJS](https://img.shields.io/cdnjs/v/vectorious.svg)](https://cdnjs.com/libraries/vectorious) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat)
+![coverage](https://img.shields.io/codeclimate/coverage/mateogianolio/vectorious.svg?style=flat&label=climate) ![technical debt](https://img.shields.io/codeclimate/tech-debt/mateogianolio/vectorious.svg?style=flat&label=coverage)
+ [![greenkeeper](https://badges.greenkeeper.io/mateogianolio/vectorious.svg)](https://greenkeeper.io/)
 
 > A high performance linear algebra library, written in JavaScript and optimized with C++ bindings to [BLAS](http://www.netlib.org/blas/).
 
 ### Usage
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/mateogianolio/vectorious.svg)](https://greenkeeper.io/)
 
 ##### In node.js
 
