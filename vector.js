@@ -425,7 +425,7 @@
    * @param {Number} index
    **/
   Vector.prototype.check = function (index) {  
-    if (index < 0 || index > this.length - 1)
+    if (Number.isNaN(index) || index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
   }
 
