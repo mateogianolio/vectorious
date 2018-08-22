@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "4.8.2",
+  "version": "4.8.3",
   "description": "A high performance linear algebra library.",
   "main": "vectorious.js",
   "scripts": {
@@ -49,7 +49,7 @@
     "nblas": "^1.2.0"
   },
   "dependencies": {
-    "opencollective": "^1.0.3"
+    "opencollective-postinstall": "^2.0.0"
   },
   "collective": {
     "type": "opencollective",
