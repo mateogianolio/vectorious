@@ -1,13 +1,14 @@
 {
   "name": "vectorious",
-  "version": "4.8.2",
+  "version": "4.8.3",
   "description": "A high performance linear algebra library.",
   "main": "vectorious.js",
   "scripts": {
     "test": "mocha",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
     "docs": "jsdoc -c doc.json",
-    "build": "gulp clean && gulp build"
+    "build": "gulp clean && gulp build",
+    "postinstall": "opencollective-postinstall"
   },
   "repository": {
     "type": "git",
@@ -46,5 +47,12 @@
   },
   "optionalDependencies": {
     "nblas": "^1.2.0"
+  },
+  "dependencies": {
+    "opencollective-postinstall": "^2.0.0"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/vectorious"
   }
 }
