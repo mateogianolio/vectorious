@@ -124,7 +124,7 @@
    * @returns {Vector} this
    **/
   Vector.prototype.scale = function (scalar) {
-    return this.each(function(value, i, data){
+    return this.each(function(_, i, data) {
       data[i] *= scalar;
     });
   };
@@ -183,17 +183,24 @@
   Vector.fill = function (count, value, type) {
     if (count < 0)
       throw new Error('invalid size');
-    else if (count === 0)
+    if (count === 0)
       return new Vector();
-   
-    value = value || +0.0;
-    type = type || Float64Array;
+    
+    if (value == null) {
+      value = 0.0;
+    }
+    if (type == null) {
+      type = Float64Array;
+    }
     var data = new type(count),
-        isValueFn = typeof value === 'function',
         i;
 
-    for (i = 0; i < count; i++)
-      data[i] = isValueFn ? value(i) : value;
+    if (typeof value === 'function')
+      for (i = 0; i < count; i++)
+        data[i] = value(i);
+    else
+      for (i = 0; i < count; i++)
+        data[i] = value;
 
     return new Vector(data);
   };
@@ -207,7 +214,7 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.zeros = function (count, type) {
-    return Vector.fill(count, +0.0, type);
+    return Vector.fill(count, 0.0, type);
   };
 
   /**
@@ -234,8 +241,12 @@
    * @returns {Vector} a new vector of the specified size and `type`
    **/
   Vector.random = function (count, deviation, mean, type) {
-    deviation = deviation || 1;
-    mean = mean || 0;
+    if (deviation == null) {
+      deviation = 1;
+    }
+    if (mean == null) {
+      mean = 0;
+    }
     return Vector.fill(count, function() {
       return deviation * Math.random() + mean;
     }, type);
@@ -254,7 +265,7 @@
    * @returns {Vector} a new vector containing the specified range of the specified `type`
    **/
   Vector.range = function () {
-    var args = [].slice.call(arguments, 0),
+    var args = [].slice.call(arguments),
         backwards = false,
         start, step, end;
 
@@ -262,7 +273,7 @@
     if (typeof args[args.length - 1] === 'function')
       type = args.pop();
 
-    switch(args.length) {
+    switch (args.length) {
       case 2:
         end = args.pop();
         step = 1;
@@ -288,9 +299,14 @@
       throw new Error('invalid range');
 
     var data = new type(Math.ceil((end - start) / step)),
-        i, j;
-    for (i = start, j = 0; i < end; i += step, j++)
-      data[j] = backwards ? end - i + start : i;
+        i = start,
+        j = 0;
+    if (backwards)
+      for (; i < end; i += step, j++)
+        data[j] = end - i + start;
+    else
+      for (; i < end; i += step, j++)
+        data[j] = i;
 
     return new Vector(data);
   };
@@ -387,14 +403,10 @@
     if (this.length !== vector.length)
       return false;
 
-    var a = this.data,
-        b = vector.data,
-        length = this.length,
-        i = 0;
-
-    while (i < length && a[i] === b[i])
+    var i = 0;
+    while (i < this.length && this.data[i] === vector.data[i])
       i++;
-    return i === length;
+    return i === this.length;
   };
 
   /**
@@ -404,7 +416,7 @@
    **/
   Vector.prototype.min = function () {
     return this.reduce(function(acc, item) {
-      return Math.min(acc, item);
+      return acc < item ? acc : item;
     }, Number.POSITIVE_INFINITY);
   };
 
@@ -415,7 +427,7 @@
    **/
   Vector.prototype.max = function () {
     return this.reduce(function(acc, item) {
-      return Math.max(acc, item);
+      return acc < item ? item : acc;
     }, Number.NEGATIVE_INFINITY);
   };
 
@@ -425,7 +437,7 @@
    * @param {Number} index
    **/
   Vector.prototype.check = function (index) {  
-    if (Number.isNaN(index) || index < 0 || index > this.length - 1)
+    if (!Number.isFinite(index) || index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
   }
 
@@ -591,7 +603,7 @@
       throw new Error('Reduce of empty matrix with no initial value.');
 
     var i = 0,
-        value = initialValue || this.data[i++];
+        value = initialValue != null ? initialValue : this.data[i++];
 
     for (; i < l; i++)
       value = callback.call(this, value, this.data[i], i, this.data);
@@ -605,9 +617,12 @@
    **/
   Vector.prototype.toString = function () {
     var result = ['['],
-        i;
-    for (i = 0; i < this.length; i++)
-      result.push(i > 0 ? ', ' + this.data[i] : this.data[i]);
+        i = 0;
+    
+    if (i < this.length)
+      result.push(this.data[i++]);
+    while (i < this.length)
+      result.push(', ' + this.data[i++]);
     
     result.push(']');
 
@@ -623,7 +638,7 @@
     if (!this.data)
       return [];
 
-    return Array.prototype.slice.call(this.data);
+    return [].slice.call(this.data);
   };
 
   module.exports = Vector;
