@@ -1,18 +1,15 @@
-(function () {
-  'use strict';
+var Vector = require('./vector');
 
-  /**
-   * @class Matrix
-   */
-
-  var Vector = require('./vector');
-
+/**
+ * @class Matrix
+ */
+class Matrix {
   /**
    * @method constructor
    * @memberof Matrix
    * @desc Creates a `Matrix` from the supplied arguments.
    **/
-  function Matrix (data, options) {
+  constructor(data, options) {
     this.type = Float64Array;
     this.shape = [];
 
@@ -33,7 +30,7 @@
     }
   }
   
-  Matrix.fromTypedArray = function (data, shape) {
+  static fromTypedArray(data, shape) {
     if (data.length !== shape[0] * shape[1])
       throw new Error("Shape does not match typed array dimensions.");
 
@@ -43,9 +40,9 @@
     self.type = data.constructor;
 
     return self;
-  };
+  }
 
-  Matrix.fromArray = function (array) {
+  static fromArray(array) {
     var r = array.length, // number of rows
         c = array[0].length,  // number of columns
         data = new Float64Array(r * c);
@@ -56,9 +53,9 @@
         data[i * c + j] = array[i][j];
 
     return Matrix.fromTypedArray(data, [r, c]);
-  };
+  }
   
-  Matrix.fromMatrix = function (matrix) {
+  static fromMatrix(matrix) {
     var self = Object.create(Matrix.prototype);
     self.shape = [matrix.shape[0], matrix.shape[1]];
     self.data = new matrix.type(matrix.data);
@@ -67,7 +64,7 @@
     return self;
   }
   
-  Matrix.fromVector = function (vector, shape) {
+  static fromVector(vector, shape) {
     if (shape && vector.length !== shape[0] * shape[1])
       throw new Error("Shape does not match vector dimensions.");
 
@@ -79,7 +76,7 @@
     return self;
   }
 
-  Matrix.fromShape = function (shape) {
+  static fromShape(shape) {
     var r = shape[0], // number of rows
         c = shape[1]; // number of columns
 
@@ -94,9 +91,9 @@
    * @param {Function} op
    * @returns {Matrix} a new matrix containing the results of binary operation of `a` and `b`
    **/
-  Matrix.binOp = function(a, b, op) {
+  static binOp(a, b, op) {
     return new Matrix(a).binOp(b, op);
-  };
+  }
 
   /**
    * Perform binary operation on `matrix` to the current matrix.
@@ -105,7 +102,7 @@
    * @param {Function} op
    * @returns {Matrix} this
    **/
-  Matrix.prototype.binOp = function(matrix, op) {
+  binOp(matrix, op) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
         size = r * c,
@@ -120,7 +117,7 @@
       d1[i] = op(d1[i], d2[i], i);
 
     return this;
-  };
+  }
 
   /**
    * Static method. Adds two matrices `a` and `b` together.
@@ -129,9 +126,9 @@
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the sum of `a` and `b`
    **/
-  Matrix.add = function (a, b) {
+  static add(a, b) {
     return new Matrix(a).add(b);
-  };
+  }
 
   /**
    * Adds `matrix` to current matrix.
@@ -140,9 +137,9 @@
    * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.add = function (matrix) {
+  add(matrix) {
     return this.binOp(matrix, function(a, b) { return a + b });
-  };
+  }
 
   /**
    * Static method. Subtracts the matrix `b` from matrix `a`.
@@ -151,9 +148,9 @@
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the difference between `a` and `b`
    **/
-  Matrix.subtract = function (a, b) {
+  static subtract(a, b) {
     return new Matrix(a).subtract(b);
-  };
+  }
 
   /**
    * Subtracts `matrix` from current matrix.
@@ -162,9 +159,9 @@
    * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.subtract = function (matrix) {
+  subtract(matrix) {
     return this.binOp(matrix, function(a, b) { return a - b });
-  };
+  }
 
   /**
    * Static method. Hadamard product of matrices
@@ -173,9 +170,9 @@
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the hadamard product
    **/
-  Matrix.product = function (a, b) {
+  static product(a, b) {
     return new Matrix(a).product(b);
-  };
+  }
 
   /**
    * Hadamard product of matrices
@@ -184,9 +181,9 @@
    * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.product = function (matrix) {
+  product(matrix) {
     return this.binOp(matrix, function(a, b) { return a * b });
-  };
+  }
 
   /**
    * Static method. Multiplies all elements of a matrix `a` with a specified `scalar`.
@@ -195,9 +192,9 @@
    * @param {Number} scalar
    * @returns {Matrix} a new scaled matrix
    **/
-  Matrix.scale = function (a, scalar) {
+  static scale(a, scalar) {
     return new Matrix(a).scale(scalar);
-  };
+  }
 
   /**
    * Multiplies all elements of current matrix with a specified `scalar`.
@@ -205,7 +202,7 @@
    * @param {Number} scalar
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.scale = function (scalar) {
+  scale(scalar) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
         size = r * c,
@@ -216,7 +213,7 @@
       d1[i] *= scalar;
 
     return this;
-  };
+  }
 
   /**
    * Static method. Creates a `r x c` matrix containing optional 'value' (default 0), takes
@@ -228,7 +225,7 @@
    * @param {TypedArray} type
    * @returns {Vector} a new matrix of the specified size and `type`
    **/
-  Matrix.fill = function (r, c, value, type) {
+  static fill(r, c, value, type) {
     if (r <= 0 || c <= 0)
       throw new Error('invalid size');
 
@@ -245,7 +242,7 @@
         data[k] = isValueFn ? value(i, j) : value;
 
     return Matrix.fromTypedArray(data, [r, c]);
-  };
+  }
 
   /**
    * Static method. Creates an `r x c` matrix containing zeros (`0`), takes an
@@ -256,9 +253,9 @@
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.zeros = function (r, c, type) {
+  static zeros(r, c, type) {
     return Matrix.fill(r, c, +0.0, type);
-  };
+  }
 
   /**
    * Static method. Creates an `r x c` matrix containing ones (`1`), takes an
@@ -269,9 +266,9 @@
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.ones = function (r, c, type) {
+  static ones(r, c, type) {
     return Matrix.fill(r, c, +1.0, type);
-  };
+  }
 
   /**
    * Static method. Creates an `r x c` matrix containing random values
@@ -285,13 +282,13 @@
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  Matrix.random = function (r, c, deviation, mean, type) {
+  static random(r, c, deviation, mean, type) {
     deviation = deviation || 1;
     mean = mean || 0;
     return Matrix.fill(r, c, function() {
       return deviation * Math.random() + mean;
     }, type);
-  };
+  }
 
   /**
    * Static method. Multiplies two matrices `a` and `b` of matching dimensions.
@@ -300,9 +297,9 @@
    * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
    **/
-  Matrix.multiply = function (a, b) {
+  static multiply(a, b) {
     return a.multiply(b);
-  };
+  }
 
   /**
    * Multiplies two matrices `a` and `b` of matching dimensions.
@@ -311,7 +308,7 @@
    * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
    **/
-  Matrix.prototype.multiply = function (matrix) {
+  multiply(matrix) {
     var r1 = this.shape[0],   // rows in this matrix
         c1 = this.shape[1],   // columns in this matrix
         r2 = matrix.shape[0], // rows in multiplicand
@@ -336,7 +333,18 @@
     }
 
     return Matrix.fromTypedArray(data, [r1, c2]);
-  };
+  }
+
+  /**
+   * Getter for transpose.
+   * @property T
+   * @name Matrix#T
+   * @memberof Matrix
+   * @returns {Matrix} `this`
+   **/
+  get T() {
+    return this.transpose();
+  }
 
   /**
    * Transposes a matrix (mirror across the diagonal).
@@ -345,11 +353,7 @@
    * @memberof Matrix
    * @returns {Matrix} `this`
    **/
-  Object.defineProperty(Matrix.prototype, 'T', {
-    get: function() { return this.transpose(); }
-  });
-
-  Matrix.prototype.transpose = function () {
+  transpose() {
     var r = this.shape[0],
         c = this.shape[1],
         i, j;
@@ -360,7 +364,7 @@
         data[j * r + i] = this.data[i * c + j];
 
     return Matrix.fromTypedArray(data, [c, r]);
-  };
+  }
 
   /**
    * Determines the inverse of any invertible square matrix using
@@ -368,7 +372,7 @@
    * @memberof Matrix
    * @returns {Matrix} the inverse of the matrix
    **/
-  Matrix.prototype.inverse = function () {
+  inverse() {
     var l = this.shape[0],
         m = this.shape[1];
 
@@ -396,14 +400,14 @@
       throw new Error('matrix is not invertible');
 
     return right;
-  };
+  }
 
   /**
    * Performs Gaussian elimination on a matrix.
    * @memberof Matrix
    * @returns {Matrix} the matrix in reduced row echelon form
    **/
-  Matrix.prototype.gauss = function () {
+  gauss() {
     var l = this.shape[0],
         m = this.shape[1];
 
@@ -462,7 +466,7 @@
     }
 
     return copy;
-  };
+  }
 
   /**
    * Performs full LU decomposition on a matrix.
@@ -470,7 +474,7 @@
    * @returns {Array} a triple (3-tuple) of the lower triangular resultant matrix `L`, the upper
    * triangular resultant matrix `U` and the pivot array `ipiv`
    **/
-  Matrix.prototype.lu = function () {
+  lu() {
     var r = this.shape[0],
         c = this.shape[1],
         plu = Matrix.plu(this),
@@ -489,7 +493,7 @@
         upper.data[i * c + j] = 0;
 
     return [lower, upper, ipiv];
-  };
+  }
 
   /**
    * Static method. Performs LU factorization on current matrix.
@@ -497,9 +501,9 @@
    * @returns {Array} an array with a new instance of the current matrix LU-
    * factorized and the corresponding pivot Int32Array
    **/
-  Matrix.plu = function(matrix) {
+  static plu(matrix) {
     return new Matrix(matrix).plu();
-  };
+  }
 
   /**
    * Performs LU factorization on current matrix.
@@ -507,7 +511,7 @@
    * @returns {Array} an array with the current matrix LU-factorized and the
    * corresponding pivot Int32Array
    **/
-  Matrix.prototype.plu = function () {
+  plu() {
     var data = this.data,
         n = this.shape[0],
         ipiv = new Int32Array(n),
@@ -547,7 +551,7 @@
     }
 
     return [this, ipiv];
-  };
+  }
 
   /**
    * Solves an LU factorized matrix with the supplied right hand side(s)
@@ -556,7 +560,7 @@
    * @param {Int32Array} array of pivoted row indices
    * @returns {Matrix} rhs replaced by the solution
    **/
-  Matrix.prototype.lusolve = function (rhs, ipiv) {
+  lusolve(rhs, ipiv) {
     var lu = this.data,
         n = rhs.shape[0],
         nrhs = rhs.shape[1],
@@ -583,7 +587,7 @@
     }
 
     return rhs;
-  };
+  }
 
   /**
    * Solves AX = B using LU factorization, where A is the current matrix and
@@ -593,13 +597,13 @@
    * @param {Int32Array} array of pivoted row indices
    * @returns {Matrix} a new matrix containing the solutions of the system
    **/
-  Matrix.prototype.solve = function (rhs) {
+  solve(rhs) {
     var plu = Matrix.plu(this),
         lu = plu[0],
         ipiv = plu[1];
 
     return lu.lusolve(new Matrix(rhs), ipiv);
-  };
+  }
 
   /**
    * Static method. Augments two matrices `a` and `b` of matching dimensions
@@ -609,9 +613,9 @@
    * @param {Matrix} b
    * @returns {Matrix} the resultant matrix of `b` augmented to `a`
    **/
-  Matrix.augment = function (a, b) {
+  static augment(a, b) {
     return new Matrix(a).augment(b);
-  };
+  }
 
   /**
    * Augments `matrix` with current matrix.
@@ -619,7 +623,7 @@
    * @param {Matrix} matrix
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.augment = function (matrix) {
+  augment(matrix) {
     if (matrix.shape.length === 0)
      return this;
 
@@ -649,7 +653,7 @@
     this.data = data;
 
     return this;
-  };
+  }
 
   /**
    * Static method. Creates an identity matrix of `size`, takes an optional `type` argument
@@ -659,11 +663,11 @@
    * @param {TypedArray} type
    * @returns {Matrix} an identity matrix of the specified `size` and `type`
    **/
-  Matrix.identity = function (size, type) {
+  static identity(size, type) {
     return Matrix.fill(size, size, function (i, j) {
       return i === j ? +1.0 : +0.0;
     })
-  };
+  }
 
   /**
    * Static method. Creates a magic square matrix of `size`, takes an optional `type` argument
@@ -673,7 +677,7 @@
    * @param {Number} type
    * @returns {Matrix} a magic square matrix of the specified `size` and `type`
    **/
-  Matrix.magic = function (size, type) {
+  static magic(size, type) {
     if (size < 0)
       throw new Error('invalid size');
 
@@ -690,14 +694,14 @@
           f(size, size - j - 1, i) * size + f(size, j, i) + 1;
 
     return Matrix.fromTypedArray(data, [size, size]);
-  };
+  }
 
   /**
    * Gets the diagonal of a matrix.
    * @memberof Matrix
    * @returns {Vector} the diagonal of the matrix as a vector
    **/
-  Matrix.prototype.diag = function () {
+  diag() {
     var r = this.shape[0],
         c = this.shape[1],
         data = new this.type(Math.min(r, c)),
@@ -707,14 +711,14 @@
       data[i] = this.data[i * c + i];
 
     return new Vector(data);
-  };
+  }
 
   /**
    * Gets the determinant of any square matrix using LU factorization.
    * @memberof Matrix
    * @returns {Number} the determinant of the matrix
    **/
-  Matrix.prototype.determinant = function () {
+  determinant() {
     if (this.shape[0] !== this.shape[1])
       throw new Error('matrix is not square');
 
@@ -736,14 +740,14 @@
       product *= lu.data[i * c + i];
 
     return sign * product;
-  };
+  }
 
   /**
    * Gets the trace of the matrix (the sum of all diagonal elements).
    * @memberof Matrix
    * @returns {Number} the trace of the matrix
    **/
-  Matrix.prototype.trace = function () {
+  trace() {
     var diagonal = this.diag(),
         result = 0,
         i, l;
@@ -752,7 +756,7 @@
       result += diagonal.get(i);
 
     return result;
-  };
+  }
 
   /**
    * Static method. Checks the equality of two matrices `a` and `b`.
@@ -761,9 +765,9 @@
    * @param {Matrix} b
    * @returns {Boolean} `true` if equal, `false` otherwise
    **/
-  Matrix.equals = function (a, b) {
+  static equals(a, b) {
     return a.equals(b);
-  };
+  }
 
   /**
    * Checks the equality of `matrix` and current matrix.
@@ -771,7 +775,7 @@
    * @param {Matrix} matrix
    * @returns {Boolean} `true` if equal, `false` otherwise
    **/
-  Matrix.prototype.equals = function (matrix) {
+  equals(matrix) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -787,7 +791,7 @@
         return false;
 
     return true;
-  };
+  }
 
   /**
    * Check if `i` and `j` is within the bounds for current matrix.
@@ -795,7 +799,7 @@
    * @param {Number} i
    * @param {Number} j
    **/
-  Matrix.prototype.check = function (i, j) {  
+  check(i, j) {  
     if (Number.isNaN(i) || Number.isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
   }
@@ -807,10 +811,10 @@
    * @param {Number} j
    * @returns {Number} the element at row `i`, column `j` of current matrix
    **/
-  Matrix.prototype.get = function (i, j) {
+  get(i, j) {
     this.check(i, j);
     return this.data[i * this.shape[1] + j];
-  };
+  }
 
   /**
    * Sets the element at row `i`, column `j` to value
@@ -820,11 +824,11 @@
    * @param {Number} value
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.set = function (i, j, value) {
+  set(i, j, value) {
     this.check(i, j);
     this.data[i * this.shape[1] + j] = value;
     return this;
-  };
+  }
 
   /**
    * Swaps two rows `i` and `j` in a matrix
@@ -833,7 +837,7 @@
    * @param {Number} j
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.swap = function (i, j) {
+  swap(i, j) {
     if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[0] - 1)
       throw new Error('index out of bounds');
 
@@ -847,7 +851,7 @@
     this.data.set(copy, j * c);
 
     return this;
-  };
+  }
 
   /**
    * Maps a function `callback` to all elements of a copy of current matrix.
@@ -855,7 +859,7 @@
    * @param {Function} callback
    * @returns {Matrix} the resultant mapped matrix
    **/
-  Matrix.prototype.map = function (callback) {
+  map(callback) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -867,7 +871,7 @@
       data[i] = callback.call(mapped, data[i], i / c | 0, i % c, data);
 
     return mapped;
-  };
+  }
 
   /**
    * Functional version of for-looping the elements in a matrix, is
@@ -876,7 +880,7 @@
    * @param {Function} callback
    * @returns {Matrix} `this`
    **/
-  Matrix.prototype.each = function (callback) {
+  each(callback) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -886,7 +890,7 @@
       callback.call(this, this.data[i], i / c | 0, i % c);
 
     return this;
-  };
+  }
 
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
@@ -895,7 +899,7 @@
    * @param {Number} initialValue
    * @returns {Number} result of reduction
    **/
-  Matrix.prototype.reduce = function (callback, initialValue) {
+  reduce(callback, initialValue) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c;
@@ -909,14 +913,14 @@
     for (; i < size; i++)
       value = callback.call(this, value, this.data[i], i / c | 0, i % c);
     return value;
-  };
+  }
 
   /**
    * Finds the rank of the matrix using row echelon form
    * @memberof Matrix
    * @returns {Number} rank
    **/
-  Matrix.prototype.rank = function () {
+  rank() {
     var vectors = this
       .toArray()
       .map(function(r) {
@@ -970,18 +974,18 @@
 
     // should be rank
     return counter;
-  };
+  }
 
-  Matrix.rank = function (matrix) {
+  static rank(matrix) {
     return new Matrix(matrix).rank();
-  };
+  }
 
   /**
    * Converts current matrix into a readable formatted string
    * @memberof Matrix
    * @returns {String} a string of the matrix' contents
    **/
-  Matrix.prototype.toString = function () {
+  toString() {
     var result = [],
         r = this.shape[0],
         c = this.shape[1],
@@ -992,14 +996,14 @@
       result.push('[' + this.data.subarray(i * c, (i + 1) * c ).toString() + ']');
 
     return '[' + result.join(', \n') + ']';
-  };
+  }
 
   /**
    * Converts current matrix into a two-dimensional array
    * @memberof Matrix
    * @returns {Array} an array of the matrix' contents
    **/
-  Matrix.prototype.toArray = function () {
+  toArray() {
     var result = [],
         r = this.shape[0],
         c = this.shape[1],
@@ -1010,10 +1014,10 @@
       result.push(Array.prototype.slice.call(this.data.subarray(i * c, (i + 1) * c)));
 
     return result;
-  };
+  }
+}
 
-  module.exports = Matrix;
-  try {
-    window.Matrix = Matrix;
-  } catch (e) {}
-}());
+module.exports = Matrix;
+try {
+  window.Matrix = Matrix;
+} catch (e) {}

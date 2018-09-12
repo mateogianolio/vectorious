@@ -306,7 +306,7 @@
         var b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
         var c = new Matrix([[1], [2]]);
         var d = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
-        var e = new Matrix.random(20, 20);
+        var e = Matrix.random(20, 20);
 
         it('should work as expected', function() {
 
