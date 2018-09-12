@@ -18,7 +18,9 @@
       'matrix.js'
     ];
 
-    return browserify({ entries: files }).bundle()
+    return browserify({ entries: files })
+      .transform('babelify', { presets: ['@babel/preset-env'] })
+      .bundle()
       .pipe(source('vectorious.min.js'))
       .pipe(streamify(uglify()))
       .pipe(gulp.dest('./dist'));

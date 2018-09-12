@@ -34,6 +34,9 @@
   },
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "babelify": "^10.0.0",
     "benchmark": "^2.1.0",
     "browserify": "^16.2.2",
     "del": "^3.0.0",
