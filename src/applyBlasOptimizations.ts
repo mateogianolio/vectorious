@@ -1,4 +1,4 @@
-module.exports = function(Vector, Matrix, nblas) {
+export default function (Vector, Matrix, nblas) {
   'use strict';
   
   // BLAS optimizations

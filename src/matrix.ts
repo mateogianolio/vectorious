@@ -1,17 +1,21 @@
-var Vector = require('./vector');
+import Vector from './vector';
 
 /**
  * @class Matrix
  */
-class Matrix {
+export default class Matrix {
+  type: any
+  shape: [number, number]
+  data: any
+
   /**
    * @method constructor
    * @memberof Matrix
    * @desc Creates a `Matrix` from the supplied arguments.
    **/
-  constructor(data, options) {
+  constructor(data?, options?) {
     this.type = Float64Array;
-    this.shape = [];
+    this.shape = [0, 0];
 
     if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
       return Matrix.fromTypedArray(data, options && options.shape);
@@ -64,7 +68,7 @@ class Matrix {
     return self;
   }
   
-  static fromVector(vector, shape) {
+  static fromVector(vector, shape?) {
     if (shape && vector.length !== shape[0] * shape[1])
       throw new Error("Shape does not match vector dimensions.");
 
@@ -253,7 +257,7 @@ class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  static zeros(r, c, type) {
+  static zeros(r, c, type?) {
     return Matrix.fill(r, c, +0.0, type);
   }
 
@@ -266,7 +270,7 @@ class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  static ones(r, c, type) {
+  static ones(r, c, type?) {
     return Matrix.fill(r, c, +1.0, type);
   }
 
@@ -282,7 +286,7 @@ class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  static random(r, c, deviation, mean, type) {
+  static random(r, c, deviation?, mean?, type?) {
     deviation = deviation || 1;
     mean = mean || 0;
     return Matrix.fill(r, c, function() {
@@ -419,7 +423,7 @@ class Matrix {
 
     for (i = 0; i < l; i++) {
       if (m <= lead)
-        return new Error('matrix is singular');
+        throw new Error('matrix is singular');
 
       j = i;
       while (copy.data[j * m + lead] === 0) {
@@ -429,7 +433,7 @@ class Matrix {
           lead++;
 
           if (m === lead)
-            return new Error('matrix is singular');
+            throw new Error('matrix is singular');
         }
       }
 
@@ -501,7 +505,7 @@ class Matrix {
    * @returns {Array} an array with a new instance of the current matrix LU-
    * factorized and the corresponding pivot Int32Array
    **/
-  static plu(matrix) {
+  static plu(matrix): [Matrix, Int32Array] {
     return new Matrix(matrix).plu();
   }
 
@@ -511,7 +515,7 @@ class Matrix {
    * @returns {Array} an array with the current matrix LU-factorized and the
    * corresponding pivot Int32Array
    **/
-  plu() {
+  plu(): [Matrix, Int32Array] {
     var data = this.data,
         n = this.shape[0],
         ipiv = new Int32Array(n),
@@ -624,9 +628,6 @@ class Matrix {
    * @returns {Matrix} `this`
    **/
   augment(matrix) {
-    if (matrix.shape.length === 0)
-     return this;
-
     var r1 = this.shape[0],
         c1 = this.shape[1],
         r2 = matrix.shape[0],
@@ -634,6 +635,9 @@ class Matrix {
         d1 = this.data,
         d2 = matrix.data,
         i, j;
+    
+    if (r2 === 0 && c2 === 0)
+      return this;
 
     if (r1 !== r2)
       throw new Error("Rows do not match.");
@@ -663,10 +667,10 @@ class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} an identity matrix of the specified `size` and `type`
    **/
-  static identity(size, type) {
+  static identity(size, type?) {
     return Matrix.fill(size, size, function (i, j) {
       return i === j ? +1.0 : +0.0;
-    })
+    }, type);
   }
 
   /**
@@ -677,7 +681,7 @@ class Matrix {
    * @param {Number} type
    * @returns {Matrix} a magic square matrix of the specified `size` and `type`
    **/
-  static magic(size, type) {
+  static magic(size, type?) {
     if (size < 0)
       throw new Error('invalid size');
 
@@ -723,8 +727,8 @@ class Matrix {
       throw new Error('matrix is not square');
 
     var plu = Matrix.plu(this),
-        ipiv = plu.pop(),
-        lu = plu.pop(),
+        lu = plu[0],
+        ipiv = plu[1],
         r = this.shape[0],
         c = this.shape[1],
         product = 1,
@@ -800,7 +804,7 @@ class Matrix {
    * @param {Number} j
    **/
   check(i, j) {  
-    if (Number.isNaN(i) || Number.isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+    if (isNaN(i) || isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
   }
 
@@ -899,7 +903,7 @@ class Matrix {
    * @param {Number} initialValue
    * @returns {Number} result of reduction
    **/
-  reduce(callback, initialValue) {
+  reduce(callback, initialValue?) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c;
@@ -1017,7 +1021,6 @@ class Matrix {
   }
 }
 
-module.exports = Matrix;
 try {
-  window.Matrix = Matrix;
-} catch (e) {}
+  (<any>window).Matrix = Matrix;
+} catch (error) {}

@@ -2,6 +2,7 @@
   'use strict';
 
   var gulp = require('gulp'),
+      tsify = require('tsify'),
       streamify = require('gulp-streamify'),
       uglify = require('gulp-uglify'),
       browserify = require('browserify'),
@@ -14,11 +15,13 @@
 
   gulp.task('build', function () {
     var files = [
-      'vector.js',
-      'matrix.js'
+      'src/vector.ts',
+      'src/matrix.ts'
     ];
 
-    return browserify({ entries: files }).bundle()
+    return browserify({ entries: files })
+      .plugin(tsify)
+      .bundle()
       .pipe(source('vectorious.min.js'))
       .pipe(streamify(uglify()))
       .pipe(gulp.dest('./dist'));

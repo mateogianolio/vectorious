@@ -1,13 +1,17 @@
 /**
  * @class Vector
  **/
-class Vector {
+export default class Vector {
+  type: any
+  length: number
+  data: any
+
   /**
    * @method constructor
    * @memberof Vector
    * @desc Creates a two-dimensional `Vector` from the supplied arguments.
    **/
-  constructor(data) {
+  constructor(data?) {
     this.type = Float64Array;
     this.length = 0;
 
@@ -177,7 +181,7 @@ class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static fill(count, value, type) {
+  static fill(count, value, type?) {
     if (count < 0)
       throw new Error('invalid size');
     if (count === 0)
@@ -210,7 +214,7 @@ class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static zeros(count, type) {
+  static zeros(count, type?) {
     return Vector.fill(count, 0.0, type);
   }
 
@@ -222,7 +226,7 @@ class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static ones(count, type) {
+  static ones(count, type?) {
     return Vector.fill(count, 1, type);
   }
 
@@ -237,7 +241,7 @@ class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static random(count, deviation, mean, type) {
+  static random(count, deviation?, mean?, type?) {
     if (deviation == null) {
       deviation = 1;
     }
@@ -261,9 +265,8 @@ class Vector {
    * @param {Number} end
    * @returns {Vector} a new vector containing the specified range of the specified `type`
    **/
-  static range() {
-    var args = [].slice.call(arguments),
-        backwards = false,
+  static range(...args) {
+    var backwards = false,
         start, step, end;
 
     var type = Float64Array;
@@ -434,7 +437,7 @@ class Vector {
    * @param {Number} index
    **/
   check(index) {  
-    if (!Number.isFinite(index) || index < 0 || index > this.length - 1)
+    if (!isFinite(index) || index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
   }
 
@@ -479,7 +482,7 @@ class Vector {
    * @name Vector#x
    */
   set x(value) {
-    return this.set(0, value);
+    this.set(0, value);
   }
 
   /**
@@ -499,7 +502,7 @@ class Vector {
    * @name Vector#y
    */
   set y(value) {
-    return this.set(1, value);
+    this.set(1, value);
   }
 
   /**
@@ -519,7 +522,7 @@ class Vector {
    * @name Vector#z
    */
   set z(value) {
-    return this.set(2, value);
+    this.set(2, value);
   }
 
   /**
@@ -539,7 +542,7 @@ class Vector {
    * @name Vector#w
    */
   set w(value) {
-    return this.set(3, value);
+    this.set(3, value);
   }
 
   /**
@@ -632,7 +635,7 @@ class Vector {
    * @param {Number} initialValue
    * @returns {Number} result of reduction
    **/
-  reduce(callback, initialValue) {
+  reduce(callback, initialValue?) {
     var l = this.length;
     if (l === 0 && !initialValue)
       throw new Error('Reduce of empty matrix with no initial value.');
@@ -677,7 +680,6 @@ class Vector {
   }
 }
 
-module.exports = Vector;
 try {
-  window.Vector = Vector;
-} catch (e) {}
+  (<any>window).Vector = Vector;
+} catch (error) {}
