@@ -38,13 +38,14 @@
     "benchmark": "^2.1.0",
     "browserify": "^16.2.2",
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.0",
     "jsdoc": "^3.4.3",
     "minami": "^1.1.1",
     "mocha": "^5.1.1",
     "ts-node": "^7.0.1",
+    "tsify": "^4.0.0",
     "tslint": "^5.11.0",
     "typescript": "^3.0.3",
     "vinyl-source-stream": "^2.0.0"
@@ -53,8 +54,7 @@
     "nblas": "^1.2.0"
   },
   "dependencies": {
-    "opencollective-postinstall": "^2.0.0",
-    "tsify": "^4.0.0"
+    "opencollective-postinstall": "^2.0.0"
   },
   "collective": {
     "type": "opencollective",
