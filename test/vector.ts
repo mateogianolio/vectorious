@@ -1,4 +1,4 @@
-import Vector from '../src/vector';
+import Vector from '../src/Vector';
 import * as assert from 'assert';
 
 describe('Vector', function() {

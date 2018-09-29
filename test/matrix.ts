@@ -1,5 +1,5 @@
-import Matrix from '../src/matrix';
-import Vector from '../src/vector';
+import Matrix from '../src/Matrix';
+import Vector from '../src/Vector';
 import * as assert from 'assert';
 
 describe('Matrix', function() {
