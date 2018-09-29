@@ -1,4 +1,4 @@
-import { Matrix, Vector } from '../src/vectorious';
+import { Matrix } from '../src';
 import * as assert from 'assert';
 
 describe('Matrix (optimized)', function() {

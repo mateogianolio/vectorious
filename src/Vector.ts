@@ -1,4 +1,5 @@
 import './types';
+import { axpy, scal, dot, nrm2, idamax } from 'nblas';
 
 /**
  * @class Vector
@@ -85,7 +86,18 @@ export default class Vector {
    * @returns {Vector} this
    **/
   add(vector: Vector) {
-    return this.binOp(vector, (a, b) => a + b);
+    try {
+      const l1 = this.length;
+      const l2 = vector.length;
+
+      if (l1 !== l2)
+        throw new Error('sizes do not match!');
+
+      axpy(vector.data, this.data);
+      return this;
+    } catch (err) {
+      return this.binOp(vector, (a, b) => a + b);
+    }
   }
 
   /**
@@ -106,7 +118,18 @@ export default class Vector {
    * @returns {Vector} this
    **/
   subtract(vector: Vector) {
-    return this.binOp(vector, (a, b) =>  a - b);
+    try {
+      const l1 = this.length;
+      const l2 = vector.length;
+
+      if (l1 !== l2)
+        throw new Error('sizes do not match!');
+
+      axpy(vector.data, this.data, -1);
+      return this;
+    } catch (err) {
+      return this.binOp(vector, (a, b) => a - b);
+    }
   }
 
   /**
@@ -127,9 +150,14 @@ export default class Vector {
    * @returns {Vector} this
    **/
   scale(scalar: number) {
-    return this.each((_, i, data) => {
-      data[i] *= scalar;
-    });
+    try {
+      scal(this.data, scalar);
+      return this;
+    } catch (err) {
+      return this.each((_, i, data) => {
+        data[i] *= scalar;
+      });
+    }
   }
 
   /**
@@ -334,15 +362,19 @@ export default class Vector {
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
 
-    var a = this.data,
-        b = vector.data,
-        result = 0,
-        i, l;
+    try {
+      return dot(this.data, vector.data);
+    } catch (err) {
+      var a = this.data,
+          b = vector.data,
+          result = 0,
+          i, l;
 
-    for (i = 0, l = this.length; i < l; i++)
-      result += a[i] * b[i];
+      for (i = 0, l = this.length; i < l; i++)
+        result += a[i] * b[i];
 
-    return result;
+      return result;
+    }
   }
 
   /**
@@ -353,14 +385,19 @@ export default class Vector {
   magnitude() {
     if (!this.length)
       return 0;
+    
+    try {
+      return nrm2(this.data);
+    } catch (err) {
+      var result = 0,
+          data = this.data,
+          i, l;
 
-    var result = 0,
-        data = this.data,
-        i, l;
-    for (i = 0, l = this.length; i < l; i++)
-      result += data[i] * data[i];
+      for (i = 0, l = this.length; i < l; i++)
+        result += data[i] * data[i];
 
-    return Math.sqrt(result);
+      return Math.sqrt(result);
+    }
   }
 
   /**
@@ -428,9 +465,13 @@ export default class Vector {
    * @returns {Number} the largest element of current vector
    **/
   max() {
-    return this.reduce(function(acc, item) {
-      return acc < item ? item : acc;
-    }, Number.NEGATIVE_INFINITY);
+    try {
+      return this.data[idamax(this.length, this.data, 1)];
+    } catch (err) {
+      return this.reduce(function(acc, item) {
+        return acc < item ? item : acc;
+      }, Number.NEGATIVE_INFINITY);
+    }
   }
 
   /**

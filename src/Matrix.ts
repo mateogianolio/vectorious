@@ -1,5 +1,6 @@
 import './types';
 import Vector from './Vector';
+import { axpy, scal, gemm } from 'nblas';
 
 export default class Matrix {
   type: TypedArrayConstructor;
@@ -138,7 +139,18 @@ export default class Matrix {
    * @returns {Matrix} `this`
    **/
   add(matrix: Matrix) {
-    return this.binOp(matrix, (a, b) => a + b);
+    try {
+      const [r1, c1] = this.shape;
+      const [r2, c2] = matrix.shape;
+
+      if (r1 !== r2 || c1 !== c2)
+        throw new Error('sizes do not match!');
+
+      axpy(matrix.data, this.data);
+      return this;
+    } catch (err) {
+      return this.binOp(matrix, (a, b) => a + b);
+    }
   }
 
   /**
@@ -160,7 +172,18 @@ export default class Matrix {
    * @returns {Matrix} `this`
    **/
   subtract(matrix: Matrix) {
-    return this.binOp(matrix, (a, b) => a - b);
+    try {
+      const [r1, c1] = this.shape;
+      const [r2, c2] = matrix.shape;
+
+      if (r1 !== r2 || c1 !== c2)
+        throw new Error('sizes do not match!');
+
+      axpy(matrix.data, this.data, -1);
+      return this;
+    } catch (err) {
+      return this.binOp(matrix, (a, b) => a - b);
+    }
   }
 
   /**
@@ -203,16 +226,21 @@ export default class Matrix {
    * @returns {Matrix} `this`
    **/
   scale(scalar: number) {
-    var r = this.shape[0],          // rows in this matrix
-        c = this.shape[1],          // columns in this matrix
-        size = r * c,
-        d1 = this.data,
-        i;
+    try {
+      scal(this.data, scalar);
+      return this;
+    } catch (err) {
+      var r = this.shape[0],          // rows in this matrix
+          c = this.shape[1],          // columns in this matrix
+          size = r * c,
+          d1 = this.data,
+          i;
 
-    for (i = 0; i < size; i++)
-      d1[i] *= scalar;
+      for (i = 0; i < size; i++)
+        d1[i] *= scalar;
 
-    return this;
+      return this;
+    }
   }
 
   /**
@@ -317,21 +345,28 @@ export default class Matrix {
 
     if (c1 !== r2)
       throw new Error('sizes do not match');
+    
 
     var data = new this.type(r1 * c2),
         i, j, k,
         sum;
-    for (i = 0; i < r1; i++) {
-      for (j = 0; j < c2; j++) {
-        sum = +0;
-        for (k = 0; k < c1; k++)
-          sum += d1[i * c1 + k] * d2[j + k * c2];
-
-        data[i * c2 + j] = sum;
+    
+    try {
+      gemm(d1, d2, data, r1, c2, c1);
+      return Matrix.fromTypedArray(data, [r1, c2]);
+    } catch (err) {
+      for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++) {
+          sum = +0;
+          for (k = 0; k < c1; k++)
+            sum += d1[i * c1 + k] * d2[j + k * c2];
+  
+          data[i * c2 + j] = sum;
+        }
       }
-    }
 
-    return Matrix.fromTypedArray(data, [r1, c2]);
+      return Matrix.fromTypedArray(data, [r1, c2]);
+    }
   }
 
   /**
