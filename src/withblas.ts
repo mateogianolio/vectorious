@@ -1,5 +1,5 @@
-import Vector from './vector';
-import Matrix from './matrix';
+import Vector from './Vector';
+import Matrix from './Matrix';
 import nblas from 'nblas';
 import applyBlasOptimizations from './applyBlasOptimizations';
 

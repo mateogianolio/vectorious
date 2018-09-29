@@ -1,7 +1,7 @@
 declare function require(moduleName: string): any;
 
-import Vector from './vector';
-import Matrix from './matrix';
+import Vector from './Vector';
+import Matrix from './Matrix';
 export { nblas as BLAS } from 'nblas';
 
 try {

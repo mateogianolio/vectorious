@@ -1,2 +1,2 @@
-export * from './vector';
-export * from './matrix';
+export * from './Vector';
+export * from './Matrix';

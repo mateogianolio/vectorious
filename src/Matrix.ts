@@ -1,17 +1,13 @@
-import Vector from './vector';
+import '../types/types';
+import Vector from './Vector';
 
-/**
- * @class Matrix
- */
 export default class Matrix {
-  type: any
-  shape: [number, number]
-  data: any
+  type: TypedArrayConstructor;
+  shape: number[];
+  data: TypedArray;
 
   /**
-   * @method constructor
-   * @memberof Matrix
-   * @desc Creates a `Matrix` from the supplied arguments.
+   * Creates a `Matrix` from the supplied arguments.
    **/
   constructor(data?, options?) {
     this.type = Float64Array;
@@ -34,7 +30,7 @@ export default class Matrix {
     }
   }
   
-  static fromTypedArray(data, shape) {
+  static fromTypedArray(data: TypedArray, shape: number[]) {
     if (data.length !== shape[0] * shape[1])
       throw new Error("Shape does not match typed array dimensions.");
 
@@ -46,7 +42,7 @@ export default class Matrix {
     return self;
   }
 
-  static fromArray(array) {
+  static fromArray(array: number[][]) {
     var r = array.length, // number of rows
         c = array[0].length,  // number of columns
         data = new Float64Array(r * c);
@@ -59,7 +55,7 @@ export default class Matrix {
     return Matrix.fromTypedArray(data, [r, c]);
   }
   
-  static fromMatrix(matrix) {
+  static fromMatrix(matrix: Matrix) {
     var self = Object.create(Matrix.prototype);
     self.shape = [matrix.shape[0], matrix.shape[1]];
     self.data = new matrix.type(matrix.data);
@@ -68,7 +64,7 @@ export default class Matrix {
     return self;
   }
   
-  static fromVector(vector, shape?) {
+  static fromVector(vector: Vector, shape?: number[]) {
     if (shape && vector.length !== shape[0] * shape[1])
       throw new Error("Shape does not match vector dimensions.");
 
@@ -80,7 +76,7 @@ export default class Matrix {
     return self;
   }
 
-  static fromShape(shape) {
+  static fromShape(shape: number[]) {
     var r = shape[0], // number of rows
         c = shape[1]; // number of columns
 
@@ -95,7 +91,7 @@ export default class Matrix {
    * @param {Function} op
    * @returns {Matrix} a new matrix containing the results of binary operation of `a` and `b`
    **/
-  static binOp(a, b, op) {
+  static binOp(a: Matrix, b: Matrix, op: (a: number, b: number, index?: number) => number) {
     return new Matrix(a).binOp(b, op);
   }
 
@@ -106,7 +102,7 @@ export default class Matrix {
    * @param {Function} op
    * @returns {Matrix} this
    **/
-  binOp(matrix, op) {
+  binOp(matrix: Matrix, op: (a: number, b: number, index?: number) => number) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
         size = r * c,
@@ -130,7 +126,7 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the sum of `a` and `b`
    **/
-  static add(a, b) {
+  static add(a: Matrix, b: Matrix) {
     return new Matrix(a).add(b);
   }
 
@@ -141,8 +137,8 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
-  add(matrix) {
-    return this.binOp(matrix, function(a, b) { return a + b });
+  add(matrix: Matrix) {
+    return this.binOp(matrix, (a, b) => a + b);
   }
 
   /**
@@ -152,7 +148,7 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the difference between `a` and `b`
    **/
-  static subtract(a, b) {
+  static subtract(a: Matrix, b: Matrix) {
     return new Matrix(a).subtract(b);
   }
 
@@ -163,8 +159,8 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
-  subtract(matrix) {
-    return this.binOp(matrix, function(a, b) { return a - b });
+  subtract(matrix: Matrix) {
+    return this.binOp(matrix, (a, b) => a - b);
   }
 
   /**
@@ -174,7 +170,7 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} a new matrix containing the hadamard product
    **/
-  static product(a, b) {
+  static product(a: Matrix, b: Matrix) {
     return new Matrix(a).product(b);
   }
 
@@ -185,8 +181,8 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} `this`
    **/
-  product(matrix) {
-    return this.binOp(matrix, function(a, b) { return a * b });
+  product(matrix: Matrix) {
+    return this.binOp(matrix, (a, b) => a * b);
   }
 
   /**
@@ -196,7 +192,7 @@ export default class Matrix {
    * @param {Number} scalar
    * @returns {Matrix} a new scaled matrix
    **/
-  static scale(a, scalar) {
+  static scale(a: Matrix, scalar: number) {
     return new Matrix(a).scale(scalar);
   }
 
@@ -206,7 +202,7 @@ export default class Matrix {
    * @param {Number} scalar
    * @returns {Matrix} `this`
    **/
-  scale(scalar) {
+  scale(scalar: number) {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
         size = r * c,
@@ -229,7 +225,7 @@ export default class Matrix {
    * @param {TypedArray} type
    * @returns {Vector} a new matrix of the specified size and `type`
    **/
-  static fill(r, c, value, type) {
+  static fill(r: number, c: number, value: number | ((r: number, c: number) => number), type?: TypedArrayConstructor) {
     if (r <= 0 || c <= 0)
       throw new Error('invalid size');
 
@@ -238,12 +234,11 @@ export default class Matrix {
 
     var size = r * c,
         data = new type(size),
-        isValueFn = typeof value === 'function',
         i, j, k = 0;
     
     for (i = 0; i < r; i++)
       for (j = 0; j < c; j++, k++)
-        data[k] = isValueFn ? value(i, j) : value;
+        data[k] = value instanceof Function ? value(i, j) : value;
 
     return Matrix.fromTypedArray(data, [r, c]);
   }
@@ -257,7 +252,7 @@ export default class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  static zeros(r, c, type?) {
+  static zeros(r: number, c: number, type?: TypedArrayConstructor) {
     return Matrix.fill(r, c, +0.0, type);
   }
 
@@ -270,7 +265,7 @@ export default class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  static ones(r, c, type?) {
+  static ones(r: number, c: number, type?: TypedArrayConstructor) {
     return Matrix.fill(r, c, +1.0, type);
   }
 
@@ -286,7 +281,7 @@ export default class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} a matrix of the specified dimensions and `type`
    **/
-  static random(r, c, deviation?, mean?, type?) {
+  static random(r: number, c: number, deviation?: number, mean?: number, type?: TypedArrayConstructor) {
     deviation = deviation || 1;
     mean = mean || 0;
     return Matrix.fill(r, c, function() {
@@ -301,7 +296,7 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
    **/
-  static multiply(a, b) {
+  static multiply(a: Matrix, b: Matrix) {
     return a.multiply(b);
   }
 
@@ -312,7 +307,7 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
    **/
-  multiply(matrix) {
+  multiply(matrix: Matrix) {
     var r1 = this.shape[0],   // rows in this matrix
         c1 = this.shape[1],   // columns in this matrix
         r2 = matrix.shape[0], // rows in multiplicand
@@ -505,7 +500,7 @@ export default class Matrix {
    * @returns {Array} an array with a new instance of the current matrix LU-
    * factorized and the corresponding pivot Int32Array
    **/
-  static plu(matrix): [Matrix, Int32Array] {
+  static plu(matrix: Matrix) {
     return new Matrix(matrix).plu();
   }
 
@@ -564,7 +559,7 @@ export default class Matrix {
    * @param {Int32Array} array of pivoted row indices
    * @returns {Matrix} rhs replaced by the solution
    **/
-  lusolve(rhs, ipiv) {
+  lusolve(rhs: Matrix, ipiv: Int32Array) {
     var lu = this.data,
         n = rhs.shape[0],
         nrhs = rhs.shape[1],
@@ -601,10 +596,8 @@ export default class Matrix {
    * @param {Int32Array} array of pivoted row indices
    * @returns {Matrix} a new matrix containing the solutions of the system
    **/
-  solve(rhs) {
-    var plu = Matrix.plu(this),
-        lu = plu[0],
-        ipiv = plu[1];
+  solve(rhs: Matrix) {
+    var [lu, ipiv] = Matrix.plu(this);
 
     return lu.lusolve(new Matrix(rhs), ipiv);
   }
@@ -617,7 +610,7 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Matrix} the resultant matrix of `b` augmented to `a`
    **/
-  static augment(a, b) {
+  static augment(a: Matrix, b: Matrix) {
     return new Matrix(a).augment(b);
   }
 
@@ -627,7 +620,7 @@ export default class Matrix {
    * @param {Matrix} matrix
    * @returns {Matrix} `this`
    **/
-  augment(matrix) {
+  augment(matrix: Matrix) {
     var r1 = this.shape[0],
         c1 = this.shape[1],
         r2 = matrix.shape[0],
@@ -667,7 +660,7 @@ export default class Matrix {
    * @param {TypedArray} type
    * @returns {Matrix} an identity matrix of the specified `size` and `type`
    **/
-  static identity(size, type?) {
+  static identity(size: number, type?: TypedArrayConstructor) {
     return Matrix.fill(size, size, function (i, j) {
       return i === j ? +1.0 : +0.0;
     }, type);
@@ -681,7 +674,7 @@ export default class Matrix {
    * @param {Number} type
    * @returns {Matrix} a magic square matrix of the specified `size` and `type`
    **/
-  static magic(size, type?) {
+  static magic(size: number, type?: TypedArrayConstructor) {
     if (size < 0)
       throw new Error('invalid size');
 
@@ -769,7 +762,7 @@ export default class Matrix {
    * @param {Matrix} b
    * @returns {Boolean} `true` if equal, `false` otherwise
    **/
-  static equals(a, b) {
+  static equals(a: Matrix, b: Matrix) {
     return a.equals(b);
   }
 
@@ -779,7 +772,7 @@ export default class Matrix {
    * @param {Matrix} matrix
    * @returns {Boolean} `true` if equal, `false` otherwise
    **/
-  equals(matrix) {
+  equals(matrix: Matrix) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -803,7 +796,7 @@ export default class Matrix {
    * @param {Number} i
    * @param {Number} j
    **/
-  check(i, j) {  
+  check(i: number, j: number) {  
     if (isNaN(i) || isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
   }
@@ -815,7 +808,7 @@ export default class Matrix {
    * @param {Number} j
    * @returns {Number} the element at row `i`, column `j` of current matrix
    **/
-  get(i, j) {
+  get(i: number, j: number) {
     this.check(i, j);
     return this.data[i * this.shape[1] + j];
   }
@@ -828,7 +821,7 @@ export default class Matrix {
    * @param {Number} value
    * @returns {Matrix} `this`
    **/
-  set(i, j, value) {
+  set(i: number, j: number, value: number) {
     this.check(i, j);
     this.data[i * this.shape[1] + j] = value;
     return this;
@@ -841,7 +834,7 @@ export default class Matrix {
    * @param {Number} j
    * @returns {Matrix} `this`
    **/
-  swap(i, j) {
+  swap(i: number, j: number) {
     if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[0] - 1)
       throw new Error('index out of bounds');
 
@@ -863,7 +856,7 @@ export default class Matrix {
    * @param {Function} callback
    * @returns {Matrix} the resultant mapped matrix
    **/
-  map(callback) {
+  map(callback: (value: number, i: number, j: number, src: TypedArray) => number) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -884,7 +877,7 @@ export default class Matrix {
    * @param {Function} callback
    * @returns {Matrix} `this`
    **/
-  each(callback) {
+  each(callback: (value: number, i: number, j: number) => void) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -903,7 +896,7 @@ export default class Matrix {
    * @param {Number} initialValue
    * @returns {Number} result of reduction
    **/
-  reduce(callback, initialValue?) {
+  reduce(callback: (acc: number, value: number, i: number, j: number) => number, initialValue?: number) {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c;
@@ -980,7 +973,7 @@ export default class Matrix {
     return counter;
   }
 
-  static rank(matrix) {
+  static rank(matrix: Matrix) {
     return new Matrix(matrix).rank();
   }
 

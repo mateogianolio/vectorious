@@ -1,10 +1,12 @@
+import '../types/types';
+
 /**
  * @class Vector
  **/
 export default class Vector {
-  type: any
+  type: TypedArrayConstructor
   length: number
-  data: any
+  data: TypedArray
 
   /**
    * @method constructor
@@ -39,7 +41,7 @@ export default class Vector {
    * @param {Function} op
    * @returns {Vector} a vector containing the results of binaery operation of `a` and `b`
    **/
-  static binOp(a, b, op) {
+  static binOp(a: Vector, b: Vector, op: (a: number, b: number, index?: number) => number) {
     return new Vector(a).binOp(b, op);
   }
 
@@ -50,7 +52,7 @@ export default class Vector {
    * @param {Function} op
    * @returns {Vector} this
    **/
-  binOp(vector, op) {
+  binOp(vector: Vector, op: (a: number, b: number, index?: number) => number) {
     var l1 = this.length,
         l2 = vector.length;
     if (l1 !== l2)
@@ -72,7 +74,7 @@ export default class Vector {
    * @param {Vector} b
    * @returns {Vector} a vector containing the sum of `a` and `b`
    **/
-  static add(a, b) {
+  static add(a: Vector, b: Vector) {
     return new Vector(a).add(b);
   }
 
@@ -82,8 +84,8 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Vector} this
    **/
-  add(vector) {
-    return this.binOp(vector, function(a, b) { return a + b });
+  add(vector: Vector) {
+    return this.binOp(vector, (a, b) => a + b);
   }
 
   /**
@@ -93,7 +95,7 @@ export default class Vector {
    * @param {Vector} b
    * @returns {Vector} a vector containing the difference between `a` and `b`
    **/
-  static subtract(a, b) {
+  static subtract(a: Vector, b: Vector) {
     return new Vector(a).subtract(b);
   }
 
@@ -103,8 +105,8 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Vector} this
    **/
-  subtract(vector) {
-    return this.binOp(vector, function(a, b) { return a - b });
+  subtract(vector: Vector) {
+    return this.binOp(vector, (a, b) =>  a - b);
   }
 
   /**
@@ -114,7 +116,7 @@ export default class Vector {
    * @param {Number} scalar
    * @returns {Vector} a resultant scaled vector
    **/
-  static scale(vector, scalar) {
+  static scale(vector: Vector, scalar: number) {
     return new Vector(vector).scale(scalar);
   }
 
@@ -124,8 +126,8 @@ export default class Vector {
    * @param {Number} scalar
    * @returns {Vector} this
    **/
-  scale(scalar) {
-    return this.each(function(_, i, data) {
+  scale(scalar: number) {
+    return this.each((_, i, data) => {
       data[i] *= scalar;
     });
   }
@@ -136,7 +138,7 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Vector} a resultant normalized vector
    **/
-  static normalize(vector) {
+  static normalize(vector: Vector) {
     return new Vector(vector).normalize();
   }
 
@@ -157,7 +159,7 @@ export default class Vector {
    * @param {Vector} b
    * @returns {Vector} a new resultant projected vector
    **/
-  static project(a, b) {
+  static project(a: Vector, b: Vector) {
     return a.project(new Vector(b));
   }
 
@@ -168,7 +170,7 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Vector} `vector`
    **/
-  project(vector) {
+  project(vector: Vector) {
     return vector.scale(this.dot(vector) / vector.dot(vector));
   }
 
@@ -181,7 +183,7 @@ export default class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static fill(count, value, type?) {
+  static fill(count: number, value: number | ((i: number) => number), type?: TypedArrayConstructor) {
     if (count < 0)
       throw new Error('invalid size');
     if (count === 0)
@@ -214,7 +216,7 @@ export default class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static zeros(count, type?) {
+  static zeros(count: number, type?: TypedArrayConstructor) {
     return Vector.fill(count, 0.0, type);
   }
 
@@ -226,7 +228,7 @@ export default class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static ones(count, type?) {
+  static ones(count: number, type?: TypedArrayConstructor) {
     return Vector.fill(count, 1, type);
   }
 
@@ -241,7 +243,7 @@ export default class Vector {
    * @param {TypedArray} type
    * @returns {Vector} a new vector of the specified size and `type`
    **/
-  static random(count, deviation?, mean?, type?) {
+  static random(count: number, deviation?: number, mean?: number, type?: TypedArrayConstructor) {
     if (deviation == null) {
       deviation = 1;
     }
@@ -265,7 +267,7 @@ export default class Vector {
    * @param {Number} end
    * @returns {Vector} a new vector containing the specified range of the specified `type`
    **/
-  static range(...args) {
+  static range(...args: any[]) {
     var backwards = false,
         start, step, end;
 
@@ -318,7 +320,7 @@ export default class Vector {
    * @param {Vector} b
    * @returns {Number} the dot product of the two vectors
    **/
-  static dot(a, b) {
+  static dot(a: Vector, b: Vector) {
     return a.dot(b);
   }
 
@@ -328,7 +330,7 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Number} the dot product of the two vectors
    **/
-  dot(vector) {
+  dot(vector: Vector) {
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
 
@@ -368,7 +370,7 @@ export default class Vector {
    * @param {Vector} b
    * @returns {Number} the angle between the two vectors in radians
    **/
-  static angle(a, b) {
+  static angle(a: Vector, b: Vector) {
     return a.angle(b);
   }
 
@@ -378,7 +380,7 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Number} the angle between the two vectors in radians
    **/
-  angle(vector) {
+  angle(vector: Vector) {
     return Math.acos(this.dot(vector) / this.magnitude() / vector.magnitude());
   }
 
@@ -389,7 +391,7 @@ export default class Vector {
    * @param {Vector} b
    * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
    **/
-  static equals(a, b) {
+  static equals(a: Vector, b: Vector) {
     return a.equals(b);
   }
 
@@ -399,7 +401,7 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
    **/
-  equals(vector) {
+  equals(vector: Vector) {
     if (this.length !== vector.length)
       return false;
 
@@ -436,7 +438,7 @@ export default class Vector {
    * @memberof Vector
    * @param {Number} index
    **/
-  check(index) {  
+  check(index: number) {  
     if (!isFinite(index) || index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
   }
@@ -447,7 +449,7 @@ export default class Vector {
    * @param {Number} index
    * @returns {Number} the element at `index`
    **/
-  get(index) {
+  get(index: number) {
     this.check(index);
     return this.data[index];
   }
@@ -459,7 +461,7 @@ export default class Vector {
    * @param {Number} value
    * @returns {Vector} this
    **/
-  set(index, value) {
+  set(index: number, value: number) {
     this.check(index);
     this.data[index] = value;
     return this;
@@ -481,7 +483,7 @@ export default class Vector {
    * @property {Number}
    * @name Vector#x
    */
-  set x(value) {
+  set x(value: number) {
     this.set(0, value);
   }
 
@@ -501,7 +503,7 @@ export default class Vector {
    * @property {Number}
    * @name Vector#y
    */
-  set y(value) {
+  set y(value: number) {
     this.set(1, value);
   }
 
@@ -521,7 +523,7 @@ export default class Vector {
    * @property {Number}
    * @name Vector#z
    */
-  set z(value) {
+  set z(value: number) {
     this.set(2, value);
   }
 
@@ -541,7 +543,7 @@ export default class Vector {
    * @property {Number}
    * @name Vector#w
    */
-  set w(value) {
+  set w(value: number) {
     this.set(3, value);
   }
 
@@ -552,7 +554,7 @@ export default class Vector {
    * @param {Vector} b
    * @returns {Vector} `b` appended to vector `a`
    **/
-  static combine(a, b) {
+  static combine(a: Vector, b: Vector) {
     return new Vector(a).combine(b);
   }
 
@@ -562,7 +564,7 @@ export default class Vector {
    * @param {Vector} vector
    * @returns {Vector} `vector` combined with current vector
    **/
-  combine(vector) {
+  combine(vector: Vector) {
     if (!vector.length)
       return this;
     if (!this.length) {
@@ -593,7 +595,7 @@ export default class Vector {
    * @param {Number} value
    * @returns {Vector} `this`
    **/
-  push(value) {
+  push(value: number) {
     return this.combine(new Vector([value]));
   }
 
@@ -603,7 +605,7 @@ export default class Vector {
    * @param {Function} callback
    * @returns {Vector} `this`
    **/
-  map(callback) {
+  map(callback: (value: number, i: number, src: TypedArray) => number) {
     var mapped = new Vector(this),
         data = mapped.data,
         i;
@@ -620,7 +622,7 @@ export default class Vector {
    * @param {Function} callback
    * @returns {Vector} `this`
    **/
-  each(callback) {
+  each(callback: (value: number, i: number, src: TypedArray) => void) {
     var i;
     for (i = 0; i < this.length; i++)
       callback.call(this, this.data[i], i, this.data);
@@ -635,7 +637,7 @@ export default class Vector {
    * @param {Number} initialValue
    * @returns {Number} result of reduction
    **/
-  reduce(callback, initialValue?) {
+  reduce(callback: (acc: number, value: number, i: number, src: TypedArray) => number, initialValue?: number) {
     var l = this.length;
     if (l === 0 && !initialValue)
       throw new Error('Reduce of empty matrix with no initial value.');
@@ -658,7 +660,7 @@ export default class Vector {
         i = 0;
     
     if (i < this.length)
-      result.push(this.data[i++]);
+      result.push(String(this.data[i++]));
     while (i < this.length)
       result.push(', ' + this.data[i++]);
     
