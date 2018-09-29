@@ -1,5 +1,17 @@
 import './types';
-import { axpy, scal, dot, nrm2, idamax } from 'nblas';
+
+let axpy, scal, dot, nrm2, idamax;
+try {
+  const nblas = require('nblas');
+
+  axpy = nblas.axpy;
+  scal = nblas.scal;
+  dot = nblas.dot;
+  nrm2 = nblas.nrm2;
+  idamax = nblas.idamax;
+} catch (err) {
+  console.log('skipping nblas...');
+}
 
 /**
  * @class Vector

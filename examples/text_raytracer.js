@@ -1,7 +1,7 @@
 (function (){
   // Ported from Rust from https://gist.github.com/joshmarinacci/c84d0979e100d107f685 http://joshondesign.com/2014/09/17/rustlang
   'use strict';
-  var Vector = require('../vectorious').Vector,
+  var Vector = require('../built').Vector,
       add = Vector.add,
       subtract = Vector.subtract,
       scale = Vector.scale,

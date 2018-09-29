@@ -1,6 +1,16 @@
 import './types';
 import Vector from './Vector';
-import { axpy, scal, gemm } from 'nblas';
+
+let axpy, scal, gemm;
+try {
+  const nblas = require('nblas');
+
+  axpy = nblas.axpy;
+  scal = nblas.scal;
+  gemm = nblas.gemm;
+} catch (err) {
+  console.log('skipping nblas...');
+}
 
 export default class Matrix {
   type: TypedArrayConstructor;

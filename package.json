@@ -10,6 +10,9 @@
     "build": "gulp clean && gulp build && tsc",
     "postinstall": "opencollective-postinstall"
   },
+  "browser": {
+    "nblas": false
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mateogianolio/vectorious.git"
@@ -51,7 +54,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
-    "nblas": "^1.2.0"
+    "nblas": "^1.2.2"
   },
   "dependencies": {
     "opencollective-postinstall": "^2.0.0"
