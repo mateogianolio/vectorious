@@ -1,4 +1,4 @@
-import '../types/types';
+import './types';
 
 /**
  * @class Vector

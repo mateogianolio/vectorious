@@ -1,4 +1,4 @@
-import '../types/types';
+import './types';
 import Vector from './Vector';
 
 export default class Matrix {
