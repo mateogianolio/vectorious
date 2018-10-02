@@ -11,7 +11,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "lib": [
-      "es2015.symbol"
+      "es2015",
+      "dom"
     ]
   },
   "include": [

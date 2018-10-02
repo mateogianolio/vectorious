@@ -38,6 +38,8 @@
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
     "@types/mocha": "^5.2.5",
+    "@types/nblas": "^1.2.0",
+    "@types/node": "^10.11.3",
     "benchmark": "^2.1.4",
     "browserify": "^16.2.3",
     "del": "^3.0.0",
@@ -55,11 +57,6 @@
   },
   "optionalDependencies": {
     "nblas": "^1.2.2"
-  },
-  "dependencies": {
-    "@types/nblas": "^1.2.0",
-    "@types/node": "^10.11.3",
-    "opencollective-postinstall": "^2.0.0"
   },
   "collective": {
     "type": "opencollective",
