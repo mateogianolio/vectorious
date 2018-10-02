@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "outDir": "./built",
-    "allowJs": true,
     "target": "es5",
     "strict": true,
     "declaration": true,
@@ -10,9 +9,15 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "lib": [
+      "es2015.symbol"
+    ]
   },
   "include": [
-    "./src/**/*"
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
   ]
 }
