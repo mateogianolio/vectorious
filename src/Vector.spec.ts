@@ -1,4 +1,4 @@
-import Vector from '../src/Vector';
+import { Vector } from './';
 import * as assert from 'assert';
 
 describe('Vector', function() {
@@ -364,7 +364,7 @@ describe('Vector', function() {
 
     describe('.reduce()', function() {
       it('should work as expected', function() {
-        function sum(a, b) {
+        function sum(a: number, b: number) {
           return a + b;
         }
 

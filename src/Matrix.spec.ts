@@ -1,6 +1,9 @@
-import Matrix from '../src/Matrix';
-import Vector from '../src/Vector';
+import { Matrix, Vector } from './';
 import * as assert from 'assert';
+
+function round(value: number, precision: number) {
+  return Number(value.toFixed(precision))
+}
 
 describe('Matrix', function() {
   describe('Matrix(data, options)', function() {
@@ -347,9 +350,7 @@ describe('Matrix', function() {
         ]);
 
         // need to round result to avoid floating point rounding errors, e.g. 0.99999999994
-        assert.deepEqual(b, a.inverse().map(function(value) {
-          return Number(value.toFixed(2));
-        }));
+        assert.deepEqual(b, a.inverse().map((value: number) => round(value, 2)));
       });
     });
 
@@ -383,11 +384,9 @@ describe('Matrix', function() {
           new Matrix([[11, 9, 24, 2], [0, 14.54545, 11.45455, 0.45455], [0, 0, -3.475, 5.6875], [0, 0, 0, 0.51079]]),
         ];
 
-        assert.deepEqual(d, c.lu().splice(0, 2).map(function(matrix: Matrix) {
-          return matrix.map(function(value) {
-            return Number(value.toFixed(5));
-          });
-        }));
+        const [lower, upper, ipiv]: [Matrix, Matrix, Int32Array] = c.lu();
+        assert.deepEqual(d, lower.map((value: number) => round(value, 5)));
+        assert.deepEqual(d, upper.map((value: number) => round(value, 5)));
       });
     });
 
@@ -475,9 +474,9 @@ describe('Matrix', function() {
         var b = new Matrix([[1, 5, 6], [3.3, 9, 10], [7, 9, 3.2]]);
         var c = new Matrix([[2, -1, 1], [-1, -2, 1], [-1, -1, -1]]);
 
-        assert.equal(-2, Number(a.determinant().toFixed(2)));
-        assert.equal(36.2, Number(b.determinant().toFixed(2)));
-        assert.equal(7, Number(c.determinant().toFixed(2)));
+        assert.equal(-2, round(a.determinant(), 2));
+        assert.equal(36.2, round(b.determinant(), 2));
+        assert.equal(7, round(c.determinant(), 2));
       });
     });
 
@@ -581,7 +580,7 @@ describe('Matrix', function() {
 
     describe('.reduce()', function() {
       it('should work as expected', function() {
-        function sum(a, b) {
+        function sum(a: number, b: number) {
           return a + b;
         }
 
