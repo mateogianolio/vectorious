@@ -7,8 +7,7 @@
     "test": "mocha -r ts-node/register ./src/*.spec.ts",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
     "docs": "jsdoc -c doc.json",
-    "build": "gulp clean && gulp build && tsc",
-    "postinstall": "opencollective-postinstall"
+    "build": "gulp clean && gulp build && tsc"
   },
   "browser": {
     "nblas": false
@@ -57,9 +56,5 @@
   },
   "optionalDependencies": {
     "nblas": "^1.2.2"
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/vectorious"
   }
 }
