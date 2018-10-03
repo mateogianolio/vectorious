@@ -384,9 +384,9 @@ describe('Matrix', function() {
           new Matrix([[11, 9, 24, 2], [0, 14.54545, 11.45455, 0.45455], [0, 0, -3.475, 5.6875], [0, 0, 0, 0.51079]]),
         ];
 
-        const [lower, upper, ipiv]: [Matrix, Matrix, Int32Array] = c.lu();
-        assert.deepEqual(d, lower.map((value: number) => round(value, 5)));
-        assert.deepEqual(d, upper.map((value: number) => round(value, 5)));
+        const [lower, upper]: [Matrix, Matrix, Int32Array] = c.lu();
+        assert.deepEqual(d[0], lower.map((value: number) => round(value, 5)));
+        assert.deepEqual(d[1], upper.map((value: number) => round(value, 5)));
       });
     });
 
