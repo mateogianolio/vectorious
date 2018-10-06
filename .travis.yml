@@ -4,8 +4,9 @@ node_js:
 before_install:
   - sudo apt-get install libblas-dev
 env:
-  - CXX=g++-4.8
-  - CC_TEST_REPORTER_ID=7bc2ff765ac0619975d32fe57959db6374d14a96780a1438ec68ea14036748e1
+  global:
+    - CXX=g++-4.8
+    - CC_TEST_REPORTER_ID=7bc2ff765ac0619975d32fe57959db6374d14a96780a1438ec68ea14036748e1
 before_script:
   - npm install -g nyc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
