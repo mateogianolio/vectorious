@@ -4,13 +4,32 @@
   "description": "A high performance linear algebra library.",
   "main": "built/vectorious.js",
   "scripts": {
-    "test": "mocha -r ts-node/register ./src/*.spec.ts",
+    "test": "nyc mocha -r ts-node/register ./src/*.spec.ts",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
     "docs": "jsdoc -c doc.json",
     "build": "gulp clean && gulp build && tsc"
   },
   "browser": {
     "nblas": false
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "gulpfile.js",
+      "**/*.d.ts",
+      "benchmarks/**",
+      "built/**",
+      "dist/**",
+      "examples/**",
+      "coverage/**"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "all": true  
   },
   "repository": {
     "type": "git",
@@ -48,6 +67,7 @@
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
     "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
     "ts-node": "^7.0.1",
     "tsify": "^4.0.0",
     "tslint": "^5.11.0",
