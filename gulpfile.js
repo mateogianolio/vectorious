@@ -2,6 +2,7 @@
   'use strict';
 
   var gulp = require('gulp'),
+      tsify = require('tsify'),
       streamify = require('gulp-streamify'),
       uglify = require('gulp-uglify'),
       browserify = require('browserify'),
@@ -14,12 +15,12 @@
 
   gulp.task('build', function () {
     var files = [
-      'vector.js',
-      'matrix.js'
+      'src/Vector.ts',
+      'src/Matrix.ts'
     ];
 
     return browserify({ entries: files })
-      .transform('babelify', { presets: ['@babel/preset-env'] })
+      .plugin(tsify)
       .bundle()
       .pipe(source('vectorious.min.js'))
       .pipe(streamify(uglify()))

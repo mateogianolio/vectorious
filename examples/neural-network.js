@@ -3,7 +3,7 @@
   // https://iamtrask.github.io/2015/07/12/basic-python-network/
   'use strict';
 
-  var Matrix = require('../vectorious').Matrix;
+  var Matrix = require('../built').Matrix;
 
   function sigmoid(ddx) {
     return function (x) {

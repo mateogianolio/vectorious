@@ -1,14 +1,37 @@
+import './types';
+
+let axpy: any;
+let scal: any;
+let dot: any;
+let nrm2: any;
+let idamax: any;
+
+try {
+  const nblas = require('nblas');
+
+  axpy = nblas.axpy;
+  scal = nblas.scal;
+  dot = nblas.dot;
+  nrm2 = nblas.nrm2;
+  idamax = nblas.idamax;
+} catch (err) {
+  console.log('skipping nblas...');
+}
+
 /**
  * @class Vector
- **/
-class Vector {
+ */
+export default class Vector {
+  type: TypedArrayConstructor
+  length: number
+  data: TypedArray
+
   /**
-   * @method constructor
-   * @memberof Vector
-   * @desc Creates a two-dimensional `Vector` from the supplied arguments.
-   **/
-  constructor(data) {
+   * Creates a `Vector` from the supplied arguments.
+   */
+  constructor(data?: any) {
     this.type = Float64Array;
+    this.data = new this.type(0);
     this.length = 0;
 
     if (data instanceof Vector) {
@@ -29,24 +52,15 @@ class Vector {
 
   /**
    * Static method. Perform binary operation on two vectors `a` and `b` together.
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @param {Function} op
-   * @returns {Vector} a vector containing the results of binaery operation of `a` and `b`
-   **/
-  static binOp(a, b, op) {
+   */
+  static binOp(a: Vector, b: Vector, op: (a: number, b: number, index?: number) => number): Vector {
     return new Vector(a).binOp(b, op);
   }
 
   /**
    * Perform binary operation on `vector` to the current vector.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @param {Function} op
-   * @returns {Vector} this
-   **/
-  binOp(vector, op) {
+   */
+  binOp(vector: Vector, op: (a: number, b: number, index?: number) => number): Vector {
     var l1 = this.length,
         l2 = vector.length;
     if (l1 !== l2)
@@ -63,121 +77,110 @@ class Vector {
 
   /**
    * Static method. Adds two vectors `a` and `b` together.
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @returns {Vector} a vector containing the sum of `a` and `b`
-   **/
-  static add(a, b) {
+   */
+  static add(a: Vector, b: Vector): Vector {
     return new Vector(a).add(b);
   }
 
   /**
    * Adds `vector` to the current vector.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Vector} this
-   **/
-  add(vector) {
-    return this.binOp(vector, function(a, b) { return a + b });
+   */
+  add(vector: Vector): Vector {
+    try {
+      const l1 = this.length;
+      const l2 = vector.length;
+
+      if (l1 !== l2)
+        throw new Error('sizes do not match!');
+
+      axpy(vector.data, this.data);
+      return this;
+    } catch (err) {
+      return this.binOp(vector, (a, b) => a + b);
+    }
   }
 
   /**
    * Static method. Subtracts the vector `b` from vector `a`.
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @returns {Vector} a vector containing the difference between `a` and `b`
-   **/
-  static subtract(a, b) {
+   */
+  static subtract(a: Vector, b: Vector): Vector {
     return new Vector(a).subtract(b);
   }
 
   /**
    * Subtracts `vector` from the current vector.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Vector} this
-   **/
-  subtract(vector) {
-    return this.binOp(vector, function(a, b) { return a - b });
+   */
+  subtract(vector: Vector): Vector {
+    try {
+      const l1 = this.length;
+      const l2 = vector.length;
+
+      if (l1 !== l2)
+        throw new Error('sizes do not match!');
+
+      axpy(vector.data, this.data, -1);
+      return this;
+    } catch (err) {
+      return this.binOp(vector, (a, b) => a - b);
+    }
   }
 
   /**
    * Static method. Multiplies all elements of `vector` with a specified `scalar`.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @param {Number} scalar
-   * @returns {Vector} a resultant scaled vector
-   **/
-  static scale(vector, scalar) {
+   */
+  static scale(vector: Vector, scalar: number): Vector {
     return new Vector(vector).scale(scalar);
   }
 
   /**
    * Multiplies all elements of current vector with a specified `scalar`.
-   * @memberof Vector
-   * @param {Number} scalar
-   * @returns {Vector} this
-   **/
-  scale(scalar) {
-    return this.each(function(_, i, data) {
-      data[i] *= scalar;
-    });
+   */
+  scale(scalar: number): Vector {
+    try {
+      scal(this.data, scalar);
+      return this;
+    } catch (err) {
+      return this.each((_, i, data) => {
+        data[i] *= scalar;
+      });
+    }
   }
 
   /**
    * Static method. Normalizes `vector`, i.e. divides all elements with the magnitude.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Vector} a resultant normalized vector
-   **/
-  static normalize(vector) {
+   */
+  static normalize(vector: Vector): Vector {
     return new Vector(vector).normalize();
   }
 
   /**
    * Normalizes current vector.
-   * @memberof Vector
-   * @returns {Vector} a resultant normalized vector
-   **/
-  normalize() {
+   */
+  normalize(): Vector {
     return this.scale(1 / this.magnitude());
   }
 
   /**
    * Static method. Projects the vector `a` onto the vector `b` using
    * the projection formula `(b * (a * b / b * b))`.
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @returns {Vector} a new resultant projected vector
-   **/
-  static project(a, b) {
+   */
+  static project(a: Vector, b: Vector): Vector {
     return a.project(new Vector(b));
   }
 
   /**
    * Projects the current vector onto `vector` using
    * the projection formula `(b * (a * b / b * b))`.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Vector} `vector`
-   **/
-  project(vector) {
+   */
+  project(vector: Vector): Vector {
     return vector.scale(this.dot(vector) / vector.dot(vector));
   }
 
     /**
    * Static method. Creates a vector containing optional 'value' (default 0) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
-   * @memberof Vector
-   * @param {Number} count
-   * @param {Number|Function} value
-   * @param {TypedArray} type
-   * @returns {Vector} a new vector of the specified size and `type`
-   **/
-  static fill(count, value, type) {
+   */
+  static fill(count: number, value: number | ((i: number) => number), type?: TypedArrayConstructor): Vector {
     if (count < 0)
       throw new Error('invalid size');
     if (count === 0)
@@ -205,24 +208,16 @@ class Vector {
   /**
    * Static method. Creates a vector containing zeros (`0`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
-   * @memberof Vector
-   * @param {Number} count
-   * @param {TypedArray} type
-   * @returns {Vector} a new vector of the specified size and `type`
-   **/
-  static zeros(count, type) {
+   */
+  static zeros(count: number, type?: TypedArrayConstructor): Vector {
     return Vector.fill(count, 0.0, type);
   }
 
   /**
    * Static method. Creates a vector containing ones (`1`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
-   * @memberof Vector
-   * @param {Number} count
-   * @param {TypedArray} type
-   * @returns {Vector} a new vector of the specified size and `type`
-   **/
-  static ones(count, type) {
+   */
+  static ones(count: number, type?: TypedArrayConstructor): Vector {
     return Vector.fill(count, 1, type);
   }
 
@@ -230,22 +225,17 @@ class Vector {
    * Static method. Creates a vector of `count` elements containing random
    * values according to a normal distribution, takes an optional `type`
    * argument which should be an instance of `TypedArray`.
-   * @memberof Vector
-   * @param {Number} count
-   * @param {Number} deviation (default 1)
-   * @param {Number} mean (default 0)
-   * @param {TypedArray} type
-   * @returns {Vector} a new vector of the specified size and `type`
-   **/
-  static random(count, deviation, mean, type) {
+   */
+  static random(count: number, deviation?: number, mean?: number, type?: TypedArrayConstructor): Vector {
     if (deviation == null) {
       deviation = 1;
     }
     if (mean == null) {
       mean = 0;
     }
+
     return Vector.fill(count, function() {
-      return deviation * Math.random() + mean;
+      return (deviation as number) * Math.random() + (mean as number);
     }, type);
   }
 
@@ -255,15 +245,9 @@ class Vector {
    * gives a vector containing all numbers in the interval `[0, 2)` separated by
    * steps of `0.5`), takes an optional `type` argument which should be an instance of
    * `TypedArray`.
-   * @memberof Vector
-   * @param {Number} start
-   * @param {Number} step - optional
-   * @param {Number} end
-   * @returns {Vector} a new vector containing the specified range of the specified `type`
-   **/
-  static range() {
-    var args = [].slice.call(arguments),
-        backwards = false,
+   */
+  static range(...args: any[]): Vector {
+    var backwards = false,
         start, step, end;
 
     var type = Float64Array;
@@ -310,93 +294,79 @@ class Vector {
 
   /**
    * Static method. Performs dot multiplication with two vectors `a` and `b`.
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @returns {Number} the dot product of the two vectors
-   **/
-  static dot(a, b) {
+   */
+  static dot(a: Vector, b: Vector): number {
     return a.dot(b);
   }
 
   /**
    * Performs dot multiplication with current vector and `vector`
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Number} the dot product of the two vectors
-   **/
-  dot(vector) {
+   */
+  dot(vector: Vector): number {
     if (this.length !== vector.length)
       throw new Error('sizes do not match');
 
-    var a = this.data,
-        b = vector.data,
-        result = 0,
-        i, l;
+    try {
+      return dot(this.data, vector.data);
+    } catch (err) {
+      var a = this.data,
+          b = vector.data,
+          result = 0,
+          i, l;
 
-    for (i = 0, l = this.length; i < l; i++)
-      result += a[i] * b[i];
+      for (i = 0, l = this.length; i < l; i++)
+        result += a[i] * b[i];
 
-    return result;
+      return result;
+    }
   }
 
   /**
    * Calculates the magnitude of a vector (also called L2 norm or Euclidean length).
-   * @memberof Vector
-   * @returns {Number} the magnitude (L2 norm) of the vector
-   **/
-  magnitude() {
+   */
+  magnitude(): number {
     if (!this.length)
       return 0;
+    
+    try {
+      return nrm2(this.data);
+    } catch (err) {
+      var result = 0,
+          data = this.data,
+          i, l;
 
-    var result = 0,
-        data = this.data,
-        i, l;
-    for (i = 0, l = this.length; i < l; i++)
-      result += data[i] * data[i];
+      for (i = 0, l = this.length; i < l; i++)
+        result += data[i] * data[i];
 
-    return Math.sqrt(result);
+      return Math.sqrt(result);
+    }
   }
 
   /**
    * Static method. Determines the angle between two vectors `a` and `b`.
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @returns {Number} the angle between the two vectors in radians
-   **/
-  static angle(a, b) {
+   */
+  static angle(a: Vector, b: Vector): number {
     return a.angle(b);
   }
 
   /**
    * Determines the angle between the current vector and `vector`.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Number} the angle between the two vectors in radians
-   **/
-  angle(vector) {
+   */
+  angle(vector: Vector): number {
     return Math.acos(this.dot(vector) / this.magnitude() / vector.magnitude());
   }
 
   /**
    * Static method. Checks the equality of two vectors `a` and `b`.
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
-   **/
-  static equals(a, b) {
+   */
+  static equals(a: Vector, b: Vector): boolean {
     return a.equals(b);
   }
 
   /**
    * Checks the equality of the current vector and `vector`.
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Boolean} `true` if the two vectors are equal, `false` otherwise
-   **/
-  equals(vector) {
+   */
+  equals(vector: Vector): boolean {
     if (this.length !== vector.length)
       return false;
 
@@ -408,10 +378,8 @@ class Vector {
 
   /**
    * Gets the minimum value (smallest) element of current vector.
-   * @memberof Vector
-   * @returns {Number} the smallest element of the current vector
-   **/
-  min() {
+   */
+  min(): number {
     return this.reduce(function(acc, item) {
       return acc < item ? acc : item;
     }, Number.POSITIVE_INFINITY);
@@ -419,44 +387,37 @@ class Vector {
 
   /**
    * Gets the maximum value (largest) element of current vector.
-   * @memberof Vector
-   * @returns {Number} the largest element of current vector
-   **/
-  max() {
-    return this.reduce(function(acc, item) {
-      return acc < item ? item : acc;
-    }, Number.NEGATIVE_INFINITY);
+   */
+  max(): number {
+    try {
+      return this.data[idamax(this.length, this.data, 1)];
+    } catch (err) {
+      return this.reduce(function(acc, item) {
+        return acc < item ? item : acc;
+      }, Number.NEGATIVE_INFINITY);
+    }
   }
 
   /**
    * Check if `index` is within the bound for current vector.
-   * @memberof Vector
-   * @param {Number} index
-   **/
-  check(index) {  
-    if (!Number.isFinite(index) || index < 0 || index > this.length - 1)
+   */
+  check(index: number): void {  
+    if (!isFinite(index) || index < 0 || index > this.length - 1)
       throw new Error('index out of bounds');
   }
 
   /**
    * Gets the element at `index` from current vector.
-   * @memberof Vector
-   * @param {Number} index
-   * @returns {Number} the element at `index`
-   **/
-  get(index) {
+   */
+  get(index: number): number {
     this.check(index);
     return this.data[index];
   }
 
   /**
    * Sets the element at `index` to `value`.
-   * @memberof Vector
-   * @param {Number} index
-   * @param {Number} value
-   * @returns {Vector} this
-   **/
-  set(index, value) {
+   */
+  set(index: number, value: number): Vector {
     this.check(index);
     this.data[index] = value;
     return this;
@@ -464,102 +425,71 @@ class Vector {
 
   /**
    * Getter for vector[0]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#x
    */
-  get x() {
+  get x(): number {
     return this.get(0);
   }
 
   /**
    * Setter for vector[0]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#x
    */
-  set x(value) {
-    return this.set(0, value);
+  set x(value: number) {
+    this.set(0, value);
   }
 
   /**
    * Getter for vector[1]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#y
    */
-  get y() {
+  get y(): number {
     return this.get(1);
   }
 
   /**
    * Setter for vector[1]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#y
    */
-  set y(value) {
-    return this.set(1, value);
+  set y(value: number) {
+    this.set(1, value);
   }
 
   /**
    * Getter for vector[2]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#z
    */
-  get z() {
+  get z(): number {
     return this.get(2);
   }
 
   /**
    * Setter for vector[2]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#z
    */
-  set z(value) {
-    return this.set(2, value);
+  set z(value: number) {
+    this.set(2, value);
   }
 
   /**
    * Getter for vector[3]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#w
    */
-  get w() {
+  get w(): number {
     return this.get(3);
   }
 
   /**
    * Setter for vector[3]
-   * @memberof Vector
-   * @property {Number}
-   * @name Vector#w
    */
-  set w(value) {
-    return this.set(3, value);
+  set w(value: number) {
+    this.set(3, value);
   }
 
   /**
    * Static method. Combines two vectors `a` and `b` (appends `b` to `a`).
-   * @memberof Vector
-   * @param {Vector} a
-   * @param {Vector} b
-   * @returns {Vector} `b` appended to vector `a`
-   **/
-  static combine(a, b) {
+   */
+  static combine(a: Vector, b: Vector): Vector {
     return new Vector(a).combine(b);
   }
 
   /**
    * Combines the current vector with `vector`
-   * @memberof Vector
-   * @param {Vector} vector
-   * @returns {Vector} `vector` combined with current vector
-   **/
-  combine(vector) {
+   */
+  combine(vector: Vector): Vector {
     if (!vector.length)
       return this;
     if (!this.length) {
@@ -586,21 +516,15 @@ class Vector {
 
   /**
    * Pushes a new `value` into current vector.
-   * @memberof Vector
-   * @param {Number} value
-   * @returns {Vector} `this`
-   **/
-  push(value) {
+   */
+  push(value: number): Vector {
     return this.combine(new Vector([value]));
   }
 
   /**
    * Maps a function `callback` to all elements of current vector.
-   * @memberof Vector
-   * @param {Function} callback
-   * @returns {Vector} `this`
-   **/
-  map(callback) {
+   */
+  map(callback: (value: number, i: number, src: TypedArray) => number): Vector {
     var mapped = new Vector(this),
         data = mapped.data,
         i;
@@ -613,11 +537,8 @@ class Vector {
   /**
    * Functional version of for-looping the vector, is equivalent
    * to `Array.prototype.forEach`.
-   * @memberof Vector
-   * @param {Function} callback
-   * @returns {Vector} `this`
-   **/
-  each(callback) {
+   */
+  each(callback: (value: number, i: number, src: TypedArray) => void): Vector {
     var i;
     for (i = 0; i < this.length; i++)
       callback.call(this, this.data[i], i, this.data);
@@ -627,12 +548,8 @@ class Vector {
 
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
-   * @memberof Vector
-   * @param {Function} callback
-   * @param {Number} initialValue
-   * @returns {Number} result of reduction
-   **/
-  reduce(callback, initialValue) {
+   */
+  reduce(callback: (acc: number, value: number, i: number, src: TypedArray) => number, initialValue?: number): number {
     var l = this.length;
     if (l === 0 && !initialValue)
       throw new Error('Reduce of empty matrix with no initial value.');
@@ -647,15 +564,13 @@ class Vector {
 
   /**
    * Converts current vector into a readable formatted string.
-   * @memberof Vector
-   * @returns {String} a string of the vector's contents
-   **/
-  toString() {
+   */
+  toString(): string {
     var result = ['['],
         i = 0;
     
     if (i < this.length)
-      result.push(this.data[i++]);
+      result.push(String(this.data[i++]));
     while (i < this.length)
       result.push(', ' + this.data[i++]);
     
@@ -666,10 +581,8 @@ class Vector {
 
   /**
    * Converts current vector into a JavaScript array.
-   * @memberof Vector
-   * @returns {Array} an array containing all elements of current vector
-   **/
-  toArray() {
+   */
+  toArray(): number[] {
     if (!this.data)
       return [];
 
@@ -677,7 +590,6 @@ class Vector {
   }
 }
 
-module.exports = Vector;
 try {
-  window.Vector = Vector;
-} catch (e) {}
+  (<any>window).Vector = Vector;
+} catch (error) {}

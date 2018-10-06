@@ -4,13 +4,11 @@ engines:
     checks:
       no-console:
         enabled: false
-      no-undef:
-        enabled: false
-      callback-return:
-        enabled: false
 ratings:
   paths:
-  - "**.js"
+  - "src/**.ts"
 exclude_paths:
   - test/**
   - dist/**
+  - examples/**
+  - benchmarks/**

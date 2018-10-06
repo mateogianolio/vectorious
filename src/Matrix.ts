@@ -1,17 +1,32 @@
-var Vector = require('./vector');
+import './types';
+import Vector from './Vector';
 
-/**
- * @class Matrix
- */
-class Matrix {
+let axpy: any;
+let scal: any;
+let gemm: any;
+
+try {
+  const nblas = require('nblas');
+
+  axpy = nblas.axpy;
+  scal = nblas.scal;
+  gemm = nblas.gemm;
+} catch (err) {
+  console.log('skipping nblas...');
+}
+
+export default class Matrix {
+  type: TypedArrayConstructor;
+  shape: number[];
+  data: TypedArray;
+
   /**
-   * @method constructor
-   * @memberof Matrix
-   * @desc Creates a `Matrix` from the supplied arguments.
-   **/
-  constructor(data, options) {
+   * Creates a `Matrix` from the supplied arguments.
+   */
+  constructor(data?: any, options?: any) {
     this.type = Float64Array;
-    this.shape = [];
+    this.data = new this.type(0);
+    this.shape = [0, 0];
 
     if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
       return Matrix.fromTypedArray(data, options && options.shape);
@@ -30,7 +45,7 @@ class Matrix {
     }
   }
   
-  static fromTypedArray(data, shape) {
+  static fromTypedArray(data: TypedArray, shape: number[]) {
     if (data.length !== shape[0] * shape[1])
       throw new Error("Shape does not match typed array dimensions.");
 
@@ -42,7 +57,7 @@ class Matrix {
     return self;
   }
 
-  static fromArray(array) {
+  static fromArray(array: number[][]) {
     var r = array.length, // number of rows
         c = array[0].length,  // number of columns
         data = new Float64Array(r * c);
@@ -55,7 +70,7 @@ class Matrix {
     return Matrix.fromTypedArray(data, [r, c]);
   }
   
-  static fromMatrix(matrix) {
+  static fromMatrix(matrix: Matrix) {
     var self = Object.create(Matrix.prototype);
     self.shape = [matrix.shape[0], matrix.shape[1]];
     self.data = new matrix.type(matrix.data);
@@ -64,7 +79,7 @@ class Matrix {
     return self;
   }
   
-  static fromVector(vector, shape) {
+  static fromVector(vector: Vector, shape?: number[]) {
     if (shape && vector.length !== shape[0] * shape[1])
       throw new Error("Shape does not match vector dimensions.");
 
@@ -76,7 +91,7 @@ class Matrix {
     return self;
   }
 
-  static fromShape(shape) {
+  static fromShape(shape: number[]) {
     var r = shape[0], // number of rows
         c = shape[1]; // number of columns
 
@@ -85,24 +100,15 @@ class Matrix {
 
   /**
    * Static method. Perform binary operation on two matrices `a` and `b` together.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @param {Function} op
-   * @returns {Matrix} a new matrix containing the results of binary operation of `a` and `b`
-   **/
-  static binOp(a, b, op) {
+   */
+  static binOp(a: Matrix, b: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
     return new Matrix(a).binOp(b, op);
   }
 
   /**
    * Perform binary operation on `matrix` to the current matrix.
-   * @memberof Matrix
-   * @param {Matrix} matrix
-   * @param {Function} op
-   * @returns {Matrix} this
-   **/
-  binOp(matrix, op) {
+   */
+  binOp(matrix: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
     var r = this.shape[0],          // rows in this matrix
         c = this.shape[1],          // columns in this matrix
         size = r * c,
@@ -121,111 +127,101 @@ class Matrix {
 
   /**
    * Static method. Adds two matrices `a` and `b` together.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} a new matrix containing the sum of `a` and `b`
-   **/
-  static add(a, b) {
+   */
+  static add(a: Matrix, b: Matrix): Matrix {
     return new Matrix(a).add(b);
   }
 
   /**
    * Adds `matrix` to current matrix.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} `this`
-   **/
-  add(matrix) {
-    return this.binOp(matrix, function(a, b) { return a + b });
+   */
+  add(matrix: Matrix): Matrix {
+    try {
+      const [r1, c1] = this.shape;
+      const [r2, c2] = matrix.shape;
+
+      if (r1 !== r2 || c1 !== c2)
+        throw new Error('sizes do not match!');
+
+      axpy(matrix.data, this.data);
+      return this;
+    } catch (err) {
+      return this.binOp(matrix, (a, b) => a + b);
+    }
   }
 
   /**
    * Static method. Subtracts the matrix `b` from matrix `a`.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} a new matrix containing the difference between `a` and `b`
-   **/
-  static subtract(a, b) {
+   */
+  static subtract(a: Matrix, b: Matrix): Matrix {
     return new Matrix(a).subtract(b);
   }
 
   /**
    * Subtracts `matrix` from current matrix.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} `this`
-   **/
-  subtract(matrix) {
-    return this.binOp(matrix, function(a, b) { return a - b });
+   */
+  subtract(matrix: Matrix): Matrix {
+    try {
+      const [r1, c1] = this.shape;
+      const [r2, c2] = matrix.shape;
+
+      if (r1 !== r2 || c1 !== c2)
+        throw new Error('sizes do not match!');
+
+      axpy(matrix.data, this.data, -1);
+      return this;
+    } catch (err) {
+      return this.binOp(matrix, (a, b) => a - b);
+    }
   }
 
   /**
    * Static method. Hadamard product of matrices
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} a new matrix containing the hadamard product
-   **/
-  static product(a, b) {
+   */
+  static product(a: Matrix, b: Matrix): Matrix {
     return new Matrix(a).product(b);
   }
 
   /**
    * Hadamard product of matrices
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} `this`
-   **/
-  product(matrix) {
-    return this.binOp(matrix, function(a, b) { return a * b });
+   */
+  product(matrix: Matrix): Matrix {
+    return this.binOp(matrix, (a, b) => a * b);
   }
 
   /**
    * Static method. Multiplies all elements of a matrix `a` with a specified `scalar`.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Number} scalar
-   * @returns {Matrix} a new scaled matrix
-   **/
-  static scale(a, scalar) {
+   */
+  static scale(a: Matrix, scalar: number): Matrix {
     return new Matrix(a).scale(scalar);
   }
 
   /**
    * Multiplies all elements of current matrix with a specified `scalar`.
-   * @memberof Matrix
-   * @param {Number} scalar
-   * @returns {Matrix} `this`
-   **/
-  scale(scalar) {
-    var r = this.shape[0],          // rows in this matrix
-        c = this.shape[1],          // columns in this matrix
-        size = r * c,
-        d1 = this.data,
-        i;
+   */
+  scale(scalar: number): Matrix {
+    try {
+      scal(this.data, scalar);
+      return this;
+    } catch (err) {
+      var r = this.shape[0],          // rows in this matrix
+          c = this.shape[1],          // columns in this matrix
+          size = r * c,
+          d1 = this.data,
+          i;
 
-    for (i = 0; i < size; i++)
-      d1[i] *= scalar;
+      for (i = 0; i < size; i++)
+        d1[i] *= scalar;
 
-    return this;
+      return this;
+    }
   }
 
   /**
    * Static method. Creates a `r x c` matrix containing optional 'value' (default 0), takes
    * an optional `type` argument which should be an instance of `TypedArray`.
-   * @memberof Matrix
-   * @param {Number} r
-   * @param {Number} c
-   * @param {Number|Function} value
-   * @param {TypedArray} type
-   * @returns {Vector} a new matrix of the specified size and `type`
-   **/
-  static fill(r, c, value, type) {
+   */
+  static fill(r: number, c: number, value: number | ((r: number, c: number) => number), type?: TypedArrayConstructor): Matrix {
     if (r <= 0 || c <= 0)
       throw new Error('invalid size');
 
@@ -234,12 +230,11 @@ class Matrix {
 
     var size = r * c,
         data = new type(size),
-        isValueFn = typeof value === 'function',
         i, j, k = 0;
     
     for (i = 0; i < r; i++)
       for (j = 0; j < c; j++, k++)
-        data[k] = isValueFn ? value(i, j) : value;
+        data[k] = value instanceof Function ? value(i, j) : value;
 
     return Matrix.fromTypedArray(data, [r, c]);
   }
@@ -247,26 +242,16 @@ class Matrix {
   /**
    * Static method. Creates an `r x c` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @memberof Matrix
-   * @param {Number} r
-   * @param {Number} c
-   * @param {TypedArray} type
-   * @returns {Matrix} a matrix of the specified dimensions and `type`
-   **/
-  static zeros(r, c, type) {
+   */
+  static zeros(r: number, c: number, type?: TypedArrayConstructor): Matrix {
     return Matrix.fill(r, c, +0.0, type);
   }
 
   /**
    * Static method. Creates an `r x c` matrix containing ones (`1`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
-   * @memberof Matrix
-   * @param {Number} r
-   * @param {Number} c
-   * @param {TypedArray} type
-   * @returns {Matrix} a matrix of the specified dimensions and `type`
-   **/
-  static ones(r, c, type) {
+   */
+  static ones(r: number, c: number, type?: TypedArrayConstructor): Matrix {
     return Matrix.fill(r, c, +1.0, type);
   }
 
@@ -274,41 +259,31 @@ class Matrix {
    * Static method. Creates an `r x c` matrix containing random values
    * according to a normal distribution, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
-   * @memberof Matrix
-   * @param {Number} r
-   * @param {Number} c
-   * @param {Number} mean (default 0)
-   * @param {Number} standard deviation (default 1)
-   * @param {TypedArray} type
-   * @returns {Matrix} a matrix of the specified dimensions and `type`
-   **/
-  static random(r, c, deviation, mean, type) {
-    deviation = deviation || 1;
-    mean = mean || 0;
+   */
+  static random(r: number, c: number, deviation?: number, mean?: number, type?: TypedArrayConstructor): Matrix {
+    if (deviation == null) {
+      deviation = 1;
+    }
+    if (mean == null) {
+      mean = 0;
+    }
+
     return Matrix.fill(r, c, function() {
-      return deviation * Math.random() + mean;
+      return (deviation as number) * Math.random() + (mean as number);
     }, type);
   }
 
   /**
    * Static method. Multiplies two matrices `a` and `b` of matching dimensions.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
-   **/
-  static multiply(a, b) {
+   */
+  static multiply(a: Matrix, b: Matrix): Matrix {
     return a.multiply(b);
   }
 
   /**
    * Multiplies two matrices `a` and `b` of matching dimensions.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} a new resultant matrix containing the matrix product of `a` and `b`
-   **/
-  multiply(matrix) {
+   */
+  multiply(matrix: Matrix): Matrix {
     var r1 = this.shape[0],   // rows in this matrix
         c1 = this.shape[1],   // columns in this matrix
         r2 = matrix.shape[0], // rows in multiplicand
@@ -318,42 +293,41 @@ class Matrix {
 
     if (c1 !== r2)
       throw new Error('sizes do not match');
+    
 
     var data = new this.type(r1 * c2),
         i, j, k,
         sum;
-    for (i = 0; i < r1; i++) {
-      for (j = 0; j < c2; j++) {
-        sum = +0;
-        for (k = 0; k < c1; k++)
-          sum += d1[i * c1 + k] * d2[j + k * c2];
-
-        data[i * c2 + j] = sum;
+    
+    try {
+      gemm(d1, d2, data, r1, c2, c1);
+      return Matrix.fromTypedArray(data, [r1, c2]);
+    } catch (err) {
+      for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++) {
+          sum = +0;
+          for (k = 0; k < c1; k++)
+            sum += d1[i * c1 + k] * d2[j + k * c2];
+  
+          data[i * c2 + j] = sum;
+        }
       }
-    }
 
-    return Matrix.fromTypedArray(data, [r1, c2]);
+      return Matrix.fromTypedArray(data, [r1, c2]);
+    }
   }
 
   /**
    * Getter for transpose.
-   * @property T
-   * @name Matrix#T
-   * @memberof Matrix
-   * @returns {Matrix} `this`
-   **/
-  get T() {
+   */
+  get T(): Matrix {
     return this.transpose();
   }
 
   /**
    * Transposes a matrix (mirror across the diagonal).
-   * @property T
-   * @name Matrix#T
-   * @memberof Matrix
-   * @returns {Matrix} `this`
-   **/
-  transpose() {
+   */
+  transpose(): Matrix {
     var r = this.shape[0],
         c = this.shape[1],
         i, j;
@@ -369,10 +343,8 @@ class Matrix {
   /**
    * Determines the inverse of any invertible square matrix using
    * Gaussian elimination.
-   * @memberof Matrix
-   * @returns {Matrix} the inverse of the matrix
-   **/
-  inverse() {
+   */
+  inverse(): Matrix {
     var l = this.shape[0],
         m = this.shape[1];
 
@@ -404,10 +376,8 @@ class Matrix {
 
   /**
    * Performs Gaussian elimination on a matrix.
-   * @memberof Matrix
-   * @returns {Matrix} the matrix in reduced row echelon form
-   **/
-  gauss() {
+   */
+  gauss(): Matrix {
     var l = this.shape[0],
         m = this.shape[1];
 
@@ -419,7 +389,7 @@ class Matrix {
 
     for (i = 0; i < l; i++) {
       if (m <= lead)
-        return new Error('matrix is singular');
+        throw new Error('matrix is singular');
 
       j = i;
       while (copy.data[j * m + lead] === 0) {
@@ -429,7 +399,7 @@ class Matrix {
           lead++;
 
           if (m === lead)
-            return new Error('matrix is singular');
+            throw new Error('matrix is singular');
         }
       }
 
@@ -470,16 +440,12 @@ class Matrix {
 
   /**
    * Performs full LU decomposition on a matrix.
-   * @memberof Matrix
-   * @returns {Array} a triple (3-tuple) of the lower triangular resultant matrix `L`, the upper
-   * triangular resultant matrix `U` and the pivot array `ipiv`
-   **/
-  lu() {
+   */
+  lu(): [Matrix, Matrix, Int32Array] {
     var r = this.shape[0],
         c = this.shape[1],
         plu = Matrix.plu(this),
         ipiv = plu[1],
-        pivot = Matrix.identity(r),
         lower = new Matrix(plu[0]),
         upper = new Matrix(plu[0]),
         i, j;
@@ -497,21 +463,15 @@ class Matrix {
 
   /**
    * Static method. Performs LU factorization on current matrix.
-   * @memberof Matrix
-   * @returns {Array} an array with a new instance of the current matrix LU-
-   * factorized and the corresponding pivot Int32Array
-   **/
-  static plu(matrix) {
+   */
+  static plu(matrix: Matrix): [Matrix, Int32Array] {
     return new Matrix(matrix).plu();
   }
 
   /**
    * Performs LU factorization on current matrix.
-   * @memberof Matrix
-   * @returns {Array} an array with the current matrix LU-factorized and the
-   * corresponding pivot Int32Array
-   **/
-  plu() {
+   */
+  plu(): [Matrix, Int32Array] {
     var data = this.data,
         n = this.shape[0],
         ipiv = new Int32Array(n),
@@ -555,12 +515,8 @@ class Matrix {
 
   /**
    * Solves an LU factorized matrix with the supplied right hand side(s)
-   * @memberof Matrix
-   * @param {Matrix} rhs, right hand side(s) to solve for
-   * @param {Int32Array} array of pivoted row indices
-   * @returns {Matrix} rhs replaced by the solution
-   **/
-  lusolve(rhs, ipiv) {
+   */
+  lusolve(rhs: Matrix, ipiv: Int32Array): Matrix {
     var lu = this.data,
         n = rhs.shape[0],
         nrhs = rhs.shape[1],
@@ -592,15 +548,9 @@ class Matrix {
   /**
    * Solves AX = B using LU factorization, where A is the current matrix and
    * B is a Vector/Matrix containing the right hand side(s) of the equation.
-   * @memberof Matrix
-   * @param {Matrix|Vector} rhs, right hand side(s) to solve for
-   * @param {Int32Array} array of pivoted row indices
-   * @returns {Matrix} a new matrix containing the solutions of the system
-   **/
-  solve(rhs) {
-    var plu = Matrix.plu(this),
-        lu = plu[0],
-        ipiv = plu[1];
+   */
+  solve(rhs: Matrix): Matrix {
+    var [lu, ipiv] = Matrix.plu(this);
 
     return lu.lusolve(new Matrix(rhs), ipiv);
   }
@@ -608,25 +558,15 @@ class Matrix {
   /**
    * Static method. Augments two matrices `a` and `b` of matching dimensions
    * (appends `b` to `a`).
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Matrix} the resultant matrix of `b` augmented to `a`
-   **/
-  static augment(a, b) {
+   */
+  static augment(a: Matrix, b: Matrix): Matrix {
     return new Matrix(a).augment(b);
   }
 
   /**
    * Augments `matrix` with current matrix.
-   * @memberof Matrix
-   * @param {Matrix} matrix
-   * @returns {Matrix} `this`
-   **/
-  augment(matrix) {
-    if (matrix.shape.length === 0)
-     return this;
-
+   */
+  augment(matrix: Matrix): Matrix {
     var r1 = this.shape[0],
         c1 = this.shape[1],
         r2 = matrix.shape[0],
@@ -634,6 +574,9 @@ class Matrix {
         d1 = this.data,
         d2 = matrix.data,
         i, j;
+    
+    if (r2 === 0 && c2 === 0)
+      return this;
 
     if (r1 !== r2)
       throw new Error("Rows do not match.");
@@ -658,30 +601,22 @@ class Matrix {
   /**
    * Static method. Creates an identity matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
-   * @memberof Matrix
-   * @param {Number} size
-   * @param {TypedArray} type
-   * @returns {Matrix} an identity matrix of the specified `size` and `type`
-   **/
-  static identity(size, type) {
+   */
+  static identity(size: number, type?: TypedArrayConstructor): Matrix {
     return Matrix.fill(size, size, function (i, j) {
       return i === j ? +1.0 : +0.0;
-    })
+    }, type);
   }
 
   /**
    * Static method. Creates a magic square matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
-   * @memberof Matrix
-   * @param {Number} size
-   * @param {Number} type
-   * @returns {Matrix} a magic square matrix of the specified `size` and `type`
-   **/
-  static magic(size, type) {
+   */
+  static magic(size: number, type?: TypedArrayConstructor): Matrix {
     if (size < 0)
       throw new Error('invalid size');
 
-    function f(n, x, y) {
+    function f(n: number, x: number, y: number) {
       return (x + y * 2 + 1) % n;
     }
 
@@ -698,10 +633,8 @@ class Matrix {
 
   /**
    * Gets the diagonal of a matrix.
-   * @memberof Matrix
-   * @returns {Vector} the diagonal of the matrix as a vector
-   **/
-  diag() {
+   */
+  diag(): Vector {
     var r = this.shape[0],
         c = this.shape[1],
         data = new this.type(Math.min(r, c)),
@@ -715,16 +648,14 @@ class Matrix {
 
   /**
    * Gets the determinant of any square matrix using LU factorization.
-   * @memberof Matrix
-   * @returns {Number} the determinant of the matrix
-   **/
-  determinant() {
+   */
+  determinant(): number {
     if (this.shape[0] !== this.shape[1])
       throw new Error('matrix is not square');
 
     var plu = Matrix.plu(this),
-        ipiv = plu.pop(),
-        lu = plu.pop(),
+        lu = plu[0],
+        ipiv = plu[1],
         r = this.shape[0],
         c = this.shape[1],
         product = 1,
@@ -744,10 +675,8 @@ class Matrix {
 
   /**
    * Gets the trace of the matrix (the sum of all diagonal elements).
-   * @memberof Matrix
-   * @returns {Number} the trace of the matrix
-   **/
-  trace() {
+   */
+  trace(): number {
     var diagonal = this.diag(),
         result = 0,
         i, l;
@@ -760,22 +689,15 @@ class Matrix {
 
   /**
    * Static method. Checks the equality of two matrices `a` and `b`.
-   * @memberof Matrix
-   * @param {Matrix} a
-   * @param {Matrix} b
-   * @returns {Boolean} `true` if equal, `false` otherwise
-   **/
-  static equals(a, b) {
+   */
+  static equals(a: Matrix, b: Matrix): boolean {
     return a.equals(b);
   }
 
   /**
    * Checks the equality of `matrix` and current matrix.
-   * @memberof Matrix
-   * @param {Matrix} matrix
-   * @returns {Boolean} `true` if equal, `false` otherwise
-   **/
-  equals(matrix) {
+   */
+  equals(matrix: Matrix): boolean {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -795,36 +717,24 @@ class Matrix {
 
   /**
    * Check if `i` and `j` is within the bounds for current matrix.
-   * @memberof Matrix
-   * @param {Number} i
-   * @param {Number} j
-   **/
-  check(i, j) {  
-    if (Number.isNaN(i) || Number.isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+   */
+  check(i: number, j: number): void {  
+    if (isNaN(i) || isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
       throw new Error('index out of bounds');
   }
 
   /**
    * Gets the value of the element in row `i`, column `j` of current matrix
-   * @memberof Matrix
-   * @param {Number} i
-   * @param {Number} j
-   * @returns {Number} the element at row `i`, column `j` of current matrix
-   **/
-  get(i, j) {
+   */
+  get(i: number, j: number): number {
     this.check(i, j);
     return this.data[i * this.shape[1] + j];
   }
 
   /**
    * Sets the element at row `i`, column `j` to value
-   * @memberof Matrix
-   * @param {Number} i
-   * @param {Number} j
-   * @param {Number} value
-   * @returns {Matrix} `this`
-   **/
-  set(i, j, value) {
+   */
+  set(i: number, j: number, value: number): Matrix {
     this.check(i, j);
     this.data[i * this.shape[1] + j] = value;
     return this;
@@ -832,12 +742,8 @@ class Matrix {
 
   /**
    * Swaps two rows `i` and `j` in a matrix
-   * @memberof Matrix
-   * @param {Number} i
-   * @param {Number} j
-   * @returns {Matrix} `this`
-   **/
-  swap(i, j) {
+   */
+  swap(i: number, j: number): Matrix {
     if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[0] - 1)
       throw new Error('index out of bounds');
 
@@ -855,11 +761,8 @@ class Matrix {
 
   /**
    * Maps a function `callback` to all elements of a copy of current matrix.
-   * @memberof Matrix
-   * @param {Function} callback
-   * @returns {Matrix} the resultant mapped matrix
-   **/
-  map(callback) {
+   */
+  map(callback: (value: number, i: number, j: number, src: TypedArray) => number): Matrix {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -876,11 +779,8 @@ class Matrix {
   /**
    * Functional version of for-looping the elements in a matrix, is
    * equivalent to `Array.prototype.forEach`.
-   * @memberof Matrix
-   * @param {Function} callback
-   * @returns {Matrix} `this`
-   **/
-  each(callback) {
+   */
+  each(callback: (value: number, i: number, j: number) => void): Matrix {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c,
@@ -894,12 +794,8 @@ class Matrix {
 
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
-   * @memberof Matrix
-   * @param {Function} callback
-   * @param {Number} initialValue
-   * @returns {Number} result of reduction
-   **/
-  reduce(callback, initialValue) {
+   */
+  reduce(callback: (acc: number, value: number, i: number, j: number) => number, initialValue?: number): number {
     var r = this.shape[0],
         c = this.shape[1],
         size = r * c;
@@ -916,11 +812,16 @@ class Matrix {
   }
 
   /**
+   * Static method. Finds the rank of the matrix using row echelon form
+   */
+  static rank(matrix: Matrix): number {
+    return new Matrix(matrix).rank();
+  }
+
+  /**
    * Finds the rank of the matrix using row echelon form
-   * @memberof Matrix
-   * @returns {Number} rank
-   **/
-  rank() {
+   */
+  rank(): number {
     var vectors = this
       .toArray()
       .map(function(r) {
@@ -976,16 +877,10 @@ class Matrix {
     return counter;
   }
 
-  static rank(matrix) {
-    return new Matrix(matrix).rank();
-  }
-
   /**
    * Converts current matrix into a readable formatted string
-   * @memberof Matrix
-   * @returns {String} a string of the matrix' contents
-   **/
-  toString() {
+   */
+  toString(): string {
     var result = [],
         r = this.shape[0],
         c = this.shape[1],
@@ -1000,10 +895,8 @@ class Matrix {
 
   /**
    * Converts current matrix into a two-dimensional array
-   * @memberof Matrix
-   * @returns {Array} an array of the matrix' contents
-   **/
-  toArray() {
+   */
+  toArray(): number[][] {
     var result = [],
         r = this.shape[0],
         c = this.shape[1],
@@ -1017,7 +910,6 @@ class Matrix {
   }
 }
 
-module.exports = Matrix;
 try {
-  window.Matrix = Matrix;
-} catch (e) {}
+  (<any>window).Matrix = Matrix;
+} catch (error) {}

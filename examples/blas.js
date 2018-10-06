@@ -1,9 +1,9 @@
 (function () {
   'use strict';
 
-  var v = require('../vectorious'),
+  var v = require('../built'),
       Matrix = v.Matrix,
-      BLAS = v.BLAS;
+      BLAS = require('nblas');
 
   if (!BLAS)
     throw new Error('no blas support!');
