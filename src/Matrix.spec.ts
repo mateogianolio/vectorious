@@ -329,9 +329,8 @@ describe('Matrix', function() {
 
       it('should throw error if matrix is not invertible', function() {
         var a = new Matrix([
-          [1, 2, 3],
-          [4, 5, 6],
-          [7, 8, 9]
+          [0, 0],
+          [1, 1]
         ]);
 
         assert.throws(a.inverse.bind(a), Error);

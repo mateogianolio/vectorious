@@ -29,7 +29,7 @@
     "reporter": [
       "lcov"
     ],
-    "all": true  
+    "all": true
   },
   "repository": {
     "type": "git",
@@ -75,6 +75,8 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
-    "nblas": "^1.2.2"
-  }
+    "nblas": "^1.2.2",
+    "nlapack": "^0.2.0"
+  },
+  "dependencies": {}
 }

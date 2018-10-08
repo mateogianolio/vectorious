@@ -15,6 +15,17 @@ try {
   console.log('skipping nblas...');
 }
 
+let dgetrf: any;
+let dgetri: any;
+try {
+  const nlapack = require('nlapack');
+
+  dgetrf = nlapack.dgetrf;
+  dgetri = nlapack.dgetri;
+} catch (err) {
+  console.log('skipping nblas...');
+}
+
 export default class Matrix {
   type: TypedArrayConstructor;
   shape: number[];
@@ -350,28 +361,47 @@ export default class Matrix {
 
     if (l !== m)
       throw new Error('invalid dimensions');
-
-    var identity = Matrix.identity(l);
-    var augmented = Matrix.augment(this, identity);
-    var gauss = augmented.gauss();
-
-    var left = Matrix.zeros(l, m),
-        right = Matrix.zeros(l, m),
-        n = gauss.shape[1],
-        i, j;
-    for (i = 0; i < l; i++) {
-      for (j = 0; j < n; j++) {
-        if (j < m)
-          left.set(i, j, gauss.get(i, j));
-        else
-          right.set(i, j - l, gauss.get(i, j));
+    
+    try {
+      if (this.type !== Float64Array) {
+        throw new Error('not double precision');
       }
+
+      const ipiv = new Int32Array(l);
+      let info;
+
+      info = dgetrf(l, m, this.data, l, ipiv);
+      info += dgetri(l, this.data, l, ipiv);
+
+      if (info !== 0)
+        throw new Error('matrix is singular');
+
+      console.log(this.data);
+
+      return this;
+    } catch (err) {
+      var identity = Matrix.identity(l);
+      var augmented = Matrix.augment(this, identity);
+      var gauss = augmented.gauss();
+
+      var left = Matrix.zeros(l, m),
+          right = Matrix.zeros(l, m),
+          n = gauss.shape[1],
+          i, j;
+      for (i = 0; i < l; i++) {
+        for (j = 0; j < n; j++) {
+          if (j < m)
+            left.set(i, j, gauss.get(i, j));
+          else
+            right.set(i, j - l, gauss.get(i, j));
+        }
+      }
+
+      if (!left.equals(Matrix.identity(l)))
+        throw new Error('matrix is not invertible');
+
+      return right;
     }
-
-    if (!left.equals(Matrix.identity(l)))
-      throw new Error('matrix is not invertible');
-
-    return right;
   }
 
   /**
