@@ -106,7 +106,7 @@ The operations were performed on matrices generated with `Matrix.random(512, 512
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="graphs/contributors"><img src="https://opencollective.com/vectorious/contributors.svg?width=890&button=false" /></a>
+<a href="https://github.com/mateogianolio/vectorious/graphs/contributors"><img src="https://opencollective.com/vectorious/contributors.svg?width=890&button=false" /></a>
 
 
 ## Backers
