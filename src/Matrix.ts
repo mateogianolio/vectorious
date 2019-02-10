@@ -764,7 +764,11 @@ export default class Matrix {
   check(i: number, j: number): void {  
     const [r, c] = this.shape;
 
-    if (isNaN(i) || isNaN(j) || i < 0 || j < 0 || i > r - 1 || j > c - 1) {
+    if (isNaN(i) || isNaN(j)) {
+      throw new Error('one of the indices is not a number');
+    }
+
+    if (i < 0 || j < 0 || i > r - 1 || j > c - 1) {
       throw new Error('index out of bounds');
     }
   }
