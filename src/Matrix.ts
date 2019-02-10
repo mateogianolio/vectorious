@@ -146,7 +146,7 @@ export default class Matrix {
     if (r1 !== r2 || c1 !== c2)
       throw new Error('sizes do not match!');
 
-    if (nblas) {
+    if (nblas && nblas.axpy) {
       nblas.axpy(matrix.data, this.data);
       return this;
     }
@@ -172,7 +172,7 @@ export default class Matrix {
       throw new Error('sizes do not match!');
     }
 
-    if (nblas) {
+    if (nblas && nblas.axpy) {
       nblas.axpy(matrix.data, this.data, -1);
       return this;
     }
@@ -205,7 +205,7 @@ export default class Matrix {
    * Multiplies all elements of current matrix with a specified `scalar`.
    */
   scale(scalar: number): Matrix {
-    if (nblas) {
+    if (nblas && nblas.scal) {
       nblas.scal(this.data, scalar);
       return this;
     }
@@ -298,7 +298,7 @@ export default class Matrix {
     
     const data = new this.type(r1 * c2);
 
-    if (nblas) {
+    if (nblas && nblas.gemm) {
       nblas.gemm(d1, d2, data, r1, c2, c1);
       return Matrix.fromTypedArray(data, [r1, c2]);
     }

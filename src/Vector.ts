@@ -85,7 +85,7 @@ export default class Vector {
       throw new Error('sizes do not match!');
     }
 
-    if (nblas) {
+    if (nblas && nblas.axpy) {
       nblas.axpy(vector.data, this.data);
       return this;
     }
@@ -111,7 +111,7 @@ export default class Vector {
       throw new Error('sizes do not match!');
     }
 
-    if (nblas) {
+    if (nblas && nblas.axpy) {
       nblas.axpy(vector.data, this.data, -1);
       return this;
     }
@@ -130,7 +130,7 @@ export default class Vector {
    * Multiplies all elements of current vector with a specified `scalar`.
    */
   scale(scalar: number): Vector {
-    if (nblas) {
+    if (nblas && nblas.scal) {
       nblas.scal(this.data, scalar);
       return this;
     }
@@ -314,7 +314,7 @@ export default class Vector {
       throw new Error('sizes do not match');
     }
 
-    if (nblas) {
+    if (nblas && nblas.dot) {
       return nblas.dot(this.data, vector.data);
     }
 
@@ -340,7 +340,7 @@ export default class Vector {
       return 0;
     }
     
-    if (nblas) {
+    if (nblas && nblas.nrm2) {
       return nblas.nrm2(this.data);
     }
 
@@ -407,7 +407,7 @@ export default class Vector {
    * Gets the maximum value (largest) element of current vector.
    */
   max(): number {
-    if (nblas) {
+    if (nblas && nblas.iamax) {
       return this.data[nblas.iamax(this.data)];
     }
 
