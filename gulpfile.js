@@ -20,6 +20,7 @@
     ];
 
     return browserify({ entries: files })
+      .ignore('nblas')
       .plugin(tsify)
       .bundle()
       .pipe(source('vectorious.min.js'))
