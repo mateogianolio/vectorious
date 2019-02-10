@@ -1,22 +1,9 @@
 import './types';
 
-let axpy: any;
-let scal: any;
-let dot: any;
-let nrm2: any;
-let idamax: any;
-
+let nblas: any;
 try {
-  const nblas = require('nblas');
-
-  axpy = nblas.axpy;
-  scal = nblas.scal;
-  dot = nblas.dot;
-  nrm2 = nblas.nrm2;
-  idamax = nblas.idamax;
-} catch (err) {
-  console.log('skipping nblas...');
-}
+  nblas = require('nblas');
+} catch (_) {}
 
 /**
  * @class Vector
@@ -61,16 +48,21 @@ export default class Vector {
    * Perform binary operation on `vector` to the current vector.
    */
   binOp(vector: Vector, op: (a: number, b: number, index?: number) => number): Vector {
-    var l1 = this.length,
-        l2 = vector.length;
-    if (l1 !== l2)
-      throw new Error('sizes do not match!');
-    if (!l1 && !l2)
-      return this;
+    const l1 = this.length;
+    const l2 = vector.length;
 
-    var i;
-    for (i = 0; i < l1; i++)
+    if (l1 !== l2) {
+      throw new Error('sizes do not match!');
+    }
+
+    if (!l1 && !l2) {
+      return this;
+    }
+
+    let i;
+    for (i = 0; i < l1; i++) {
       this.data[i] = op(this.data[i], vector.data[i], i);
+    }
 
     return this;
   }
@@ -86,18 +78,19 @@ export default class Vector {
    * Adds `vector` to the current vector.
    */
   add(vector: Vector): Vector {
-    try {
-      const l1 = this.length;
-      const l2 = vector.length;
+    const l1 = this.length;
+    const l2 = vector.length;
 
-      if (l1 !== l2)
-        throw new Error('sizes do not match!');
-
-      axpy(vector.data, this.data);
-      return this;
-    } catch (err) {
-      return this.binOp(vector, (a, b) => a + b);
+    if (l1 !== l2) {
+      throw new Error('sizes do not match!');
     }
+
+    if (nblas) {
+      nblas.axpy(vector.data, this.data);
+      return this;
+    }
+
+    return this.binOp(vector, (a, b) => a + b);
   }
 
   /**
@@ -111,18 +104,19 @@ export default class Vector {
    * Subtracts `vector` from the current vector.
    */
   subtract(vector: Vector): Vector {
-    try {
-      const l1 = this.length;
-      const l2 = vector.length;
+    const l1 = this.length;
+    const l2 = vector.length;
 
-      if (l1 !== l2)
-        throw new Error('sizes do not match!');
-
-      axpy(vector.data, this.data, -1);
-      return this;
-    } catch (err) {
-      return this.binOp(vector, (a, b) => a - b);
+    if (l1 !== l2) {
+      throw new Error('sizes do not match!');
     }
+
+    if (nblas) {
+      nblas.axpy(vector.data, this.data, -1);
+      return this;
+    }
+
+    return this.binOp(vector, (a, b) => a - b);
   }
 
   /**
@@ -136,14 +130,14 @@ export default class Vector {
    * Multiplies all elements of current vector with a specified `scalar`.
    */
   scale(scalar: number): Vector {
-    try {
-      scal(this.data, scalar);
+    if (nblas) {
+      nblas.scal(this.data, scalar);
       return this;
-    } catch (err) {
-      return this.each((_, i, data) => {
-        data[i] *= scalar;
-      });
     }
+
+    return this.each((_, i, data) => {
+      data[i] *= scalar;
+    });
   }
 
   /**
@@ -181,26 +175,34 @@ export default class Vector {
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
   static fill(count: number, value: number | ((i: number) => number), type?: TypedArrayConstructor): Vector {
-    if (count < 0)
+    if (count < 0) {
       throw new Error('invalid size');
-    if (count === 0)
+    }
+
+    if (count === 0) {
       return new Vector();
+    }
     
     if (value == null) {
       value = 0.0;
     }
+
     if (type == null) {
       type = Float64Array;
     }
-    var data = new type(count),
-        i;
 
-    if (typeof value === 'function')
-      for (i = 0; i < count; i++)
+    const data = new type(count);
+
+    let i;
+    if (typeof value === 'function') {
+      for (i = 0; i < count; i++) {
         data[i] = value(i);
-    else
-      for (i = 0; i < count; i++)
+      }
+    } else {
+      for (i = 0; i < count; i++) {
         data[i] = value;
+      }
+    }
 
     return new Vector(data);
   }
@@ -240,12 +242,15 @@ export default class Vector {
    * `TypedArray`.
    */
   static range(...args: any[]): Vector {
-    var backwards = false,
-        start, step, end;
+    let type = Float64Array;
+    let backwards = false;
+    let start;
+    let step;
+    let end;
 
-    var type = Float64Array;
-    if (typeof args[args.length - 1] === 'function')
+    if (typeof args[args.length - 1] === 'function') {
       type = args.pop();
+    }
 
     switch (args.length) {
       case 2:
@@ -263,24 +268,30 @@ export default class Vector {
     }
 
     if (end - start < 0) {
-      var copy = end;
+      let copy = end;
       end = start;
       start = copy;
       backwards = true;
     }
 
-    if (step > end - start)
+    if (step > end - start) {
       throw new Error('invalid range');
+    }
 
-    var data = new type(Math.ceil((end - start) / step)),
-        i = start,
-        j = 0;
-    if (backwards)
-      for (; i < end; i += step, j++)
+    const data = new type(Math.ceil((end - start) / step));
+
+    let i = start;
+    let j = 0;
+
+    if (backwards) {
+      for (; i < end; i += step, j++) {
         data[j] = end - i + start;
-    else
-      for (; i < end; i += step, j++)
+      }
+    } else {
+      for (; i < end; i += step, j++) {
         data[j] = i;
+      }
+    }
 
     return new Vector(data);
   }
@@ -296,43 +307,53 @@ export default class Vector {
    * Performs dot multiplication with current vector and `vector`
    */
   dot(vector: Vector): number {
-    if (this.length !== vector.length)
+    const l1 = this.length;
+    const l2 = vector.length;
+
+    if (l1 !== l2) {
       throw new Error('sizes do not match');
-
-    try {
-      return dot(this.data, vector.data);
-    } catch (err) {
-      var a = this.data,
-          b = vector.data,
-          result = 0,
-          i, l;
-
-      for (i = 0, l = this.length; i < l; i++)
-        result += a[i] * b[i];
-
-      return result;
     }
+
+    if (nblas) {
+      return nblas.dot(this.data, vector.data);
+    }
+
+    const a = this.data;
+    const b = vector.data;
+
+    let result = 0;
+
+    let i;
+    for (i = 0; i < l1; i++) {
+      result += a[i] * b[i];
+    }
+
+    return result;
   }
 
   /**
    * Calculates the magnitude of a vector (also called L2 norm or Euclidean length).
    */
   magnitude(): number {
-    if (!this.length)
+    const l = this.length;
+    if (!l) {
       return 0;
-    
-    try {
-      return nrm2(this.data);
-    } catch (err) {
-      var result = 0,
-          data = this.data,
-          i, l;
-
-      for (i = 0, l = this.length; i < l; i++)
-        result += data[i] * data[i];
-
-      return Math.sqrt(result);
     }
+    
+    if (nblas) {
+      return nblas.nrm2(this.data);
+    }
+
+    const data = this.data;
+
+    let result = 0;
+
+    let i;
+    for (i = 0; i < l; i++) {
+      result += data[i] * data[i];
+    }
+
+    return Math.sqrt(result);
   }
 
   /**
@@ -360,43 +381,46 @@ export default class Vector {
    * Checks the equality of the current vector and `vector`.
    */
   equals(vector: Vector): boolean {
-    if (this.length !== vector.length)
-      return false;
+    const l1 = this.length;
+    const l2 = vector.length;
 
-    var i = 0;
-    while (i < this.length && this.data[i] === vector.data[i])
+    if (l1 !== l2) {
+      return false;
+    }
+
+    let i = 0;
+    while (i < l1 && this.data[i] === vector.data[i]) {
       i++;
-    return i === this.length;
+    }
+
+    return i === l1;
   }
 
   /**
    * Gets the minimum value (smallest) element of current vector.
    */
   min(): number {
-    return this.reduce(function(acc, item) {
-      return acc < item ? acc : item;
-    }, Number.POSITIVE_INFINITY);
+    return this.reduce((acc, item) => acc < item ? acc : item, Number.POSITIVE_INFINITY);
   }
 
   /**
    * Gets the maximum value (largest) element of current vector.
    */
   max(): number {
-    try {
-      return this.data[idamax(this.length, this.data, 1)];
-    } catch (err) {
-      return this.reduce(function(acc, item) {
-        return acc < item ? item : acc;
-      }, Number.NEGATIVE_INFINITY);
+    if (nblas) {
+      return this.data[nblas.iamax(this.data)];
     }
+
+    return this.reduce((acc, item) => acc < item ? item : acc, Number.NEGATIVE_INFINITY);
   }
 
   /**
    * Check if `index` is within the bound for current vector.
    */
   check(index: number): void {  
-    if (!isFinite(index) || index < 0 || index > this.length - 1)
+    if (!isFinite(index) || index < 0 || index > this.length - 1) {
       throw new Error('index out of bounds');
+    }
   }
 
   /**
@@ -483,21 +507,24 @@ export default class Vector {
    * Combines the current vector with `vector`
    */
   combine(vector: Vector): Vector {
-    if (!vector.length)
+    const l1 = this.length;
+    const l2 = vector.length;
+
+    if (!l2) {
       return this;
-    if (!this.length) {
+    }
+
+    if (!l1) {
       this.data = new vector.type(vector.data);
-      this.length = vector.length;
+      this.length = l2;
       this.type = vector.type;
       return this;
     }
 
-    var l1 = this.length,
-        l2 = vector.length,
-        d1 = this.data,
-        d2 = vector.data;
+    const d1 = this.data;
+    const d2 = vector.data;
+    const data = new this.type(l1 + l2);
 
-    var data = new this.type(l1 + l2);
     data.set(d1);
     data.set(d2, l1);
 
@@ -518,11 +545,14 @@ export default class Vector {
    * Maps a function `callback` to all elements of current vector.
    */
   map(callback: (value: number, i: number, src: TypedArray) => number): Vector {
-    var mapped = new Vector(this),
-        data = mapped.data,
-        i;
-    for (i = 0; i < this.length; i++)
+    const l = this.length;
+    const mapped = new Vector(this);
+    const data = mapped.data;
+
+    let i;
+    for (i = 0; i < l; i++) {
       data[i] = callback.call(mapped, data[i], i, data);
+    }
 
     return mapped;
   }
@@ -532,9 +562,10 @@ export default class Vector {
    * to `Array.prototype.forEach`.
    */
   each(callback: (value: number, i: number, src: TypedArray) => void): Vector {
-    var i;
-    for (i = 0; i < this.length; i++)
+    let i;
+    for (i = 0; i < this.length; i++) {
       callback.call(this, this.data[i], i, this.data);
+    }
 
     return this;
   }
@@ -543,15 +574,18 @@ export default class Vector {
    * Equivalent to `TypedArray.prototype.reduce`.
    */
   reduce(callback: (acc: number, value: number, i: number, src: TypedArray) => number, initialValue?: number): number {
-    var l = this.length;
-    if (l === 0 && !initialValue)
+    const l = this.length;
+    if (!l && !initialValue) {
       throw new Error('Reduce of empty matrix with no initial value.');
+    }
 
-    var i = 0,
-        value = initialValue != null ? initialValue : this.data[i++];
+    let i = 0;
+    let value = initialValue != null ? initialValue : this.data[i++];
 
-    for (; i < l; i++)
+    for (; i < l; i++) {
       value = callback.call(this, value, this.data[i], i, this.data);
+    }
+
     return value;
   }
 
@@ -559,14 +593,18 @@ export default class Vector {
    * Converts current vector into a readable formatted string.
    */
   toString(): string {
-    var result = ['['],
-        i = 0;
-    
-    if (i < this.length)
+    const l = this.length;
+    const result = ['['];
+
+    let i = 0;
+    if (i < l) {
       result.push(String(this.data[i++]));
-    while (i < this.length)
+    }
+
+    while (i < l) {
       result.push(', ' + this.data[i++]);
-    
+    }
+
     result.push(']');
 
     return result.join('');
@@ -576,8 +614,9 @@ export default class Vector {
    * Converts current vector into a JavaScript array.
    */
   toArray(): number[] {
-    if (!this.data)
+    if (!this.data) {
       return [];
+    }
 
     return [].slice.call(this.data);
   }

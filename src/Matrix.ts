@@ -1,19 +1,10 @@
 import './types';
 import Vector from './Vector';
 
-let axpy: any;
-let scal: any;
-let gemm: any;
-
+let nblas: any;
 try {
-  const nblas = require('nblas');
-
-  axpy = nblas.axpy;
-  scal = nblas.scal;
-  gemm = nblas.gemm;
-} catch (err) {
-  console.log('skipping nblas...');
-}
+  nblas = require('nblas');
+} catch (_) {}
 
 export default class Matrix {
   type: TypedArrayConstructor;
@@ -49,7 +40,7 @@ export default class Matrix {
     if (data.length !== shape[0] * shape[1])
       throw new Error("Shape does not match typed array dimensions.");
 
-    var self = Object.create(Matrix.prototype);
+    const self = Object.create(Matrix.prototype);
     self.shape = shape;
     self.data = data;
     self.type = data.constructor;
@@ -58,20 +49,23 @@ export default class Matrix {
   }
 
   static fromArray(array: number[][]) {
-    var r = array.length, // number of rows
-        c = array[0].length,  // number of columns
-        data = new Float64Array(r * c);
+    const r = array.length;
+    const c = array[0].length;
+    const data = new Float64Array(r * c);
 
-    var i, j;
-    for (i = 0; i < r; ++i)
-      for (j = 0; j < c; ++j)
+    let i;
+    let j;
+    for (i = 0; i < r; ++i) {
+      for (j = 0; j < c; ++j) {
         data[i * c + j] = array[i][j];
+      }
+    }
 
     return Matrix.fromTypedArray(data, [r, c]);
   }
   
   static fromMatrix(matrix: Matrix) {
-    var self = Object.create(Matrix.prototype);
+    const self = Object.create(Matrix.prototype);
     self.shape = [matrix.shape[0], matrix.shape[1]];
     self.data = new matrix.type(matrix.data);
     self.type = matrix.type;
@@ -80,10 +74,11 @@ export default class Matrix {
   }
   
   static fromVector(vector: Vector, shape?: number[]) {
-    if (shape && vector.length !== shape[0] * shape[1])
+    if (shape && vector.length !== shape[0] * shape[1]) {
       throw new Error("Shape does not match vector dimensions.");
+    }
 
-    var self = Object.create(Matrix.prototype);
+    const self = Object.create(Matrix.prototype);
     self.shape = shape ? shape : [vector.length, 1];
     self.data = new vector.type(vector.data);
     self.type = vector.type;
@@ -92,9 +87,7 @@ export default class Matrix {
   }
 
   static fromShape(shape: number[]) {
-    var r = shape[0], // number of rows
-        c = shape[1]; // number of columns
-
+    const [r, c] = shape;
     return Matrix.fromTypedArray(new Float64Array(r * c), shape);
   }
 
@@ -109,18 +102,19 @@ export default class Matrix {
    * Perform binary operation on `matrix` to the current matrix.
    */
   binOp(matrix: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
-    var r = this.shape[0],          // rows in this matrix
-        c = this.shape[1],          // columns in this matrix
-        size = r * c,
-        d1 = this.data,
-        d2 = matrix.data;
+    const [r, c] = this.shape;
+    const size = r * c;
+    const d1 = this.data;
+    const d2 = matrix.data;
 
-    if (r !== matrix.shape[0] || c !== matrix.shape[1])
+    if (r !== matrix.shape[0] || c !== matrix.shape[1]) {
       throw new Error('sizes do not match!');
+    }
 
-    var i;
-    for (i = 0; i < size; i++)
+    let i;
+    for (i = 0; i < size; i++) {
       d1[i] = op(d1[i], d2[i], i);
+    }
 
     return this;
   }
@@ -136,18 +130,18 @@ export default class Matrix {
    * Adds `matrix` to current matrix.
    */
   add(matrix: Matrix): Matrix {
-    try {
-      const [r1, c1] = this.shape;
-      const [r2, c2] = matrix.shape;
+    const [r1, c1] = this.shape;
+    const [r2, c2] = matrix.shape;
 
-      if (r1 !== r2 || c1 !== c2)
-        throw new Error('sizes do not match!');
+    if (r1 !== r2 || c1 !== c2)
+      throw new Error('sizes do not match!');
 
-      axpy(matrix.data, this.data);
+    if (nblas) {
+      nblas.axpy(matrix.data, this.data);
       return this;
-    } catch (err) {
-      return this.binOp(matrix, (a, b) => a + b);
     }
+
+    return this.binOp(matrix, (a, b) => a + b);
   }
 
   /**
@@ -161,18 +155,19 @@ export default class Matrix {
    * Subtracts `matrix` from current matrix.
    */
   subtract(matrix: Matrix): Matrix {
-    try {
-      const [r1, c1] = this.shape;
-      const [r2, c2] = matrix.shape;
+    const [r1, c1] = this.shape;
+    const [r2, c2] = matrix.shape;
 
-      if (r1 !== r2 || c1 !== c2)
-        throw new Error('sizes do not match!');
-
-      axpy(matrix.data, this.data, -1);
-      return this;
-    } catch (err) {
-      return this.binOp(matrix, (a, b) => a - b);
+    if (r1 !== r2 || c1 !== c2) {
+      throw new Error('sizes do not match!');
     }
+
+    if (nblas) {
+      nblas.axpy(matrix.data, this.data, -1);
+      return this;
+    }
+
+    return this.binOp(matrix, (a, b) => a - b);
   }
 
   /**
@@ -200,21 +195,21 @@ export default class Matrix {
    * Multiplies all elements of current matrix with a specified `scalar`.
    */
   scale(scalar: number): Matrix {
-    try {
-      scal(this.data, scalar);
-      return this;
-    } catch (err) {
-      var r = this.shape[0],          // rows in this matrix
-          c = this.shape[1],          // columns in this matrix
-          size = r * c,
-          d1 = this.data,
-          i;
-
-      for (i = 0; i < size; i++)
-        d1[i] *= scalar;
-
+    if (nblas) {
+      nblas.scal(this.data, scalar);
       return this;
     }
+
+    const [r, c] = this.shape;
+    const size = r * c;
+    const d1 = this.data;
+
+    let i;
+    for (i = 0; i < size; i++) {
+      d1[i] *= scalar;
+    }
+
+    return this;
   }
 
   /**
@@ -222,19 +217,24 @@ export default class Matrix {
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
   static fill(r: number, c: number, value: number | ((r: number, c: number) => number), type?: TypedArrayConstructor): Matrix {
-    if (r <= 0 || c <= 0)
+    if (r <= 0 || c <= 0) {
       throw new Error('invalid size');
+    }
 
     value = value || +0.0;
     type = type || Float64Array;
 
-    var size = r * c,
-        data = new type(size),
-        i, j, k = 0;
+    const size = r * c;
+    const data = new type(size);
     
-    for (i = 0; i < r; i++)
-      for (j = 0; j < c; j++, k++)
+    let i;
+    let j;
+    let k = 0;
+    for (i = 0; i < r; i++) {
+      for (j = 0; j < c; j++, k++) {
         data[k] = value instanceof Function ? value(i, j) : value;
+      }
+    }
 
     return Matrix.fromTypedArray(data, [r, c]);
   }
@@ -277,37 +277,38 @@ export default class Matrix {
    * Multiplies two matrices `a` and `b` of matching dimensions.
    */
   multiply(matrix: Matrix): Matrix {
-    var r1 = this.shape[0],   // rows in this matrix
-        c1 = this.shape[1],   // columns in this matrix
-        r2 = matrix.shape[0], // rows in multiplicand
-        c2 = matrix.shape[1], // columns in multiplicand
-        d1 = this.data,
-        d2 = matrix.data;
+    const [r1, c1] = this.shape;
+    const [r2, c2] = matrix.shape;
+    const d1 = this.data;
+    const d2 = matrix.data;
 
-    if (c1 !== r2)
+    if (c1 !== r2) {
       throw new Error('sizes do not match');
+    }
     
+    const data = new this.type(r1 * c2);
 
-    var data = new this.type(r1 * c2),
-        i, j, k,
-        sum;
-    
-    try {
-      gemm(d1, d2, data, r1, c2, c1);
-      return Matrix.fromTypedArray(data, [r1, c2]);
-    } catch (err) {
-      for (i = 0; i < r1; i++) {
-        for (j = 0; j < c2; j++) {
-          sum = +0;
-          for (k = 0; k < c1; k++)
-            sum += d1[i * c1 + k] * d2[j + k * c2];
-  
-          data[i * c2 + j] = sum;
-        }
-      }
-
+    if (nblas) {
+      nblas.gemm(d1, d2, data, r1, c2, c1);
       return Matrix.fromTypedArray(data, [r1, c2]);
     }
+
+    let i;
+    let j;
+    let k;
+    let sum;
+    for (i = 0; i < r1; i++) {
+      for (j = 0; j < c2; j++) {
+        sum = +0;
+        for (k = 0; k < c1; k++) {
+          sum += d1[i * c1 + k] * d2[j + k * c2];
+        }
+
+        data[i * c2 + j] = sum;
+      }
+    }
+
+    return Matrix.fromTypedArray(data, [r1, c2]);
   }
 
   /**
@@ -321,14 +322,16 @@ export default class Matrix {
    * Transposes a matrix (mirror across the diagonal).
    */
   transpose(): Matrix {
-    var r = this.shape[0],
-        c = this.shape[1],
-        i, j;
+    const [r, c] = this.shape;
+    const data = new this.type(c * r);
 
-    var data = new this.type(c * r);
-    for (i = 0; i < r; i++)
-      for (j = 0; j < c; j++)
+    let i;
+    let j;
+    for (i = 0; i < r; i++) {
+      for (j = 0; j < c; j++) {
         data[j * r + i] = this.data[i * c + j];
+      }
+    }
 
     return Matrix.fromTypedArray(data, [c, r]);
   }
@@ -338,31 +341,35 @@ export default class Matrix {
    * Gaussian elimination.
    */
   inverse(): Matrix {
-    var l = this.shape[0],
-        m = this.shape[1];
+    const [r, c] = this.shape;
 
-    if (l !== m)
+    if (r !== c) {
       throw new Error('invalid dimensions');
+    }
 
-    var identity = Matrix.identity(l);
-    var augmented = Matrix.augment(this, identity);
-    var gauss = augmented.gauss();
+    const identity = Matrix.identity(r);
+    const augmented = Matrix.augment(this, identity);
+    const gauss = augmented.gauss();
+    const left = Matrix.zeros(r, c);
+    const right = Matrix.zeros(r, c);
 
-    var left = Matrix.zeros(l, m),
-        right = Matrix.zeros(l, m),
-        n = gauss.shape[1],
-        i, j;
-    for (i = 0; i < l; i++) {
+    const n = gauss.shape[1];
+
+    let i;
+    let j;
+    for (i = 0; i < r; i++) {
       for (j = 0; j < n; j++) {
-        if (j < m)
+        if (j < c) {
           left.set(i, j, gauss.get(i, j));
-        else
-          right.set(i, j - l, gauss.get(i, j));
+        } else {
+          right.set(i, j - r, gauss.get(i, j));
+        }
       }
     }
 
-    if (!left.equals(Matrix.identity(l)))
+    if (!left.equals(Matrix.identity(r))) {
       throw new Error('matrix is not invertible');
+    }
 
     return right;
   }
@@ -371,61 +378,70 @@ export default class Matrix {
    * Performs Gaussian elimination on a matrix.
    */
   gauss(): Matrix {
-    var l = this.shape[0],
-        m = this.shape[1];
+    const [r, c] = this.shape;
+    const copy = new Matrix(this);
 
-    var copy = new Matrix(this),
-        lead = 0,
-        pivot,
-        i, j, k,
-        leadValue;
+    let lead = 0;
+    let pivot;
+    let leadValue;
 
-    for (i = 0; i < l; i++) {
-      if (m <= lead)
+    let i;
+    let j;
+    let k;
+    for (i = 0; i < r; i++) {
+      if (c <= lead) {
         throw new Error('matrix is singular');
+      }
 
       j = i;
-      while (copy.data[j * m + lead] === 0) {
+      while (copy.data[j * c + lead] === 0) {
         j++;
-        if (l === j) {
+        if (r === j) {
           j = i;
           lead++;
 
-          if (m === lead)
+          if (c === lead) {
             throw new Error('matrix is singular');
+          }
         }
       }
 
       copy.swap(i, j);
 
-      pivot = copy.data[i * m + lead];
+      pivot = copy.data[i * c + lead];
       if (pivot !== 0) {
         // scale down the row by value of pivot
-        for (k = 0; k < m; k++)
-          copy.data[(i * m) + k] = copy.data[(i * m) + k] / pivot;
+        for (k = 0; k < c; k++) {
+          copy.data[(i * c) + k] = copy.data[(i * c) + k] / pivot;
+        }
       }
 
-
-      for (j = 0; j < l; j++) {
-        leadValue = copy.data[j * m + lead];
-        if (j !== i)
-          for (k = 0; k < m; k++)
-            copy.data[j * m + k] = copy.data[j * m + k] - (copy.data[i * m + k] * leadValue);
+      for (j = 0; j < r; j++) {
+        leadValue = copy.data[j * c + lead];
+        if (j !== i) {
+          for (k = 0; k < c; k++) {
+            copy.data[j * c + k] = copy.data[j * c + k] - (copy.data[i * c + k] * leadValue);
+          }
+        }
       }
 
       lead++;
     }
 
-    for (i = 0; i < l; i++) {
+    for (i = 0; i < r; i++) {
       pivot = 0;
-      for (j = 0; j < m; j++)
-        if (!pivot)
-          pivot = copy.data[i * m + j];
+      for (j = 0; j < c; j++) {
+        if (!pivot) {
+          pivot = copy.data[i * c + j];
+        }
+      }
 
-      if (pivot)
+      if (pivot) {
         // scale down the row by value of pivot
-        for (k = 0; k < m; k++)
-          copy.data[(i * m) + k] = copy.data[(i * m) + k] / pivot;
+        for (k = 0; k < c; k++) {
+          copy.data[(i * c) + k] = copy.data[(i * c) + k] / pivot;
+        }
+      }
     }
 
     return copy;
@@ -435,21 +451,25 @@ export default class Matrix {
    * Performs full LU decomposition on a matrix.
    */
   lu(): [Matrix, Matrix, Int32Array] {
-    var r = this.shape[0],
-        c = this.shape[1],
-        plu = Matrix.plu(this),
-        ipiv = plu[1],
-        lower = new Matrix(plu[0]),
-        upper = new Matrix(plu[0]),
-        i, j;
+    const [r, c] = this.shape;
+    const plu = Matrix.plu(this);
+    const ipiv = plu[1];
+    const lower = new Matrix(plu[0]);
+    const upper = new Matrix(plu[0]);
 
-    for (i = 0; i < r; i++)
-      for (j = i; j < c; j++)
+    let i;
+    let j;
+    for (i = 0; i < r; i++) {
+      for (j = i; j < c; j++) {
         lower.data[i * c + j] = i === j ? 1 : 0;
+      }
+    }
 
-    for (i = 0; i < r; i++)
-      for (j = 0; j < i && j < c; j++)
+    for (i = 0; i < r; i++) {
+      for (j = 0; j < i && j < c; j++) {
         upper.data[i * c + j] = 0;
+      }
+    }
 
     return [lower, upper, ipiv];
   }
@@ -465,12 +485,18 @@ export default class Matrix {
    * Performs LU factorization on current matrix.
    */
   plu(): [Matrix, Int32Array] {
-    var data = this.data,
-        n = this.shape[0],
-        ipiv = new Int32Array(n),
-        max, abs, diag, p,
-        i, j, k;
+    const data = this.data;
+    const n = this.shape[0];
+    const ipiv = new Int32Array(n);
 
+    let max;
+    let abs;
+    let diag;
+    let p;
+
+    let i;
+    let j;
+    let k;
     for (k = 0; k < n; ++k) {
       p = k;
       max = Math.abs(data[k * n + k]);
@@ -484,12 +510,14 @@ export default class Matrix {
 
       ipiv[k] = p;
 
-      if (p !== k)
+      if (p !== k) {
         this.swap(k, p);
+      }
 
       diag = data[k * n + k];
-      for (i = k + 1; i < n; ++i)
+      for (i = k + 1; i < n; ++i) {
         data[i * n + k] /= diag;
+      }
 
       for (i = k + 1; i < n; ++i) {
         for (j = k + 1; j < n - 1; ++j) {
@@ -498,8 +526,9 @@ export default class Matrix {
           data[i * n + j] -= data[i * n + k] * data[k * n + j];
         }
 
-        if(j === n - 1)
+        if (j === n - 1) {
           data[i * n + j] -= data[i * n + k] * data[k * n + j];
+        }
       }
     }
 
@@ -510,27 +539,34 @@ export default class Matrix {
    * Solves an LU factorized matrix with the supplied right hand side(s)
    */
   lusolve(rhs: Matrix, ipiv: Int32Array): Matrix {
-    var lu = this.data,
-        n = rhs.shape[0],
-        nrhs = rhs.shape[1],
-        x = rhs.data,
-        i, j, k;
+    const lu = this.data;
+    const [n, nrhs] = rhs.shape;
+    const x = rhs.data;
 
+    let i;
+    let j;
+    let k;
     // pivot right hand side
-    for (i = 0; i < ipiv.length; i++)
-      if (i !== ipiv[i])
+    for (i = 0; i < ipiv.length; i++) {
+      if (i !== ipiv[i]) {
         rhs.swap(i, ipiv[i]);
+      }
+    }
 
     for (k = 0; k < nrhs; k++) {
       // forward solve
-      for (i = 0; i < n; i++)
-        for (j = 0; j < i; j++)
+      for (i = 0; i < n; i++) {
+        for (j = 0; j < i; j++) {
           x[i * nrhs + k] -= lu[i * n + j] * x[j * nrhs + k];
+        }
+      }
 
       // backward solve
       for (i = n - 1; i >= 0; i--) {
-        for (j = i + 1; j < n; j++)
+        for (j = i + 1; j < n; j++) {
           x[i * nrhs + k] -= lu[i * n + j] * x[j * nrhs + k];
+        }
+
         x[i * nrhs + k] /= lu[i * n + i];
       }
     }
@@ -544,7 +580,6 @@ export default class Matrix {
    */
   solve(rhs: Matrix): Matrix {
     var [lu, ipiv] = Matrix.plu(this);
-
     return lu.lusolve(new Matrix(rhs), ipiv);
   }
 
@@ -560,13 +595,10 @@ export default class Matrix {
    * Augments `matrix` with current matrix.
    */
   augment(matrix: Matrix): Matrix {
-    var r1 = this.shape[0],
-        c1 = this.shape[1],
-        r2 = matrix.shape[0],
-        c2 = matrix.shape[1],
-        d1 = this.data,
-        d2 = matrix.data,
-        i, j;
+    const [r1, c1] = this.shape;
+    const [r2, c2] = matrix.shape;
+    const d1 = this.data;
+    const d2 = matrix.data;
     
     if (r2 === 0 && c2 === 0)
       return this;
@@ -574,16 +606,22 @@ export default class Matrix {
     if (r1 !== r2)
       throw new Error("Rows do not match.");
 
-    var length = c1 + c2,
-        data = new this.type(length * r1);
+    const length = c1 + c2;
+    const data = new this.type(length * r1);
 
-    for (i = 0; i < r1; i++)
-      for (j = 0; j < c1; j++)
+    let i;
+    let j;
+    for (i = 0; i < r1; i++) {
+      for (j = 0; j < c1; j++) {
         data[i * length + j] = d1[i * c1 + j];
+      }
+    }
 
-    for (i = 0; i < r2; i++)
-      for (j = 0; j < c2; j++)
+    for (i = 0; i < r2; i++) {
+      for (j = 0; j < c2; j++) {
         data[i * length + j + c1] = d2[i * c2 + j];
+      }
+    }
 
     this.shape = [r1, length];
     this.data = data;
@@ -596,9 +634,7 @@ export default class Matrix {
    * which should be an instance of `TypedArray`.
    */
   static identity(size: number, type?: TypedArrayConstructor): Matrix {
-    return Matrix.fill(size, size, function (i, j) {
-      return i === j ? +1.0 : +0.0;
-    }, type);
+    return Matrix.fill(size, size, (i, j) => i === j ? +1.0 : +0.0, type);
   }
 
   /**
@@ -606,20 +642,25 @@ export default class Matrix {
    * which should be an instance of `TypedArray`.
    */
   static magic(size: number, type?: TypedArrayConstructor): Matrix {
-    if (size < 0)
+    if (size < 0) {
       throw new Error('invalid size');
+    }
 
     function f(n: number, x: number, y: number) {
       return (x + y * 2 + 1) % n;
     }
 
     type = type || Float64Array;
-    var data = new type(size * size),
-        i, j;
-    for (i = 0; i < size; i++)
-      for (j = 0; j < size; j++)
+    const data = new type(size * size);
+
+    let i;
+    let j;
+    for (i = 0; i < size; i++) {
+      for (j = 0; j < size; j++) {
         data[(size - i - 1) * size + (size - j - 1)] =
           f(size, size - j - 1, i) * size + f(size, j, i) + 1;
+      }
+    }
 
     return Matrix.fromTypedArray(data, [size, size]);
   }
@@ -628,13 +669,13 @@ export default class Matrix {
    * Gets the diagonal of a matrix.
    */
   diag(): Vector {
-    var r = this.shape[0],
-        c = this.shape[1],
-        data = new this.type(Math.min(r, c)),
-        i;
+    const [r, c] = this.shape;
+    const data = new this.type(Math.min(r, c));
 
-    for (i = 0; i < r && i < c; i++)
+    let i;
+    for (i = 0; i < r && i < c; i++) {
       data[i] = this.data[i * c + i];
+    }
 
     return new Vector(data);
   }
@@ -643,25 +684,29 @@ export default class Matrix {
    * Gets the determinant of any square matrix using LU factorization.
    */
   determinant(): number {
-    if (this.shape[0] !== this.shape[1])
+    const [r, c] = this.shape;
+
+    if (r !== c) {
       throw new Error('matrix is not square');
+    }
 
-    var plu = Matrix.plu(this),
-        lu = plu[0],
-        ipiv = plu[1],
-        r = this.shape[0],
-        c = this.shape[1],
-        product = 1,
-        sign = 1,
-        i;
+    const plu = Matrix.plu(this);
+    const [lu, ipiv] = plu;
 
+    let product = 1;
+    let sign = 1;
+
+    let i;
     // get sign from ipiv
-    for (i = 0; i < r; i++)
-      if (i !== ipiv[i])
+    for (i = 0; i < r; i++) {
+      if (i !== ipiv[i]) {
         sign *= -1;
+      }
+    }
 
-    for (i = 0; i < r; i++)
+    for (i = 0; i < r; i++) {
       product *= lu.data[i * c + i];
+    }
 
     return sign * product;
   }
@@ -670,11 +715,13 @@ export default class Matrix {
    * Gets the trace of the matrix (the sum of all diagonal elements).
    */
   trace(): number {
-    var diagonal = this.diag(),
-        result = 0,
-        i, l;
+    const diagonal = this.diag();
+    const length = diagonal.length;
 
-    for (i = 0, l = diagonal.length; i < l; i++)
+    let result = 0;
+
+    let i;
+    for (i = 0; i < length; i++)
       result += diagonal.get(i);
 
     return result;
@@ -691,19 +738,22 @@ export default class Matrix {
    * Checks the equality of `matrix` and current matrix.
    */
   equals(matrix: Matrix): boolean {
-    var r = this.shape[0],
-        c = this.shape[1],
-        size = r * c,
-        d1 = this.data,
-        d2 = matrix.data;
+    const [r1, c1] = this.shape;
+    const [r2, c2] = matrix.shape;
+    const size = r1 * c1;
+    const d1 = this.data;
+    const d2 = matrix.data;
 
-    if (r !== matrix.shape[0] || c !== matrix.shape[1] || this.type !== matrix.type)
+    if (r1 !== r2 || c1 !== c2 || this.type !== matrix.type) {
       return false;
+    }
 
-    var i;
-    for (i = 0; i < size; i++)
-      if (d1[i] !== d2[i])
+    let i;
+    for (i = 0; i < size; i++) {
+      if (d1[i] !== d2[i]) {
         return false;
+      }
+    }
 
     return true;
   }
@@ -712,8 +762,11 @@ export default class Matrix {
    * Check if `i` and `j` is within the bounds for current matrix.
    */
   check(i: number, j: number): void {  
-    if (isNaN(i) || isNaN(j) || i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[1] - 1)
+    const [r, c] = this.shape;
+
+    if (isNaN(i) || isNaN(j) || i < 0 || j < 0 || i > r - 1 || j > c - 1) {
       throw new Error('index out of bounds');
+    }
   }
 
   /**
@@ -737,10 +790,10 @@ export default class Matrix {
    * Swaps two rows `i` and `j` in a matrix
    */
   swap(i: number, j: number): Matrix {
-    if (i < 0 || j < 0 || i > this.shape[0] - 1 || j > this.shape[0] - 1)
+    const [r, c] = this.shape;
+    if (i < 0 || j < 0 || i > r - 1 || j > r - 1) {
       throw new Error('index out of bounds');
-
-    var c = this.shape[1];
+    }
 
     // copy first row
     var copy = this.data.slice(i * c, (i + 1) * c);
@@ -756,15 +809,15 @@ export default class Matrix {
    * Maps a function `callback` to all elements of a copy of current matrix.
    */
   map(callback: (value: number, i: number, j: number, src: TypedArray) => number): Matrix {
-    var r = this.shape[0],
-        c = this.shape[1],
-        size = r * c,
-        mapped = new Matrix(this),
-        data = mapped.data,
-        i;
+    const [r, c] = this.shape;
+    const size = r * c;
+    const mapped = new Matrix(this);
+    const data = mapped.data;
 
-    for (i = 0; i < size; i++)
+    let i;
+    for (i = 0; i < size; i++) {
       data[i] = callback.call(mapped, data[i], i / c | 0, i % c, data);
+    }
 
     return mapped;
   }
@@ -774,13 +827,13 @@ export default class Matrix {
    * equivalent to `Array.prototype.forEach`.
    */
   each(callback: (value: number, i: number, j: number) => void): Matrix {
-    var r = this.shape[0],
-        c = this.shape[1],
-        size = r * c,
-        i;
+    const [r, c] = this.shape;
+    const size = r * c;
 
-    for (i = 0; i < size; i++)
+    let i;
+    for (i = 0; i < size; i++) {
       callback.call(this, this.data[i], i / c | 0, i % c);
+    }
 
     return this;
   }
@@ -789,18 +842,20 @@ export default class Matrix {
    * Equivalent to `TypedArray.prototype.reduce`.
    */
   reduce(callback: (acc: number, value: number, i: number, j: number) => number, initialValue?: number): number {
-    var r = this.shape[0],
-        c = this.shape[1],
-        size = r * c;
+    const [r, c] = this.shape;
+    const size = r * c;
 
-    if (size === 0 && !initialValue)
+    if (size === 0 && !initialValue) {
       throw new Error('Reduce of empty matrix with no initial value.');
+    }
 
-    var i = 0,
-        value = initialValue || this.data[i++];
+    let i = 0;
+    let value = initialValue || this.data[i++];
 
-    for (; i < size; i++)
+    for (; i < size; i++) {
       value = callback.call(this, value, this.data[i], i / c | 0, i % c);
+    }
+
     return value;
   }
 
@@ -815,18 +870,22 @@ export default class Matrix {
    * Finds the rank of the matrix using row echelon form
    */
   rank(): number {
-    var vectors = this
+    const vectors = this
       .toArray()
       .map(function(r) {
         return new Vector(r);
       });
 
-    var r = this.shape[0],
-        c = this.shape[1],
-        counter = 0,
-        i, j, tmp,
-        pivot, target, scalar;
+    const [r, c] = this.shape;
 
+    let counter = 0;
+    let tmp;
+    let pivot;
+    let target;
+    let scalar;
+
+    let i;
+    let j;
     for (i = 0; i < r - 1; i++) {
       // go through each row until the row before the last
       pivot = null;
@@ -844,8 +903,9 @@ export default class Matrix {
         }
       }
       // if pivot not found, continue
-      if (!pivot)
+      if (!pivot) {
         continue;
+      }
 
       // otherwise, for all rows underneath pivot, cancel all column index to zero
       for (j = (i + 1); j < r; j++) {
@@ -874,14 +934,14 @@ export default class Matrix {
    * Converts current matrix into a readable formatted string
    */
   toString(): string {
-    var result = [],
-        r = this.shape[0],
-        c = this.shape[1],
-        i;
+    const [r, c] = this.shape;
+    const result = [];
 
-    for (i = 0; i < r; i++)
+    let i;
+    for (i = 0; i < r; i++) {
       // get string version of current row and store it
       result.push('[' + this.data.subarray(i * c, (i + 1) * c ).toString() + ']');
+    }
 
     return '[' + result.join(', \n') + ']';
   }
@@ -890,14 +950,14 @@ export default class Matrix {
    * Converts current matrix into a two-dimensional array
    */
   toArray(): number[][] {
-    var result = [],
-        r = this.shape[0],
-        c = this.shape[1],
-        i;
+    const [r, c] = this.shape;
+    const result = [];
 
-    for (i = 0; i < r; i++)
+    let i;
+    for (i = 0; i < r; i++) {
       // copy current row into a native array and store it
       result.push(Array.prototype.slice.call(this.data.subarray(i * c, (i + 1) * c)));
+    }
 
     return result;
   }
@@ -905,4 +965,4 @@ export default class Matrix {
 
 try {
   (<any>window).Matrix = Matrix;
-} catch (error) {}
+} catch (_) {}
