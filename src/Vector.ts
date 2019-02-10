@@ -223,19 +223,12 @@ export default class Vector {
 
   /**
    * Static method. Creates a vector of `count` elements containing random
-   * values according to a normal distribution, takes an optional `type`
-   * argument which should be an instance of `TypedArray`.
+   * values according to a uniform distribution bounded by `min` and `max`,
+   * takes an optional `type` argument which should be an instance of `TypedArray`.
    */
-  static random(count: number, deviation?: number, mean?: number, type?: TypedArrayConstructor): Vector {
-    if (deviation == null) {
-      deviation = 1;
-    }
-    if (mean == null) {
-      mean = 0;
-    }
-
+  static random(count: number, min: number = 0, max: number = 1, type?: TypedArrayConstructor): Vector {
     return Vector.fill(count, function() {
-      return (deviation as number) * Math.random() + (mean as number);
+      return min + (Math.random() * (max - min));
     }, type);
   }
 

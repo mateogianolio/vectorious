@@ -257,19 +257,12 @@ export default class Matrix {
 
   /**
    * Static method. Creates an `r x c` matrix containing random values
-   * according to a normal distribution, takes an optional `type` argument
-   * which should be an instance of `TypedArray`.
+   * according to a uniform distribution bounded by `min` and `max`,
+   * takes an optional `type` argument which should be an instance of `TypedArray`.
    */
-  static random(r: number, c: number, deviation?: number, mean?: number, type?: TypedArrayConstructor): Matrix {
-    if (deviation == null) {
-      deviation = 1;
-    }
-    if (mean == null) {
-      mean = 0;
-    }
-
-    return Matrix.fill(r, c, function() {
-      return (deviation as number) * Math.random() + (mean as number);
+  static random(r: number, c: number, min: number = 0, max: number = 1, type?: TypedArrayConstructor): Matrix {
+    return Matrix.fill(r, c, () => {
+      return min + (Math.random() * (max - min));
     }, type);
   }
 
