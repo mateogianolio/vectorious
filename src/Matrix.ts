@@ -21,16 +21,26 @@ export default class Matrix {
 
     if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
       return Matrix.fromTypedArray(data, options && options.shape);
-    } else if (data instanceof Array) {
+    }
+
+    if (data instanceof Array) {
       return Matrix.fromArray(data);
-    } else if (data instanceof Vector) {
+    }
+
+    if (data instanceof Vector) {
       return Matrix.fromVector(data, options && options.shape);
-    } else if (data instanceof Matrix) {
+    }
+
+    if (data instanceof Matrix) {
       return Matrix.fromMatrix(data);
-    } else if (typeof data === "number" && typeof options === "number") {
+    }
+
+    if (typeof data === "number" && typeof options === "number") {
       // Handle new Matrix(r, c)
       return Matrix.fromShape([data, options]);
-    } else if (data && !data.buffer && data.shape) {
+    }
+
+    if (data && !data.buffer && data.shape) {
       // Handle new Matrix({ shape: [r, c] })
       return Matrix.fromShape(data.shape);
     }
