@@ -2,7 +2,7 @@
   // logistic regression example based on https://github.com/junku901/dnn
   'use strict';
 
-  var v = require('../vectorious'),
+  var v = require('../built'),
       Matrix = v.Matrix,
       Vector = v.Vector;
 

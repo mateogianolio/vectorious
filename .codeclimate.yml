@@ -1,16 +1,10 @@
-engines:
-  eslint:
+version: 2
+plugins:
+  tslint:
+    config: tsconfig.json
     enabled: true
-    checks:
-      no-console:
-        enabled: false
-      no-undef:
-        enabled: false
-      callback-return:
-        enabled: false
-ratings:
-  paths:
-  - "**.js"
-exclude_paths:
-  - test/**
-  - dist/**
+exclude_patterns:
+  - "src/*.spec.ts"
+  - "dist/"
+  - "examples/"
+  - "benchmarks/"
