@@ -1,53 +1,42 @@
 import './types';
+import NDArray from './NDArray';
 
 let nblas: any;
 try {
   nblas = require('nblas');
 } catch (_) {}
 
-/**
- * @class Vector
- */
-export default class Vector {
-  type: TypedArrayConstructor
-  length: number
-  data: TypedArray
-
-  /**
-   * Creates a `Vector` from the supplied arguments.
-   */
+export default class Vector extends NDArray {
   constructor(data?: any) {
-    this.type = Float64Array;
-    this.data = new this.type(0);
-    this.length = 0;
-
-    if (data instanceof Vector) {
-      this.combine(data);
-    } else if (data && data.shape) {
-      this.data = new data.type(data.data);
-      this.length = data.shape[0] * data.shape[1];
-      this.type = data.type;
-    } else if (data instanceof Array) {
-      this.data = new this.type(data);
-      this.length = data.length;
-    } else if (data && data.buffer && data.buffer instanceof ArrayBuffer) {
-      this.data = data;
-      this.length = data.length;
-      this.type = data.constructor;
-    }
+    super(data);
   }
 
   /**
    * Static method. Perform binary operation on two vectors `a` and `b` together.
    */
-  static binOp(a: Vector, b: Vector, op: (a: number, b: number, index?: number) => number): Vector {
+  static binOp(
+    a: Vector,
+    b: Vector,
+    op: (
+      a: number,
+      b: number,
+      index?: number
+    ) => number
+  ): Vector {
     return new Vector(a).binOp(b, op);
   }
 
   /**
    * Perform binary operation on `vector` to the current vector.
    */
-  binOp(vector: Vector, op: (a: number, b: number, index?: number) => number): Vector {
+  binOp(
+    vector: Vector,
+    op: (
+      a: number,
+      b: number,
+      index?: number
+    ) => number
+  ): Vector {
     const l1 = this.length;
     const l2 = vector.length;
 
@@ -174,21 +163,17 @@ export default class Vector {
    * Static method. Creates a vector containing optional 'value' (default 0) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
-  static fill(count: number, value: number | ((i: number) => number), type?: TypedArrayConstructor): Vector {
+  static fill(
+    count: number,
+    value: number | ((i: number) => number) = 0,
+    type: TypedArrayConstructor = Float64Array
+  ): Vector {
     if (count < 0) {
       throw new Error('invalid size');
     }
 
     if (count === 0) {
       return new Vector();
-    }
-    
-    if (value == null) {
-      value = 0.0;
-    }
-
-    if (type == null) {
-      type = Float64Array;
     }
 
     const data = new type(count);
@@ -211,7 +196,7 @@ export default class Vector {
    * Static method. Creates a vector containing zeros (`0`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
-  static zeros(count: number, type?: TypedArrayConstructor): Vector {
+  static zeros(count: number, type: TypedArrayConstructor = Float64Array): Vector {
     return Vector.fill(count, 0.0, type);
   }
 
@@ -219,7 +204,7 @@ export default class Vector {
    * Static method. Creates a vector containing ones (`1`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
-  static ones(count: number, type?: TypedArrayConstructor): Vector {
+  static ones(count: number, type: TypedArrayConstructor = Float64Array): Vector {
     return Vector.fill(count, 1, type);
   }
 
@@ -228,7 +213,12 @@ export default class Vector {
    * values according to a uniform distribution bounded by `min` and `max`,
    * takes an optional `type` argument which should be an instance of `TypedArray`.
    */
-  static random(count: number, min: number = 0, max: number = 1, type?: TypedArrayConstructor): Vector {
+  static random(
+    count: number,
+    min: number = 0,
+    max: number = 1,
+    type: TypedArrayConstructor = Float64Array
+  ): Vector {
     return Vector.fill(count, function() {
       return min + (Math.random() * (max - min));
     }, type);
@@ -530,6 +520,7 @@ export default class Vector {
 
     this.data = data;
     this.length = l1 + l2;
+    this.shape = [l1 + l2];
 
     return this;
   }
@@ -573,7 +564,15 @@ export default class Vector {
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
    */
-  reduce(callback: (acc: number, value: number, i: number, src: TypedArray) => number, initialValue?: number): number {
+  reduce(
+    callback: (
+      acc: number,
+      value: number,
+      i: number,
+      src: TypedArray
+    ) => number,
+    initialValue?: number
+  ): number {
     const l = this.length;
     if (!l && !initialValue) {
       throw new Error('Reduce of empty matrix with no initial value.');
