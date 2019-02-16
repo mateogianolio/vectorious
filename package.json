@@ -1,8 +1,8 @@
 {
   "name": "vectorious",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A high performance linear algebra library.",
-  "main": "built/vectorious.js",
+  "main": "built/index.js",
   "scripts": {
     "test": "nyc mocha -r ts-node/register ./src/*.spec.ts",
     "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
