@@ -199,7 +199,7 @@ export default class NDArray implements NDInterface {
    */
   reshape(shape: number[]): this {
     const { length } = this;
-    if (shape.reduce((sum, dim) => sum + dim, 0) !== length) {
+    if (shape.reduce((sum, dim) => sum * dim, 1) !== length) {
       throw new Error('new shape does not match length');
     }
 
