@@ -49,54 +49,10 @@ export default class Matrix extends NDArray {
   }
 
   /**
-   * Adds `matrix` to current matrix.
-   */
-  add(matrix: Matrix): Matrix {
-    const [r1, c1] = this.shape;
-    const [r2, c2] = matrix.shape;
-
-    if (r1 !== r2 || c1 !== c2) {
-      throw new Error('sizes do not match!');
-    }
-
-    if (nblas && nblas.axpy) {
-      const { data: d1 } = this;
-      const { data: d2 } = matrix;
-
-      nblas.axpy(d2, d1);
-      return this;
-    }
-
-    return this.binOp(matrix, (a, b) => a + b);
-  }
-
-  /**
    * Static method. Subtracts the matrix `b` from matrix `a`.
    */
   static subtract(a: Matrix, b: Matrix): Matrix {
     return new Matrix(a).subtract(b);
-  }
-
-  /**
-   * Subtracts `matrix` from current matrix.
-   */
-  subtract(matrix: Matrix): Matrix {
-    const [r1, c1] = this.shape;
-    const [r2, c2] = matrix.shape;
-
-    if (r1 !== r2 || c1 !== c2) {
-      throw new Error('sizes do not match!');
-    }
-
-    if (nblas && nblas.axpy) {
-      const { data: d1 } = this;
-      const { data: d2 } = matrix;
-
-      nblas.axpy(d2, d1, -1);
-      return this;
-    }
-
-    return this.binOp(matrix, (a, b) => a - b);
   }
 
   /**
@@ -107,36 +63,10 @@ export default class Matrix extends NDArray {
   }
 
   /**
-   * Hadamard product of matrices
-   */
-  product(matrix: Matrix): Matrix {
-    return this.binOp(matrix, (a, b) => a * b);
-  }
-
-  /**
    * Static method. Multiplies all elements of a matrix `a` with a specified `scalar`.
    */
   static scale(a: Matrix, scalar: number): Matrix {
     return new Matrix(a).scale(scalar);
-  }
-
-  /**
-   * Multiplies all elements of current matrix with a specified `scalar`.
-   */
-  scale(scalar: number): Matrix {
-    const { data, length } = this;
-
-    if (nblas && nblas.scal) {
-      nblas.scal(data, scalar);
-      return this;
-    }
-
-    let i;
-    for (i = 0; i < length; i++) {
-      data[i] *= scalar;
-    }
-
-    return this;
   }
 
   /**
@@ -146,7 +76,7 @@ export default class Matrix extends NDArray {
   static fill(
     r: number,
     c: number,
-    value: number | ((r: number, c: number) => number) = 0,
+    value: number | ((index: number) => number) = 0,
     type: TypedArrayConstructor = Float64Array
   ): Matrix {
     if (r <= 0 || c <= 0) {
@@ -156,16 +86,7 @@ export default class Matrix extends NDArray {
     const size = r * c;
     const data = new type(size);
 
-    let i;
-    let j;
-    let k = 0;
-    for (i = 0; i < r; i++) {
-      for (j = 0; j < c; j++, k++) {
-        data[k] = value instanceof Function ? value(i, j) : value;
-      }
-    }
-
-    return new Matrix(data, { shape: [r, c] });
+    return new Matrix(data, { shape: [r, c] }).fill(value);
   }
 
   /**
@@ -196,9 +117,7 @@ export default class Matrix extends NDArray {
     max: number = 1,
     type: TypedArrayConstructor = Float64Array
   ): Matrix {
-    return Matrix.fill(r, c, () => {
-      return min + (Math.random() * (max - min));
-    }, type);
+    return Matrix.fill(r, c, min, type).scale(Math.random() * (max - min));
   }
 
   /**
@@ -569,7 +488,7 @@ export default class Matrix extends NDArray {
    * which should be an instance of `TypedArray`.
    */
   static identity(size: number, type: TypedArrayConstructor = Float64Array): Matrix {
-    return Matrix.fill(size, size, (i, j) => i === j ? 1.0 : 0.0, type);
+    return Matrix.fill(size, size, (i) => (i % size) === Math.floor(i / size) ? 1.0 : 0.0, type);
   }
 
   /**
@@ -668,33 +587,6 @@ export default class Matrix extends NDArray {
    */
   static equals(a: Matrix, b: Matrix): boolean {
     return a.equals(b);
-  }
-
-  /**
-   * Checks the equality of `matrix` and current matrix.
-   */
-  equals(matrix: Matrix): boolean {
-    const [r1, c1] = this.shape;
-    const [r2, c2] = matrix.shape;
-    const { type: t1 } = this;
-    const { type: t2 } = matrix;
-
-    if (r1 !== r2 || c1 !== c2 || t1 !== t2) {
-      return false;
-    }
-
-    const { length } = this;
-    const { data: d1 } = this;
-    const { data: d2 } = matrix;
-
-    let i;
-    for (i = 0; i < length; i++) {
-      if (d1[i] !== d2[i]) {
-        return false;
-      }
-    }
-
-    return true;
   }
 
   /**

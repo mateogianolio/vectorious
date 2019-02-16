@@ -64,25 +64,6 @@ export default class Vector extends NDArray {
   }
 
   /**
-   * Adds `vector` to the current vector.
-   */
-  add(vector: Vector): Vector {
-    const l1 = this.length;
-    const l2 = vector.length;
-
-    if (l1 !== l2) {
-      throw new Error('sizes do not match!');
-    }
-
-    if (nblas && nblas.axpy) {
-      nblas.axpy(vector.data, this.data);
-      return this;
-    }
-
-    return this.binOp(vector, (a, b) => a + b);
-  }
-
-  /**
    * Static method. Subtracts the vector `b` from vector `a`.
    */
   static subtract(a: Vector, b: Vector): Vector {
@@ -90,43 +71,10 @@ export default class Vector extends NDArray {
   }
 
   /**
-   * Subtracts `vector` from the current vector.
-   */
-  subtract(vector: Vector): Vector {
-    const l1 = this.length;
-    const l2 = vector.length;
-
-    if (l1 !== l2) {
-      throw new Error('sizes do not match!');
-    }
-
-    if (nblas && nblas.axpy) {
-      nblas.axpy(vector.data, this.data, -1);
-      return this;
-    }
-
-    return this.binOp(vector, (a, b) => a - b);
-  }
-
-  /**
    * Static method. Multiplies all elements of `vector` with a specified `scalar`.
    */
   static scale(vector: Vector, scalar: number): Vector {
     return new Vector(vector).scale(scalar);
-  }
-
-  /**
-   * Multiplies all elements of current vector with a specified `scalar`.
-   */
-  scale(scalar: number): Vector {
-    if (nblas && nblas.scal) {
-      nblas.scal(this.data, scalar);
-      return this;
-    }
-
-    return this.each((_, i, data) => {
-      data[i] *= scalar;
-    });
   }
 
   /**
@@ -165,31 +113,16 @@ export default class Vector extends NDArray {
    */
   static fill(
     count: number,
-    value: number | ((i: number) => number) = 0,
+    value: number | ((index: number) => number) = 0,
     type: TypedArrayConstructor = Float64Array
   ): Vector {
     if (count < 0) {
       throw new Error('invalid size');
     }
 
-    if (count === 0) {
-      return new Vector();
-    }
-
     const data = new type(count);
 
-    let i;
-    if (typeof value === 'function') {
-      for (i = 0; i < count; i++) {
-        data[i] = value(i);
-      }
-    } else {
-      for (i = 0; i < count; i++) {
-        data[i] = value;
-      }
-    }
-
-    return new Vector(data);
+    return new Vector(data).fill(value);
   }
 
   /**
@@ -219,9 +152,7 @@ export default class Vector extends NDArray {
     max: number = 1,
     type: TypedArrayConstructor = Float64Array
   ): Vector {
-    return Vector.fill(count, function() {
-      return min + (Math.random() * (max - min));
-    }, type);
+    return Vector.fill(count, min, type).scale(Math.random() * (max - min));
   }
 
   /**
@@ -294,59 +225,6 @@ export default class Vector extends NDArray {
   }
 
   /**
-   * Performs dot multiplication with current vector and `vector`
-   */
-  dot(vector: Vector): number {
-    const l1 = this.length;
-    const l2 = vector.length;
-
-    if (l1 !== l2) {
-      throw new Error('sizes do not match');
-    }
-
-    if (nblas && nblas.dot) {
-      return nblas.dot(this.data, vector.data);
-    }
-
-    const a = this.data;
-    const b = vector.data;
-
-    let result = 0;
-
-    let i;
-    for (i = 0; i < l1; i++) {
-      result += a[i] * b[i];
-    }
-
-    return result;
-  }
-
-  /**
-   * Calculates the magnitude of a vector (also called L2 norm or Euclidean length).
-   */
-  magnitude(): number {
-    const l = this.length;
-    if (!l) {
-      return 0;
-    }
-    
-    if (nblas && nblas.nrm2) {
-      return nblas.nrm2(this.data);
-    }
-
-    const data = this.data;
-
-    let result = 0;
-
-    let i;
-    for (i = 0; i < l; i++) {
-      result += data[i] * data[i];
-    }
-
-    return Math.sqrt(result);
-  }
-
-  /**
    * Static method. Determines the angle between two vectors `a` and `b`.
    */
   static angle(a: Vector, b: Vector): number {
@@ -365,25 +243,6 @@ export default class Vector extends NDArray {
    */
   static equals(a: Vector, b: Vector): boolean {
     return a.equals(b);
-  }
-
-  /**
-   * Checks the equality of the current vector and `vector`.
-   */
-  equals(vector: Vector): boolean {
-    const l1 = this.length;
-    const l2 = vector.length;
-
-    if (l1 !== l2) {
-      return false;
-    }
-
-    let i = 0;
-    while (i < l1 && this.data[i] === vector.data[i]) {
-      i++;
-    }
-
-    return i === l1;
   }
 
   /**
