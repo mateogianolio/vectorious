@@ -2,7 +2,7 @@
 
 [![Backers on Open Collective](https://opencollective.com/vectorious/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/vectorious/sponsors/badge.svg)](#sponsors) ![version](https://img.shields.io/npm/v/vectorious.svg) [![CDNJS](https://img.shields.io/cdnjs/v/vectorious.svg)](https://cdnjs.com/libraries/vectorious) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat&label=build) [![maintainability](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/maintainability)](https://codeclimate.com/github/mateogianolio/vectorious/maintainability) [![test coverage](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/test_coverage)](https://codeclimate.com/github/mateogianolio/vectorious/test_coverage)
 
-> A high performance linear algebra library, written in JavaScript and optimized with C++ bindings to [BLAS](http://www.netlib.org/blas/).
+> A high performance linear algebra library, written in TypeScript and optimized with C++ bindings to [BLAS](http://www.netlib.org/blas/).
 
 ### Usage
 
@@ -11,14 +11,36 @@
 ##### In node.js
 
 ```bash
+# with BLAS bindings
 $ npm install vectorious
+
+# or, if you don't want BLAS bindings
+$ npm install vectorious --no-optional
 ```
 
 ```javascript
-var v = require('vectorious'),
-    Matrix = v.Matrix,
-    Vector = v.Vector,
-    BLAS = v.BLAS; // access BLAS routines
+import { Matrix, Vector } from 'vectorious';
+
+Matrix.random(2, 2);
+/*
+Matrix {
+  shape: [ 2, 2 ],
+  data:
+   Float64Array [
+     0.7041265660588281,
+     0.6186458305857421,
+     0.032954109874604454,
+     0.5198025534810546 ],
+  type: [Function: Float64Array] }
+*/
+
+Vector.random(4, -5, 5, Int8Array);
+/*
+Vector {
+  type: [Function: Int8Array],
+  data: Int8Array [ -2, 2, 2, -1 ],
+  length: 4 }
+*/
 ```
 
 Will use your local BLAS copy (if any). Some notes for different operating systems:
@@ -78,30 +100,6 @@ The documentation is located in the wiki section of this repository.
 Internal benchmarks are located in the wiki section of this repository.
 
 [**Go to wiki.**](https://github.com/mateogianolio/vectorious/wiki)
-
-#### Compared to other libraries
-
-> Note: I'm in the process of creating better benchmarks and plots. Until then, below you'll find a simple comparison between vectorious and three other popular linear algebra libraries.
-
-The following benchmarks compare **Vectorious 4.1.0** with three popular matrix/vector libraries:
-
-* [Numeric.js](http://www.numericjs.com)
-* [Sylvester](http://sylvester.jcoglan.com)
-* [Math.js](http://mathjs.org)
-
-The graphs show operations per second on the vertical (y) axis.
-
-Below is a graph comparing the **vector operations** `add`, `angle`, `dot`, `magnitude` (aka `L2-norm`), `normalize` and `scale`.
-
-The operations were performed on vectors generated with `Vector.random(1048576)`.
-
-![Vector operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/vector_ops.png)
-
-Below is a graph comparing the **matrix operations** `add`, `scale` and `transpose`.
-
-The operations were performed on matrices generated with `Matrix.random(512, 512)`.
-
-![Matrix operations](https://github.com/mateogianolio/vectorious/raw/master/benchmarks/matrix_ops.png)
 
 ## Contributors
 
