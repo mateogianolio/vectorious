@@ -152,7 +152,8 @@ export default class Vector extends NDArray {
     max: number = 1,
     type: TypedArrayConstructor = Float64Array
   ): Vector {
-    return Vector.fill(count, min, type).scale(Math.random() * (max - min));
+    return Vector.fill(count, min, type)
+      .map(value => value + Math.random() * (max - min));
   }
 
   /**

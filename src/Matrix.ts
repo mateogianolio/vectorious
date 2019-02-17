@@ -117,7 +117,8 @@ export default class Matrix extends NDArray {
     max: number = 1,
     type: TypedArrayConstructor = Float64Array
   ): Matrix {
-    return Matrix.fill(r, c, min, type).scale(Math.random() * (max - min));
+    return Matrix.fill(r, c, min, type)
+      .map(value => value + Math.random() * (max - min));
   }
 
   /**
