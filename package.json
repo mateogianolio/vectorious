@@ -64,7 +64,7 @@
     "gulp": "^4.0.0",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.1",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.0",
     "nyc": "^13.3.0",
     "ts-node": "^7.0.1",
     "tsify": "^4.0.0",
