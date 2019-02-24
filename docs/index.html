@@ -67,16 +67,38 @@
 				<p><img src="https://github.com/mateogianolio/vectorious/raw/master/logo.gif" alt="vectorious"></p>
 				<p><a href="#backers"><img src="https://opencollective.com/vectorious/backers/badge.svg" alt="Backers on Open Collective"></a> <a href="#sponsors"><img src="https://opencollective.com/vectorious/sponsors/badge.svg" alt="Sponsors on Open Collective"></a> <img src="https://img.shields.io/npm/v/vectorious.svg" alt="version"> <a href="https://cdnjs.com/libraries/vectorious"><img src="https://img.shields.io/cdnjs/v/vectorious.svg" alt="CDNJS"></a> <img src="https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat&label=build" alt="travis"> <a href="https://codeclimate.com/github/mateogianolio/vectorious/maintainability"><img src="https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/maintainability" alt="maintainability"></a> <a href="https://codeclimate.com/github/mateogianolio/vectorious/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/test_coverage" alt="test coverage"></a></p>
 				<blockquote>
-					<p>A high performance linear algebra library, written in JavaScript and optimized with C++ bindings to <a href="http://www.netlib.org/blas/">BLAS</a>.</p>
+					<p>A high performance linear algebra library, written in TypeScript and optimized with C++ bindings to <a href="http://www.netlib.org/blas/">BLAS</a>.</p>
 				</blockquote>
 				<h3 id="usage">Usage</h3>
 				<p><a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/mateogianolio/vectorious.svg" alt="greenkeeper"></a></p>
 				<h5 id="in-node-js">In node.js</h5>
-				<pre><code class="language-bash">$ npm install vectorious</code></pre>
-				<pre><code class="language-javascript"><span class="hljs-keyword">var</span> v = <span class="hljs-built_in">require</span>(<span class="hljs-string">'vectorious'</span>),
-    Matrix = v.Matrix,
-    Vector = v.Vector,
-    BLAS = v.BLAS; <span class="hljs-comment">// access BLAS routines</span></code></pre>
+				<pre><code class="language-bash"><span class="hljs-comment"># with BLAS bindings</span>
+$ npm install vectorious
+
+<span class="hljs-comment"># or, if you don't want BLAS bindings</span>
+$ npm install vectorious --no-optional</code></pre>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Matrix, Vector } <span class="hljs-keyword">from</span> <span class="hljs-string">'vectorious'</span>;
+
+Matrix.random(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">/*
+Matrix {
+  shape: [ 2, 2 ],
+  data:
+   Float64Array [
+     0.7041265660588281,
+     0.6186458305857421,
+     0.032954109874604454,
+     0.5198025534810546 ],
+  type: [Function: Float64Array] }
+*/</span>
+
+Vector.random(<span class="hljs-number">4</span>, <span class="hljs-number">-5</span>, <span class="hljs-number">5</span>, <span class="hljs-built_in">Int8Array</span>);
+<span class="hljs-comment">/*
+Vector {
+  type: [Function: Int8Array],
+  data: Int8Array [ -2, 2, 2, -1 ],
+  length: 4 }
+*/</span></code></pre>
 				<p>Will use your local BLAS copy (if any). Some notes for different operating systems:</p>
 				<ul>
 					<li><strong>OSX</strong> - by default included in the Accelerate framework</li>
@@ -117,23 +139,6 @@
 				<h3 id="benchmarks">Benchmarks</h3>
 				<p>Internal benchmarks are located in the wiki section of this repository.</p>
 				<p><a href="https://github.com/mateogianolio/vectorious/wiki"><strong>Go to wiki.</strong></a></p>
-				<h4 id="compared-to-other-libraries">Compared to other libraries</h4>
-				<blockquote>
-					<p>Note: I&#39;m in the process of creating better benchmarks and plots. Until then, below you&#39;ll find a simple comparison between vectorious and three other popular linear algebra libraries.</p>
-				</blockquote>
-				<p>The following benchmarks compare <strong>Vectorious 4.1.0</strong> with three popular matrix/vector libraries:</p>
-				<ul>
-					<li><a href="http://www.numericjs.com">Numeric.js</a></li>
-					<li><a href="http://sylvester.jcoglan.com">Sylvester</a></li>
-					<li><a href="http://mathjs.org">Math.js</a></li>
-				</ul>
-				<p>The graphs show operations per second on the vertical (y) axis.</p>
-				<p>Below is a graph comparing the <strong>vector operations</strong> <code>add</code>, <code>angle</code>, <code>dot</code>, <code>magnitude</code> (aka <code>L2-norm</code>), <code>normalize</code> and <code>scale</code>.</p>
-				<p>The operations were performed on vectors generated with <code>Vector.random(1048576)</code>.</p>
-				<p><img src="https://github.com/mateogianolio/vectorious/raw/master/benchmarks/vector_ops.png" alt="Vector operations"></p>
-				<p>Below is a graph comparing the <strong>matrix operations</strong> <code>add</code>, <code>scale</code> and <code>transpose</code>.</p>
-				<p>The operations were performed on matrices generated with <code>Matrix.random(512, 512)</code>.</p>
-				<p><img src="https://github.com/mateogianolio/vectorious/raw/master/benchmarks/matrix_ops.png" alt="Matrix operations"></p>
 				<h2 id="contributors">Contributors</h2>
 				<p>This project exists thanks to all the people who contribute. [<a href="CONTRIBUTING.md">Contribute</a>].
 				<a href="https://github.com/mateogianolio/vectorious/graphs/contributors"><img src="https://opencollective.com/vectorious/contributors.svg?width=890&button=false" /></a></p>
@@ -162,6 +167,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_matrix_.html">"<wbr>Matrix"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_.html">"NDArray"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_vector_.html">"<wbr>Vector"</a>
