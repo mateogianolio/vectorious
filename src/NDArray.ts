@@ -5,6 +5,17 @@ try {
   nblas = require('nblas');
 } catch (_) {}
 
+const flatten = (input: any): number[] => input
+  .reduce((acc: any, next: any) => acc
+    .concat(Array.isArray(next)
+      ? flatten(next)
+      : next),
+  []);
+
+const shape = (input: any): number[] => Array.isArray(input)
+  ? [input.length].concat(shape(input[0]))
+  : [];
+
 export default class NDArray implements NDInterface {
   type: TypedArrayConstructor = Float64Array;
   shape: number[] = [0];
@@ -23,12 +34,8 @@ export default class NDArray implements NDInterface {
       this.length = this.data.length;
       this.type = data.constructor as TypedArrayConstructor;
     } else if (data instanceof Array) {
-      this.data = new Float64Array(([] as number[]).concat(...data));
-      this.shape = [data.length];
-      if ((data[0] as number[]).length) {
-        this.shape.push((data[0] as number[]).length);
-      }
-
+      this.data = new Float64Array(flatten(data));
+      this.shape = shape(data);
       this.length = this.data.length;
     } else if (data instanceof NDArray) {
       return data.copy();
