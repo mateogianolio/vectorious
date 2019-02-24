@@ -88,4 +88,44 @@ describe('NDArray', () => {
       assert.deepEqual(original, copy);
     });
   });
+
+  describe('equilateral()', () => {
+    it('should pass if lengths match', () => {
+      const f64x = new Float64Array([1, 2, 3, 4]);
+      const f64y = new Float64Array([1, 2, 3, 4]);
+      const x = new NDArray(f64x);
+      const y = new NDArray(f64y);
+
+      x.equilateral(y);
+    });
+
+    it('should throw error if lengths do not match', () => {
+      const f64x = new Float64Array([1, 2, 3, 4]);
+      const f64y = new Float64Array([1, 2, 3, 4, 5]);
+      const x = new NDArray(f64x);
+      const y = new NDArray(f64y);
+
+      assert.throws(x.equilateral.bind(x, y), Error);
+    });
+  });
+
+  describe('dimensional()', () => {
+    it('should pass if shapes match', () => {
+      const f64x = new Float64Array([1, 2, 3, 4]);
+      const f64y = new Float64Array([1, 2, 3, 4]);
+      const x = new NDArray(f64x);
+      const y = new NDArray(f64y);
+
+      x.equidimensional(y);
+    });
+
+    it('should throw error if lengths do not match', () => {
+      const f64x = new Float64Array([1, 2, 3, 4]);
+      const f64y = new Float64Array([1, 2, 3, 4]);
+      const x = new NDArray(f64x);
+      const y = new NDArray(f64y, { shape: [2, 2] });
+
+      assert.throws(x.equidimensional.bind(x, y), Error);
+    });
+  });
 });

@@ -70,6 +70,9 @@ export default class NDArray implements NDInterface {
     return this;
   }
 
+  /**
+   * Multiplies all elements of current array with a specified `scalar`.
+   */
   scale(scalar: number): this {
     const { data } = this;
 
@@ -91,20 +94,19 @@ export default class NDArray implements NDInterface {
    * Adds `x` multiplied by `alpha` to the current array.
    */
   add(x: NDArray, alpha: number = 1): this {
-    const { shape: s1, length: l1 } = this;
-    const { shape: s2, length: l2 } = x;
-
-    if (l1 !== l2 || !s1.every((dim, i) => dim === s2[i])) {
-      throw new Error(`shapes ${s1} and ${s2} do not match`);
-    }
+    this.equilateral(x);
+    this.equidimensional(x);
 
     if (nblas && nblas.axpy) {
       nblas.axpy(x.data, this.data, alpha);
       return this;
     }
 
+    const { data: d1, length: l1 } = this;
+    const { data: d2} = x;
+
     for (let i = 0; i < l1; i++) {
-      this.data[i] += alpha * x.data[i];
+      d1[i] += alpha * d2[i];
     }
 
     return this;
@@ -121,14 +123,10 @@ export default class NDArray implements NDInterface {
    * Hadamard product
    */
   product(x: NDArray): this {
-    const { shape: s1, length: l1 } = this;
-    const { shape: s2, length: l2 } = x;
+    this.equilateral(x);
+    this.equidimensional(x);
 
-    if (l1 !== l2 || !s1.every((dim, i) => dim === s2[i])) {
-      throw new Error(`shapes ${s1} and ${s2} do not match`);
-    }
-
-    const { data: d1 } = this;
+    const { data: d1, length: l1 } = this;
     const { data: d2 } = x;
 
     for (let i = 0; i < l1; i++) {
@@ -142,14 +140,10 @@ export default class NDArray implements NDInterface {
    * Performs dot multiplication
    */
   dot(x: NDArray): number {
-    const { shape: s1, length: l1 } = this;
-    const { shape: s2, length: l2 } = x;
+    this.equilateral(x);
+    this.equidimensional(x);
 
-    if (l1 !== l2 || !s1.every((dim, i) => dim === s2[i])) {
-      throw new Error(`shapes ${s1} and ${s2} do not match`);
-    }
-
-    const { data: d1 } = this;
+    const { data: d1, length: l1 } = this;
     const { data: d2 } = x;
 
     if (nblas && nblas.dot) {
@@ -202,24 +196,45 @@ export default class NDArray implements NDInterface {
   }
 
   /**
+   * Asserts if current array and `x` have the same length
+   */
+  equilateral(x: NDArray): void {
+    const { length: l1 } = this;
+    const { length: l2 } = x;
+
+    if (l1 !== l2) {
+      throw new Error(`lengths ${l1} and ${l2} do not match`);
+    }
+  }
+
+  /**
+   * Asserts if current array and `x` have the same shape
+   */
+  equidimensional(x: NDArray): void {
+    const { shape: s1 } = this;
+    const { shape: s2 } = x;
+
+    if (!s1.every((dim, i) => dim === s2[i])) {
+      throw new Error(`shapes ${s1} and ${s2} do not match`);
+    }
+  }
+
+  /**
    * Checks if current array and `x` are equal.
    */
   equals(x: NDArray): boolean {
-    const { shape: s1, length: l1 } = this;
-    const { shape: s2, length: l2 } = x;
+    this.equilateral(x);
+    this.equidimensional(x);
 
-    if (l1 !== l2 || !s1.every((dim, i) => dim === s2[i])) {
-      return false;
-    }
-
-    const { data: d1 } = this;
+    const { data: d1, length: l1 } = this;
     const { data: d2 } = x;
 
-    let i = 0;
-    while (i < l1 && d1[i] === d2[i]) {
-      i++;
+    for (let i = 0; i < l1; i++) {
+      if (d1[i] !== d2[i]) {
+        return false;
+      }
     }
 
-    return i === l1;
+    return true;
   }
 }
