@@ -162,7 +162,7 @@ describe('Matrix.prototype', () => {
         new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]])
       ];
 
-      assert.deepEqual(b, a.lu().splice(0, 2));
+      assert.deepEqual(b, a.lu().slice(0, 2));
 
       var c = new Matrix([[11, 9, 24, 2], [1, 5, 2, 6], [3, 17, 18, 1], [2, 5, 7, 1]]);
       var d = [

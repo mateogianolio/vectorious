@@ -8,7 +8,7 @@ try {
 
 export default class Vector extends NDArray {
   constructor(data?: any) {
-    super(data);
+    super(typeof data === 'number' ? new Float64Array(data) : data);
   }
 
   /**
@@ -23,7 +23,7 @@ export default class Vector extends NDArray {
       index?: number
     ) => number
   ): Vector {
-    return new Vector(a).binOp(b, op);
+    return a.copy().binOp(b, op);
   }
 
   /**
@@ -60,28 +60,28 @@ export default class Vector extends NDArray {
    * Static method. Adds two vectors `a` and `b` together.
    */
   static add(a: Vector, b: Vector): Vector {
-    return new Vector(a).add(b);
+    return a.copy().add(b);
   }
 
   /**
    * Static method. Subtracts the vector `b` from vector `a`.
    */
   static subtract(a: Vector, b: Vector): Vector {
-    return new Vector(a).subtract(b);
+    return a.copy().subtract(b);
   }
 
   /**
    * Static method. Multiplies all elements of `vector` with a specified `scalar`.
    */
   static scale(vector: Vector, scalar: number): Vector {
-    return new Vector(vector).scale(scalar);
+    return vector.copy().scale(scalar);
   }
 
   /**
    * Static method. Normalizes `vector`, i.e. divides all elements with the magnitude.
    */
   static normalize(vector: Vector): Vector {
-    return new Vector(vector).normalize();
+    return vector.copy().normalize();
   }
 
   /**
@@ -96,7 +96,7 @@ export default class Vector extends NDArray {
    * the projection formula `(b * (a * b / b * b))`.
    */
   static project(a: Vector, b: Vector): Vector {
-    return a.project(new Vector(b));
+    return a.project(b.copy());
   }
 
   /**
@@ -350,7 +350,7 @@ export default class Vector extends NDArray {
    * Static method. Combines two vectors `a` and `b` (appends `b` to `a`).
    */
   static combine(a: Vector, b: Vector): Vector {
-    return new Vector(a).combine(b);
+    return a.copy().combine(b);
   }
 
   /**
@@ -397,7 +397,7 @@ export default class Vector extends NDArray {
    */
   map(callback: (value: number, i: number, src: TypedArray) => number): Vector {
     const l = this.length;
-    const mapped = new Vector(this);
+    const mapped = this.copy();
     const data = mapped.data;
 
     let i;

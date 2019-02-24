@@ -42,14 +42,20 @@ describe('NDArray', () => {
       var ndarray = new NDArray(f64, { shape: [1, 4] });
 
       assert.deepEqual(ndarray.shape, [1, 4]);
-
-      console.log(ndarray);
-
       ndarray.reshape([4, 1]);
-
-      console.log(ndarray);
-
       assert.deepEqual(ndarray.shape, [4, 1]);
+    });
+  });
+
+  describe('copy()', () => {
+    it('should create an immutable copy of class', () => {
+      const f64 = new Float64Array([1, 2, 3, 4]);
+      var original = new NDArray(f64);
+      var copy = original.copy();
+
+      assert(original !== copy);
+      assert(original.data !== copy.data);
+      assert.deepEqual(original, copy);
     });
   });
 });

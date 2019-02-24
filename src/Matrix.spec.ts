@@ -7,7 +7,7 @@ describe('Matrix', () => {
       var a = new Matrix([[1, 1, 1]]);
       var b = new Matrix([[1, 2, 3]]);
 
-      assert.deepEqual(new Matrix(a).add(b), Matrix.add(a, b));
+      assert.deepEqual(a.copy().add(b), Matrix.add(a, b));
     });
   });
 
@@ -16,7 +16,7 @@ describe('Matrix', () => {
       var a = new Matrix([[1, 1, 1]]);
       var b = new Matrix([[1, 2, 3]]);
 
-      assert.deepEqual(new Matrix(a).subtract(b), Matrix.subtract(a, b));
+      assert.deepEqual(a.copy().subtract(b), Matrix.subtract(a, b));
     });
   });
 
@@ -24,7 +24,7 @@ describe('Matrix', () => {
     it('should work as the static equivalent of a.scale(scalar)', () => {
       var a = new Matrix([[1, 1, 1]]);
 
-      assert.deepEqual(new Matrix(a).scale(5), Matrix.scale(a, 5));
+      assert.deepEqual(a.copy().scale(5), Matrix.scale(a, 5));
     });
   });
 
@@ -33,7 +33,7 @@ describe('Matrix', () => {
       var a = new Matrix([[3, 2, 1]]);
       var b = new Matrix([[1, 2, 3]]);
 
-      assert.deepEqual(new Matrix(a).product(b), Matrix.product(a, b));
+      assert.deepEqual(a.copy().product(b), Matrix.product(a, b));
     });
   });
 
@@ -42,7 +42,7 @@ describe('Matrix', () => {
       var a = new Matrix([[1], [2], [3]]);
       var b = new Matrix([[1, 1, 1]]);
 
-      assert.deepEqual(new Matrix(a).multiply(b), Matrix.multiply(a, b));
+      assert.deepEqual(a.copy().multiply(b), Matrix.multiply(a, b));
     });
   });
 
@@ -50,7 +50,7 @@ describe('Matrix', () => {
     it('should work as the static equivalent of a.plu()', () => {
       var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
 
-      assert.deepEqual(new Matrix(a).plu(), Matrix.plu(a));
+      assert.deepEqual(a.copy().plu(), Matrix.plu(a));
     });
   });
 
@@ -59,7 +59,7 @@ describe('Matrix', () => {
       var a = new Matrix([[1, 1, 1]]);
       var b = new Matrix([[1, 2, 3]]);
 
-      assert.deepEqual(new Matrix(a).augment(b), Matrix.augment(a, b));
+      assert.deepEqual(a.copy().augment(b), Matrix.augment(a, b));
     });
   });
 
@@ -68,7 +68,7 @@ describe('Matrix', () => {
       var a = new Matrix([[1, 1, 1]]);
       var b = new Matrix([[1, 1, 1]]);
 
-      assert.deepEqual(new Matrix(a).equals(b), Matrix.equals(a, b));
+      assert.deepEqual(a.copy().equals(b), Matrix.equals(a, b));
     });
   });
 

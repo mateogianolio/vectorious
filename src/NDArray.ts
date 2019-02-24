@@ -13,17 +13,16 @@ export default class NDArray implements NDInterface {
 
   constructor(
     data?: any,
-    options?: any
+    options?: {
+      shape: number[],
+    }
   ) {
     if (ArrayBuffer.isView(data)) {
       this.data = data as TypedArray;
       this.shape = typeof options === 'object' ? options.shape : [this.data.length];
       this.length = this.data.length;
       this.type = data.constructor as TypedArrayConstructor;
-      return;
-    }
-
-    if (data instanceof Array) {
+    } else if (data instanceof Array) {
       this.data = new Float64Array(([] as number[]).concat(...data));
       this.shape = [data.length];
       if ((data[0] as number[]).length) {
@@ -31,35 +30,28 @@ export default class NDArray implements NDInterface {
       }
 
       this.length = this.data.length;
-      return;
+    } else if (data instanceof NDArray) {
+      return data.copy();
+    } else {
+      this.data = new Float64Array(0);
+      this.shape = [0];
+      this.length = 0;
+      this.type = Float64Array;
     }
-    
-    if (data instanceof NDArray) {
-      this.data = new data.type(data.data);
-      this.shape = data.shape;
-      this.length = data.length;
-      this.type = data.type;
-      return;
-    }
-    
-    if (typeof data === "number" && !options) {
-      this.data = new Float64Array(data);
-      this.shape = [data, 1];
-      this.length = data;
-      return;
-    }
-    
-    if (typeof data === "number" && typeof options === "number") {
-      this.data = new Float64Array(data * options);
-      this.shape = [data, options];
-      this.length = data * options;
-      return;
-    }
+  }
 
-    this.data = new Float64Array(0);
-    this.shape = [0];
-    this.length = 0;
-    this.type = Float64Array;
+  /**
+   * Makes a copy of the class and underlying data
+   */
+  copy(): this {
+    const copy = Object.assign(Object.create(this), this);
+
+    copy.data = new this.type(this.data);
+    copy.shape = this.shape;
+    copy.length = this.length;
+    copy.type = this.type;
+
+    return copy;
   }
 
   /**

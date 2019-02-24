@@ -9,14 +9,18 @@ try {
 
 export default class Matrix extends NDArray {
   constructor(data?: any, options?: any) {
-    super(data, options);
+    if (typeof data === "number" && typeof options === "number") {
+      super(new Float64Array(data * options), { shape: [data, options ] });
+    } else {
+      super(data, options);
+    }
   }
 
   /**
    * Static method. Perform binary operation on two matrices `a` and `b` together.
    */
   static binOp(a: Matrix, b: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
-    return new Matrix(a).binOp(b, op);
+    return a.copy().binOp(b, op);
   }
 
   /**
@@ -45,28 +49,28 @@ export default class Matrix extends NDArray {
    * Static method. Adds two matrices `a` and `b` together.
    */
   static add(a: Matrix, b: Matrix): Matrix {
-    return new Matrix(a).add(b);
+    return a.copy().add(b);
   }
 
   /**
    * Static method. Subtracts the matrix `b` from matrix `a`.
    */
   static subtract(a: Matrix, b: Matrix): Matrix {
-    return new Matrix(a).subtract(b);
+    return a.copy().subtract(b);
   }
 
   /**
    * Static method. Hadamard product of matrices
    */
   static product(a: Matrix, b: Matrix): Matrix {
-    return new Matrix(a).product(b);
+    return a.copy().product(b);
   }
 
   /**
    * Static method. Multiplies all elements of a matrix `a` with a specified `scalar`.
    */
   static scale(a: Matrix, scalar: number): Matrix {
-    return new Matrix(a).scale(scalar);
+    return a.copy().scale(scalar);
   }
 
   /**
@@ -234,7 +238,7 @@ export default class Matrix extends NDArray {
    */
   gauss(): Matrix {
     const [r, c] = this.shape;
-    const copy = new Matrix(this);
+    const copy = this.copy();
 
     let lead = 0;
     let pivot;
@@ -307,10 +311,9 @@ export default class Matrix extends NDArray {
    */
   lu(): [Matrix, Matrix, Int32Array] {
     const [r, c] = this.shape;
-    const plu = Matrix.plu(this);
-    const ipiv = plu[1];
-    const lower = new Matrix(plu[0]);
-    const upper = new Matrix(plu[0]);
+    const [plu, ipiv] = Matrix.plu(this);
+    const lower = plu.copy();
+    const upper = plu.copy();
 
     let i;
     let j;
@@ -333,13 +336,13 @@ export default class Matrix extends NDArray {
    * Static method. Performs LU factorization on current matrix.
    */
   static plu(matrix: Matrix): [Matrix, Int32Array] {
-    return new Matrix(matrix).plu();
+    return matrix.copy().plu();
   }
 
   /**
    * Performs LU factorization on current matrix.
    */
-  plu(): [Matrix, Int32Array] {
+  plu(): [this, Int32Array] {
     const { data } = this;
     const [n] = this.shape;
     const ipiv = new Int32Array(n);
@@ -435,7 +438,7 @@ export default class Matrix extends NDArray {
    */
   solve(rhs: Matrix): Matrix {
     var [lu, ipiv] = Matrix.plu(this);
-    return lu.lusolve(new Matrix(rhs), ipiv);
+    return lu.lusolve(rhs.copy(), ipiv);
   }
 
   /**
@@ -443,7 +446,7 @@ export default class Matrix extends NDArray {
    * (appends `b` to `a`).
    */
   static augment(a: Matrix, b: Matrix): Matrix {
-    return new Matrix(a).augment(b);
+    return a.copy().augment(b);
   }
 
   /**
@@ -647,7 +650,7 @@ export default class Matrix extends NDArray {
   map(callback: (value: number, i: number, j: number, src: TypedArray) => number): Matrix {
     const c = this.shape[1];
     const { length } = this;
-    const mapped = new Matrix(this);
+    const mapped = this.copy();
     const data = mapped.data;
 
     let i;
@@ -700,7 +703,7 @@ export default class Matrix extends NDArray {
    * Static method. Finds the rank of the matrix using row echelon form
    */
   static rank(matrix: Matrix): number {
-    return new Matrix(matrix).rank();
+    return matrix.copy().rank();
   }
 
   /**

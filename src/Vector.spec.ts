@@ -7,7 +7,7 @@ describe('Vector', () => {
       var a = new Vector([1, 1, 1]);
       var b = new Vector([1, 2, 3]);
 
-      assert.deepEqual(new Vector(a).add(b), Vector.add(a, b));
+      assert.deepEqual(a.copy().add(b), Vector.add(a, b));
     });
   });
 
@@ -16,7 +16,7 @@ describe('Vector', () => {
       var a = new Vector([2, 3, 4]);
       var b = new Vector([1, 2, 3]);
 
-      assert.deepEqual(new Vector(a).subtract(b), Vector.subtract(a, b));
+      assert.deepEqual(a.copy().subtract(b), Vector.subtract(a, b));
     });
   });
 
@@ -25,7 +25,7 @@ describe('Vector', () => {
       var a = new Vector([2, 3, 4]);
       var b = new Vector([1, 2, 3]);
 
-      assert.deepEqual(new Vector(a).dot(b), Vector.dot(a, b));
+      assert.deepEqual(a.copy().dot(b), Vector.dot(a, b));
     });
   });
 
@@ -33,7 +33,7 @@ describe('Vector', () => {
     it('should work as the static equivalent of a.scale(scalar)', () => {
       var a = new Vector([2, 3, 4]);
 
-      assert.deepEqual(new Vector(a).scale(5), Vector.scale(a, 5));
+      assert.deepEqual(a.copy().scale(5), Vector.scale(a, 5));
     });
   });
 
@@ -42,7 +42,7 @@ describe('Vector', () => {
       var a = new Vector([0, 1, 0]);
       var b = new Vector([1, 0, 1]);
 
-      assert.deepEqual(new Vector(a).angle(b), Vector.angle(a, b));
+      assert.deepEqual(a.copy().angle(b), Vector.angle(a, b));
     });
   });
 
@@ -51,7 +51,7 @@ describe('Vector', () => {
       var a = new Vector([0, 1, 0]);
       var b = new Vector([1, 0, 1]);
 
-      assert.deepEqual(new Vector(a).equals(b), Vector.equals(a, b));
+      assert.deepEqual(a.copy().equals(b), Vector.equals(a, b));
     });
   });
 
@@ -60,7 +60,7 @@ describe('Vector', () => {
       var a = new Vector([0, 1, 0]);
       var b = new Vector([1, 0, 1]);
 
-      assert.deepEqual(new Vector(a).combine(b), Vector.combine(a, b));
+      assert.deepEqual(a.copy().combine(b), Vector.combine(a, b));
     });
   });
 
