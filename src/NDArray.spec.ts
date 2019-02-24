@@ -128,4 +128,119 @@ describe('NDArray.prototype', () => {
       assert.throws(x.equidimensional.bind(x, y), Error);
     });
   });
+
+  describe('add()', () => {
+    it('should return empty vector if adding two empty vectors', () => {
+      const a = new NDArray();
+      const b = new NDArray();
+
+      assert.deepEqual(new NDArray(), a.add(b));
+    });
+
+    it('should throw error if sizes do not match', () => {
+      const a = new NDArray([1]);
+      const b = new NDArray([1, 2]);
+
+      assert.throws(a.add.bind(a, b), Error);
+    });
+
+    it('should produce NDArray([5, 7, 9]) from NDArray([1, 2, 3]) and NDArray([4, 5, 6])', () => {
+      const a = new NDArray([1, 2, 3]);
+      const b = new NDArray([4, 5, 6]);
+      const c = new NDArray([5, 7, 9]);
+
+      assert.deepEqual(c, a.add(b));
+    });
+  });
+
+  describe('subtract()', () => {
+    it('should return empty vector if subtracting two empty vectors', () => {
+      const a = new NDArray();
+      const b = new NDArray();
+
+      assert.deepEqual(new NDArray(), a.subtract(b));
+    });
+
+    it('should throw error if sizes do not match', () => {
+      const a = new NDArray([1]);
+      const b = new NDArray([1, 2]);
+
+      assert.throws(a.subtract.bind(a, b), Error);
+    });
+
+    it('should produce NDArray(-3, -3, -3) from NDArray(1, 2, 3) and NDArray(4, 5, 6)', () => {
+      const a = new NDArray([1, 2, 3]);
+      const b = new NDArray([4, 5, 6]);
+      const c = new NDArray([-3, -3, -3]);
+
+      assert.deepEqual(c, a.subtract(b));
+    });
+  });
+
+  describe('scale()', () => {
+    it('should scale NDArray(1, 2, 3) by 2 to NDArray(2, 4, 6)', () => {
+      const a = new NDArray([1, 2, 3]);
+      const b = new NDArray([2, 4, 6]);
+
+      assert.deepEqual(b, a.scale(2));
+    });
+  });
+
+  describe('dot()', () => {
+    it('should throw error if sizes do not match', () => {
+      const a = new NDArray([1]);
+      const b = new NDArray([1, 2]);
+
+      assert.throws(a.dot.bind(a, b), Error);
+    });
+
+    it('should work as expected', () => {
+      const a = new NDArray([1, 2, 3]);
+      const b = new NDArray([4, 5, 6]);
+
+      assert.equal(32, a.dot(b));
+    });
+  });
+
+  describe('equals()', () => {
+    it('should work as expected', () => {
+      assert.equal(true, new NDArray([1, 3, 2]).equals(new NDArray([1, 3, 2])));
+      assert.equal(true, new NDArray().equals(new NDArray()));
+      assert.equal(false, new NDArray([1, 2, 3]).equals(new NDArray([1, 3, 2])));
+    });
+  });
+
+  describe('min()', () => {
+    it('should find the minimum number in arrays', () => {
+      const a = new NDArray([1, 2, 3]);
+      const b = new NDArray([3, -1, 1]);
+      const c = new NDArray([2, 5, 1]);
+
+      assert.equal(1, a.min());
+      assert.equal(-1, b.min());
+      assert.equal(1, c.min());
+    });
+  });
+
+  describe('max()', () => {
+    it('should find the maximum number in arrays', () => {
+      const a = new NDArray([1, 2, 3]);
+      const b = new NDArray([3, -1, 1]);
+      const c = new NDArray([2, 5, 1]);
+
+      assert.equal(3, a.max());
+      assert.equal(3, b.max());
+      assert.equal(5, c.max());
+    });
+  });
+
+  describe('product()', () => {
+    it('should work as the static equivalent of a.product(b)', () => {
+      const a = new NDArray([[3, 2, 1]]);
+      const b = new NDArray([[1, 2, 3]]);
+      const c = new NDArray([[3, 4, 3]]);
+
+      assert.deepEqual(c, a.product(b));
+    });
+  });
 });

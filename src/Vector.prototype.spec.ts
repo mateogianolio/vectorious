@@ -2,63 +2,6 @@ import { Vector } from './';
 import * as assert from 'assert';
 
 describe('Vector.prototype', () => {
-  describe('.add()', () => {
-    it('should return empty vector if adding two empty vectors', () => {
-      const a = new Vector();
-      const b = new Vector();
-
-      assert.deepEqual(new Vector(), a.add(b));
-    });
-
-    it('should throw error if sizes do not match', () => {
-      const a = new Vector([1]);
-      const b = new Vector([1, 2]);
-
-      assert.throws(a.add.bind(a, b), Error);
-    });
-
-    it('should produce Vector(5, 7, 9) from Vector(1, 2, 3) and Vector(4, 5, 6)', () => {
-      const a = new Vector([1, 2, 3]);
-      const b = new Vector([4, 5, 6]);
-      const c = new Vector([5, 7, 9]);
-
-      assert.deepEqual(c, a.add(b));
-    });
-  });
-
-  describe('.subtract()', () => {
-    it('should return empty vector if subtracting two empty vectors', () => {
-      const a = new Vector();
-      const b = new Vector();
-
-      assert.deepEqual(new Vector(), a.subtract(b));
-    });
-
-    it('should throw error if sizes do not match', () => {
-      const a = new Vector([1]);
-      const b = new Vector([1, 2]);
-
-      assert.throws(a.subtract.bind(a, b), Error);
-    });
-
-    it('should produce Vector(-3, -3, -3) from Vector(1, 2, 3) and Vector(4, 5, 6)', () => {
-      const a = new Vector([1, 2, 3]);
-      const b = new Vector([4, 5, 6]);
-      const c = new Vector([-3, -3, -3]);
-
-      assert.deepEqual(c, a.subtract(b));
-    });
-  });
-
-  describe('.scale()', () => {
-    it('should scale Vector(1, 2, 3) by 2 to Vector(2, 4, 6)', () => {
-      const a = new Vector([1, 2, 3]);
-      const b = new Vector([2, 4, 6]);
-
-      assert.deepEqual(b, a.scale(2));
-    });
-  });
-
   describe('.normalize()', () => {
     it('should work as expected', () => {
       const a = new Vector([1, 1]);
@@ -109,22 +52,6 @@ describe('Vector.prototype', () => {
     });
   });
 
-  describe('.dot()', () => {
-    it('should throw error if sizes do not match', () => {
-      const a = new Vector([1]);
-      const b = new Vector([1, 2]);
-
-      assert.throws(a.dot.bind(a, b), Error);
-    });
-
-    it('should work as expected', () => {
-      const a = new Vector([1, 2, 3]);
-      const b = new Vector([4, 5, 6]);
-
-      assert.equal(32, a.dot(b));
-    });
-  });
-
   describe('.magnitude()', () => {
     it('should return 0 if empty vector', () => {
       assert.equal(0, new Vector().magnitude());
@@ -141,14 +68,6 @@ describe('Vector.prototype', () => {
       const b = new Vector([0, 1]);
 
       assert.equal(Math.PI / 2, a.angle(b));
-    });
-  });
-
-  describe('.equals()', () => {
-    it('should work as expected', () => {
-      assert.equal(true, new Vector([1, 3, 2]).equals(new Vector([1, 3, 2])));
-      assert.equal(true, new Vector().equals(new Vector()));
-      assert.equal(false, new Vector([1, 2, 3]).equals(new Vector([1, 3, 2])));
     });
   });
 
@@ -193,30 +112,6 @@ describe('Vector.prototype', () => {
 
     })
   })
-
-  describe('.min()', () => {
-    it('should find the minimum number in vectors', () => {
-      const a = new Vector([1, 2, 3]);
-      const b = new Vector([3, -1, 1]);
-      const c = new Vector([2, 5, 1]);
-
-      assert.equal(1, a.min());
-      assert.equal(-1, b.min());
-      assert.equal(1, c.min());
-    });
-  });
-
-  describe('.max()', () => {
-    it('should find the maximum number in vectors', () => {
-      const a = new Vector([1, 2, 3]);
-      const b = new Vector([3, -1, 1]);
-      const c = new Vector([2, 5, 1]);
-
-      assert.equal(3, a.max());
-      assert.equal(3, b.max());
-      assert.equal(5, c.max());
-    });
-  });
 
   describe('.set()', () => {
     it('should throw error if index out of bounds', () => {

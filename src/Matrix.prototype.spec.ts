@@ -6,59 +6,6 @@ function round(value: number, precision: number) {
 }
 
 describe('Matrix.prototype', () => {
-  describe('.add()', () => {
-    it('should throw error when sizes do not match', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[1, 2]]);
-
-      assert.throws(a.add.bind(a, b), Error);
-    });
-
-    it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[5, 6], [7, 8]]);
-      const c = new Matrix([[6, 8], [10, 12]]);
-
-      assert.deepEqual(c, a.add(b));
-    });
-  });
-
-  describe('.subtract()', () => {
-    it('should throw error when sizes do not match', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[1, 2]]);
-
-      assert.throws(a.subtract.bind(a, b), Error);
-    });
-
-    it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[5, 6], [7, 8]]);
-      const c = new Matrix([[-4, -4], [-4, -4]]);
-
-      assert.deepEqual(c, a.subtract(b));
-    });
-  });
-
-  describe('.scale()', () => {
-    it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[2, 4], [6, 8]]);
-
-      assert.deepEqual(b, a.scale(2));
-    });
-  });
-
-  describe('.product(b)', () => {
-    it('should work as the static equivalent of a.product(b)', () => {
-      const a = new Matrix([[3, 2, 1]]);
-      const b = new Matrix([[1, 2, 3]]);
-      const c = new Matrix([[3, 4, 3]]);
-
-      assert.deepEqual(c, a.product(b));
-    });
-  });
-
   describe('.multiply()', () => {
     it('should throw error if sizes do not match', () => {
       const a = new Matrix([[1, 2], [3, 4]]);
@@ -263,17 +210,6 @@ describe('Matrix.prototype', () => {
       assert.equal(-2, round(a.determinant(), 2));
       assert.equal(36.2, round(b.determinant(), 2));
       assert.equal(7, round(c.determinant(), 2));
-    });
-  });
-
-  describe('.equals()', () => {
-    it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]),
-          b = new Matrix([[3, 4], [1, 2]]);
-
-      assert.equal(true, a.equals(new Matrix([[1, 2], [3, 4]])));
-      assert.equal(true, new Matrix().equals(new Matrix()));
-      assert.equal(false, a.equals(b));
     });
   });
 
