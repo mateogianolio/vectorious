@@ -109,7 +109,7 @@ describe('NDArray.prototype', () => {
     });
   });
 
-  describe('dimensional()', () => {
+  describe('equidimensional()', () => {
     it('should pass if shapes match', () => {
       const f64x = new Float64Array([1, 2, 3, 4]);
       const f64y = new Float64Array([1, 2, 3, 4]);
