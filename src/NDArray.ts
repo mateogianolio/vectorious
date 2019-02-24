@@ -93,7 +93,7 @@ export default class NDArray implements NDInterface {
     const { shape: s2, length: l2 } = x;
 
     if (l1 !== l2 || !s1.every((dim, i) => dim === s2[i])) {
-      throw new Error('sizes do not match');
+      throw new Error(`shapes ${s1} and ${s2} do not match`);
     }
 
     if (nblas && nblas.axpy) {
@@ -123,7 +123,7 @@ export default class NDArray implements NDInterface {
     const { shape: s2, length: l2 } = x;
 
     if (l1 !== l2 || !s1.every((dim, i) => dim === s2[i])) {
-      throw new Error('sizes do not match');
+      throw new Error(`shapes ${s1} and ${s2} do not match`);
     }
 
     const { data: d1 } = this;
@@ -144,7 +144,7 @@ export default class NDArray implements NDInterface {
     const { shape: s2, length: l2 } = x;
 
     if (l1 !== l2 || !s1.every((dim, i) => dim === s2[i])) {
-      throw new Error('sizes do not match');
+      throw new Error(`shapes ${s1} and ${s2} do not match`);
     }
 
     const { data: d1 } = this;
@@ -192,7 +192,7 @@ export default class NDArray implements NDInterface {
   reshape(shape: number[]): this {
     const { length } = this;
     if (shape.reduce((sum, dim) => sum * dim, 1) !== length) {
-      throw new Error('new shape does not match length');
+      throw new Error(`shape ${shape} does not match length ${length}`);
     }
 
     this.shape = shape;
