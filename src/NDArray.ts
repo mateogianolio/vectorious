@@ -183,6 +183,39 @@ export default class NDArray implements NDInterface {
   }
 
   /**
+   * Gets the maximum value (largest) element of current array.
+   */
+  max(): number {
+    const { data } = this;
+    if (nblas && nblas.iamax) {
+      return data[nblas.iamax(data)];
+    }
+
+    const { length } = this;
+    let result = Number.NEGATIVE_INFINITY;
+
+    for (let i = 0; i < length; i++) {
+      result = result < data[i] ? data[i] : result;
+    }
+
+    return result;
+  }
+
+  /**
+   * Gets the minimum value (smallest) element of current array.
+   */
+  min(): number {
+    const { data, length } = this;
+
+    let result = Number.POSITIVE_INFINITY;
+    for (let i = 0; i < length; i++) {
+      result = result < data[i] ? result : data[i];
+    }
+
+    return result;
+  }
+
+  /**
    * Reshapes the array
    */
   reshape(shape: number[]): this {

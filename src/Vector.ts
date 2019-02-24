@@ -247,24 +247,6 @@ export default class Vector extends NDArray {
   }
 
   /**
-   * Gets the minimum value (smallest) element of current vector.
-   */
-  min(): number {
-    return this.reduce((acc, item) => acc < item ? acc : item, Number.POSITIVE_INFINITY);
-  }
-
-  /**
-   * Gets the maximum value (largest) element of current vector.
-   */
-  max(): number {
-    if (nblas && nblas.iamax) {
-      return this.data[nblas.iamax(this.data)];
-    }
-
-    return this.reduce((acc, item) => acc < item ? item : acc, Number.NEGATIVE_INFINITY);
-  }
-
-  /**
    * Check if `index` is within the bound for current vector.
    */
   check(index: number): void {  
