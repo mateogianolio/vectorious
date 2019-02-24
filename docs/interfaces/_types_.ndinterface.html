@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;Matrix&quot; | vectorious</title>
+	<title>NDInterface | vectorious</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,44 +56,90 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_matrix_.html">&quot;Matrix&quot;</a>
+					<a href="../modules/_types_.html">&quot;types&quot;</a>
+				</li>
+				<li>
+					<a href="_types_.ndinterface.html">NDInterface</a>
 				</li>
 			</ul>
-			<h1>External module &quot;Matrix&quot;</h1>
+			<h1>Interface NDInterface</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">NDInterface</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/_matrix_.matrix.html" class="tsd-signature-type">Matrix</a></li>
+					<li><a href="../classes/_ndarray_.ndarray.html" class="tsd-signature-type">NDArray</a></li>
+					<li><a href="../classes/_vector_.vector.html" class="tsd-signature-type">Vector</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Classes</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_matrix_.matrix.html" class="tsd-kind-icon">Matrix</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_matrix_.html#nblas" class="tsd-kind-icon">nblas</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_types_.ndinterface.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_types_.ndinterface.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_types_.ndinterface.html#shape" class="tsd-kind-icon">shape</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_types_.ndinterface.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="nblas" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagLet">Let</span> nblas</h3>
-					<div class="tsd-signature tsd-kind-icon">nblas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="data" class="tsd-anchor"></a>
+					<h3>data</h3>
+					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../modules/_types_.html#typedarray" class="tsd-signature-type">TypedArray</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/982a6f6/src/Matrix.ts#L5">Matrix.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/982a6f6/src/types.ts#L27">types.ts:27</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="length" class="tsd-anchor"></a>
+					<h3>length</h3>
+					<div class="tsd-signature tsd-kind-icon">length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/982a6f6/src/types.ts#L26">types.ts:26</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="shape" class="tsd-anchor"></a>
+					<h3>shape</h3>
+					<div class="tsd-signature tsd-kind-icon">shape<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/982a6f6/src/types.ts#L25">types.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../modules/_types_.html#typedarrayconstructor" class="tsd-signature-type">TypedArrayConstructor</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/982a6f6/src/types.ts#L24">types.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -105,27 +151,48 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_matrix_.html">"<wbr>Matrix"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_ndarray_.html">"NDArray"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_vector_.html">"<wbr>Vector"</a>
+					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_matrix_.html">"<wbr>Matrix"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_ndarray_.html">"NDArray"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_vector_.html">"<wbr>Vector"</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_types_.html">"types"</a>
+						<a href="../modules/_types_.html">"types"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_matrix_.matrix.html" class="tsd-kind-icon">Matrix</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_types_.ndinterface.html" class="tsd-kind-icon">NDInterface</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_types_.ndinterface.html#data" class="tsd-kind-icon">data</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_types_.ndinterface.html#length" class="tsd-kind-icon">length</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_types_.ndinterface.html#shape" class="tsd-kind-icon">shape</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_types_.ndinterface.html#type" class="tsd-kind-icon">type</a>
+							</li>
+						</ul>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_matrix_.html#nblas" class="tsd-kind-icon">nblas</a>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_types_.html#typedarray" class="tsd-kind-icon">Typed<wbr>Array</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_types_.html#typedarrayconstructor" class="tsd-kind-icon">Typed<wbr>Array<wbr>Constructor</a>
 					</li>
 				</ul>
 			</nav>

@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "scripts": {
@@ -64,7 +64,7 @@
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.1",
     "mocha": "^6.0.0",
-    "nyc": "^13.0.1",
+    "nyc": "^13.3.0",
     "ts-node": "^7.0.1",
     "tsify": "^4.0.0",
     "tslint": "^5.11.0",

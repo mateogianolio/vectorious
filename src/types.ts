@@ -19,3 +19,10 @@ type TypedArrayConstructor =
     | Uint8ClampedArrayConstructor
     | Float32ArrayConstructor
     | Float64ArrayConstructor;
+
+interface NDInterface {
+  type: TypedArrayConstructor;
+  shape: number[];
+  length: number;
+  data: TypedArray;
+}
