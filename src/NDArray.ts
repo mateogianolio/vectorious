@@ -39,11 +39,6 @@ export default class NDArray implements NDInterface {
       this.length = this.data.length;
     } else if (data instanceof NDArray) {
       return data.copy();
-    } else {
-      this.data = new Float64Array(0);
-      this.shape = [0];
-      this.length = 0;
-      this.type = Float64Array;
     }
   }
 

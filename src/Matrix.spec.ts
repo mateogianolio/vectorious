@@ -4,8 +4,8 @@ import * as assert from 'assert';
 describe('Matrix', () => {
   describe('Matrix.add(a, b)', () => {
     it('should work as the static equivalent of a.add(b)', () => {
-      var a = new Matrix([[1, 1, 1]]);
-      var b = new Matrix([[1, 2, 3]]);
+      const a = new Matrix([[1, 1, 1]]);
+      const b = new Matrix([[1, 2, 3]]);
 
       assert.deepEqual(a.copy().add(b), Matrix.add(a, b));
     });
@@ -13,8 +13,8 @@ describe('Matrix', () => {
 
   describe('Matrix.subtract(a, b)', () => {
     it('should work as the static equivalent of a.subtract(b)', () => {
-      var a = new Matrix([[1, 1, 1]]);
-      var b = new Matrix([[1, 2, 3]]);
+      const a = new Matrix([[1, 1, 1]]);
+      const b = new Matrix([[1, 2, 3]]);
 
       assert.deepEqual(a.copy().subtract(b), Matrix.subtract(a, b));
     });
@@ -22,7 +22,7 @@ describe('Matrix', () => {
 
   describe('Matrix.scale(a, scalar)', () => {
     it('should work as the static equivalent of a.scale(scalar)', () => {
-      var a = new Matrix([[1, 1, 1]]);
+      const a = new Matrix([[1, 1, 1]]);
 
       assert.deepEqual(a.copy().scale(5), Matrix.scale(a, 5));
     });
@@ -30,8 +30,8 @@ describe('Matrix', () => {
 
   describe('Matrix.product(a, b)', () => {
     it('should work as the static equivalent of a.product(b)', () => {
-      var a = new Matrix([[3, 2, 1]]);
-      var b = new Matrix([[1, 2, 3]]);
+      const a = new Matrix([[3, 2, 1]]);
+      const b = new Matrix([[1, 2, 3]]);
 
       assert.deepEqual(a.copy().product(b), Matrix.product(a, b));
     });
@@ -39,8 +39,8 @@ describe('Matrix', () => {
 
   describe('Matrix.multiply(a, b)', () => {
     it('should work as the static equivalent of a.multiply(b)', () => {
-      var a = new Matrix([[1], [2], [3]]);
-      var b = new Matrix([[1, 1, 1]]);
+      const a = new Matrix([[1], [2], [3]]);
+      const b = new Matrix([[1, 1, 1]]);
 
       assert.deepEqual(a.copy().multiply(b), Matrix.multiply(a, b));
     });
@@ -48,7 +48,7 @@ describe('Matrix', () => {
 
   describe('Matrix.plu(a)', () => {
     it('should work as the static equivalent of a.plu()', () => {
-      var a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+      const a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
 
       assert.deepEqual(a.copy().plu(), Matrix.plu(a));
     });
@@ -56,8 +56,8 @@ describe('Matrix', () => {
 
   describe('Matrix.augment(a, b)', () => {
     it('should work as the static equivalent of a.augment(b)', () => {
-      var a = new Matrix([[1, 1, 1]]);
-      var b = new Matrix([[1, 2, 3]]);
+      const a = new Matrix([[1, 1, 1]]);
+      const b = new Matrix([[1, 2, 3]]);
 
       assert.deepEqual(a.copy().augment(b), Matrix.augment(a, b));
     });
@@ -65,8 +65,8 @@ describe('Matrix', () => {
 
   describe('Matrix.equals(a, b)', () => {
     it('should work as the static equivalent of a.equals(b)', () => {
-      var a = new Matrix([[1, 1, 1]]);
-      var b = new Matrix([[1, 1, 1]]);
+      const a = new Matrix([[1, 1, 1]]);
+      const b = new Matrix([[1, 1, 1]]);
 
       assert.deepEqual(a.copy().equals(b), Matrix.equals(a, b));
     });
