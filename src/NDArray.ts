@@ -271,3 +271,7 @@ export default class NDArray implements NDInterface {
     return true;
   }
 }
+
+try {
+  (<any>window).NDArray = NDArray;
+} catch (error) {}

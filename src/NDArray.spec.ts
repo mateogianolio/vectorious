@@ -1,7 +1,7 @@
 import NDArray from './NDArray';
 import * as assert from 'assert';
 
-describe('NDArray', () => {
+describe('NDArray.prototype', () => {
   describe('constructor()', () => {
     it('should work with no arguments', () => {
       const ndarray = new NDArray();

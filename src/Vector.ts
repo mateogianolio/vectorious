@@ -1,11 +1,6 @@
 import './types';
 import NDArray from './NDArray';
 
-let nblas: any;
-try {
-  nblas = require('nblas');
-} catch (_) {}
-
 export default class Vector extends NDArray {
   constructor(data?: any) {
     super(typeof data === 'number' ? new Float64Array(data) : data);
