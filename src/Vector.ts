@@ -456,6 +456,33 @@ export default class Vector extends NDArray {
 
     return [].slice.call(this.data);
   }
+
+  /**
+   * Computes the cross product of the current vector and the vector 'vector'
+   * This operation can be only calculate for vectors with three components.
+   * Otherwise it's throws an exception.
+   * The method returns a new (result) vector.
+   */
+  cross(vector: Vector) : Vector {
+
+    // precondition
+    if (this.length != 3 || vector.length != 3) {
+      throw "cross(...) : vectors must have three components.";
+    }
+
+    let a = this;
+    let b = vector;
+
+    // computes the actual cross product
+    // components of the new (result) vector
+    let c1 = a.y * b.z - a.z * b.y;
+    let c2 = a.z * b.x - a.x * b.z;
+    let c3 = a.x * b.y - a.y * b.x;
+
+    return new Vector([c1, c2, c3]);
+
+  }
+
 }
 
 try {
