@@ -470,14 +470,14 @@ export default class Vector extends NDArray {
       throw "cross(...) : vectors must have three components.";
     }
 
-    let a = this;
-    let b = vector;
+    const a = this;
+    const b = vector;
 
     // computes the actual cross product
     // components of the new (result) vector
-    let c1 = a.y * b.z - a.z * b.y;
-    let c2 = a.z * b.x - a.x * b.z;
-    let c3 = a.x * b.y - a.y * b.x;
+    const c1 = a.y * b.z - a.z * b.y;
+    const c2 = a.z * b.x - a.x * b.z;
+    const c3 = a.x * b.y - a.y * b.x;
 
     return new Vector([c1, c2, c3]);
 
