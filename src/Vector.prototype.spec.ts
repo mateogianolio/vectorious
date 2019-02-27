@@ -191,4 +191,18 @@ describe('Vector.prototype', () => {
       assert.deepEqual([1, 2, 3], new Vector([1, 2, 3]).toArray());
     });
   });
+
+  describe('.cross()', () => {
+    it('should work as expected', () => {
+      const a = new Vector([1, 2, 3]);
+      const b = new Vector([2, 3, 4]);
+      assert.deepEqual(new Vector([-1, 2, -1]), a.cross(b));
+    });
+
+    it('should throws an exception', () => {
+      const a = new Vector([1, 2, 3, 4]);
+      const b = new Vector([5, 6, 7]);
+      assert.throws(a.cross.bind(b), Error, "cross(...) : vectors must have three components.");
+    });
+  });
 });
