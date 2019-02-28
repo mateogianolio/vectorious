@@ -820,7 +820,7 @@ export default class Matrix extends NDArray {
     if (typeof scalar != "number")
       throw new Error("rowAdd(...) : scalar must be a number.");
     
-    const [r, c] = this.shape;
+    const c = this.shape[1];
     let newRow = [];
 
     // Multiples each component of the source-row with the scalar
