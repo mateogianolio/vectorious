@@ -343,4 +343,12 @@ describe('Matrix.prototype', () => {
       assert.deepEqual([[1, 2], [3, 4], [5, 6]], new Matrix([[1, 2], [3, 4], [5, 6]]).toArray());
     });
   });
+
+  describe('.addRow()', () => {
+    it('should work as expected', () => {
+      let m = new Matrix([[1, 2], [3, 4]]);
+      m.rowAdd(0, 1, 10);
+      assert.deepEqual([[31, 42], [3, 4]], m.toArray());
+    });
+  });
 });
