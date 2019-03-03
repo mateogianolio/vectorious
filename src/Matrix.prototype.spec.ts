@@ -350,12 +350,5 @@ describe('Matrix.prototype', () => {
       m.rowAdd(0, 1, 10);
       assert.deepEqual([[31, 42], [3, 4]], m.toArray());
     });
-
-    it('should throw an exception', () => {
-      let m = new Matrix([[1, 2], [3, 4]]);
-      assert.throws(m.rowAdd.bind(3, 1, 10), Error);
-      assert.throws(m.rowAdd.bind(0, 5, 10), Error);
-      assert.throws(m.rowAdd.bind(0, 1, 'a'), Error);
-    });
   });
 });
