@@ -59,7 +59,7 @@
     "@types/node": "^11.9.0",
     "benchmark": "^2.1.4",
     "browserify": "^16.2.3",
-    "del": "^3.0.0",
+    "del": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.1",
