@@ -813,25 +813,14 @@ export default class Matrix extends NDArray {
    * OUTPUT: The current changed matrix.
    */
   rowAdd(dest : number, source : number, scalar : number = 1.0 ) : Matrix {
-
-    // preconditions
-    this.check(dest, 0);
-    this.check(source, 0);
-    if (typeof scalar != "number")
-      throw new Error("rowAdd(...) : scalar must be a number.");
     
     const c = this.shape[1];
-    let newRow = [];
 
     // Multiples each component of the source-row with the scalar
-    // After this the result-row is contain in newRow
+    // and add it to each compoent of the destination row
     for (let i = 0; i < c; i++) {
-      newRow.push(this.get(source, i) * scalar);
-    }
-
-    // Adds the result row 'newRow' to the destination row.
-    for (let m = 0; m < c; m++) {
-      this.set(dest, m, (this.get(dest, m) + newRow[m]));
+      // newRow.push(this.get(source, i) * scalar);
+      this.set(dest, i, (this.get(dest, i) + (this.get(source, i) * scalar)));
     }
 
     return this;
