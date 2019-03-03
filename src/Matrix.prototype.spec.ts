@@ -344,7 +344,7 @@ describe('Matrix.prototype', () => {
     });
   });
 
-  describe('.addRow()', () => {
+  describe('.rowAdd()', () => {
     it('should work as expected', () => {
       let m = new Matrix([[1, 2], [3, 4]]);
       m.rowAdd(0, 1, 10);
