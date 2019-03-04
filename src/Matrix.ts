@@ -801,6 +801,33 @@ export default class Matrix extends NDArray {
 
     return result;
   }
+
+  /**
+   * Adds a multiple of one row to another inside a matrix.
+   * INPUT: 
+   *        - dest (destination) is the row for adding the other 
+   *          row that was multiplied with the scalar.
+   *        - source : is the row that would be multiplied with 
+   *          the scalar (for adding)
+   *        - scalar : the scalar of type number.
+   * OUTPUT: The current changed matrix.
+   */
+  rowAdd(dest : number, source : number, scalar : number = 1.0 ) : Matrix {
+    
+    // preconditions
+    this.check(dest, 0);
+    this.check(source, 0);
+
+    const c = this.shape[1];
+
+    // Multiples each component of the source-row with the scalar
+    // and add it to each component of the destination row
+    for (let i = 0; i < c; i++) {
+      this.set(dest, i, (this.get(dest, i) + (this.get(source, i) * scalar)));
+    }
+
+    return this;
+  }
 }
 
 try {
