@@ -814,12 +814,15 @@ export default class Matrix extends NDArray {
    */
   rowAdd(dest : number, source : number, scalar : number = 1.0 ) : Matrix {
     
+    // preconditions
+    this.check(dest, 0);
+    this.check(source, 0);
+
     const c = this.shape[1];
 
     // Multiples each component of the source-row with the scalar
-    // and add it to each compoent of the destination row
+    // and add it to each component of the destination row
     for (let i = 0; i < c; i++) {
-      // newRow.push(this.get(source, i) * scalar);
       this.set(dest, i, (this.get(dest, i) + (this.get(source, i) * scalar)));
     }
 
