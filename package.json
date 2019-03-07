@@ -73,6 +73,6 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
-    "nblas": "^1.2.2"
+    "nblas": "^2.1.2"
   }
 }
