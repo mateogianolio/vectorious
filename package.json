@@ -5,7 +5,7 @@
   "main": "built/index.js",
   "scripts": {
     "test": "nyc mocha -r ts-node/register ./src/*.spec.ts",
-    "benchmark": "node ./benchmarks/vector.js && node ./benchmarks/matrix.js",
+    "benchmark": "ts-node ./src/NDArray.bench.ts",
     "docs": "typedoc --out docs --exclude \"**/*+(index|.spec).ts\" --target es6 src && touch docs/.nojekyll",
     "build": "gulp clean && gulp build && tsc"
   },
@@ -63,7 +63,9 @@
     "gulp": "^4.0.0",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.1",
+    "matplotnode": "^0.3.0",
     "mocha": "^6.0.0",
+    "nodemark": "^0.3.0",
     "nyc": "^13.3.0",
     "ts-node": "^8.0.3",
     "tsify": "^4.0.0",
