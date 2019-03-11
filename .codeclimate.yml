@@ -5,6 +5,7 @@ plugins:
     enabled: true
 exclude_patterns:
   - "src/*.spec.ts"
+  - "src/*.bench.ts"
   - "dist/"
   - "examples/"
   - "benchmarks/"
