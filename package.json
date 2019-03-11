@@ -5,7 +5,7 @@
   "main": "built/index.js",
   "scripts": {
     "test": "nyc mocha -r ts-node/register ./src/*.spec.ts",
-    "benchmark": "ts-node ./src/NDArray.bench.ts",
+    "benchmark": "ts-node ./src/NDArray.bench.ts && ts-node ./src/Vector.bench.ts && ts-node ./src/Matrix.bench.ts",
     "docs": "typedoc --out docs --exclude \"**/*+(index|.spec).ts\" --target es6 src && touch docs/.nojekyll",
     "build": "gulp clean && gulp build && tsc"
   },

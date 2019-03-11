@@ -1,77 +1,87 @@
 import NDArray from './NDArray';
 import { bench } from './util';
 
+const { random } = Math;
 const r = (n: number): NDArray =>
-  new NDArray(new Float64Array(n)).fill(Math.random);
+  new NDArray(new Float64Array(n)).fill(random);
 
 bench(
-  'NDArray.copy',
+  'NDArray',
+  'copy',
+  (n: number): [NDArray] => [r(n)],
   (x: NDArray): void => {
     x.copy();
-  },
-  (n: number): [NDArray] => [r(n)]
+  }
 );
 
 bench(
-  'NDArray.scale',
+  'NDArray',
+  'scale',
+  (n: number): [NDArray, number] => [r(n), random()],
   (x: NDArray, alpha: number) => {
     x.scale(alpha);
-  },
-  (n: number): [NDArray, number] => [r(n), Math.random()]
+  }
 );
 
 bench(
-  'NDArray.add',
+  'NDArray',
+  'add',
+  (n: number): [NDArray, NDArray] => [r(n), r(n)],
   (x: NDArray, y: NDArray): void => {
     x.add(y);
-  },
-  (n: number): [NDArray, NDArray] => [r(n), r(n)]
+  }
 );
 
 bench(
-  'NDArray.subtract',
+  'NDArray',
+  'subtract',
+  (n: number): [NDArray, NDArray] => [r(n), r(n)],
   (x: NDArray, y: NDArray): void => {
     x.subtract(y);
-  },
-  (n: number): [NDArray, NDArray] => [r(n), r(n)]
+  }
 );
 
 bench(
-  'NDArray.product',
+  'NDArray',
+  'product',
+  (n: number): [NDArray, NDArray] => [r(n), r(n)],
   (x: NDArray, y: NDArray): void => {
     x.product(y);
-  },
-  (n: number): [NDArray, NDArray] => [r(n), r(n)]
+  }
 );
 
 bench(
-  'NDArray.dot',
+  'NDArray',
+  'dot',
+  (n: number): [NDArray, NDArray] => [r(n), r(n)],
   (x: NDArray, y: NDArray): void => {
     x.dot(y);
-  },
-  (n: number): [NDArray, NDArray] => [r(n), r(n)]
+  }
 );
 
 bench(
-  'NDArray.magnitude',
+  'NDArray',
+  'magnitude',
+  (n: number): [NDArray] => [r(n)],
   (x: NDArray): void => {
     x.magnitude();
-  },
-  (n: number): [NDArray] => [r(n)]
+  }
 );
 
 bench(
-  'NDArray.max',
+  'NDArray',
+  'max',
+  (n: number): [NDArray] => [r(n)],
   (x: NDArray): void => {
     x.max();
-  },
-  (n: number): [NDArray] => [r(n)]
+  }
 );
 
 bench(
-  'NDArray.min',
+  'NDArray',
+  'min',
+  (n: number): [NDArray] => [r(n)],
   (x: NDArray): void => {
     x.min();
-  },
-  (n: number): [NDArray] => [r(n)]
+  }
 );
