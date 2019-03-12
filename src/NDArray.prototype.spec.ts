@@ -57,6 +57,11 @@ describe('NDArray.prototype', () => {
       assert.deepEqual(ndarray.length, f64.length);
       assert.deepEqual(ndarray.type, f64.constructor);
     });
+
+    it('should work with NDArray', () => {
+      const ndarray = new NDArray([1, 2, 3, 4]);
+      assert.deepEqual(ndarray, new NDArray(ndarray));
+    });
   });
 
   describe('reshape()', () => {

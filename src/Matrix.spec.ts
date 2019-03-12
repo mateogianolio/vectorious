@@ -2,6 +2,16 @@ import { Matrix } from './';
 import * as assert from 'assert';
 
 describe('Matrix', () => {
+  describe('Matrix.binOp(a, b, (a, b) => a + b)', () => {
+    it('should work as the static equivalent of a.binOp(b, (a, b) => a + b)', () => {
+      const a = new Matrix([[1, 1, 1]]);
+      const b = new Matrix([[1, 2, 3]]);
+      const f = (a: number, b: number): number => a + b;
+
+      assert.deepEqual(a.copy().binOp(b, f), Matrix.binOp(a, b, f));
+    });
+  });
+
   describe('Matrix.add(a, b)', () => {
     it('should work as the static equivalent of a.add(b)', () => {
       const a = new Matrix([[1, 1, 1]]);

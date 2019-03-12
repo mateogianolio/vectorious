@@ -39,10 +39,6 @@ export default class Vector extends NDArray {
       throw new Error('sizes do not match!');
     }
 
-    if (!l1 && !l2) {
-      return this;
-    }
-
     let i;
     for (i = 0; i < l1; i++) {
       this.data[i] = op(this.data[i], vector.data[i], i);
@@ -450,10 +446,6 @@ export default class Vector extends NDArray {
    * Converts current vector into a JavaScript array.
    */
   toArray(): number[] {
-    if (!this.data) {
-      return [];
-    }
-
     return [].slice.call(this.data);
   }
 
@@ -467,7 +459,7 @@ export default class Vector extends NDArray {
 
     // precondition
     if (this.length != 3 || vector.length != 3) {
-      throw "cross(...) : vectors must have three components.";
+      throw new Error('cross(...) : vectors must have three components.');
     }
 
     const a = this;

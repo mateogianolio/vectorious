@@ -508,7 +508,6 @@ export default class Matrix extends NDArray {
       return (x + y * 2 + 1) % n;
     }
 
-    type = type || Float64Array;
     const data = new type(size * size);
 
     let i;

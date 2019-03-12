@@ -6,6 +6,32 @@ function round(value: number, precision: number) {
 }
 
 describe('Matrix.prototype', () => {
+  describe('constructor()', () => {
+    it('should work with width and height', () => {
+      const a = new Matrix(2, 2);
+      assert(a);
+    });
+  });
+
+  describe('.binOp()', () => {
+    it('should work as expected', () => {
+      const a = new Matrix([[1, 1, 1]]);
+      const b = new Matrix([[1, 2, 3]]);
+      const c = new Matrix([[2, 3, 4]]);
+      const f = (a: number, b: number): number => a + b;
+
+      assert.deepEqual(a.binOp(b, f), c);
+    });
+
+    it('should throw error when sizes do not match', () => {
+      const a = new Matrix([[1, 1, 1]]);
+      const b = new Matrix([[1, 2, 3, 4]]);
+      const f = (a: number, b: number): number => a + b;
+
+      assert.throws(a.binOp.bind(a, b, f), Error);
+    });
+  });
+
   describe('.multiply()', () => {
     it('should throw error if sizes do not match', () => {
       const a = new Matrix([[1, 2], [3, 4]]);
@@ -99,6 +125,14 @@ describe('Matrix.prototype', () => {
 
       assert.deepEqual(d, c.gauss());
     });
+
+    it('should throw error if matrix is singular', () => {
+      const a = new Matrix([[0, 0], [0, 1]]);
+      const b = new Matrix([[1, 0], [0, 0]]);
+
+      assert.throws(a.gauss.bind(a), Error);
+      assert.throws(b.gauss.bind(b), Error);
+    });
   });
 
   describe('.lu()', () => {
@@ -173,6 +207,12 @@ describe('Matrix.prototype', () => {
       const c = new Matrix([[1, 2, 5, 6], [3, 4, 7, 8]]);
 
       assert.deepEqual(c, a.augment(b));
+    });
+
+    it('should throw error when rows do not match', () => {
+      const a = new Matrix([[1, 2], [3, 4]]);
+
+      assert.throws(a.augment.bind(a, new Matrix([[1]])), Error);
     });
   });
 
@@ -309,8 +349,14 @@ describe('Matrix.prototype', () => {
       const a = new Matrix([[1, 2, 3]]);
       const b = new Matrix([[1, 2, 3], [4, 5, 6]]);
 
-      assert.deepEqual(6, a.reduce(sum));
+      assert.deepEqual(6, a.reduce(sum, 0));
       assert.deepEqual(21, b.reduce(sum));
+    });
+
+    it('should throw error if empty matrix with no initial value', () => {
+      const a = new Matrix();
+      const f = (acc: number, value: number): number => acc + value;
+      assert.throws(a.reduce.bind(a, f), Error);
     });
   });
 
@@ -333,7 +379,7 @@ describe('Matrix.prototype', () => {
   describe('.toString()', () => {
     it('should work as expected', () => {
       assert.equal('[[1,2], \n[3,4]]', new Matrix([[1, 2], [3, 4]]).toString());
-        assert.equal('[[1,2], \n[3,4], \n[5,6]]', new Matrix([[1, 2], [3, 4], [5, 6]]).toString());
+      assert.equal('[[1,2], \n[3,4], \n[5,6]]', new Matrix([[1, 2], [3, 4], [5, 6]]).toString());
     });
   });
 
@@ -349,6 +395,14 @@ describe('Matrix.prototype', () => {
       let m = new Matrix([[1, 2], [3, 4]]);
       m.rowAdd(0, 1, 10);
       assert.deepEqual([[31, 42], [3, 4]], m.toArray());
+    });
+  });
+
+  describe('.check()', () => {
+    it('should throw error if Matrix contains NaN', () => {
+      let m = new Matrix([[1, NaN], [3, 4]]);
+
+      assert.throws(m.check.bind(m), Error);
     });
   });
 });

@@ -23,8 +23,12 @@
       "benchmarks/**",
       "built/**",
       "dist/**",
+      "docs/**",
       "examples/**",
-      "coverage/**"
+      "coverage/**",
+      "src/*.spec.ts",
+      "src/*.bench.ts",
+      "src/util.ts"
     ],
     "reporter": [
       "lcov"
