@@ -19,9 +19,13 @@ $ npm install vectorious --no-optional
 ```
 
 ```javascript
-import { Matrix, Vector } from 'vectorious';
+import {
+  Matrix,
+  Vector,
+  NDArray,
+} from 'vectorious';
 
-Matrix.random(2, 2);
+const x: Matrix = Matrix.random(2, 2);
 /*
 Matrix {
   shape: [ 2, 2 ],
@@ -34,12 +38,21 @@ Matrix {
   type: [Function: Float64Array] }
 */
 
-Vector.random(4, -5, 5, Int8Array);
+const y: Vector = Vector.random(4, -5, 5, Int8Array);
 /*
 Vector {
   type: [Function: Int8Array],
   data: Int8Array [ -2, 2, 2, -1 ],
   length: 4 }
+*/
+
+const z = new NDArray([[[1], [2]]]).add(new NDArray([[[3], [4]]]));
+/*
+NDArray {
+  data: Float64Array [ 4, 6 ],
+  length: 2,
+  shape: [ 1, 2, 1 ],
+  type: [Function: Float64Array] }
 */
 ```
 
@@ -60,7 +73,7 @@ Download a [**release**](https://github.com/mateogianolio/vectorious/releases) a
 Or if you prefer to use a CDN:
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/4.8.1/vectorious.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/5.3.1/vectorious.min.js"></script>
 ```
 
 ```html
@@ -97,9 +110,41 @@ The documentation is located in the wiki section of this repository.
 
 ### Benchmarks
 
-Internal benchmarks are located in the wiki section of this repository.
+Benchmarks are performed using `Float64Array` of size `n` (matrices are sized `sqrt(n) x sqrt(n)`).
 
-[**Go to wiki.**](https://github.com/mateogianolio/vectorious/wiki)
+#### Specs
+
+```
+Macbook Pro Early '15
+Processor: 2,7 GHz Intel Core i5
+Memory: 8 GB 1867 MHz DDR3
+GPU: Intel Iris Graphics 6100 1536 MB
+```
+
+#### Results
+
+| Matrix |  |  |
+|---------|--------|--------|
+| ![add](benchmarks/Matrix/add.png) | ![augment](benchmarks/Matrix/augment.png) | ![binOp](benchmarks/Matrix/binOp.png) |
+| ![determinant](benchmarks/Matrix/determinant.png) | ![diag](benchmarks/Matrix/diag.png) | ![gauss](benchmarks/Matrix/gauss.png) |
+| ![inverse](benchmarks/Matrix/inverse.png) | ![lu](benchmarks/Matrix/lu.png) | ![multiply](benchmarks/Matrix/multiply.png) |
+| ![plu](benchmarks/Matrix/plu.png) | ![product](benchmarks/Matrix/product.png) | ![rank](benchmarks/Matrix/rank.png) |
+| ![rowAdd](benchmarks/Matrix/rowAdd.png) | ![scale](benchmarks/Matrix/scale.png) | ![solve](benchmarks/Matrix/solve.png) |
+| ![subtract](benchmarks/Matrix/subtract.png) | ![swap](benchmarks/Matrix/swap.png) | ![trace](benchmarks/Matrix/trace.png) |
+| ![transpose](benchmarks/Matrix/transpose.png) | | |
+
+| Vector |  |  |
+|---------|--------|--------|
+| ![add](benchmarks/Vector/add.png) | ![angle](benchmarks/Vector/angle.png) | ![binOp](benchmarks/Vector/binOp.png) |
+| ![combine](benchmarks/Vector/combine.png) | ![dot](benchmarks/Vector/dot.png) | ![normalize](benchmarks/Vector/normalize.png) |
+| ![project](benchmarks/Vector/project.png) | ![scale](benchmarks/Vector/scale.png) | ![subtract](benchmarks/Vector/subtract.png) |
+
+| NDArray |  |  |
+|---------|--------|--------|
+| ![add](benchmarks/NDArray/add.png) | ![copy](benchmarks/NDArray/copy.png) | ![dot](benchmarks/NDArray/dot.png) |
+| ![magnitude](benchmarks/NDArray/magnitude.png) | ![max](benchmarks/NDArray/max.png) | ![min](benchmarks/NDArray/min.png) |
+| ![product](benchmarks/NDArray/product.png) | ![scale](benchmarks/NDArray/scale.png) | ![subtract](benchmarks/NDArray/subtract.png) |
+
 
 ## Contributors
 
