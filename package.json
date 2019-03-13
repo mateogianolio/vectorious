@@ -1,13 +1,13 @@
 {
   "name": "vectorious",
-  "version": "5.3.1",
+  "version": "5.3.2",
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "scripts": {
     "test": "nyc mocha -r ts-node/register ./src/*.spec.ts",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
     "benchmark": "ts-node ./src/NDArray.bench.ts && ts-node ./src/Vector.bench.ts && ts-node ./src/Matrix.bench.ts",
-    "docs": "typedoc --out docs --exclude \"**/*+(index|.spec|.bench).ts\" --target es6 src && touch docs/.nojekyll",
+    "docs": "typedoc --out docs --exclude \"**/*+(index|bench|.spec|.bench).ts\" --target es6 src && touch docs/.nojekyll",
     "build": "gulp clean && gulp build && tsc"
   },
   "browser": {

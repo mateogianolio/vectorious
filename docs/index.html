@@ -77,9 +77,13 @@ $ npm install vectorious
 
 <span class="hljs-comment"># or, if you don't want BLAS bindings</span>
 $ npm install vectorious --no-optional</code></pre>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Matrix, Vector } <span class="hljs-keyword">from</span> <span class="hljs-string">'vectorious'</span>;
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {
+  Matrix,
+  Vector,
+  NDArray,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'vectorious'</span>;
 
-Matrix.random(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-keyword">const</span> x: Matrix = Matrix.random(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
 <span class="hljs-comment">/*
 Matrix {
   shape: [ 2, 2 ],
@@ -92,12 +96,21 @@ Matrix {
   type: [Function: Float64Array] }
 */</span>
 
-Vector.random(<span class="hljs-number">4</span>, <span class="hljs-number">-5</span>, <span class="hljs-number">5</span>, <span class="hljs-built_in">Int8Array</span>);
+<span class="hljs-keyword">const</span> y: Vector = Vector.random(<span class="hljs-number">4</span>, <span class="hljs-number">-5</span>, <span class="hljs-number">5</span>, <span class="hljs-built_in">Int8Array</span>);
 <span class="hljs-comment">/*
 Vector {
   type: [Function: Int8Array],
   data: Int8Array [ -2, 2, 2, -1 ],
   length: 4 }
+*/</span>
+
+<span class="hljs-keyword">const</span> z = <span class="hljs-keyword">new</span> NDArray([[[<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>]]]).add(<span class="hljs-keyword">new</span> NDArray([[[<span class="hljs-number">3</span>], [<span class="hljs-number">4</span>]]]));
+<span class="hljs-comment">/*
+NDArray {
+  data: Float64Array [ 4, 6 ],
+  length: 2,
+  shape: [ 1, 2, 1 ],
+  type: [Function: Float64Array] }
 */</span></code></pre>
 				<p>Will use your local BLAS copy (if any). Some notes for different operating systems:</p>
 				<ul>
@@ -109,7 +122,7 @@ Vector {
 				<p>Download a <a href="https://github.com/mateogianolio/vectorious/releases"><strong>release</strong></a> and use it like this:</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"vectorious.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<p>Or if you prefer to use a CDN:</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/vectorious/4.8.1/vectorious.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/vectorious/5.3.1/vectorious.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   <span class="hljs-keyword">var</span> A = <span class="hljs-keyword">new</span> Matrix([[<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>], [<span class="hljs-number">3</span>]]),
       B = <span class="hljs-keyword">new</span> Matrix([[<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>]]),
@@ -137,8 +150,31 @@ Vector {
 				<p>The documentation is located in the wiki section of this repository.</p>
 				<p><a href="https://github.com/mateogianolio/vectorious/wiki"><strong>Go to wiki.</strong></a></p>
 				<h3 id="benchmarks">Benchmarks</h3>
-				<p>Internal benchmarks are located in the wiki section of this repository.</p>
-				<p><a href="https://github.com/mateogianolio/vectorious/wiki"><strong>Go to wiki.</strong></a></p>
+				<p>Benchmarks are performed using <code>Float64Array</code> of size <code>n</code> (matrices are sized <code>sqrt(n) x sqrt(n)</code>).</p>
+				<h4 id="specs">Specs</h4>
+				<pre><code><span class="hljs-attr">Macbook</span> <span class="hljs-string">Pro Early '15</span>
+<span class="hljs-attr">Processor</span>: <span class="hljs-string">2,7 GHz Intel Core i5</span>
+<span class="hljs-attr">Memory</span>: <span class="hljs-string">8 GB 1867 MHz DDR3</span>
+<span class="hljs-attr">GPU</span>: <span class="hljs-string">Intel Iris Graphics 6100 1536 MB</span></code></pre><h4 id="results">Results</h4>
+				<p>| Matrix |  |  |
+					|---------|--------|--------|
+					| <img src="benchmarks/Matrix/add.png" alt="add"> | <img src="benchmarks/Matrix/augment.png" alt="augment"> | <img src="benchmarks/Matrix/binOp.png" alt="binOp"> |
+					| <img src="benchmarks/Matrix/determinant.png" alt="determinant"> | <img src="benchmarks/Matrix/diag.png" alt="diag"> | <img src="benchmarks/Matrix/gauss.png" alt="gauss"> |
+					| <img src="benchmarks/Matrix/inverse.png" alt="inverse"> | <img src="benchmarks/Matrix/lu.png" alt="lu"> | <img src="benchmarks/Matrix/multiply.png" alt="multiply"> |
+					| <img src="benchmarks/Matrix/plu.png" alt="plu"> | <img src="benchmarks/Matrix/product.png" alt="product"> | <img src="benchmarks/Matrix/rank.png" alt="rank"> |
+					| <img src="benchmarks/Matrix/rowAdd.png" alt="rowAdd"> | <img src="benchmarks/Matrix/scale.png" alt="scale"> | <img src="benchmarks/Matrix/solve.png" alt="solve"> |
+					| <img src="benchmarks/Matrix/subtract.png" alt="subtract"> | <img src="benchmarks/Matrix/swap.png" alt="swap"> | <img src="benchmarks/Matrix/trace.png" alt="trace"> |
+				| <img src="benchmarks/Matrix/transpose.png" alt="transpose"> | | |</p>
+				<p>| Vector |  |  |
+					|---------|--------|--------|
+					| <img src="benchmarks/Vector/add.png" alt="add"> | <img src="benchmarks/Vector/angle.png" alt="angle"> | <img src="benchmarks/Vector/binOp.png" alt="binOp"> |
+					| <img src="benchmarks/Vector/combine.png" alt="combine"> | <img src="benchmarks/Vector/dot.png" alt="dot"> | <img src="benchmarks/Vector/normalize.png" alt="normalize"> |
+				| <img src="benchmarks/Vector/project.png" alt="project"> | <img src="benchmarks/Vector/scale.png" alt="scale"> | <img src="benchmarks/Vector/subtract.png" alt="subtract"> |</p>
+				<p>| NDArray |  |  |
+					|---------|--------|--------|
+					| <img src="benchmarks/NDArray/add.png" alt="add"> | <img src="benchmarks/NDArray/copy.png" alt="copy"> | <img src="benchmarks/NDArray/dot.png" alt="dot"> |
+					| <img src="benchmarks/NDArray/magnitude.png" alt="magnitude"> | <img src="benchmarks/NDArray/max.png" alt="max"> | <img src="benchmarks/NDArray/min.png" alt="min"> |
+				| <img src="benchmarks/NDArray/product.png" alt="product"> | <img src="benchmarks/NDArray/scale.png" alt="scale"> | <img src="benchmarks/NDArray/subtract.png" alt="subtract"> |</p>
 				<h2 id="contributors">Contributors</h2>
 				<p>This project exists thanks to all the people who contribute. [<a href="CONTRIBUTING.md">Contribute</a>].
 				<a href="https://github.com/mateogianolio/vectorious/graphs/contributors"><img src="https://opencollective.com/vectorious/contributors.svg?width=890&button=false" /></a></p>
