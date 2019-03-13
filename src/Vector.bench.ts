@@ -1,13 +1,14 @@
-import Vector from './Vector';
 import { bench } from './util';
+import { Vector } from './Vector';
 
 const { random } = Math;
-const r = (n: number): Vector => Vector.random(n);
+const r: (n: number) => Vector = (n: number): Vector => Vector.random(n);
 
 bench(
   'Vector',
   'binOp',
-  (n: number): [Vector, Vector, (a: number, b: number) => number] => [r(n), r(n), (a, b) => a + b],
+  (n: number): [Vector, Vector, (a: number, b: number) => number] =>
+    [r(n), r(n), (a: number, b: number): number => a + b],
   (x: Vector, y: Vector, op: (a: number, b: number) => number): void => {
     x.binOp(y, op);
   },

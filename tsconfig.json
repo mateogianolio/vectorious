@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "./built",
     "target": "es5",
     "strict": true,

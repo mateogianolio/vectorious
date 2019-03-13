@@ -1,408 +1,423 @@
-import { Matrix, Vector } from './';
-import * as assert from 'assert';
+import {
+  deepStrictEqual,
+  strictEqual,
+  throws,
+} from 'assert';
 
-function round(value: number, precision: number) {
-  return Number(value.toFixed(precision))
-}
+import { Matrix, Vector } from './';
+
+const round: (value: number, precision: number) => number = (value: number, precision: number): number =>
+  Number(value.toFixed(precision));
 
 describe('Matrix.prototype', () => {
   describe('constructor()', () => {
     it('should work with width and height', () => {
-      const a = new Matrix(2, 2);
-      assert(a);
+      const x: Matrix = new Matrix(2, 2);
+      const y: Matrix = new Matrix([[0, 0], [0, 0]]);
+
+      deepStrictEqual(x, y);
     });
   });
 
   describe('.binOp()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 1, 1]]);
-      const b = new Matrix([[1, 2, 3]]);
-      const c = new Matrix([[2, 3, 4]]);
-      const f = (a: number, b: number): number => a + b;
+      const x: Matrix = new Matrix([[1, 1, 1]]);
+      const y: Matrix = new Matrix([[1, 2, 3]]);
+      const z: Matrix = new Matrix([[2, 3, 4]]);
+      const f: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      assert.deepEqual(a.binOp(b, f), c);
+      deepStrictEqual(x.binOp(y, f), z);
     });
 
     it('should throw error when sizes do not match', () => {
-      const a = new Matrix([[1, 1, 1]]);
-      const b = new Matrix([[1, 2, 3, 4]]);
-      const f = (a: number, b: number): number => a + b;
+      const x: Matrix = new Matrix([[1, 1, 1]]);
+      const y: Matrix = new Matrix([[1, 2, 3, 4]]);
+      const f: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      assert.throws(a.binOp.bind(a, b, f), Error);
+      throws(x.binOp.bind(x, y, f) as () => void, Error);
     });
   });
 
   describe('.multiply()', () => {
     it('should throw error if sizes do not match', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[1, 2]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
+      const y: Matrix = new Matrix([[1, 2]]);
 
-      assert.throws(a.multiply.bind(a, b), Error);
+      throws(x.multiply.bind(x, y) as () => void, Error);
     });
 
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2]]);
-      const b = new Matrix([[1], [2]]);
-      const c = new Matrix([[5]]);
-      const d = new Matrix([[1, 2], [2, 4]]);
+      const x: Matrix = new Matrix([[1, 2]]);
+      const y: Matrix = new Matrix([[1], [2]]);
+      const z: Matrix = new Matrix([[5]]);
+      const u: Matrix = new Matrix([[1, 2], [2, 4]]);
 
-      const e = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
-      const f = new Matrix([[ 30,  36,  42], [ 66,  81,  96], [102, 126, 150]]);
+      deepStrictEqual(z, x.multiply(y));
+      deepStrictEqual(u, y.multiply(x));
+    });
 
-      const g = new Matrix([[0,1,0], [1,0,0], [0,0,1]]);
-      const h = new Matrix([[1,3,5], [2,4,7], [1,1,0]]);
-      const i = new Matrix([[2, 4, 7], [1, 3, 5], [1, 1, 0]]);
+    it('should work as expected', () => {
+      const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+      const y: Matrix = new Matrix([[ 30,  36,  42], [ 66,  81,  96], [102, 126, 150]]);
 
-      assert.deepEqual(c, a.multiply(b));
-      assert.deepEqual(d, b.multiply(a));
-      assert.deepEqual(f, e.multiply(e));
-      assert.deepEqual(i, g.multiply(h));
+      deepStrictEqual(y, x.multiply(x));
+    });
+
+    it('should work as expected', () => {
+      const x: Matrix = new Matrix([[0, 1, 0], [1, 0, 0], [0, 0, 1]]);
+      const y: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+      const z: Matrix = new Matrix([[2, 4, 7], [1, 3, 5], [1, 1, 0]]);
+
+      deepStrictEqual(z, x.multiply(y));
     });
   });
 
   describe('.transpose()', () => {
-    const a = new Matrix([[1, 2]]);
-    const b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
-    const c = new Matrix([[1], [2]]);
-    const d = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
-    const e = Matrix.random(20, 20);
+    it('should work as expected', () => {
+      const x: Matrix = new Matrix([[1, 2]]);
+      const y: Matrix = new Matrix([[1], [2]]);
+
+      deepStrictEqual(x, y.T);
+      deepStrictEqual(y, x.T);
+    });
 
     it('should work as expected', () => {
+      const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+      const y: Matrix = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
 
-      assert.deepEqual(a, c.T);
-      assert.deepEqual(c, a.T);
+      deepStrictEqual(x, y.T);
+      deepStrictEqual(y, x.T);
+    });
 
-      assert.deepEqual(b, d.T);
-      assert.deepEqual(d, b.T);
+    it('should work as expected', () => {
+      const x: Matrix = Matrix.random(2, 2);
+      const y: Matrix = x.T.T;
 
-      assert.deepEqual(e, e.T.T);
+      deepStrictEqual(x, y);
     });
   });
 
   describe('.inverse()', () => {
     it('should throw error if matrix is not square', () => {
-      const a = new Matrix([[1, 2]]);
+      const x: Matrix = new Matrix([[1, 2]]);
 
-      assert.throws(a.inverse.bind(a), Error);
+      throws(x.inverse.bind(x) as () => void, Error);
     });
 
     it('should throw error if matrix is not invertible', () => {
-      const a = new Matrix([
+      const x: Matrix = new Matrix([
         [1, 2, 3],
         [4, 5, 6],
-        [7, 8, 9]
+        [7, 8, 9],
       ]);
 
-      assert.throws(a.inverse.bind(a), Error);
+      throws(x.inverse.bind(x) as () => void, Error);
     });
 
     it('should work as expected', () => {
-      const a = new Matrix([
+      const x: Matrix = new Matrix([
         [2, -1, 0],
         [-1, 2, -1],
-        [0, -1, 2]
+        [0, -1, 2],
       ]);
-      const b = new Matrix([
-        [3/4, 1/2, 1/4],
-        [1/2, 1, 1/2],
-        [1/4, 1/2, 3/4]
+      const y: Matrix = new Matrix([
+        [3 / 4, 1 / 2, 1 / 4],
+        [1 / 2, 1, 1 / 2],
+        [1 / 4, 1 / 2, 3 / 4],
       ]);
 
-      // need to round result to avoid floating point rounding errors, e.g. 0.99999999994
-      assert.deepEqual(b, a.inverse().map((value: number) => round(value, 2)));
+      // Need to round result to avoid floating point rounding errors, e.g. 0.99999999994
+      deepStrictEqual(y, x.inverse().map((value: number) => round(value, 2)));
     });
   });
 
   describe('.gauss()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2, 3], [3, 4, 5]]);
-      const b = new Matrix([[1, 0, -1], [0, 1, 2]]);
+      const x: Matrix = new Matrix([[1, 2, 3], [3, 4, 5]]);
+      const y: Matrix = new Matrix([[1, 0, -1], [0, 1, 2]]);
 
-      assert.deepEqual(b, a.gauss());
+      deepStrictEqual(y, x.gauss());
+    });
 
-      const c = new Matrix([[1, 2, -1, -4], [2, 3, -1, -11], [-2, 0, -3, 22]]);
-      const d = new Matrix([[1, 0, 0, -8], [0, 1, 0, 1], [0, 0, 1, -2]]);
+    it('should work as expected', () => {
+      const x: Matrix = new Matrix([[1, 2, -1, -4], [2, 3, -1, -11], [-2, 0, -3, 22]]);
+      const y: Matrix = new Matrix([[1, 0, 0, -8], [0, 1, 0, 1], [0, 0, 1, -2]]);
 
-      assert.deepEqual(d, c.gauss());
+      deepStrictEqual(y, x.gauss());
     });
 
     it('should throw error if matrix is singular', () => {
-      const a = new Matrix([[0, 0], [0, 1]]);
-      const b = new Matrix([[1, 0], [0, 0]]);
+      const x: Matrix = new Matrix([[0, 0], [0, 1]]);
+      const y: Matrix = new Matrix([[1, 0], [0, 0]]);
 
-      assert.throws(a.gauss.bind(a), Error);
-      assert.throws(b.gauss.bind(b), Error);
+      throws(x.gauss.bind(x) as () => void, Error);
+      throws(y.gauss.bind(y) as () => void, Error);
     });
   });
 
   describe('.lu()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
-      const b = [
+      const x: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+      const ys: Matrix[] = [
         new Matrix([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]),
-        new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]])
+        new Matrix([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]),
       ];
 
-      assert.deepEqual(b, a.lu().slice(0, 2));
+      deepStrictEqual(ys, x.lu().slice(0, 2));
+    });
 
-      const c = new Matrix([[11, 9, 24, 2], [1, 5, 2, 6], [3, 17, 18, 1], [2, 5, 7, 1]]);
-      const d = [
+    it('should work as expected', () => {
+      const x: Matrix = new Matrix([[11, 9, 24, 2], [1, 5, 2, 6], [3, 17, 18, 1], [2, 5, 7, 1]]);
+      const ys: Matrix[] = [
         new Matrix([[1, 0, 0, 0], [0.27273, 1, 0, 0], [0.09091, 0.2875, 1, 0], [0.18182, 0.23125, 0.0036, 1]]),
         new Matrix([[11, 9, 24, 2], [0, 14.54545, 11.45455, 0.45455], [0, 0, -3.475, 5.6875], [0, 0, 0, 0.51079]]),
       ];
 
-      const [lower, upper]: [Matrix, Matrix, Int32Array] = c.lu();
-      assert.deepEqual(d[0], lower.map((value: number) => round(value, 5)));
-      assert.deepEqual(d[1], upper.map((value: number) => round(value, 5)));
+      const [lower, upper]: [Matrix, Matrix, Int32Array] = x.lu();
+      deepStrictEqual(ys[0], lower.map((value: number) => round(value, 5)));
+      deepStrictEqual(ys[1], upper.map((value: number) => round(value, 5)));
     });
   });
 
   describe('.plu()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
-      const b = new Matrix([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]);
-      const ipiv = new Int32Array([1, 1, 2]);
+      const x: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+      const y: Matrix = new Matrix([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]);
+      const ipiv: Int32Array = new Int32Array([1, 1, 2]);
 
-      const plu = a.plu();
-      assert.deepEqual(ipiv, plu.pop());
-      assert.deepEqual(b, plu.pop());
+      const plu: [Matrix, Int32Array] = x.plu();
+      deepStrictEqual(ipiv, plu.pop());
+      deepStrictEqual(y, plu.pop());
     });
   });
 
   describe('.lusolve()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
-      const rhs = new Matrix([[1], [3], [5]]);
-      const x = new Matrix([[3.25], [1.75], [-1.5]]);
+      const x: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+      const y: Matrix = new Matrix([[1], [3], [5]]);
+      const z: Matrix = new Matrix([[3.25], [1.75], [-1.5]]);
 
-      const plu = a.plu(),
-          lu = plu[0],
-          ipiv = plu[1];
+      const [lu, ipiv] = x.plu();
 
-      lu.lusolve(rhs, ipiv);
-      assert.deepEqual(x, rhs);
+      lu.lusolve(y, ipiv);
+      deepStrictEqual(z, y);
     });
   });
 
   describe('.solve()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
-      const rhs = new Matrix([[1], [3], [5]]);
-      const x = new Matrix([[3.25], [1.75], [-1.5]]);
+      const x: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
+      const y: Matrix = new Matrix([[1], [3], [5]]);
+      const z: Matrix = new Matrix([[3.25], [1.75], [-1.5]]);
 
-      assert.deepEqual(x, a.solve(rhs));
+      deepStrictEqual(z, x.solve(y));
     });
   });
 
   describe('.augment()', () => {
     it('should return current matrix when combined with empty matrix', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      assert.deepEqual(a, a.augment(new Matrix()));
+      deepStrictEqual(x, x.augment(new Matrix()));
     });
 
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[5, 6], [7, 8]]);
-      const c = new Matrix([[1, 2, 5, 6], [3, 4, 7, 8]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
+      const y: Matrix = new Matrix([[5, 6], [7, 8]]);
+      const z: Matrix = new Matrix([[1, 2, 5, 6], [3, 4, 7, 8]]);
 
-      assert.deepEqual(c, a.augment(b));
+      deepStrictEqual(z, x.augment(y));
     });
 
     it('should throw error when rows do not match', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      assert.throws(a.augment.bind(a, new Matrix([[1]])), Error);
+      throws(x.augment.bind(x, new Matrix([[1]])) as () => void, Error);
     });
   });
 
   describe('.diag()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
-      const b = new Matrix([[1, 2, 3, 4], [5, 6, 7, 8]]);
+      const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+      const y: Matrix = new Matrix([[1, 2, 3, 4], [5, 6, 7, 8]]);
 
-      assert.deepEqual(new Vector([1, 5, 9]), a.diag());
-      assert.deepEqual(new Vector([1, 6]), b.diag());
+      deepStrictEqual(new Vector([1, 5, 9]), x.diag());
+      deepStrictEqual(new Vector([1, 6]), y.diag());
     });
   });
 
   describe('.trace()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
-      const b = new Matrix([[1, 2], [3, 4]]);
+      const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+      const y: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      assert.equal(15, a.trace());
-      assert.equal(5, b.trace());
+      strictEqual(15, x.trace());
+      strictEqual(5, y.trace());
     });
   });
 
   describe('.determinant()', () => {
     it('should throw error if matrix is not square', () => {
-      const a = new Matrix([[0, 0]]);
-      assert.throws(a.determinant.bind(a), Error);
+      const x: Matrix = new Matrix([[0, 0]]);
+      throws(x.determinant.bind(x) as () => void, Error);
     });
 
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = new Matrix([[1, 5, 6], [3.3, 9, 10], [7, 9, 3.2]]);
-      const c = new Matrix([[2, -1, 1], [-1, -2, 1], [-1, -1, -1]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
+      const y: Matrix = new Matrix([[1, 5, 6], [3.3, 9, 10], [7, 9, 3.2]]);
+      const z: Matrix = new Matrix([[2, -1, 1], [-1, -2, 1], [-1, -1, -1]]);
 
-      assert.equal(-2, round(a.determinant(), 2));
-      assert.equal(36.2, round(b.determinant(), 2));
-      assert.equal(7, round(c.determinant(), 2));
+      strictEqual(-2, round(x.determinant(), 2));
+      strictEqual(36.2, round(y.determinant(), 2));
+      strictEqual(7, round(z.determinant(), 2));
     });
   });
 
   describe('.get()', () => {
     it('should throw error if index out of bounds', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      assert.throws(a.get.bind(a, -1, 0), Error);
-      assert.throws(a.get.bind(a, 0, -1), Error);
-      assert.throws(a.get.bind(a, 2, 0), Error);
-      assert.throws(a.get.bind(a, 0, 2), Error);
+      throws(x.get.bind(x, -1, 0) as () => void, Error);
+      throws(x.get.bind(x, 0, -1) as () => void, Error);
+      throws(x.get.bind(x, 2, 0) as () => void, Error);
+      throws(x.get.bind(x, 0, 2) as () => void, Error);
     });
 
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4], [5, 6]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4], [5, 6]]);
 
-      assert.equal(1, a.get(0, 0));
-      assert.equal(2, a.get(0, 1));
-      assert.equal(3, a.get(1, 0));
-      assert.equal(4, a.get(1, 1));
-      assert.equal(5, a.get(2, 0));
+      strictEqual(1, x.get(0, 0));
+      strictEqual(2, x.get(0, 1));
+      strictEqual(3, x.get(1, 0));
+      strictEqual(4, x.get(1, 1));
+      strictEqual(5, x.get(2, 0));
     });
   });
 
   describe('.set()', () => {
     it('should throw error if index out of bounds', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      assert.throws(a.set.bind(a, -1, 0), Error);
-      assert.throws(a.set.bind(a, 0, -1), Error);
-      assert.throws(a.set.bind(a, 2, 0), Error);
-      assert.throws(a.set.bind(a, 0, 2), Error);
+      throws(x.set.bind(x, -1, 0) as () => void, Error);
+      throws(x.set.bind(x, 0, -1) as () => void, Error);
+      throws(x.set.bind(x, 2, 0) as () => void, Error);
+      throws(x.set.bind(x, 0, 2) as () => void, Error);
     });
 
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      a.set(0, 0, 0);
-      a.set(0, 1, 1);
-      a.set(1, 0, 0);
-      a.set(1, 1, 1);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      assert.equal(0, a.get(0, 0));
-      assert.equal(1, a.get(0, 1));
-      assert.equal(0, a.get(1, 0));
-      assert.equal(1, a.get(1, 1));
+      x.set(0, 0, 0);
+      x.set(0, 1, 1);
+      x.set(1, 0, 0);
+      x.set(1, 1, 1);
+
+      strictEqual(0, x.get(0, 0));
+      strictEqual(1, x.get(0, 1));
+      strictEqual(0, x.get(1, 0));
+      strictEqual(1, x.get(1, 1));
     });
   });
 
   describe('.swap()', () => {
     it('should throw error if index out of bounds', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      assert.throws(a.swap.bind(a, -1, 0), Error);
-      assert.throws(a.swap.bind(a, 0, -1), Error);
-      assert.throws(a.swap.bind(a, 2, 0), Error);
-      assert.throws(a.swap.bind(a, 0, 2), Error);
+      throws(x.swap.bind(x, -1, 0) as () => void, Error);
+      throws(x.swap.bind(x, 0, -1) as () => void, Error);
+      throws(x.swap.bind(x, 2, 0) as () => void, Error);
+      throws(x.swap.bind(x, 0, 2) as () => void, Error);
     });
 
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4], [5, 6]]);
-      a.swap(0, 1);
-      assert.deepEqual(new Matrix([[3, 4], [1, 2], [5, 6]]), a);
+      const x: Matrix = new Matrix([[1, 2], [3, 4], [5, 6]]);
 
-      a.swap(0, 2);
-      assert.deepEqual(new Matrix([[5, 6], [1, 2], [3, 4]]), a);
+      x.swap(0, 1);
+      deepStrictEqual(new Matrix([[3, 4], [1, 2], [5, 6]]), x);
+      x.swap(0, 2);
+      deepStrictEqual(new Matrix([[5, 6], [1, 2], [3, 4]]), x);
     });
   });
 
   describe('.map()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2, 3], [4, 5, 6]]);
-      const b = a.map(element => element * 2);
+      const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
+      const y: Matrix = x.map((value: number) => value * 2);
 
-      assert.deepEqual(new Matrix([[2, 4, 6], [8, 10, 12]]), b);
+      deepStrictEqual(new Matrix([[2, 4, 6], [8, 10, 12]]), y);
     });
   });
 
   describe('.each()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2], [3, 4]]);
-      const b = Matrix.zeros(2, 2);
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
+      const y: Matrix = Matrix.zeros(2, 2);
 
-      a.each((value, i, j) => {
-        b.set(i, j, value * j);
+      x.each((value: number, i: number, j: number) => {
+        y.set(i, j, value * j);
       });
 
-      assert.deepEqual(new Matrix([[0, 2], [0, 4]]), b);
+      deepStrictEqual(new Matrix([[0, 2], [0, 4]]), y);
     });
   });
 
   describe('.reduce()', () => {
     it('should work as expected', () => {
-      function sum(a: number, b: number) {
-        return a + b;
-      }
+      const x: Matrix = new Matrix([[1, 2, 3]]);
+      const y: Matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
+      const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      const a = new Matrix([[1, 2, 3]]);
-      const b = new Matrix([[1, 2, 3], [4, 5, 6]]);
-
-      assert.deepEqual(6, a.reduce(sum, 0));
-      assert.deepEqual(21, b.reduce(sum));
+      deepStrictEqual(6, x.reduce(sum, 0));
+      deepStrictEqual(21, y.reduce(sum));
     });
 
     it('should throw error if empty matrix with no initial value', () => {
-      const a = new Matrix();
-      const f = (acc: number, value: number): number => acc + value;
-      assert.throws(a.reduce.bind(a, f), Error);
+      const x: Matrix = new Matrix();
+      const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
+
+      throws(x.reduce.bind(x, sum) as () => void, Error);
     });
   });
 
   describe('.rank()', () => {
     it('should work as expected', () => {
-      const a = new Matrix([[1, 2, 1], [-2, -3, 1], [3, 5, 0]]);
-      const b = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]);
-      const c = new Matrix([[1, 1, 1], [2, 2, 2], [3, 3, 3]]);
-      const d = new Matrix([[0, 0, 0], [0, 0, 0]]);
+      const x: Matrix = new Matrix([[1, 2, 1], [-2, -3, 1], [3, 5, 0]]);
+      const y: Matrix = new Matrix([[1, 1, 1], [2, 2, 2], [3, 3, 3]]);
+      const z: Matrix = new Matrix([[0, 0, 0], [0, 0, 0]]);
 
-      assert.equal(a.rank(), 2);
-      assert.equal(b.rank(), 2);
-      assert.equal(c.rank(), 1);
-      assert.equal(d.rank(), 0);
-
-      assert.equal(a.rank(), Matrix.rank(a));
+      strictEqual(x.rank(), 2);
+      strictEqual(y.rank(), 1);
+      strictEqual(z.rank(), 0);
     });
   });
 
   describe('.toString()', () => {
     it('should work as expected', () => {
-      assert.equal('[[1,2], \n[3,4]]', new Matrix([[1, 2], [3, 4]]).toString());
-      assert.equal('[[1,2], \n[3,4], \n[5,6]]', new Matrix([[1, 2], [3, 4], [5, 6]]).toString());
+      strictEqual('[[1,2], \n[3,4]]', new Matrix([[1, 2], [3, 4]]).toString());
+      strictEqual('[[1,2], \n[3,4], \n[5,6]]', new Matrix([[1, 2], [3, 4], [5, 6]]).toString());
     });
   });
 
   describe('.toArray()', () => {
     it('should work as expected', () => {
-      assert.deepEqual([[1, 2], [3, 4]], new Matrix([[1, 2], [3, 4]]).toArray());
-      assert.deepEqual([[1, 2], [3, 4], [5, 6]], new Matrix([[1, 2], [3, 4], [5, 6]]).toArray());
+      deepStrictEqual([[1, 2], [3, 4]], new Matrix([[1, 2], [3, 4]]).toArray());
+      deepStrictEqual([[1, 2], [3, 4], [5, 6]], new Matrix([[1, 2], [3, 4], [5, 6]]).toArray());
     });
   });
 
   describe('.rowAdd()', () => {
     it('should work as expected', () => {
-      let m = new Matrix([[1, 2], [3, 4]]);
-      m.rowAdd(0, 1, 10);
-      assert.deepEqual([[31, 42], [3, 4]], m.toArray());
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
+      x.rowAdd(0, 1, 10);
+      deepStrictEqual([[31, 42], [3, 4]], x.toArray());
     });
   });
 
   describe('.check()', () => {
     it('should throw error if Matrix contains NaN', () => {
-      let m = new Matrix([[1, NaN], [3, 4]]);
+      const x: Matrix = new Matrix([[1, NaN], [3, 4]]);
 
-      assert.throws(m.check.bind(m), Error);
+      throws(x.check.bind(x) as () => void, Error);
     });
   });
 });

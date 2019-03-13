@@ -1,8 +1,8 @@
-import NDArray from './NDArray';
+import { NDArray } from './NDArray';
 import { bench } from './util';
 
 const { random } = Math;
-const r = (n: number): NDArray =>
+const r: (n: number) => NDArray = (n: number): NDArray =>
   new NDArray(new Float64Array(n)).fill(random);
 
 bench(

@@ -1,14 +1,15 @@
-import Matrix from './Matrix';
+import { Matrix } from './Matrix';
 import { bench } from './util';
 
 const { floor, random, sqrt } = Math;
-const r = (n: number): Matrix => Matrix.random(floor(sqrt(n)), floor(sqrt(n)));
-const rhs = (n: number): Matrix => Matrix.random(floor(sqrt(n)), 1);
+const r: (n: number) => Matrix = (n: number): Matrix => Matrix.random(floor(sqrt(n)), floor(sqrt(n)));
+const rhs: (n: number) => Matrix = (n: number): Matrix => Matrix.random(floor(sqrt(n)), 1);
 
 bench(
   'Matrix',
   'binOp',
-  (n: number): [Matrix, Matrix, (a: number, b: number) => number] => [r(n), r(n), (a, b) => a + b],
+  (n: number): [Matrix, Matrix, (a: number, b: number) => number] =>
+    [r(n), r(n), (a: number, b: number): number => a + b],
   (x: Matrix, y: Matrix, op: (a: number, b: number) => number): void => {
     x.binOp(y, op);
   },
@@ -132,8 +133,8 @@ bench(
   'Matrix',
   'solve',
   (n: number): [Matrix, Matrix] => [r(n), rhs(n)],
-  (x: Matrix, rhs: Matrix): void => {
-    x.solve(rhs);
+  (x: Matrix, y: Matrix): void => {
+    x.solve(y);
   }
 );
 

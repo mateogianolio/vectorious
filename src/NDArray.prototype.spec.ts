@@ -1,251 +1,252 @@
-import NDArray from './NDArray';
 import * as assert from 'assert';
+
+import { NDArray } from './NDArray';
 
 describe('NDArray.prototype', () => {
   describe('constructor()', () => {
     it('should work with no arguments', () => {
-      const ndarray = new NDArray();
-      assert(ndarray);
+      const x: NDArray = new NDArray();
+      assert(x);
     });
 
     it('should work with typed array and no shape argument', () => {
-      const f64 = new Float64Array([1, 2, 3]);
-      const ndarray = new NDArray(f64);
+      const f64: Float64Array = new Float64Array([1, 2, 3]);
+      const x: NDArray = new NDArray(f64);
 
-      assert.deepEqual(ndarray.data, f64);
-      assert.deepEqual(ndarray.shape, [f64.length]);
-      assert.deepEqual(ndarray.length, f64.length);
-      assert.deepEqual(ndarray.type, f64.constructor);
+      assert.deepStrictEqual(x.data, f64);
+      assert.deepStrictEqual(x.shape, [f64.length]);
+      assert.deepStrictEqual(x.length, f64.length);
+      assert.deepStrictEqual(x.type, f64.constructor);
     });
 
     it('should work with typed array shape argument', () => {
-      const f64 = new Float64Array([1, 2, 3, 4]);
-      const ndarray = new NDArray(f64, { shape: [2, 2] });
+      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f64, { shape: [2, 2] });
 
-      assert.deepEqual(ndarray.data, f64);
-      assert.deepEqual(ndarray.shape, [2, 2]);
-      assert.deepEqual(ndarray.length, f64.length);
-      assert.deepEqual(ndarray.type, f64.constructor);
+      assert.deepStrictEqual(x.data, f64);
+      assert.deepStrictEqual(x.shape, [2, 2]);
+      assert.deepStrictEqual(x.length, f64.length);
+      assert.deepStrictEqual(x.type, f64.constructor);
     });
 
     it('should work with array', () => {
-      const f64 = new Float64Array([1, 2, 3, 4]);
-      const ndarray = new NDArray([1, 2, 3, 4]);
+      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray([1, 2, 3, 4]);
 
-      assert.deepEqual(ndarray.data, f64);
-      assert.deepEqual(ndarray.shape, [4]);
-      assert.deepEqual(ndarray.length, f64.length);
-      assert.deepEqual(ndarray.type, f64.constructor);
+      assert.deepStrictEqual(x.data, f64);
+      assert.deepStrictEqual(x.shape, [4]);
+      assert.deepStrictEqual(x.length, f64.length);
+      assert.deepStrictEqual(x.type, f64.constructor);
     });
 
     it('should work with two dimensional array', () => {
-      const f64 = new Float64Array([1, 2, 3, 4]);
-      const ndarray = new NDArray([[1, 2], [3, 4]]);
+      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray([[1, 2], [3, 4]]);
 
-      assert.deepEqual(ndarray.data, f64);
-      assert.deepEqual(ndarray.shape, [2, 2]);
-      assert.deepEqual(ndarray.length, f64.length);
-      assert.deepEqual(ndarray.type, f64.constructor);
+      assert.deepStrictEqual(x.data, f64);
+      assert.deepStrictEqual(x.shape, [2, 2]);
+      assert.deepStrictEqual(x.length, f64.length);
+      assert.deepStrictEqual(x.type, f64.constructor);
     });
 
     it('should work with multidimensional array', () => {
-      const f64 = new Float64Array([1, 2, 3, 4]);
-      const ndarray = new NDArray([[[1], [2]], [[3], [4]]]);
+      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray([[[1], [2]], [[3], [4]]]);
 
-      assert.deepEqual(ndarray.data, f64);
-      assert.deepEqual(ndarray.shape, [2, 2, 1]);
-      assert.deepEqual(ndarray.length, f64.length);
-      assert.deepEqual(ndarray.type, f64.constructor);
+      assert.deepStrictEqual(x.data, f64);
+      assert.deepStrictEqual(x.shape, [2, 2, 1]);
+      assert.deepStrictEqual(x.length, f64.length);
+      assert.deepStrictEqual(x.type, f64.constructor);
     });
 
     it('should work with NDArray', () => {
-      const ndarray = new NDArray([1, 2, 3, 4]);
-      assert.deepEqual(ndarray, new NDArray(ndarray));
+      const x: NDArray = new NDArray([1, 2, 3, 4]);
+      assert.deepStrictEqual(x, new NDArray(x));
     });
   });
 
   describe('reshape()', () => {
     it('should throw error if new shape does not match length', () => {
-      const f64 = new Float64Array([1, 2, 3, 4]);
-      const ndarray = new NDArray(f64);
+      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f64);
 
-      assert.throws(ndarray.reshape.bind(ndarray, [1, 2]), Error);
+      assert.throws(x.reshape.bind(x, [1, 2]) as () => void, Error);
     });
 
     it('should be able to create row vector of column vector', () => {
-      const f64 = new Float64Array([1, 2, 3, 4]);
-      const ndarray = new NDArray(f64, { shape: [1, 4] });
+      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f64, { shape: [1, 4] });
 
-      assert.deepEqual(ndarray.shape, [1, 4]);
-      ndarray.reshape([4, 1]);
-      assert.deepEqual(ndarray.shape, [4, 1]);
+      assert.deepStrictEqual(x.shape, [1, 4]);
+      x.reshape([4, 1]);
+      assert.deepStrictEqual(x.shape, [4, 1]);
     });
   });
 
   describe('copy()', () => {
     it('should create an immutable copy of class', () => {
-      const f64 = new Float64Array([1, 2, 3, 4]);
-      const original = new NDArray(f64);
-      const copy = original.copy();
+      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const original: NDArray = new NDArray(f64);
+      const copy: NDArray = original.copy();
 
       assert(original !== copy);
       assert(original.data !== copy.data);
-      assert.deepEqual(original, copy);
+      assert.deepStrictEqual(original, copy);
     });
   });
 
   describe('equilateral()', () => {
     it('should pass if lengths match', () => {
-      const f64x = new Float64Array([1, 2, 3, 4]);
-      const f64y = new Float64Array([1, 2, 3, 4]);
-      const x = new NDArray(f64x);
-      const y = new NDArray(f64y);
+      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const f64y: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f64x);
+      const y: NDArray = new NDArray(f64y);
 
       x.equilateral(y);
     });
 
     it('should throw error if lengths do not match', () => {
-      const f64x = new Float64Array([1, 2, 3, 4]);
-      const f64y = new Float64Array([1, 2, 3, 4, 5]);
-      const x = new NDArray(f64x);
-      const y = new NDArray(f64y);
+      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const f64y: Float64Array = new Float64Array([1, 2, 3, 4, 5]);
+      const x: NDArray = new NDArray(f64x);
+      const y: NDArray = new NDArray(f64y);
 
-      assert.throws(x.equilateral.bind(x, y), Error);
+      assert.throws(x.equilateral.bind(x, y) as () => void, Error);
     });
   });
 
   describe('equidimensional()', () => {
     it('should pass if shapes match', () => {
-      const f64x = new Float64Array([1, 2, 3, 4]);
-      const f64y = new Float64Array([1, 2, 3, 4]);
-      const x = new NDArray(f64x);
-      const y = new NDArray(f64y);
+      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const f64y: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f64x);
+      const y: NDArray = new NDArray(f64y);
 
       x.equidimensional(y);
     });
 
     it('should throw error if lengths do not match', () => {
-      const f64x = new Float64Array([1, 2, 3, 4]);
-      const f64y = new Float64Array([1, 2, 3, 4]);
-      const x = new NDArray(f64x);
-      const y = new NDArray(f64y, { shape: [2, 2] });
+      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const f64y: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f64x);
+      const y: NDArray = new NDArray(f64y, { shape: [2, 2] });
 
-      assert.throws(x.equidimensional.bind(x, y), Error);
+      assert.throws(x.equidimensional.bind(x, y) as () => void, Error);
     });
   });
 
   describe('add()', () => {
     it('should return empty vector if adding two empty vectors', () => {
-      const a = new NDArray();
-      const b = new NDArray();
+      const x: NDArray = new NDArray();
+      const y: NDArray = new NDArray();
 
-      assert.deepEqual(new NDArray(), a.add(b));
+      assert.deepStrictEqual(new NDArray(), x.add(y));
     });
 
     it('should throw error if sizes do not match', () => {
-      const a = new NDArray([1]);
-      const b = new NDArray([1, 2]);
+      const x: NDArray = new NDArray([1]);
+      const y: NDArray = new NDArray([1, 2]);
 
-      assert.throws(a.add.bind(a, b), Error);
+      assert.throws(x.add.bind(x, y) as () => void, Error);
     });
 
     it('should produce NDArray([5, 7, 9]) from NDArray([1, 2, 3]) and NDArray([4, 5, 6])', () => {
-      const a = new NDArray([1, 2, 3]);
-      const b = new NDArray([4, 5, 6]);
-      const c = new NDArray([5, 7, 9]);
+      const x: NDArray = new NDArray([1, 2, 3]);
+      const y: NDArray = new NDArray([4, 5, 6]);
+      const z: NDArray = new NDArray([5, 7, 9]);
 
-      assert.deepEqual(c, a.add(b));
+      assert.deepStrictEqual(z, x.add(y));
     });
   });
 
   describe('subtract()', () => {
     it('should return empty vector if subtracting two empty vectors', () => {
-      const a = new NDArray();
-      const b = new NDArray();
+      const x: NDArray = new NDArray();
+      const y: NDArray = new NDArray();
 
-      assert.deepEqual(new NDArray(), a.subtract(b));
+      assert.deepStrictEqual(new NDArray(), x.subtract(y));
     });
 
     it('should throw error if sizes do not match', () => {
-      const a = new NDArray([1]);
-      const b = new NDArray([1, 2]);
+      const x: NDArray = new NDArray([1]);
+      const y: NDArray = new NDArray([1, 2]);
 
-      assert.throws(a.subtract.bind(a, b), Error);
+      assert.throws(x.subtract.bind(x, y) as () => void, Error);
     });
 
     it('should produce NDArray(-3, -3, -3) from NDArray(1, 2, 3) and NDArray(4, 5, 6)', () => {
-      const a = new NDArray([1, 2, 3]);
-      const b = new NDArray([4, 5, 6]);
-      const c = new NDArray([-3, -3, -3]);
+      const x: NDArray = new NDArray([1, 2, 3]);
+      const y: NDArray = new NDArray([4, 5, 6]);
+      const z: NDArray = new NDArray([-3, -3, -3]);
 
-      assert.deepEqual(c, a.subtract(b));
+      assert.deepStrictEqual(z, x.subtract(y));
     });
   });
 
   describe('scale()', () => {
     it('should scale NDArray(1, 2, 3) by 2 to NDArray(2, 4, 6)', () => {
-      const a = new NDArray([1, 2, 3]);
-      const b = new NDArray([2, 4, 6]);
+      const x: NDArray = new NDArray([1, 2, 3]);
+      const y: NDArray = new NDArray([2, 4, 6]);
 
-      assert.deepEqual(b, a.scale(2));
+      assert.deepStrictEqual(y, x.scale(2));
     });
   });
 
   describe('dot()', () => {
     it('should throw error if sizes do not match', () => {
-      const a = new NDArray([1]);
-      const b = new NDArray([1, 2]);
+      const x: NDArray = new NDArray([1]);
+      const y: NDArray = new NDArray([1, 2]);
 
-      assert.throws(a.dot.bind(a, b), Error);
+      assert.throws(x.dot.bind(x, y) as () => void, Error);
     });
 
     it('should work as expected', () => {
-      const a = new NDArray([1, 2, 3]);
-      const b = new NDArray([4, 5, 6]);
+      const x: NDArray = new NDArray([1, 2, 3]);
+      const y: NDArray = new NDArray([4, 5, 6]);
 
-      assert.equal(32, a.dot(b));
+      assert.strictEqual(32, x.dot(y));
     });
   });
 
   describe('equals()', () => {
     it('should work as expected', () => {
-      assert.equal(true, new NDArray([1, 3, 2]).equals(new NDArray([1, 3, 2])));
-      assert.equal(true, new NDArray().equals(new NDArray()));
-      assert.equal(false, new NDArray([1, 2, 3]).equals(new NDArray([1, 3, 2])));
+      assert.strictEqual(true, new NDArray([1, 3, 2]).equals(new NDArray([1, 3, 2])));
+      assert.strictEqual(true, new NDArray().equals(new NDArray()));
+      assert.strictEqual(false, new NDArray([1, 2, 3]).equals(new NDArray([1, 3, 2])));
     });
   });
 
   describe('min()', () => {
     it('should find the minimum number in arrays', () => {
-      const a = new NDArray([1, 2, 3]);
-      const b = new NDArray([3, -1, 1]);
-      const c = new NDArray([2, 5, 1]);
+      const x: NDArray = new NDArray([1, 2, 3]);
+      const y: NDArray = new NDArray([3, -1, 1]);
+      const z: NDArray = new NDArray([2, 5, 1]);
 
-      assert.equal(1, a.min());
-      assert.equal(-1, b.min());
-      assert.equal(1, c.min());
+      assert.strictEqual(1, x.min());
+      assert.strictEqual(-1, y.min());
+      assert.strictEqual(1, z.min());
     });
   });
 
   describe('max()', () => {
     it('should find the maximum number in arrays', () => {
-      const a = new NDArray([1, 2, 3]);
-      const b = new NDArray([3, -1, 1]);
-      const c = new NDArray([2, 5, 1]);
+      const x: NDArray = new NDArray([1, 2, 3]);
+      const y: NDArray = new NDArray([3, -1, 1]);
+      const z: NDArray = new NDArray([2, 5, 1]);
 
-      assert.equal(3, a.max());
-      assert.equal(3, b.max());
-      assert.equal(5, c.max());
+      assert.strictEqual(3, x.max());
+      assert.strictEqual(3, y.max());
+      assert.strictEqual(5, z.max());
     });
   });
 
   describe('product()', () => {
     it('should work as the static equivalent of a.product(b)', () => {
-      const a = new NDArray([[3, 2, 1]]);
-      const b = new NDArray([[1, 2, 3]]);
-      const c = new NDArray([[3, 4, 3]]);
+      const x: NDArray = new NDArray([[3, 2, 1]]);
+      const y: NDArray = new NDArray([[1, 2, 3]]);
+      const z: NDArray = new NDArray([[3, 4, 3]]);
 
-      assert.deepEqual(c, a.product(b));
+      assert.deepStrictEqual(z, x.product(y));
     });
   });
 });

@@ -1,4 +1,4 @@
-type TypedArray = 
+export type TypedArray =
     | Int8Array
     | Uint8Array
     | Int16Array
@@ -9,7 +9,7 @@ type TypedArray =
     | Float32Array
     | Float64Array;
 
-type TypedArrayConstructor = 
+export type TypedArrayConstructor =
     | Int8ArrayConstructor
     | Uint8ArrayConstructor
     | Int16ArrayConstructor
@@ -20,9 +20,9 @@ type TypedArrayConstructor =
     | Float32ArrayConstructor
     | Float64ArrayConstructor;
 
-interface NDInterface {
-  type: TypedArrayConstructor;
-  shape: number[];
-  length: number;
+export interface INDArray {
   data: TypedArray;
+  length: number;
+  shape: number[];
+  type: TypedArrayConstructor;
 }
