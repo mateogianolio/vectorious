@@ -1,4 +1,9 @@
-import * as assert from 'assert';
+import {
+  deepStrictEqual,
+  notStrictEqual,
+  strictEqual,
+  throws,
+} from 'assert';
 
 import { NDArray } from './NDArray';
 
@@ -6,62 +11,66 @@ describe('NDArray.prototype', () => {
   describe('constructor()', () => {
     it('should work with no arguments', () => {
       const x: NDArray = new NDArray();
-      assert(x);
+
+      deepStrictEqual(x.data, new Float64Array());
+      deepStrictEqual(x.shape, [0]);
+      strictEqual(x.length, 0);
+      deepStrictEqual(x.type, Float64Array);
     });
 
     it('should work with typed array and no shape argument', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3]);
       const x: NDArray = new NDArray(f64);
 
-      assert.deepStrictEqual(x.data, f64);
-      assert.deepStrictEqual(x.shape, [f64.length]);
-      assert.deepStrictEqual(x.length, f64.length);
-      assert.deepStrictEqual(x.type, f64.constructor);
+      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.shape, [f64.length]);
+      deepStrictEqual(x.length, f64.length);
+      deepStrictEqual(x.type, Float64Array);
     });
 
     it('should work with typed array shape argument', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray(f64, { shape: [2, 2] });
 
-      assert.deepStrictEqual(x.data, f64);
-      assert.deepStrictEqual(x.shape, [2, 2]);
-      assert.deepStrictEqual(x.length, f64.length);
-      assert.deepStrictEqual(x.type, f64.constructor);
+      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.shape, [2, 2]);
+      deepStrictEqual(x.length, f64.length);
+      deepStrictEqual(x.type, Float64Array);
     });
 
     it('should work with array', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray([1, 2, 3, 4]);
 
-      assert.deepStrictEqual(x.data, f64);
-      assert.deepStrictEqual(x.shape, [4]);
-      assert.deepStrictEqual(x.length, f64.length);
-      assert.deepStrictEqual(x.type, f64.constructor);
+      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.shape, [4]);
+      deepStrictEqual(x.length, f64.length);
+      deepStrictEqual(x.type, Float64Array);
     });
 
     it('should work with two dimensional array', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray([[1, 2], [3, 4]]);
 
-      assert.deepStrictEqual(x.data, f64);
-      assert.deepStrictEqual(x.shape, [2, 2]);
-      assert.deepStrictEqual(x.length, f64.length);
-      assert.deepStrictEqual(x.type, f64.constructor);
+      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.shape, [2, 2]);
+      deepStrictEqual(x.length, f64.length);
+      deepStrictEqual(x.type, Float64Array);
     });
 
     it('should work with multidimensional array', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray([[[1], [2]], [[3], [4]]]);
 
-      assert.deepStrictEqual(x.data, f64);
-      assert.deepStrictEqual(x.shape, [2, 2, 1]);
-      assert.deepStrictEqual(x.length, f64.length);
-      assert.deepStrictEqual(x.type, f64.constructor);
+      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.shape, [2, 2, 1]);
+      deepStrictEqual(x.length, f64.length);
+      deepStrictEqual(x.type, Float64Array);
     });
 
     it('should work with NDArray', () => {
       const x: NDArray = new NDArray([1, 2, 3, 4]);
-      assert.deepStrictEqual(x, new NDArray(x));
+      deepStrictEqual(x, new NDArray(x));
     });
   });
 
@@ -70,16 +79,16 @@ describe('NDArray.prototype', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray(f64);
 
-      assert.throws(x.reshape.bind(x, [1, 2]) as () => void, Error);
+      throws(x.reshape.bind(x, [1, 2]) as () => void, Error);
     });
 
     it('should be able to create row vector of column vector', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray(f64, { shape: [1, 4] });
 
-      assert.deepStrictEqual(x.shape, [1, 4]);
+      deepStrictEqual(x.shape, [1, 4]);
       x.reshape([4, 1]);
-      assert.deepStrictEqual(x.shape, [4, 1]);
+      deepStrictEqual(x.shape, [4, 1]);
     });
   });
 
@@ -89,9 +98,9 @@ describe('NDArray.prototype', () => {
       const original: NDArray = new NDArray(f64);
       const copy: NDArray = original.copy();
 
-      assert(original !== copy);
-      assert(original.data !== copy.data);
-      assert.deepStrictEqual(original, copy);
+      notStrictEqual(original, copy);
+      notStrictEqual(original.data, copy.data);
+      deepStrictEqual(original, copy);
     });
   });
 
@@ -111,7 +120,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray(f64x);
       const y: NDArray = new NDArray(f64y);
 
-      assert.throws(x.equilateral.bind(x, y) as () => void, Error);
+      throws(x.equilateral.bind(x, y) as () => void, Error);
     });
   });
 
@@ -131,7 +140,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray(f64x);
       const y: NDArray = new NDArray(f64y, { shape: [2, 2] });
 
-      assert.throws(x.equidimensional.bind(x, y) as () => void, Error);
+      throws(x.equidimensional.bind(x, y) as () => void, Error);
     });
   });
 
@@ -140,14 +149,14 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray();
       const y: NDArray = new NDArray();
 
-      assert.deepStrictEqual(new NDArray(), x.add(y));
+      deepStrictEqual(new NDArray(), x.add(y));
     });
 
     it('should throw error if sizes do not match', () => {
       const x: NDArray = new NDArray([1]);
       const y: NDArray = new NDArray([1, 2]);
 
-      assert.throws(x.add.bind(x, y) as () => void, Error);
+      throws(x.add.bind(x, y) as () => void, Error);
     });
 
     it('should produce NDArray([5, 7, 9]) from NDArray([1, 2, 3]) and NDArray([4, 5, 6])', () => {
@@ -155,7 +164,7 @@ describe('NDArray.prototype', () => {
       const y: NDArray = new NDArray([4, 5, 6]);
       const z: NDArray = new NDArray([5, 7, 9]);
 
-      assert.deepStrictEqual(z, x.add(y));
+      deepStrictEqual(z, x.add(y));
     });
   });
 
@@ -164,14 +173,14 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray();
       const y: NDArray = new NDArray();
 
-      assert.deepStrictEqual(new NDArray(), x.subtract(y));
+      deepStrictEqual(new NDArray(), x.subtract(y));
     });
 
     it('should throw error if sizes do not match', () => {
       const x: NDArray = new NDArray([1]);
       const y: NDArray = new NDArray([1, 2]);
 
-      assert.throws(x.subtract.bind(x, y) as () => void, Error);
+      throws(x.subtract.bind(x, y) as () => void, Error);
     });
 
     it('should produce NDArray(-3, -3, -3) from NDArray(1, 2, 3) and NDArray(4, 5, 6)', () => {
@@ -179,7 +188,7 @@ describe('NDArray.prototype', () => {
       const y: NDArray = new NDArray([4, 5, 6]);
       const z: NDArray = new NDArray([-3, -3, -3]);
 
-      assert.deepStrictEqual(z, x.subtract(y));
+      deepStrictEqual(z, x.subtract(y));
     });
   });
 
@@ -188,7 +197,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray([1, 2, 3]);
       const y: NDArray = new NDArray([2, 4, 6]);
 
-      assert.deepStrictEqual(y, x.scale(2));
+      deepStrictEqual(y, x.scale(2));
     });
   });
 
@@ -197,22 +206,22 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray([1]);
       const y: NDArray = new NDArray([1, 2]);
 
-      assert.throws(x.dot.bind(x, y) as () => void, Error);
+      throws(x.dot.bind(x, y) as () => void, Error);
     });
 
     it('should work as expected', () => {
       const x: NDArray = new NDArray([1, 2, 3]);
       const y: NDArray = new NDArray([4, 5, 6]);
 
-      assert.strictEqual(32, x.dot(y));
+      strictEqual(32, x.dot(y));
     });
   });
 
   describe('equals()', () => {
     it('should work as expected', () => {
-      assert.strictEqual(true, new NDArray([1, 3, 2]).equals(new NDArray([1, 3, 2])));
-      assert.strictEqual(true, new NDArray().equals(new NDArray()));
-      assert.strictEqual(false, new NDArray([1, 2, 3]).equals(new NDArray([1, 3, 2])));
+      strictEqual(true, new NDArray([1, 3, 2]).equals(new NDArray([1, 3, 2])));
+      strictEqual(true, new NDArray().equals(new NDArray()));
+      strictEqual(false, new NDArray([1, 2, 3]).equals(new NDArray([1, 3, 2])));
     });
   });
 
@@ -222,9 +231,9 @@ describe('NDArray.prototype', () => {
       const y: NDArray = new NDArray([3, -1, 1]);
       const z: NDArray = new NDArray([2, 5, 1]);
 
-      assert.strictEqual(1, x.min());
-      assert.strictEqual(-1, y.min());
-      assert.strictEqual(1, z.min());
+      strictEqual(1, x.min());
+      strictEqual(-1, y.min());
+      strictEqual(1, z.min());
     });
   });
 
@@ -234,9 +243,9 @@ describe('NDArray.prototype', () => {
       const y: NDArray = new NDArray([3, -1, 1]);
       const z: NDArray = new NDArray([2, 5, 1]);
 
-      assert.strictEqual(3, x.max());
-      assert.strictEqual(3, y.max());
-      assert.strictEqual(5, z.max());
+      strictEqual(3, x.max());
+      strictEqual(3, y.max());
+      strictEqual(5, z.max());
     });
   });
 
@@ -246,7 +255,7 @@ describe('NDArray.prototype', () => {
       const y: NDArray = new NDArray([[1, 2, 3]]);
       const z: NDArray = new NDArray([[3, 4, 3]]);
 
-      assert.deepStrictEqual(z, x.product(y));
+      deepStrictEqual(z, x.product(y));
     });
   });
 });

@@ -1,4 +1,8 @@
-import * as assert from 'assert';
+import {
+  deepStrictEqual,
+  strictEqual,
+  throws,
+} from 'assert';
 
 import { Vector } from './';
 
@@ -6,7 +10,9 @@ describe('Vector.prototype', () => {
   describe('constructor()', () => {
     it('should work with length', () => {
       const x: Vector = new Vector(2);
-      assert(x);
+      const y: Vector = new Vector([0, 0]);
+
+      deepStrictEqual(x, y);
     });
   });
 
@@ -17,7 +23,7 @@ describe('Vector.prototype', () => {
       const z: Vector = new Vector([2, 3, 4]);
       const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      assert.deepStrictEqual(x.binOp(y, sum), z);
+      deepStrictEqual(x.binOp(y, sum), z);
     });
 
     it('should throw error when sizes do not match', () => {
@@ -25,7 +31,7 @@ describe('Vector.prototype', () => {
       const y: Vector = new Vector([1, 2, 3, 4]);
       const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      assert.throws(x.binOp.bind(x, y, sum) as () => void, Error);
+      throws(x.binOp.bind(x, y, sum) as () => void, Error);
     });
   });
 
@@ -34,7 +40,7 @@ describe('Vector.prototype', () => {
       const x: Vector = new Vector([1, 1]);
       const y: Vector = new Vector([1 / Math.sqrt(2), 1 / Math.sqrt(2)]);
 
-      assert.deepStrictEqual(y, x.normalize());
+      deepStrictEqual(y, x.normalize());
     });
   });
 
@@ -43,7 +49,7 @@ describe('Vector.prototype', () => {
       const x: Vector = new Vector([1]);
       const y: Vector = new Vector([1, 2]);
 
-      assert.throws(x.project.bind(x, y) as () => void, Error);
+      throws(x.project.bind(x, y) as () => void, Error);
     });
 
     it('should work as expected', () => {
@@ -51,17 +57,17 @@ describe('Vector.prototype', () => {
       const y: Vector = new Vector([-3, 4]);
       const z: Vector = new Vector([6 / 25, -8 / 25]);
 
-      assert.deepStrictEqual(z, x.project(y));
+      deepStrictEqual(z, x.project(y));
     });
   });
 
   describe('.magnitude()', () => {
     it('should return 0 if empty vector', () => {
-      assert.strictEqual(0, new Vector().magnitude());
+      strictEqual(0, new Vector().magnitude());
     });
 
     it('should work as expected', () => {
-      assert.strictEqual(4, new Vector([1, 1, 1, 2, 3]).magnitude());
+      strictEqual(4, new Vector([1, 1, 1, 2, 3]).magnitude());
     });
   });
 
@@ -70,23 +76,23 @@ describe('Vector.prototype', () => {
       const x: Vector = new Vector([1, 0]);
       const y: Vector = new Vector([0, 1]);
 
-      assert.strictEqual(Math.PI / 2, x.angle(y));
+      strictEqual(Math.PI / 2, x.angle(y));
     });
   });
 
   describe('.get()', () => {
     it('should throw error if index out of bounds', () => {
       const x: Vector = new Vector([1, 2, 3]);
-      assert.throws(x.get.bind(x, -1) as () => void, Error);
-      assert.throws(x.get.bind(x, 3) as () => void, Error);
+      throws(x.get.bind(x, -1) as () => void, Error);
+      throws(x.get.bind(x, 3) as () => void, Error);
     });
 
     it('should work as expected', () => {
       const x: Vector = new Vector([1, 3, 2, 4]);
-      assert.strictEqual(1, x.get(0));
-      assert.strictEqual(3, x.get(1));
-      assert.strictEqual(2, x.get(2));
-      assert.strictEqual(4, x.get(3));
+      strictEqual(1, x.get(0));
+      strictEqual(3, x.get(1));
+      strictEqual(2, x.get(2));
+      strictEqual(4, x.get(3));
     });
   });
 
@@ -94,10 +100,10 @@ describe('Vector.prototype', () => {
     it('should retrieve properties as expected', () => {
       const x: Vector = new Vector([1, 2, 3, 4, 5]);
 
-      assert.strictEqual(x.x, 1);
-      assert.strictEqual(x.y, 2);
-      assert.strictEqual(x.z, 3);
-      assert.strictEqual(x.w, 4);
+      strictEqual(x.x, 1);
+      strictEqual(x.y, 2);
+      strictEqual(x.z, 3);
+      strictEqual(x.w, 4);
     });
 
     it('should set proeprties as expected', () => {
@@ -108,42 +114,42 @@ describe('Vector.prototype', () => {
       x.z = 2;
       x.w = 3;
 
-      assert.strictEqual(x.get(0), 0);
-      assert.strictEqual(x.get(1), 1);
-      assert.strictEqual(x.get(2), 2);
-      assert.strictEqual(x.get(3), 3);
+      strictEqual(x.get(0), 0);
+      strictEqual(x.get(1), 1);
+      strictEqual(x.get(2), 2);
+      strictEqual(x.get(3), 3);
     });
   });
 
   describe('.set()', () => {
     it('should throw error if index out of bounds', () => {
       const x: Vector = new Vector([1, 2]);
-      assert.throws(x.set.bind(x, -1, 0) as () => void, Error);
-      assert.throws(x.set.bind(x, 2, 0) as () => void, Error);
+      throws(x.set.bind(x, -1, 0) as () => void, Error);
+      throws(x.set.bind(x, 2, 0) as () => void, Error);
     });
 
     it('should work as expected', () => {
       const x: Vector = new Vector([1, 2]);
       x.set(0, 0);
       x.set(1, 1);
-      assert.strictEqual(0, x.get(0));
-      assert.strictEqual(1, x.get(1));
+      strictEqual(0, x.get(0));
+      strictEqual(1, x.get(1));
     });
   });
 
   describe('.combine()', () => {
     it('should return current vector if combined with empty vector', () => {
-      assert.deepStrictEqual(new Vector([1, 2, 3]), new Vector([1, 2, 3]).combine(new Vector()));
+      deepStrictEqual(new Vector([1, 2, 3]), new Vector([1, 2, 3]).combine(new Vector()));
     });
 
     it('should work as expected', () => {
-      assert.deepStrictEqual(new Vector([1, 2, 3, 0, 1]), new Vector([1, 2, 3]).combine(new Vector([0, 1])));
+      deepStrictEqual(new Vector([1, 2, 3, 0, 1]), new Vector([1, 2, 3]).combine(new Vector([0, 1])));
     });
   });
 
   describe('.push()', () => {
     it('should start with Vector(1, 2), push(3) to get Vector(1, 2, 3)', () => {
-      assert.deepStrictEqual(new Vector([1, 2, 3]), new Vector([1, 2]).push(3));
+      deepStrictEqual(new Vector([1, 2, 3]), new Vector([1, 2]).push(3));
     });
   });
 
@@ -152,7 +158,7 @@ describe('Vector.prototype', () => {
       const x: Vector = new Vector([1, 2, 3]);
       const y: Vector = x.map((value: number) => value * value);
 
-      assert.deepStrictEqual(new Vector([1, 4, 9]), y);
+      deepStrictEqual(new Vector([1, 4, 9]), y);
     });
   });
 
@@ -164,7 +170,7 @@ describe('Vector.prototype', () => {
         y.push(value * index);
       });
 
-      assert.deepStrictEqual(new Vector([0, 2, 6]), y);
+      deepStrictEqual(new Vector([0, 2, 6]), y);
     });
   });
 
@@ -174,27 +180,27 @@ describe('Vector.prototype', () => {
       const y: Vector = new Vector([1, 2, 3, 4, 5, 6]);
       const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      assert.deepStrictEqual(6, x.reduce(sum, 0));
-      assert.deepStrictEqual(21, y.reduce(sum));
+      deepStrictEqual(6, x.reduce(sum, 0));
+      deepStrictEqual(21, y.reduce(sum));
     });
 
     it('should throw error if empty vector with no initial value', () => {
       const x: Vector = new Vector();
       const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
-      assert.throws(x.reduce.bind(x, sum) as () => void, Error);
+      throws(x.reduce.bind(x, sum) as () => void, Error);
     });
   });
 
   describe('.toString()', () => {
     it('should work as expected', () => {
-      assert.strictEqual('[1, 2, 3]', new Vector([1, 2, 3]).toString());
+      strictEqual('[1, 2, 3]', new Vector([1, 2, 3]).toString());
     });
   });
 
   describe('.toArray()', () => {
     it('should work as expected', () => {
-      assert.deepStrictEqual([], new Vector().toArray());
-      assert.deepStrictEqual([1, 2, 3], new Vector([1, 2, 3]).toArray());
+      deepStrictEqual([], new Vector().toArray());
+      deepStrictEqual([1, 2, 3], new Vector([1, 2, 3]).toArray());
     });
   });
 
@@ -202,13 +208,13 @@ describe('Vector.prototype', () => {
     it('should work as expected', () => {
       const x: Vector = new Vector([1, 2, 3]);
       const y: Vector = new Vector([2, 3, 4]);
-      assert.deepStrictEqual(new Vector([-1, 2, -1]), x.cross(y));
+      deepStrictEqual(new Vector([-1, 2, -1]), x.cross(y));
     });
 
     it('should throw an exception when lengths do not match', () => {
       const x: Vector = new Vector([1, 2, 3, 4]);
       const y: Vector = new Vector([5, 6, 7]);
-      assert.throws(x.cross.bind(x, y) as () => void, Error);
+      throws(x.cross.bind(x, y) as () => void, Error);
     });
   });
 
@@ -216,7 +222,7 @@ describe('Vector.prototype', () => {
     it('should throw error if Matrix contains NaN', () => {
       const x: Vector = new Vector([1, NaN, 3, 4]);
 
-      assert.throws(x.check.bind(x) as () => void, Error);
+      throws(x.check.bind(x) as () => void, Error);
     });
   });
 });
