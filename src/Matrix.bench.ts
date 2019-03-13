@@ -1,5 +1,5 @@
+import { bench } from './bench';
 import { Matrix } from './Matrix';
-import { bench } from './util';
 
 const { floor, random, sqrt } = Math;
 const r: (n: number) => Matrix = (n: number): Matrix => Matrix.random(floor(sqrt(n)), floor(sqrt(n)));
