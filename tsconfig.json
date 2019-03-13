@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "./built",
     "target": "es5",
     "strict": true,
@@ -12,7 +11,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "lib": [
-      "es2015",
+      "es5",
       "dom"
     ]
   },
@@ -21,6 +20,7 @@
   ],
   "exclude": [
     "src/**/*.spec.ts",
-    "src/**/*.bench.ts"
+    "src/**/*.bench.ts",
+    "bench.ts"
   ]
 }
