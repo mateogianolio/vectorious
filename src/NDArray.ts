@@ -43,18 +43,17 @@ export class NDArray implements INDArray {
     this.equilateral(x);
     this.equidimensional(x);
 
-    if (nblas && nblas.axpy) {
+    try {
       nblas.axpy(x.data, this.data, alpha);
+    } catch (_) {
+      const { data: d1, length: l1 } = this;
+      const { data: d2} = x;
 
-      return this;
-    }
+      let i: number;
+      for (i = 0; i < l1; i += 1) {
+        d1[i] += alpha * d2[i];
+      }
 
-    const { data: d1, length: l1 } = this;
-    const { data: d2} = x;
-
-    let i: number;
-    for (i = 0; i < l1; i += 1) {
-      d1[i] += alpha * d2[i];
     }
 
     return this;
@@ -84,18 +83,18 @@ export class NDArray implements INDArray {
     const { data: d1, length: l1 } = this;
     const { data: d2 } = x;
 
-    if (nblas && nblas.dot) {
+    try {
       return nblas.dot(d1, d2);
+    } catch (_) {
+      let result: number = 0;
+
+      let i: number;
+      for (i = 0; i < l1; i += 1) {
+        result += d1[i] * d2[i];
+      }
+
+      return result;
     }
-
-    let result: number = 0;
-
-    let i: number;
-    for (i = 0; i < l1; i += 1) {
-      result += d1[i] * d2[i];
-    }
-
-    return result;
   }
 
   /**
@@ -167,18 +166,18 @@ export class NDArray implements INDArray {
     }
 
     const { data } = this;
-    if (nblas && nblas.nrm2) {
+    try {
       return nblas.nrm2(data);
+    } catch (_) {
+      let result: number = 0;
+
+      let i: number;
+      for (i = 0; i < length; i += 1) {
+        result += data[i] * data[i];
+      }
+
+      return Math.sqrt(result);
     }
-
-    let result: number = 0;
-
-    let i: number;
-    for (i = 0; i < length; i += 1) {
-      result += data[i] * data[i];
-    }
-
-    return Math.sqrt(result);
   }
 
   /**
@@ -186,19 +185,19 @@ export class NDArray implements INDArray {
    */
   public max(): number {
     const { data } = this;
-    if (nblas && nblas.iamax) {
+    try {
       return data[nblas.iamax(data)];
+    } catch (_) {
+      const { length } = this;
+      let result: number = Number.NEGATIVE_INFINITY;
+
+      let i: number;
+      for (i = 0; i < length; i += 1) {
+        result = result < data[i] ? data[i] : result;
+      }
+
+      return result;
     }
-
-    const { length } = this;
-    let result: number = Number.NEGATIVE_INFINITY;
-
-    let i: number;
-    for (i = 0; i < length; i += 1) {
-      result = result < data[i] ? data[i] : result;
-    }
-
-    return result;
   }
 
   /**
@@ -255,17 +254,15 @@ export class NDArray implements INDArray {
   public scale(scalar: number): this {
     const { data } = this;
 
-    if (nblas && nblas.scal) {
+    try {
       nblas.scal(data, scalar);
+    } catch (_) {
+      const { length } = this;
 
-      return this;
-    }
-
-    const { length } = this;
-
-    let i: number;
-    for (i = 0; i < length; i += 1) {
-      data[i] *= scalar;
+      let i: number;
+      for (i = 0; i < length; i += 1) {
+        data[i] *= scalar;
+      }
     }
 
     return this;
