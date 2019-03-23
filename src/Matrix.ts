@@ -533,25 +533,24 @@ export class Matrix extends NDArray {
     const { data: d2 } = matrix;
     const data: TypedArray = new this.type(r1 * c2);
 
-    if (nblas && nblas.gemm) {
+    try {
       nblas.gemm(d1, d2, data, r1, c2, c1);
+    } catch (_) {
+      let i: number;
+      let j: number;
+      let k: number;
+      let sum: number;
+      for (i = 0; i < r1; i += 1) {
+        for (j = 0; j < c2; j += 1) {
+          sum = 0;
+          for (k = 0; k < c1; k += 1) {
+            sum += d1[i * c1 + k] * d2[j + k * c2];
+          }
 
-      return new Matrix(data, { shape: [r1, c2] });
-    }
-
-    let i: number;
-    let j: number;
-    let k: number;
-    let sum: number;
-    for (i = 0; i < r1; i += 1) {
-      for (j = 0; j < c2; j += 1) {
-        sum = 0;
-        for (k = 0; k < c1; k += 1) {
-          sum += d1[i * c1 + k] * d2[j + k * c2];
+          data[i * c2 + j] = sum;
         }
-
-        data[i * c2 + j] = sum;
       }
+
     }
 
     return new Matrix(data, { shape: [r1, c2] });
