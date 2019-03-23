@@ -4,7 +4,9 @@
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "scripts": {
-    "test": "nyc mocha -r ts-node/register ./src/*.spec.ts",
+    "test:node": "nyc mocha -r ts-node/register ./src/*.spec.ts",
+    "test:browser": "mochify --plugin tsify ./src/*.spec.ts",
+    "test": "npm run test:node && npm run test:browser",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
     "benchmark": "ts-node ./src/NDArray.bench.ts && ts-node ./src/Vector.bench.ts && ts-node ./src/Matrix.bench.ts",
     "docs": "typedoc --out docs --exclude \"**/*+(index|bench|.spec|.bench).ts\" --target es6 src && touch docs/.nojekyll",
@@ -70,6 +72,7 @@
     "gulp-uglify": "^3.0.1",
     "matplotnode": "^0.3.0",
     "mocha": "^6.0.0",
+    "mochify": "^6.1.1",
     "nodemark": "^0.3.0",
     "nyc": "^13.3.0",
     "ts-node": "^8.0.3",
