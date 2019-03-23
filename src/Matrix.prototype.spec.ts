@@ -34,7 +34,7 @@ describe('Matrix.prototype', () => {
       const y: Matrix = new Matrix([[1, 2, 3, 4]]);
       const f: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      throws(x.binOp.bind(x, y, f) as () => void, Error);
+      throws(() => { x.binOp(y, f); }, Error);
     });
   });
 
@@ -43,7 +43,7 @@ describe('Matrix.prototype', () => {
       const x: Matrix = new Matrix([[1, 2], [3, 4]]);
       const y: Matrix = new Matrix([[1, 2]]);
 
-      throws(x.multiply.bind(x, y) as () => void, Error);
+      throws(() => { x.multiply(y); }, Error);
     });
 
     it('should work as expected', () => {
@@ -101,7 +101,7 @@ describe('Matrix.prototype', () => {
     it('should throw error if matrix is not square', () => {
       const x: Matrix = new Matrix([[1, 2]]);
 
-      throws(x.inverse.bind(x) as () => void, Error);
+      throws(() => { x.inverse(); }, Error);
     });
 
     it('should throw error if matrix is not invertible', () => {
@@ -111,7 +111,7 @@ describe('Matrix.prototype', () => {
         [7, 8, 9],
       ]);
 
-      throws(x.inverse.bind(x) as () => void, Error);
+      throws(() => { x.inverse(); }, Error);
     });
 
     it('should work as expected', () => {
@@ -150,8 +150,8 @@ describe('Matrix.prototype', () => {
       const x: Matrix = new Matrix([[0, 0], [0, 1]]);
       const y: Matrix = new Matrix([[1, 0], [0, 0]]);
 
-      throws(x.gauss.bind(x) as () => void, Error);
-      throws(y.gauss.bind(y) as () => void, Error);
+      throws(() => { x.gauss(); }, Error);
+      throws(() => { y.gauss(); }, Error);
     });
   });
 
@@ -232,7 +232,7 @@ describe('Matrix.prototype', () => {
     it('should throw error when rows do not match', () => {
       const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      throws(x.augment.bind(x, new Matrix([[1]])) as () => void, Error);
+      throws(() => { x.augment(new Matrix([[1]])); }, Error);
     });
   });
 
@@ -259,7 +259,7 @@ describe('Matrix.prototype', () => {
   describe('.determinant()', () => {
     it('should throw error if matrix is not square', () => {
       const x: Matrix = new Matrix([[0, 0]]);
-      throws(x.determinant.bind(x) as () => void, Error);
+      throws(() => { x.determinant(); }, Error);
     });
 
     it('should work as expected', () => {
@@ -277,10 +277,10 @@ describe('Matrix.prototype', () => {
     it('should throw error if index out of bounds', () => {
       const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      throws(x.get.bind(x, -1, 0) as () => void, Error);
-      throws(x.get.bind(x, 0, -1) as () => void, Error);
-      throws(x.get.bind(x, 2, 0) as () => void, Error);
-      throws(x.get.bind(x, 0, 2) as () => void, Error);
+      throws(() => { x.get(-1, 0); }, Error);
+      throws(() => { x.get(0, -1); }, Error);
+      throws(() => { x.get(2, 0); }, Error);
+      throws(() => { x.get(0, 2); }, Error);
     });
 
     it('should work as expected', () => {
@@ -298,10 +298,10 @@ describe('Matrix.prototype', () => {
     it('should throw error if index out of bounds', () => {
       const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      throws(x.set.bind(x, -1, 0) as () => void, Error);
-      throws(x.set.bind(x, 0, -1) as () => void, Error);
-      throws(x.set.bind(x, 2, 0) as () => void, Error);
-      throws(x.set.bind(x, 0, 2) as () => void, Error);
+      throws(() => { x.set(-1, 0, 0); }, Error);
+      throws(() => { x.set(0, -1, 0); }, Error);
+      throws(() => { x.set(2, 0, 0); }, Error);
+      throws(() => { x.set(0, 2, 0); }, Error);
     });
 
     it('should work as expected', () => {
@@ -323,10 +323,10 @@ describe('Matrix.prototype', () => {
     it('should throw error if index out of bounds', () => {
       const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      throws(x.swap.bind(x, -1, 0) as () => void, Error);
-      throws(x.swap.bind(x, 0, -1) as () => void, Error);
-      throws(x.swap.bind(x, 2, 0) as () => void, Error);
-      throws(x.swap.bind(x, 0, 2) as () => void, Error);
+      throws(() => { x.swap(-1, 0); }, Error);
+      throws(() => { x.swap(0, -1); }, Error);
+      throws(() => { x.swap(2, 0); }, Error);
+      throws(() => { x.swap(0, 2); }, Error);
     });
 
     it('should work as expected', () => {
@@ -375,7 +375,7 @@ describe('Matrix.prototype', () => {
       const x: Matrix = new Matrix();
       const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      throws(x.reduce.bind(x, sum) as () => void, Error);
+      throws(() => { x.reduce(sum); }, Error);
     });
   });
 
@@ -414,10 +414,11 @@ describe('Matrix.prototype', () => {
   });
 
   describe('.check()', () => {
-    it('should throw error if Matrix contains NaN', () => {
-      const x: Matrix = new Matrix([[1, NaN], [3, 4]]);
+    it('should throw error if one of the indices are NaN', () => {
+      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 
-      throws(x.check.bind(x) as () => void, Error);
+      throws(() => { x.check(NaN, 1); }, Error);
+      throws(() => { x.check(0, NaN); }, Error);
     });
   });
 });

@@ -5,7 +5,7 @@ import { Vector } from './Vector';
 let nblas: any;
 try {
   nblas = require('nblas');
-} catch (_) {}
+} catch (err) {}
 
 const magicHelper: (n: number, x: number, y: number) => number = (n: number, x: number, y: number): number =>
   (x + y * 2 + 1) % n;
@@ -535,7 +535,7 @@ export class Matrix extends NDArray {
 
     try {
       nblas.gemm(d1, d2, data, r1, c2, c1);
-    } catch (_) {
+    } catch (err) {
       let i: number;
       let j: number;
       let k: number;
@@ -830,4 +830,4 @@ export class Matrix extends NDArray {
 
 try {
   (window as any).Matrix = Matrix;
-} catch (_) {}
+} catch (err) {}

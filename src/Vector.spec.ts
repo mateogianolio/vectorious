@@ -94,7 +94,7 @@ describe('Vector', () => {
 
   describe('Vector.zeros()', () => {
     it('should throw error if argument < 0', () => {
-      assert.throws(Vector.zeros.bind(new Vector(), -1) as () => void, Error);
+      assert.throws(() => { Vector.zeros(-1); }, Error);
     });
 
     it('should return empty vector if argument === 0', () => {
@@ -108,7 +108,7 @@ describe('Vector', () => {
 
   describe('Vector.ones()', () => {
     it('should throw error if argument < 0', () => {
-      assert.throws(Vector.ones.bind(new Vector(), -1) as () => void, Error);
+      assert.throws(() => { Vector.ones(-1); }, Error);
     });
 
     it('should return empty vector if argument === 0', () => {
@@ -122,7 +122,7 @@ describe('Vector', () => {
 
   describe('Vector.random()', () => {
     it('should throw error if count < 0', () => {
-      assert.throws(Vector.random.bind(new Vector(), -1) as () => void, Error);
+      assert.throws(() => { Vector.random(-1); }, Error);
     });
 
     it('should return empty vector if count === 0', () => {
@@ -137,13 +137,13 @@ describe('Vector', () => {
 
   describe('.range()', () => {
     it('should throw error if wrong number or arguments supplied', () => {
-      assert.throws(Vector.range.bind(new Vector(), 1) as () => void, Error);
-      assert.throws(Vector.range.bind(new Vector(), 1, 2, 3, 4) as () => void, Error);
+      assert.throws(() => { Vector.range(1); }, Error);
+      assert.throws(() => { Vector.range(1, 2, 3, 4); }, Error);
     });
 
     it('should throw error if step > start - end', () => {
-      assert.throws(Vector.range.bind(new Vector(), 0, 0) as () => void, Error);
-      assert.throws(Vector.range.bind(new Vector(), 1, 3, 2) as () => void, Error);
+      assert.throws(() => { Vector.range(0, 0); }, Error);
+      assert.throws(() => { Vector.range(1, 3, 2); }, Error);
     });
 
     it('should work with type', () => {

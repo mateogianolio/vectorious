@@ -88,8 +88,8 @@ describe('Matrix', () => {
 
   describe('Matrix.identity()', () => {
     it('should throw error if invalid size', () => {
-      throws(Matrix.identity.bind(new Matrix(), -1) as () => void, Error);
-      throws(Matrix.identity.bind(new Matrix(), 0) as () => void, Error);
+      throws(() => { Matrix.identity(-1); }, Error);
+      throws(() => { Matrix.identity(0); }, Error);
     });
 
     it('should work as expected', () => {
@@ -99,8 +99,8 @@ describe('Matrix', () => {
 
   describe('Matrix.magic()', () => {
     it('should throw error if invalid size', () => {
-      throws(Matrix.magic.bind(new Matrix(), -1) as () => void, Error);
-      throws(Matrix.identity.bind(new Matrix(), 0) as () => void, Error);
+      throws(() => { Matrix.magic(-1); }, Error);
+      throws(() => { Matrix.identity(0); }, Error);
     });
 
     it('should work as expected', () => {
@@ -110,9 +110,9 @@ describe('Matrix', () => {
 
   describe('Matrix.zeros()', () => {
     it('should throw error if invalid size', () => {
-      throws(Matrix.zeros.bind(new Matrix(), 0, 0) as () => void, Error);
-      throws(Matrix.zeros.bind(new Matrix(), -1, 1) as () => void, Error);
-      throws(Matrix.zeros.bind(new Matrix(), 1, -1) as () => void, Error);
+      throws(() => { Matrix.zeros(0, 0); }, Error);
+      throws(() => { Matrix.zeros(-1, 1); }, Error);
+      throws(() => { Matrix.zeros(1, -1); }, Error);
     });
 
     it('should work as expected', () => {
@@ -124,9 +124,9 @@ describe('Matrix', () => {
 
   describe('Matrix.ones()', () => {
     it('should throw error if invalid size', () => {
-      throws(Matrix.ones.bind(new Matrix(), 0, 0) as () => void, Error);
-      throws(Matrix.ones.bind(new Matrix(), -1, 1) as () => void, Error);
-      throws(Matrix.ones.bind(new Matrix(), 1, -1) as () => void, Error);
+      throws(() => { Matrix.ones(0, 0); }, Error);
+      throws(() => { Matrix.ones(-1, 1); }, Error);
+      throws(() => { Matrix.ones(1, -1); }, Error);
     });
 
     it('should work as expected', () => {

@@ -8,7 +8,7 @@ import { flatten, isTypedArray, shape, type } from './util';
 let nblas: any;
 try {
   nblas = require('nblas');
-} catch (_) {}
+} catch (err) {}
 
 export class NDArray implements INDArray {
   public data: TypedArray = new Float64Array(0);
@@ -45,7 +45,7 @@ export class NDArray implements INDArray {
 
     try {
       nblas.axpy(x.data, this.data, alpha);
-    } catch (_) {
+    } catch (err) {
       const { data: d1, length: l1 } = this;
       const { data: d2} = x;
 
@@ -85,7 +85,7 @@ export class NDArray implements INDArray {
 
     try {
       return nblas.dot(d1, d2);
-    } catch (_) {
+    } catch (err) {
       let result: number = 0;
 
       let i: number;
@@ -168,7 +168,7 @@ export class NDArray implements INDArray {
     const { data } = this;
     try {
       return nblas.nrm2(data);
-    } catch (_) {
+    } catch (err) {
       let result: number = 0;
 
       let i: number;
@@ -187,7 +187,7 @@ export class NDArray implements INDArray {
     const { data } = this;
     try {
       return data[nblas.iamax(data)];
-    } catch (_) {
+    } catch (err) {
       const { length } = this;
       let result: number = Number.NEGATIVE_INFINITY;
 
@@ -256,7 +256,7 @@ export class NDArray implements INDArray {
 
     try {
       nblas.scal(data, scalar);
-    } catch (_) {
+    } catch (err) {
       const { length } = this;
 
       let i: number;
