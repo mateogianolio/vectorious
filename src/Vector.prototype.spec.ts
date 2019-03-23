@@ -31,7 +31,7 @@ describe('Vector.prototype', () => {
       const y: Vector = new Vector([1, 2, 3, 4]);
       const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-      throws(x.binOp.bind(x, y, sum) as () => void, Error);
+      throws(() => { x.binOp(y, sum); }, Error);
     });
   });
 
@@ -49,7 +49,7 @@ describe('Vector.prototype', () => {
       const x: Vector = new Vector([1]);
       const y: Vector = new Vector([1, 2]);
 
-      throws(x.project.bind(x, y) as () => void, Error);
+      throws(() => { x.project(y); }, Error);
     });
 
     it('should work as expected', () => {
@@ -83,8 +83,8 @@ describe('Vector.prototype', () => {
   describe('.get()', () => {
     it('should throw error if index out of bounds', () => {
       const x: Vector = new Vector([1, 2, 3]);
-      throws(x.get.bind(x, -1) as () => void, Error);
-      throws(x.get.bind(x, 3) as () => void, Error);
+      throws(() => { x.get(-1); }, Error);
+      throws(() => { x.get(3); }, Error);
     });
 
     it('should work as expected', () => {
@@ -124,8 +124,8 @@ describe('Vector.prototype', () => {
   describe('.set()', () => {
     it('should throw error if index out of bounds', () => {
       const x: Vector = new Vector([1, 2]);
-      throws(x.set.bind(x, -1, 0) as () => void, Error);
-      throws(x.set.bind(x, 2, 0) as () => void, Error);
+      throws(() => { x.set(-1, 0); }, Error);
+      throws(() => { x.set(2, 0); }, Error);
     });
 
     it('should work as expected', () => {
@@ -187,7 +187,7 @@ describe('Vector.prototype', () => {
     it('should throw error if empty vector with no initial value', () => {
       const x: Vector = new Vector();
       const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
-      throws(x.reduce.bind(x, sum) as () => void, Error);
+      throws(() => { x.reduce(sum); }, Error);
     });
   });
 
@@ -214,15 +214,15 @@ describe('Vector.prototype', () => {
     it('should throw an exception when lengths do not match', () => {
       const x: Vector = new Vector([1, 2, 3, 4]);
       const y: Vector = new Vector([5, 6, 7]);
-      throws(x.cross.bind(x, y) as () => void, Error);
+      throws(() => { x.cross(y); }, Error);
     });
   });
 
   describe('.check()', () => {
-    it('should throw error if Matrix contains NaN', () => {
-      const x: Vector = new Vector([1, NaN, 3, 4]);
+    it('should throw error if the index is NaN', () => {
+      const x: Vector = new Vector([1, 2, 3, 4]);
 
-      throws(x.check.bind(x) as () => void, Error);
+      throws(() => { x.check(NaN); }, Error);
     });
   });
 });

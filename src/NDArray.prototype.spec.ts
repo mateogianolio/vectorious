@@ -79,7 +79,7 @@ describe('NDArray.prototype', () => {
       const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray(f64);
 
-      throws(x.reshape.bind(x, [1, 2]) as () => void, Error);
+      throws(() => { x.reshape([1, 2]); }, Error);
     });
 
     it('should be able to create row vector of column vector', () => {
@@ -120,7 +120,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray(f64x);
       const y: NDArray = new NDArray(f64y);
 
-      throws(x.equilateral.bind(x, y) as () => void, Error);
+      throws(() => { x.equilateral(y); }, Error);
     });
   });
 
@@ -140,7 +140,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray(f64x);
       const y: NDArray = new NDArray(f64y, { shape: [2, 2] });
 
-      throws(x.equidimensional.bind(x, y) as () => void, Error);
+      throws(() => { x.equidimensional(y); }, Error);
     });
   });
 
@@ -156,7 +156,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray([1]);
       const y: NDArray = new NDArray([1, 2]);
 
-      throws(x.add.bind(x, y) as () => void, Error);
+      throws(() => { x.add(y); }, Error);
     });
 
     it('should produce NDArray([5, 7, 9]) from NDArray([1, 2, 3]) and NDArray([4, 5, 6])', () => {
@@ -180,7 +180,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray([1]);
       const y: NDArray = new NDArray([1, 2]);
 
-      throws(x.subtract.bind(x, y) as () => void, Error);
+      throws(() => { x.subtract(y); }, Error);
     });
 
     it('should produce NDArray(-3, -3, -3) from NDArray(1, 2, 3) and NDArray(4, 5, 6)', () => {
@@ -206,7 +206,7 @@ describe('NDArray.prototype', () => {
       const x: NDArray = new NDArray([1]);
       const y: NDArray = new NDArray([1, 2]);
 
-      throws(x.dot.bind(x, y) as () => void, Error);
+      throws(() => { x.dot(y); }, Error);
     });
 
     it('should work as expected', () => {
