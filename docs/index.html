@@ -88,12 +88,12 @@ $ npm install vectorious --no-optional</code></pre>
 Matrix {
   shape: [ 2, 2 ],
   data:
-   Float64Array [
+   Float32Array [
      0.7041265660588281,
      0.6186458305857421,
      0.032954109874604454,
      0.5198025534810546 ],
-  type: [Function: Float64Array] }
+  type: [Function: Float32Array] }
 */</span>
 
 <span class="hljs-keyword">const</span> y: Vector = Vector.random(<span class="hljs-number">4</span>, <span class="hljs-number">-5</span>, <span class="hljs-number">5</span>, <span class="hljs-built_in">Int8Array</span>);
@@ -107,10 +107,10 @@ Vector {
 <span class="hljs-keyword">const</span> z = <span class="hljs-keyword">new</span> NDArray([[[<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>]]]).add(<span class="hljs-keyword">new</span> NDArray([[[<span class="hljs-number">3</span>], [<span class="hljs-number">4</span>]]]));
 <span class="hljs-comment">/*
 NDArray {
-  data: Float64Array [ 4, 6 ],
+  data: Float32Array [ 4, 6 ],
   length: 2,
   shape: [ 1, 2, 1 ],
-  type: [Function: Float64Array] }
+  type: [Function: Float32Array] }
 */</span></code></pre>
 				<p>Will use your local BLAS copy (if any). Some notes for different operating systems:</p>
 				<ul>
@@ -150,7 +150,7 @@ NDArray {
 				<p>The documentation is located in the wiki section of this repository.</p>
 				<p><a href="https://github.com/mateogianolio/vectorious/wiki"><strong>Go to wiki.</strong></a></p>
 				<h3 id="benchmarks">Benchmarks</h3>
-				<p>Benchmarks are performed using <code>Float64Array</code> of size <code>n</code> (matrices are sized <code>sqrt(n) x sqrt(n)</code>).</p>
+				<p>Benchmarks are performed using <code>Float32Array</code> of size <code>n</code> (matrices are sized <code>sqrt(n) x sqrt(n)</code>).</p>
 				<h4 id="specs">Specs</h4>
 				<pre><code><span class="hljs-attr">Macbook</span> <span class="hljs-string">Pro Early '15</span>
 <span class="hljs-attr">Processor</span>: <span class="hljs-string">2,7 GHz Intel Core i5</span>

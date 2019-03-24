@@ -62,7 +62,7 @@ export class Vector extends NDArray {
   public static fill(
     count: number,
     value: number | ((index: number) => number) = 0,
-    type: TypedArrayConstructor = Float64Array
+    type: TypedArrayConstructor = Float32Array
   ): Vector {
     if (count < 0) {
       throw new Error('invalid size');
@@ -84,7 +84,7 @@ export class Vector extends NDArray {
    * Static method. Creates a vector containing ones (`1`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
-  public static ones(count: number, type: TypedArrayConstructor = Float64Array): Vector {
+  public static ones(count: number, type: TypedArrayConstructor = Float32Array): Vector {
     return Vector.fill(count, 1, type);
   }
 
@@ -105,7 +105,7 @@ export class Vector extends NDArray {
     count: number,
     min: number = 0,
     max: number = 1,
-    type: TypedArrayConstructor = Float64Array
+    type: TypedArrayConstructor = Float32Array
   ): Vector {
     return Vector.fill(count, min, type)
       .map((value: number) => value + Math.random() * (max - min));
@@ -119,7 +119,7 @@ export class Vector extends NDArray {
    * `TypedArray`.
    */
   public static range(...args: Array<number | TypedArrayConstructor>): Vector {
-    let type: TypedArrayConstructor = Float64Array;
+    let type: TypedArrayConstructor = Float32Array;
     let backwards: boolean = false;
     let start: number;
     let step: number;
@@ -193,12 +193,12 @@ export class Vector extends NDArray {
    * Static method. Creates a vector containing zeros (`0`) of `count` size, takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
-  public static zeros(count: number, type: TypedArrayConstructor = Float64Array): Vector {
+  public static zeros(count: number, type: TypedArrayConstructor = Float32Array): Vector {
     return Vector.fill(count, 0, type);
   }
 
   public constructor(data?: any) {
-    super(typeof data === 'number' ? new Float64Array(data) : data);
+    super(typeof data === 'number' ? new Float32Array(data) : data);
   }
 
   /**

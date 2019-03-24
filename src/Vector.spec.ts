@@ -58,8 +58,8 @@ describe('Vector', () => {
 
   describe('Vector.project(a, b)', () => {
     it('should work as the static equivalent of a.project(b)', () => {
-      const x: Vector = new Vector([2, 3, 4]);
-      const y: Vector = new Vector([1, 2, 3]);
+      const x: Vector = new Vector([2, 1]);
+      const y: Vector = new Vector([-3, 4]);
 
       assert.deepStrictEqual(x.copy().project(y), Vector.project(x, y));
     });

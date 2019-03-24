@@ -3,7 +3,7 @@ import { NDArray } from './NDArray';
 
 const { random } = Math;
 const r: (n: number) => NDArray = (n: number): NDArray =>
-  new NDArray(new Float64Array(n)).fill(random);
+  new NDArray(new Float32Array(n)).fill(random);
 
 bench(
   'NDArray',

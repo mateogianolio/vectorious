@@ -30,12 +30,12 @@ const x: Matrix = Matrix.random(2, 2);
 Matrix {
   shape: [ 2, 2 ],
   data:
-   Float64Array [
+   Float32Array [
      0.7041265660588281,
      0.6186458305857421,
      0.032954109874604454,
      0.5198025534810546 ],
-  type: [Function: Float64Array] }
+  type: [Function: Float32Array] }
 */
 
 const y: Vector = Vector.random(4, -5, 5, Int8Array);
@@ -49,10 +49,10 @@ Vector {
 const z = new NDArray([[[1], [2]]]).add(new NDArray([[[3], [4]]]));
 /*
 NDArray {
-  data: Float64Array [ 4, 6 ],
+  data: Float32Array [ 4, 6 ],
   length: 2,
   shape: [ 1, 2, 1 ],
-  type: [Function: Float64Array] }
+  type: [Function: Float32Array] }
 */
 ```
 
@@ -110,7 +110,7 @@ The documentation is located in the wiki section of this repository.
 
 ### Benchmarks
 
-Benchmarks are performed using `Float64Array` of size `n` (matrices are sized `sqrt(n) x sqrt(n)`).
+Benchmarks are performed using `Float32Array` of size `n` (matrices are sized `sqrt(n) x sqrt(n)`).
 
 #### Specs
 

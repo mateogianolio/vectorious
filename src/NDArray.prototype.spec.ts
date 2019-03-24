@@ -12,60 +12,60 @@ describe('NDArray.prototype', () => {
     it('should work with no arguments', () => {
       const x: NDArray = new NDArray();
 
-      deepStrictEqual(x.data, new Float64Array());
+      deepStrictEqual(x.data, new Float32Array());
       deepStrictEqual(x.shape, [0]);
       strictEqual(x.length, 0);
-      deepStrictEqual(x.type, Float64Array);
+      deepStrictEqual(x.type, Float32Array);
     });
 
     it('should work with typed array and no shape argument', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3]);
-      const x: NDArray = new NDArray(f64);
+      const f32: Float32Array = new Float32Array([1, 2, 3]);
+      const x: NDArray = new NDArray(f32);
 
-      deepStrictEqual(x.data, f64);
-      deepStrictEqual(x.shape, [f64.length]);
-      deepStrictEqual(x.length, f64.length);
-      deepStrictEqual(x.type, Float64Array);
+      deepStrictEqual(x.data, f32);
+      deepStrictEqual(x.shape, [f32.length]);
+      deepStrictEqual(x.length, f32.length);
+      deepStrictEqual(x.type, Float32Array);
     });
 
     it('should work with typed array shape argument', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const x: NDArray = new NDArray(f64, { shape: [2, 2] });
+      const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f32, { shape: [2, 2] });
 
-      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.data, f32);
       deepStrictEqual(x.shape, [2, 2]);
-      deepStrictEqual(x.length, f64.length);
-      deepStrictEqual(x.type, Float64Array);
+      deepStrictEqual(x.length, f32.length);
+      deepStrictEqual(x.type, Float32Array);
     });
 
     it('should work with array', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray([1, 2, 3, 4]);
 
-      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.data, f32);
       deepStrictEqual(x.shape, [4]);
-      deepStrictEqual(x.length, f64.length);
-      deepStrictEqual(x.type, Float64Array);
+      deepStrictEqual(x.length, f32.length);
+      deepStrictEqual(x.type, Float32Array);
     });
 
     it('should work with two dimensional array', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray([[1, 2], [3, 4]]);
 
-      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.data, f32);
       deepStrictEqual(x.shape, [2, 2]);
-      deepStrictEqual(x.length, f64.length);
-      deepStrictEqual(x.type, Float64Array);
+      deepStrictEqual(x.length, f32.length);
+      deepStrictEqual(x.type, Float32Array);
     });
 
     it('should work with multidimensional array', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
+      const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
       const x: NDArray = new NDArray([[[1], [2]], [[3], [4]]]);
 
-      deepStrictEqual(x.data, f64);
+      deepStrictEqual(x.data, f32);
       deepStrictEqual(x.shape, [2, 2, 1]);
-      deepStrictEqual(x.length, f64.length);
-      deepStrictEqual(x.type, Float64Array);
+      deepStrictEqual(x.length, f32.length);
+      deepStrictEqual(x.type, Float32Array);
     });
 
     it('should work with NDArray', () => {
@@ -76,15 +76,15 @@ describe('NDArray.prototype', () => {
 
   describe('reshape()', () => {
     it('should throw error if new shape does not match length', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const x: NDArray = new NDArray(f64);
+      const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f32);
 
       throws(() => { x.reshape([1, 2]); }, Error);
     });
 
     it('should be able to create row vector of column vector', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const x: NDArray = new NDArray(f64, { shape: [1, 4] });
+      const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f32, { shape: [1, 4] });
 
       deepStrictEqual(x.shape, [1, 4]);
       x.reshape([4, 1]);
@@ -94,8 +94,8 @@ describe('NDArray.prototype', () => {
 
   describe('copy()', () => {
     it('should create an immutable copy of class', () => {
-      const f64: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const original: NDArray = new NDArray(f64);
+      const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const original: NDArray = new NDArray(f32);
       const copy: NDArray = original.copy();
 
       notStrictEqual(original, copy);
@@ -106,19 +106,19 @@ describe('NDArray.prototype', () => {
 
   describe('equilateral()', () => {
     it('should pass if lengths match', () => {
-      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const f64y: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const x: NDArray = new NDArray(f64x);
-      const y: NDArray = new NDArray(f64y);
+      const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const f32y: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f32x);
+      const y: NDArray = new NDArray(f32y);
 
       x.equilateral(y);
     });
 
     it('should throw error if lengths do not match', () => {
-      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const f64y: Float64Array = new Float64Array([1, 2, 3, 4, 5]);
-      const x: NDArray = new NDArray(f64x);
-      const y: NDArray = new NDArray(f64y);
+      const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const f32y: Float32Array = new Float32Array([1, 2, 3, 4, 5]);
+      const x: NDArray = new NDArray(f32x);
+      const y: NDArray = new NDArray(f32y);
 
       throws(() => { x.equilateral(y); }, Error);
     });
@@ -126,19 +126,19 @@ describe('NDArray.prototype', () => {
 
   describe('equidimensional()', () => {
     it('should pass if shapes match', () => {
-      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const f64y: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const x: NDArray = new NDArray(f64x);
-      const y: NDArray = new NDArray(f64y);
+      const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const f32y: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f32x);
+      const y: NDArray = new NDArray(f32y);
 
       x.equidimensional(y);
     });
 
     it('should throw error if lengths do not match', () => {
-      const f64x: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const f64y: Float64Array = new Float64Array([1, 2, 3, 4]);
-      const x: NDArray = new NDArray(f64x);
-      const y: NDArray = new NDArray(f64y, { shape: [2, 2] });
+      const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const f32y: Float32Array = new Float32Array([1, 2, 3, 4]);
+      const x: NDArray = new NDArray(f32x);
+      const y: NDArray = new NDArray(f32y, { shape: [2, 2] });
 
       throws(() => { x.equidimensional(y); }, Error);
     });

@@ -11,10 +11,10 @@ try {
 } catch (err) {}
 
 export class NDArray implements INDArray {
-  public data: TypedArray = new Float64Array(0);
+  public data: TypedArray = new Float32Array(0);
   public length: number = 0;
   public shape: number[] = [0];
-  public type: TypedArrayConstructor = Float64Array;
+  public type: TypedArrayConstructor = Float32Array;
 
   public constructor(
     data?: any,
@@ -28,7 +28,7 @@ export class NDArray implements INDArray {
       this.length = this.data.length;
       this.type = type(data);
     } else if (data instanceof Array) {
-      this.data = new Float64Array(flatten(data));
+      this.data = new Float32Array(flatten(data));
       this.shape = shape(data);
       this.length = this.data.length;
     } else if (data instanceof NDArray) {

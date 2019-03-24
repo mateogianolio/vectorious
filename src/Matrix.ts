@@ -51,7 +51,7 @@ export class Matrix extends NDArray {
     r: number,
     c: number,
     value: number | ((index: number) => number) = 0,
-    type: TypedArrayConstructor = Float64Array
+    type: TypedArrayConstructor = Float32Array
   ): Matrix {
     if (r <= 0 || c <= 0) {
       throw new Error('invalid size');
@@ -67,7 +67,7 @@ export class Matrix extends NDArray {
    * Static method. Creates an identity matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
    */
-  public static identity(size: number, type: TypedArrayConstructor = Float64Array): Matrix {
+  public static identity(size: number, type: TypedArrayConstructor = Float32Array): Matrix {
     return Matrix.fill(size, size, (i: number) => (i % size) === Math.floor(i / size) ? 1 : 0, type);
   }
 
@@ -75,7 +75,7 @@ export class Matrix extends NDArray {
    * Static method. Creates a magic square matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
    */
-  public static magic(size: number, type: TypedArrayConstructor = Float64Array): Matrix {
+  public static magic(size: number, type: TypedArrayConstructor = Float32Array): Matrix {
     if (size < 0) {
       throw new Error('invalid size');
     }
@@ -105,7 +105,7 @@ export class Matrix extends NDArray {
    * Static method. Creates an `r x c` matrix containing ones (`1`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
    */
-  public static ones(r: number, c: number, type: TypedArrayConstructor = Float64Array): Matrix {
+  public static ones(r: number, c: number, type: TypedArrayConstructor = Float32Array): Matrix {
     return Matrix.fill(r, c, 1, type);
   }
 
@@ -135,7 +135,7 @@ export class Matrix extends NDArray {
     c: number,
     min: number = 0,
     max: number = 1,
-    type: TypedArrayConstructor = Float64Array
+    type: TypedArrayConstructor = Float32Array
   ): Matrix {
     return Matrix.fill(r, c, min, type)
       .map((value: number) => value + Math.random() * (max - min));
@@ -169,13 +169,13 @@ export class Matrix extends NDArray {
    * Static method. Creates an `r x c` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
    */
-  public static zeros(r: number, c: number, type: TypedArrayConstructor = Float64Array): Matrix {
+  public static zeros(r: number, c: number, type: TypedArrayConstructor = Float32Array): Matrix {
     return Matrix.fill(r, c, 0, type);
   }
 
   public constructor(data?: any, options?: any) {
     if (typeof data === 'number' && typeof options === 'number') {
-      super(new Float64Array(data * options), { shape: [data, options ] });
+      super(new Float32Array(data * options), { shape: [data, options ] });
     } else {
       super(data, options);
     }

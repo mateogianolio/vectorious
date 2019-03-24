@@ -19,8 +19,8 @@ export const type: (input: TypedArray) => TypedArrayConstructor = (input: TypedA
     case 'Int32Array': return Int32Array;
     case 'Uint32Array': return Uint32Array;
     case 'Uint8ClampedArray': return Uint8ClampedArray;
-    case 'Float32Array': return Float32Array;
-    default: return Float64Array;
+    case 'Float64Array': return Float64Array;
+    default: return Float32Array;
   }
 };
 
