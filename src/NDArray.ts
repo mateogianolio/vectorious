@@ -74,7 +74,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = abs(this.data[i]);
     }
 
@@ -88,7 +88,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = acos(this.data[i]);
     }
 
@@ -102,7 +102,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = acosh(this.data[i]);
     }
 
@@ -139,7 +139,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = asin(this.data[i]);
     }
 
@@ -153,7 +153,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = asinh(this.data[i]);
     }
 
@@ -167,7 +167,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = atan(this.data[i]);
     }
 
@@ -181,7 +181,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = atanh(this.data[i]);
     }
 
@@ -195,7 +195,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = cbrt(this.data[i]);
     }
 
@@ -209,7 +209,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = ceil(this.data[i]);
     }
 
@@ -237,7 +237,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = cos(this.data[i]);
     }
 
@@ -251,7 +251,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = cosh(this.data[i]);
     }
 
@@ -327,13 +327,14 @@ export class NDArray implements INDArray {
   }
 
   /**
-   * Returns e^x of each element of current array, where x is the argument, and e is Euler's constant (2.718…), the base of the natural logarithm.
+   * Returns e^x of each element of current array, where x is the argument,
+   * and e is Euler's constant (2.718…), the base of the natural logarithm.
    */
   public exp(): this {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = exp(this.data[i]);
     }
 
@@ -347,7 +348,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = expm1(this.data[i]);
     }
 
@@ -376,7 +377,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = floor(this.data[i]);
     }
 
@@ -390,7 +391,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = fround(this.data[i]);
     }
 
@@ -404,22 +405,8 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = log(this.data[i]);
-    }
-
-    return this;
-  }
-
-  /**
-   * Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
-   */
-  public log1p(): this {
-    const { length: l1 } = this;
-
-    let i: number;
-    for (i = 0; i < l1; i++) {
-      this.data[i] = log1p(this.data[i]);
     }
 
     return this;
@@ -432,8 +419,22 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = log10(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
+   */
+  public log1p(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i += 1) {
+      this.data[i] = log1p(this.data[i]);
     }
 
     return this;
@@ -446,7 +447,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = log2(this.data[i]);
     }
 
@@ -520,7 +521,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = pow(this.data[i], exponent);
     }
 
@@ -566,7 +567,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = round(this.data[i]);
     }
 
@@ -600,7 +601,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = sign(this.data[i]);
     }
 
@@ -614,7 +615,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = sin(this.data[i]);
     }
 
@@ -628,7 +629,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = sinh(this.data[i]);
     }
 
@@ -642,7 +643,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = sqrt(this.data[i]);
     }
 
@@ -663,7 +664,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = tan(this.data[i]);
     }
 
@@ -677,7 +678,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = tanh(this.data[i]);
     }
 
@@ -691,7 +692,7 @@ export class NDArray implements INDArray {
     const { length: l1 } = this;
 
     let i: number;
-    for (i = 0; i < l1; i++) {
+    for (i = 0; i < l1; i += 1) {
       this.data[i] = trunc(this.data[i]);
     }
 
