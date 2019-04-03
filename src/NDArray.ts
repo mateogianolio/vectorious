@@ -10,6 +10,37 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
+const {
+  abs,
+  acos,
+  acosh,
+  asin,
+  asinh,
+  atan,
+  atanh,
+  cbrt,
+  ceil,
+  cos,
+  cosh,
+  exp,
+  expm1,
+  floor,
+  fround,
+  log,
+  log1p,
+  log10,
+  log2,
+  pow,
+  round,
+  sign,
+  sin,
+  sinh,
+  sqrt,
+  tan,
+  tanh,
+  trunc,
+} = Math;
+
 export class NDArray implements INDArray {
   public data: TypedArray = new Float32Array(0);
   public length: number = 0;
@@ -37,6 +68,48 @@ export class NDArray implements INDArray {
   }
 
   /**
+   * Returns the absolute value of each element of current array.
+   */
+  public abs(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = abs(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the arccosine of each element of current array.
+   */
+  public acos(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = acos(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the hyperbolic arccosine of each element of current array.
+   */
+  public acosh(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = acosh(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
    * Adds `x` multiplied by `alpha` to the current array.
    */
   public add(x: NDArray, alpha: number = 1): this {
@@ -60,6 +133,90 @@ export class NDArray implements INDArray {
   }
 
   /**
+   * Returns the arcsine of each element of current array.
+   */
+  public asin(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = asin(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the hyperbolic arcsine of each element of current array.
+   */
+  public asinh(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = asinh(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the arctangent of each element of current array.
+   */
+  public atan(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = atan(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the hyperbolic arctangent of each element of current array.
+   */
+  public atanh(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = atanh(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the cube root of each element of current array.
+   */
+  public cbrt(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = cbrt(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the smallest integer greater than or equal to each element of current array.
+   */
+  public ceil(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = ceil(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
    * Makes a copy of the class and underlying data
    */
   public copy(): this {
@@ -71,6 +228,34 @@ export class NDArray implements INDArray {
     copy.type = this.type;
 
     return copy as this;
+  }
+
+  /**
+   * Returns the cosine of each element of current array.
+   */
+  public cos(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = cos(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the hyperbolic cosine of each element of current array.
+   */
+  public cosh(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = cosh(this.data[i]);
+    }
+
+    return this;
   }
 
   /**
@@ -142,6 +327,34 @@ export class NDArray implements INDArray {
   }
 
   /**
+   * Returns e^x of each element of current array, where x is the argument, and e is Euler's constant (2.718…), the base of the natural logarithm.
+   */
+  public exp(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = exp(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns subtracting 1 from exp(x) of each element of current array.
+   */
+  public expm1(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = expm1(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
    * Fills the array with a scalar value, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
    */
@@ -151,6 +364,90 @@ export class NDArray implements INDArray {
     let i: number;
     for (i = 0; i < length; i += 1) {
       data[i] = value instanceof Function ? value(i) : value;
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the largest integer less than or equal to a number of each element of current array.
+   */
+  public floor(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = floor(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the nearest single precision float representation of each element of current array.
+   */
+  public fround(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = fround(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the natural logarithm (log_e, also ln) of each element of current array.
+   */
+  public log(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = log(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
+   */
+  public log1p(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = log1p(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the base 10 logarithm of each element of current array.
+   */
+  public log10(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = log10(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the base 2 logarithm of each element of current array.
+   */
+  public log2(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = log2(this.data[i]);
     }
 
     return this;
@@ -217,6 +514,20 @@ export class NDArray implements INDArray {
   }
 
   /**
+   * Returns each element of current array to the exponent power, that is, element^exponent.
+   */
+  public pow(exponent: number): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = pow(this.data[i], exponent);
+    }
+
+    return this;
+  }
+
+  /**
    * Hadamard product
    */
   public product(x: NDArray): this {
@@ -249,6 +560,20 @@ export class NDArray implements INDArray {
   }
 
   /**
+   * Returns the value of each element of current array rounded to the nearest integer.
+   */
+  public round(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = round(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
    * Multiplies all elements of current array with a specified `scalar`.
    */
   public scale(scalar: number): this {
@@ -269,10 +594,108 @@ export class NDArray implements INDArray {
   }
 
   /**
+   * Returns the sign of each element of current array, indicating whether it is positive, negative or zero.
+   */
+  public sign(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = sign(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the sine of each element of current array.
+   */
+  public sin(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = sin(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the hyperbolic sine of each element of current array.
+   */
+  public sinh(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = sinh(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the positive square root of each element of current array.
+   */
+  public sqrt(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = sqrt(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
    * Subtracts `x` to the current array.
    */
   public subtract(x: NDArray): this {
     return this.add(x, -1);
+  }
+
+  /**
+   * Returns the tangent of each element of current array.
+   */
+  public tan(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = tan(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the hyperbolic tangent of each element of current array.
+   */
+  public tanh(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = tanh(this.data[i]);
+    }
+
+    return this;
+  }
+
+  /**
+   * Returns the integer part of each element of current array, removing any fractional digits.
+   */
+  public trunc(): this {
+    const { length: l1 } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i++) {
+      this.data[i] = trunc(this.data[i]);
+    }
+
+    return this;
   }
 }
 
