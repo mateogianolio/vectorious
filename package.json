@@ -63,7 +63,7 @@
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
     "@types/mocha": "^5.2.6",
-    "@types/node": "^11.11.6",
+    "@types/node": "^11.13.1",
     "benchmark": "^2.1.4",
     "browserify": "^16.2.3",
     "del": "^4.0.0",
