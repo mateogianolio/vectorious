@@ -258,4 +258,13 @@ describe('NDArray.prototype', () => {
       deepStrictEqual(z, x.product(y));
     });
   });
+
+  describe('abs()', () => {
+    it('should work as abs', () => {
+      const x: NDArray = new NDArray([-1, -2, -3]);
+      const y: NDArray = new NDArray([1, 2, 3]);
+
+      deepStrictEqual(y, x.abs());
+    });
+  });
 });

@@ -1,5 +1,5 @@
 import { NDArray } from './NDArray';
-import { TypedArray, TypedArrayConstructor } from './types';
+import { IMatrix, TypedArray, TypedArrayConstructor } from './types';
 import { Vector } from './Vector';
 
 let nblas: any;
@@ -10,37 +10,34 @@ try {
 const magicHelper: (n: number, x: number, y: number) => number = (n: number, x: number, y: number): number =>
   (x + y * 2 + 1) % n;
 
-export class Matrix extends NDArray {
+export class Matrix extends NDArray implements IMatrix {
   /**
    * Static method. Adds two matrices `a` and `b` together.
    */
-  public static add(a: Matrix, b: Matrix): Matrix {
-    return a.copy()
-      .add(b);
+  public static add(x: Matrix, y: Matrix): Matrix {
+    return x.copy().add(y);
   }
 
   /**
    * Static method. Augments two matrices `a` and `b` of matching dimensions
    * (appends `b` to `a`).
    */
-  public static augment(a: Matrix, b: Matrix): Matrix {
-    return a.copy()
-      .augment(b);
+  public static augment(x: Matrix, y: Matrix): Matrix {
+    return x.copy().augment(y);
   }
 
   /**
    * Static method. Perform binary operation on two matrices `a` and `b` together.
    */
-  public static binOp(a: Matrix, b: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
-    return a.copy()
-      .binOp(b, op);
+  public static binOp(x: Matrix, y: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
+    return x.copy().binOp(y, op);
   }
 
   /**
    * Static method. Checks the equality of two matrices `a` and `b`.
    */
-  public static equals(a: Matrix, b: Matrix): boolean {
-    return a.equals(b);
+  public static equals(x: Matrix, y: Matrix): boolean {
+    return x.equals(y);
   }
 
   /**
@@ -95,10 +92,10 @@ export class Matrix extends NDArray {
   }
 
   /**
-   * Static method. Multiplies two matrices `a` and `b` of matching dimensions.
+   * Static method. Multiplies two matrices `x` and `y` of matching dimensions.
    */
-  public static multiply(a: Matrix, b: Matrix): Matrix {
-    return a.multiply(b);
+  public static multiply(x: Matrix, y: Matrix): Matrix {
+    return x.multiply(y);
   }
 
   /**
@@ -113,16 +110,14 @@ export class Matrix extends NDArray {
    * Static method. Performs LU factorization on current matrix.
    */
   public static plu(matrix: Matrix): [Matrix, Int32Array] {
-    return matrix.copy()
-      .plu();
+    return matrix.copy().plu();
   }
 
   /**
    * Static method. Hadamard product of matrices
    */
-  public static product(a: Matrix, b: Matrix): Matrix {
-    return a.copy()
-      .product(b);
+  public static product(x: Matrix, y: Matrix): Matrix {
+    return x.copy().product(y);
   }
 
   /**
@@ -144,25 +139,22 @@ export class Matrix extends NDArray {
   /**
    * Static method. Finds the rank of the matrix using row echelon form
    */
-  public static rank(matrix: Matrix): number {
-    return matrix.copy()
-      .rank();
+  public static rank(x: Matrix): number {
+    return x.copy().rank();
   }
 
   /**
-   * Static method. Multiplies all elements of a matrix `a` with a specified `scalar`.
+   * Static method. Multiplies all elements of a matrix `x` with a specified `scalar`.
    */
-  public static scale(a: Matrix, scalar: number): Matrix {
-    return a.copy()
-      .scale(scalar);
+  public static scale(x: Matrix, scalar: number): Matrix {
+    return x.copy().scale(scalar);
   }
 
   /**
-   * Static method. Subtracts the matrix `b` from matrix `a`.
+   * Static method. Subtracts the matrix `y` from matrix `x`.
    */
-  public static subtract(a: Matrix, b: Matrix): Matrix {
-    return a.copy()
-      .subtract(b);
+  public static subtract(x: Matrix, y: Matrix): Matrix {
+    return x.copy().subtract(y);
   }
 
   /**
@@ -184,9 +176,9 @@ export class Matrix extends NDArray {
   /**
    * Augments `matrix` with current matrix.
    */
-  public augment(matrix: Matrix): Matrix {
+  public augment(x: Matrix): Matrix {
     const [r1, c1] = this.shape;
-    const [r2, c2] = matrix.shape;
+    const [r2, c2] = x.shape;
 
     if (r2 === 0 || c2 === 0) {
       return this;
@@ -197,7 +189,7 @@ export class Matrix extends NDArray {
     }
 
     const { data: d1 } = this;
-    const { data: d2 } = matrix;
+    const { data: d2 } = x;
     const length: number = c1 + c2;
     const data: TypedArray = new this.type(length * r1);
 
@@ -223,18 +215,18 @@ export class Matrix extends NDArray {
   }
 
   /**
-   * Perform binary operation on `matrix` to the current matrix.
+   * Perform binary operation on `x` to the current matrix.
    */
-  public binOp(matrix: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
+  public binOp(x: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
     const [r1, c1] = this.shape;
-    const [r2, c2] = matrix.shape;
+    const [r2, c2] = x.shape;
 
     if (r1 !== r2 || c1 !== c2) {
       throw new Error('sizes do not match!');
     }
 
     const { data: d1, length } = this;
-    const { data: d2 } = matrix;
+    const { data: d2 } = x;
 
     let i: number;
     for (i = 0; i < length; i += 1) {
@@ -519,18 +511,18 @@ export class Matrix extends NDArray {
   }
 
   /**
-   * Multiplies two matrices `a` and `b` of matching dimensions.
+   * Multiplies two matrices `x` and `y` of matching dimensions.
    */
-  public multiply(matrix: Matrix): Matrix {
+  public multiply(x: Matrix): Matrix {
     const [r1, c1] = this.shape;
-    const [r2, c2] = matrix.shape;
+    const [r2, c2] = x.shape;
 
     if (c1 !== r2) {
       throw new Error('sizes do not match');
     }
 
     const { data: d1 } = this;
-    const { data: d2 } = matrix;
+    const { data: d2 } = x;
     const data: TypedArray = new this.type(r1 * c2);
 
     try {
@@ -656,7 +648,7 @@ export class Matrix extends NDArray {
       for (j = (i + 1); j < r; j += 1) {
         target = vectors[j];
         scalar = target.get(i) / pivot.get(i);
-        vectors[j] = target.subtract(pivot.scale(scalar));
+        vectors[j] = target.subtract(pivot.scale(scalar)) as Vector;
       }
     }
 

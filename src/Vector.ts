@@ -1,5 +1,5 @@
 import { NDArray } from './NDArray';
-import { TypedArray, TypedArrayConstructor } from './types';
+import { IVector, TypedArray, TypedArrayConstructor } from './types';
 
 export class Vector extends NDArray {
   /**
@@ -13,46 +13,44 @@ export class Vector extends NDArray {
   /**
    * Static method. Determines the angle between two vectors `a` and `b`.
    */
-  public static angle(a: Vector, b: Vector): number {
-    return a.angle(b);
+  public static angle(x: IVector, y: IVector): number {
+    return x.angle(y);
   }
 
   /**
    * Static method. Perform binary operation on two vectors `a` and `b` together.
    */
   public static binOp(
-    a: Vector,
-    b: Vector,
+    x: Vector,
+    y: Vector,
     op: (
       a: number,
       b: number,
       index?: number
     ) => number
   ): Vector {
-    return a.copy()
-      .binOp(b, op);
+    return x.copy().binOp(y, op);
   }
 
   /**
    * Static method. Combines two vectors `a` and `b` (appends `b` to `a`).
    */
-  public static combine(a: Vector, b: Vector): Vector {
-    return a.copy()
-      .combine(b);
+  public static combine(x: Vector, y: Vector): Vector {
+    return x.copy().combine(y);
   }
 
   /**
    * Static method. Performs dot multiplication with two vectors `a` and `b`.
    */
-  public static dot(a: Vector, b: Vector): number {
-    return a.dot(b);
+  public static dot(x: Vector, y: Vector): number {
+    return x.dot(y);
   }
 
   /**
    * Static method. Checks the equality of two vectors `a` and `b`.
    */
-  public static equals(a: Vector, b: Vector): boolean {
-    return a.equals(b);
+  public static equals(x: Vector, y: Vector): boolean {
+    return x.equals(y);
   }
 
   /**
@@ -75,9 +73,8 @@ export class Vector extends NDArray {
   /**
    * Static method. Normalizes `vector`, i.e. divides all elements with the magnitude.
    */
-  public static normalize(vector: Vector): Vector {
-    return vector.copy()
-      .normalize();
+  public static normalize(x: Vector): Vector {
+    return x.copy().normalize();
   }
 
   /**
@@ -92,8 +89,8 @@ export class Vector extends NDArray {
    * Static method. Projects the vector `a` onto the vector `b` using
    * the projection formula `(b * (a * b / b * b))`.
    */
-  public static project(a: Vector, b: Vector): Vector {
-    return a.project(b.copy());
+  public static project(x: Vector, y: Vector): Vector {
+    return x.project(y.copy());
   }
 
   /**
@@ -174,19 +171,17 @@ export class Vector extends NDArray {
   }
 
   /**
-   * Static method. Multiplies all elements of `vector` with a specified `scalar`.
+   * Static method. Multiplies all elements of `x` with a specified `scalar`.
    */
-  public static scale(vector: Vector, scalar: number): Vector {
-    return vector.copy()
-      .scale(scalar);
+  public static scale(x: Vector, scalar: number): Vector {
+    return x.copy().scale(scalar);
   }
 
   /**
-   * Static method. Subtracts the vector `b` from vector `a`.
+   * Static method. Subtracts the vector `y` from vector `x`.
    */
-  public static subtract(a: Vector, b: Vector): Vector {
-    return a.copy()
-      .subtract(b);
+  public static subtract(x: Vector, y: Vector): Vector {
+    return x.copy().subtract(y);
   }
 
   /**
@@ -202,17 +197,17 @@ export class Vector extends NDArray {
   }
 
   /**
-   * Determines the angle between the current vector and `vector`.
+   * Determines the angle between the current vector and `x`.
    */
-  public angle(vector: Vector): number {
-    return Math.acos(this.dot(vector) / this.magnitude() / vector.magnitude());
+  public angle(x: Vector): number {
+    return Math.acos(this.dot(x) / this.magnitude() / x.magnitude());
   }
 
   /**
-   * Perform binary operation on `vector` to the current vector.
+   * Perform binary operation on `x` to the current vector.
    */
   public binOp(
-    vector: Vector,
+    x: Vector,
     op: (
       a: number,
       b: number,
@@ -220,7 +215,7 @@ export class Vector extends NDArray {
     ) => number
   ): Vector {
     const l1: number = this.length;
-    const l2: number = vector.length;
+    const l2: number = x.length;
 
     if (l1 !== l2) {
       throw new Error('sizes do not match!');
@@ -228,42 +223,42 @@ export class Vector extends NDArray {
 
     let i: number;
     for (i = 0; i < l1; i += 1) {
-      this.data[i] = op(this.data[i], vector.data[i], i);
+      this.data[i] = op(this.data[i], x.data[i], i);
     }
 
     return this;
   }
 
   /**
-   * Check if `index` is within the bound for current vector.
+   * Check if `i` is within the bound for current vector.
    */
-  public check(index: number): void {
-    if (!isFinite(index) || index < 0 || index > this.length - 1) {
+  public check(i: number): void {
+    if (!isFinite(i) || i < 0 || i > this.length - 1) {
       throw new Error('index out of bounds');
     }
   }
 
   /**
-   * Combines the current vector with `vector`
+   * Combines the current vector with `x`
    */
-  public combine(vector: Vector): Vector {
+  public combine(x: Vector): Vector {
     const l1: number = this.length;
-    const l2: number = vector.length;
+    const l2: number = x.length;
 
     if (l2 === 0) {
       return this;
     }
 
     if (l1 === 0) {
-      this.data = new vector.type(vector.data);
+      this.data = new x.type(x.data);
       this.length = l2;
-      this.type = vector.type;
+      this.type = x.type;
 
       return this;
     }
 
     const d1: TypedArray = this.data;
-    const d2: TypedArray = vector.data;
+    const d2: TypedArray = x.data;
     const data: TypedArray = new this.type(l1 + l2);
 
     data.set(d1);
@@ -277,19 +272,19 @@ export class Vector extends NDArray {
   }
 
   /**
-   * Computes the cross product of the current vector and the vector 'vector'
+   * Computes the cross product of the current vector and the vector 'x'
    * This operation can be only calculate for vectors with three components.
    * Otherwise it's throws an exception.
    * The method returns a new (result) vector.
    */
-  public cross(vector: Vector): Vector {
-    if (this.length !== 3 || vector.length !== 3) {
+  public cross(x: Vector): Vector {
+    if (this.length !== 3 || x.length !== 3) {
       throw new Error('cross(...) : vectors must have three components.');
     }
 
-    const c1: number = this.y * vector.z - this.z * vector.y;
-    const c2: number = this.z * vector.x - this.x * vector.z;
-    const c3: number = this.x * vector.y - this.y * vector.x;
+    const c1: number = this.y * x.z - this.z * x.y;
+    const c2: number = this.z * x.x - this.x * x.z;
+    const c3: number = this.x * x.y - this.y * x.x;
 
     return new Vector([c1, c2, c3]);
   }
@@ -340,11 +335,11 @@ export class Vector extends NDArray {
   }
 
   /**
-   * Projects the current vector onto `vector` using
-   * the projection formula `(b * (a * b / b * b))`.
+   * Projects the current vector onto `x` using
+   * the projection formula `(y * (x * y / y * y))`.
    */
-  public project(vector: Vector): Vector {
-    return vector.scale(this.dot(vector) / vector.dot(vector));
+  public project(x: Vector): Vector {
+    return x.scale(this.dot(x) / x.dot(x));
   }
 
   /**
