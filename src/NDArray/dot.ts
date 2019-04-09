@@ -8,7 +8,7 @@ try {
 /**
  * Performs dot multiplication with `x`
  */
-export default function dot<T extends INDArray<T>>(this: T, x: T): number {
+export function dot<T extends INDArray<T>>(this: T, x: T): number {
   this.equilateral(x);
   this.equidimensional(x);
 

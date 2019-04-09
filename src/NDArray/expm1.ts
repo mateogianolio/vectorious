@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns subtracting 1 from exp(x) of each element of current array.
  */
-export default function expm1<T extends INDArray<T>>(this: T): T {
+export function expm1<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Asserts if current array and `x` have the same shape
  */
-export default function equidimensional<T extends INDArray<T>>(this: T, x: T): void {
+export function equidimensional<T extends INDArray<T>>(this: T, x: T): void {
   const { shape: s1 } = this;
   const { shape: s2 } = x;
 

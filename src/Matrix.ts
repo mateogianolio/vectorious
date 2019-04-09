@@ -648,7 +648,7 @@ export class Matrix extends NDArray implements IMatrix {
       for (j = (i + 1); j < r; j += 1) {
         target = vectors[j];
         scalar = target.get(i) / pivot.get(i);
-        vectors[j] = target.subtract(pivot.scale(scalar)) as Vector;
+        vectors[j] = target.subtract(pivot.scale(scalar));
       }
     }
 

@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the hyperbolic cosine of each element of current array.
  */
-export default function cosh<T extends INDArray<T>>(this: T): T {
+export function cosh<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

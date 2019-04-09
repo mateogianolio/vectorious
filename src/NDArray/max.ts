@@ -8,7 +8,7 @@ try {
 /**
  * Gets the maximum value (largest) element of current array.
  */
-export default function max<T extends INDArray<T>>(this: T): number {
+export function max<T extends INDArray<T>>(this: T): number {
   const { data } = this;
   try {
     return data[nblas.iamax(data)];

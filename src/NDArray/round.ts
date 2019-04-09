@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the value of each element of current array rounded to the nearest integer.
  */
-export default function round<T extends INDArray<T>>(this: T): T {
+export function round<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

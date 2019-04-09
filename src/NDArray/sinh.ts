@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the hyperbolic sine of each element of current array.
  */
-export default function sinh<T extends INDArray<T>>(this: T): T {
+export function sinh<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

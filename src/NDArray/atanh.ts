@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the hyperbolic arctangent of each element of current array.
  */
-export default function atanh<T extends INDArray<T>>(this: T): T {
+export function atanh<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

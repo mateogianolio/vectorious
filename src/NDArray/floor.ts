@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the largest integer less than or equal to a number of each element of current array.
  */
-export default function floor<T extends INDArray<T>>(this: T): T {
+export function floor<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

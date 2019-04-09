@@ -8,7 +8,7 @@ try {
 /**
  * Adds `x` multiplied by `alpha` to the current array.
  */
-export default function add<T extends INDArray<T>>(this: T, x: T, alpha: number = 1): T {
+export function add<T extends INDArray<T>>(this: T, x: T, alpha: number = 1): T {
   this.equilateral(x);
   this.equidimensional(x);
 

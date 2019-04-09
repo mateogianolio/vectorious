@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Hadamard product with `x`
  */
-export default function product<T extends INDArray<T>>(this: T, x: T): T {
+export function product<T extends INDArray<T>>(this: T, x: T): T {
   this.equilateral(x);
   this.equidimensional(x);
 

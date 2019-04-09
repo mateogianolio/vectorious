@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the absolute value of each element of current array.
  */
-export default function abs<T extends INDArray<T>>(this: T): T {
+export function abs<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

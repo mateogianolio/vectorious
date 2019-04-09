@@ -41,17 +41,17 @@ export interface INDArray<T> {
   cosh(): T;
   dot(x: T): number;
   equals(x: T): boolean;
-  equilateral(x: T): void;
   equidimensional(x: T): void;
+  equilateral(x: T): void;
   exp(): T;
   expm1(): T;
   fill(value?: number | ((index: number) => number)): T;
   floor(): T;
   fround(): T;
   log(): T;
+  log10(): T;
   log1p(): T;
   log2(): T;
-  log10(): T;
   magnitude(): number;
   max(): number;
   min(): number;
@@ -70,18 +70,5 @@ export interface INDArray<T> {
   trunc(): T;
 }
 
-export interface IVector extends INDArray<IVector> {
-  angle(x: IVector): number;
-  binOp(
-    x: IVector,
-    op: (
-      a: number,
-      b: number,
-      index?: number
-    ) => number
-  ): IVector;
-}
-
-export interface IMatrix extends INDArray<IMatrix> {
-  
-}
+export interface IVector extends INDArray<IVector> {}
+export interface IMatrix extends INDArray<IMatrix> {}

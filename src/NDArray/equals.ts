@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Checks if current array and `x` are equal.
  */
-export default function dot<T extends INDArray<T>>(this: T, x: T): boolean {
+export function equals<T extends INDArray<T>>(this: T, x: T): boolean {
   this.equilateral(x);
   this.equidimensional(x);
 

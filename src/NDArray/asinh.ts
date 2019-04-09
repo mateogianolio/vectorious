@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the hyperbolic arcsine of each element of current array.
  */
-export default function asinh<T extends INDArray<T>>(this: T): T {
+export function asinh<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

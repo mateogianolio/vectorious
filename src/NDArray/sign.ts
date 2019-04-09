@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the sign of each element of current array, indicating whether it is positive, negative or zero.
  */
-export default function sign<T extends INDArray<T>>(this: T): T {
+export function sign<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;

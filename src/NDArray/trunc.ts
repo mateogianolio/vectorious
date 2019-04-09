@@ -3,7 +3,7 @@ import { INDArray } from '../types';
 /**
  * Returns the integer part of each element of current array, removing any fractional digits.
  */
-export default function trunc<T extends INDArray<T>>(this: T): T {
+export function trunc<T extends INDArray<T>>(this: T): T {
   const { length: l1 } = this;
 
   let i: number;
