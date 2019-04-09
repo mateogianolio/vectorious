@@ -1,5 +1,5 @@
-import { bench } from './bench';
-import { NDArray } from './NDArray';
+import { bench } from '../bench';
+import { NDArray } from './';
 
 const { random } = Math;
 const r: (n: number) => NDArray = (n: number): NDArray =>

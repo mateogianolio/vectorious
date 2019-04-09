@@ -4,8 +4,8 @@
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "scripts": {
-    "test:node": "nyc mocha -r ts-node/register ./src/*.spec.ts",
-    "test:browser": "mochify --plugin tsify ./src/*.spec.ts",
+    "test:node": "nyc mocha -r ts-node/register \"./src/**/*.spec.ts\"",
+    "test:browser": "mochify --plugin tsify \"./src/**/*.spec.ts\"",
     "test": "npm run test:node && npm run test:browser",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
     "benchmark": "ts-node ./src/NDArray.bench.ts && ts-node ./src/Vector.bench.ts && ts-node ./src/Matrix.bench.ts",

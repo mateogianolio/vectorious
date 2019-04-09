@@ -1,5 +1,5 @@
-import { bench } from './bench';
-import { Vector } from './Vector';
+import { bench } from '../bench';
+import { Vector } from './';
 
 const { random } = Math;
 const r: (n: number) => Vector = (n: number): Vector => Vector.random(n);

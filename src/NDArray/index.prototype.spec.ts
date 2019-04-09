@@ -5,7 +5,7 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from './NDArray';
+import { NDArray } from './';
 
 describe('NDArray.prototype', () => {
   describe('constructor()', () => {

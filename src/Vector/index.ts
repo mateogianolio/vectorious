@@ -1,7 +1,7 @@
-import { NDArray } from './NDArray';
-import { IVector, TypedArray, TypedArrayConstructor } from './types';
+import { NDArray } from '../NDArray';
+import { IVector, TypedArray, TypedArrayConstructor } from '../types';
 
-export class Vector extends NDArray {
+export class Vector extends NDArray implements IVector {
   /**
    * Static method. Adds two vectors `a` and `b` together.
    */
@@ -13,7 +13,7 @@ export class Vector extends NDArray {
   /**
    * Static method. Determines the angle between two vectors `a` and `b`.
    */
-  public static angle(x: IVector, y: IVector): number {
+  public static angle(x: Vector, y: Vector): number {
     return x.angle(y);
   }
 

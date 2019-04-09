@@ -4,7 +4,8 @@ import {
   throws,
 } from 'assert';
 
-import { Matrix, Vector } from './';
+import { Matrix } from './';
+import { Vector } from '../';
 
 const round: (value: number, precision: number) => number = (value: number, precision: number): number =>
   Number(value.toFixed(precision));

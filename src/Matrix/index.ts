@@ -1,6 +1,6 @@
-import { NDArray } from './NDArray';
-import { IMatrix, TypedArray, TypedArrayConstructor } from './types';
-import { Vector } from './Vector';
+import { NDArray } from '../NDArray';
+import { IMatrix, TypedArray, TypedArrayConstructor } from '../types';
+import { Vector } from '../Vector';
 
 let nblas: any;
 try {
