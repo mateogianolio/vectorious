@@ -8,7 +8,7 @@ try {
 /**
  * Multiplies all elements of current array with a specified `scalar`.
  */
-export function scale<T extends INDArray<T>>(this: T, scalar: number): T {
+export function scale<T extends INDArray>(this: T, scalar: number): T {
   const { data } = this;
 
   try {
@@ -23,4 +23,4 @@ export function scale<T extends INDArray<T>>(this: T, scalar: number): T {
   }
 
   return this;
-};
+}

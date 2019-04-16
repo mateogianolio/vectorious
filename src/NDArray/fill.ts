@@ -4,7 +4,7 @@ import { INDArray } from '../types';
  * Fills the array with a scalar value, takes an optional `type` argument
  * which should be an instance of `TypedArray`.
  */
-export function fill<T extends INDArray<T>>(this: T, value: number | ((index: number) => number) = 0): T {
+export function fill<T extends INDArray>(this: T, value: number | ((index: number) => number) = 0): T {
   const { data, length } = this;
 
   let i: number;
@@ -13,4 +13,4 @@ export function fill<T extends INDArray<T>>(this: T, value: number | ((index: nu
   }
 
   return this;
-};
+}

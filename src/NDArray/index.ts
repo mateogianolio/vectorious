@@ -1,3 +1,15 @@
+import {
+  INDArray,
+  TypedArray,
+  TypedArrayConstructor,
+} from '../types';
+import {
+  flatten,
+  isTypedArray,
+  shape,
+  type,
+} from '../util';
+
 import { abs } from './abs';
 import { acos } from './acos';
 import { acosh } from './acosh';
@@ -21,9 +33,9 @@ import { fill } from './fill';
 import { floor } from './floor';
 import { fround } from './fround';
 import { log } from './log';
+import { log10 } from './log10';
 import { log1p } from './log1p';
 import { log2 } from './log2';
-import { log10 } from './log10';
 import { magnitude } from './magnitude';
 import { max } from './max';
 import { min } from './min';
@@ -40,19 +52,8 @@ import { subtract } from './subtract';
 import { tan } from './tan';
 import { tanh } from './tanh';
 import { trunc } from './trunc';
-import {
-  INDArray,
-  TypedArray,
-  TypedArrayConstructor,
-} from '../types';
-import {
-  flatten,
-  isTypedArray,
-  shape,
-  type,
-} from '../util';
 
-export class NDArray implements INDArray<NDArray> {
+export class NDArray implements INDArray {
   public abs: typeof abs = abs;
   public acos: typeof acos = acos;
   public acosh: typeof acosh = acosh;

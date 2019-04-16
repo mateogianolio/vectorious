@@ -20,55 +20,9 @@ export type TypedArrayConstructor =
     | Float32ArrayConstructor
     | Float64ArrayConstructor;
 
-export interface INDArray<T> {
+export interface INDArray {
   data: TypedArray;
   length: number;
   shape: number[];
   type: TypedArrayConstructor;
-
-  abs(): T;
-  acos(): T;
-  acosh(): T;
-  add(x: T, alpha?: number): T;
-  asin(): T;
-  asinh(): T;
-  atan(): T;
-  atanh(): T;
-  cbrt(): T;
-  ceil(): T;
-  copy(): T;
-  cos(): T;
-  cosh(): T;
-  dot(x: T): number;
-  equals(x: T): boolean;
-  equidimensional(x: T): void;
-  equilateral(x: T): void;
-  exp(): T;
-  expm1(): T;
-  fill(value?: number | ((index: number) => number)): T;
-  floor(): T;
-  fround(): T;
-  log(): T;
-  log10(): T;
-  log1p(): T;
-  log2(): T;
-  magnitude(): number;
-  max(): number;
-  min(): number;
-  pow(exponent: number): T;
-  product(x: T): T;
-  reshape(shape: number[]): T;
-  round(): T;
-  scale(scalar: number): T;
-  sign(): T;
-  sin(): T;
-  sinh(): T;
-  sqrt(): T;
-  subtract(x: T): T;
-  tan(): T;
-  tanh(): T;
-  trunc(): T;
 }
-
-export interface IVector extends INDArray<IVector> {}
-export interface IMatrix extends INDArray<IMatrix> {}

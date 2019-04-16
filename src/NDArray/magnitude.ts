@@ -8,7 +8,7 @@ try {
 /**
  * Calculates the magnitude of an array (also called L2 norm or Euclidean length).
  */
-export function magnitude<T extends INDArray<T>>(this: T): number {
+export function magnitude<T extends INDArray>(this: T): number {
   const { length } = this;
   if (length === 0) {
     return 0;
@@ -27,4 +27,4 @@ export function magnitude<T extends INDArray<T>>(this: T): number {
 
     return Math.sqrt(result);
   }
-};
+}

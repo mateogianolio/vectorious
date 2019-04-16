@@ -1,5 +1,5 @@
 import { NDArray } from '../NDArray';
-import { IMatrix, TypedArray, TypedArrayConstructor } from '../types';
+import { TypedArray, TypedArrayConstructor } from '../types';
 import { Vector } from '../Vector';
 
 let nblas: any;
@@ -10,38 +10,38 @@ try {
 const magicHelper: (n: number, x: number, y: number) => number = (n: number, x: number, y: number): number =>
   (x + y * 2 + 1) % n;
 
-export class Matrix extends NDArray implements IMatrix {
+export class Matrix extends NDArray {
   /**
-   * Static method. Adds two matrices `a` and `b` together.
+   * Adds two matrices `x` and `y` together.
    */
   public static add(x: Matrix, y: Matrix): Matrix {
     return x.copy().add(y);
   }
 
   /**
-   * Static method. Augments two matrices `a` and `b` of matching dimensions
-   * (appends `b` to `a`).
+   * Augments two matrices `x` and `y` of matching dimensions
+   * (appends `y` to `x`).
    */
   public static augment(x: Matrix, y: Matrix): Matrix {
     return x.copy().augment(y);
   }
 
   /**
-   * Static method. Perform binary operation on two matrices `a` and `b` together.
+   * Perform binary operation on two matrices `x` and `y` together.
    */
   public static binOp(x: Matrix, y: Matrix, op: (a: number, b: number, index?: number) => number): Matrix {
     return x.copy().binOp(y, op);
   }
 
   /**
-   * Static method. Checks the equality of two matrices `a` and `b`.
+   * Checks the equality of two matrices `x` and `y`.
    */
   public static equals(x: Matrix, y: Matrix): boolean {
     return x.equals(y);
   }
 
   /**
-   * Static method. Creates a `r x c` matrix containing optional 'value' (default 0), takes
+   * Creates a `r x c` matrix containing optional 'value' (default 0), takes
    * an optional `type` argument which should be an instance of `TypedArray`.
    */
   public static fill(
@@ -61,7 +61,7 @@ export class Matrix extends NDArray implements IMatrix {
   }
 
   /**
-   * Static method. Creates an identity matrix of `size`, takes an optional `type` argument
+   * Creates an identity matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
    */
   public static identity(size: number, type: TypedArrayConstructor = Float32Array): Matrix {
@@ -69,7 +69,7 @@ export class Matrix extends NDArray implements IMatrix {
   }
 
   /**
-   * Static method. Creates a magic square matrix of `size`, takes an optional `type` argument
+   * Creates a magic square matrix of `size`, takes an optional `type` argument
    * which should be an instance of `TypedArray`.
    */
   public static magic(size: number, type: TypedArrayConstructor = Float32Array): Matrix {
@@ -92,14 +92,14 @@ export class Matrix extends NDArray implements IMatrix {
   }
 
   /**
-   * Static method. Multiplies two matrices `x` and `y` of matching dimensions.
+   * Multiplies two matrices `x` and `y` of matching dimensions.
    */
   public static multiply(x: Matrix, y: Matrix): Matrix {
     return x.multiply(y);
   }
 
   /**
-   * Static method. Creates an `r x c` matrix containing ones (`1`), takes an
+   * Creates an `r x c` matrix containing ones (`1`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
    */
   public static ones(r: number, c: number, type: TypedArrayConstructor = Float32Array): Matrix {
@@ -107,21 +107,21 @@ export class Matrix extends NDArray implements IMatrix {
   }
 
   /**
-   * Static method. Performs LU factorization on current matrix.
+   * Performs LU factorization on current matrix.
    */
   public static plu(matrix: Matrix): [Matrix, Int32Array] {
     return matrix.copy().plu();
   }
 
   /**
-   * Static method. Hadamard product of matrices
+   * Hadamard product of matrices
    */
   public static product(x: Matrix, y: Matrix): Matrix {
     return x.copy().product(y);
   }
 
   /**
-   * Static method. Creates an `r x c` matrix containing random values
+   * Creates an `r x c` matrix containing random values
    * according to a uniform distribution bounded by `min` and `max`,
    * takes an optional `type` argument which should be an instance of `TypedArray`.
    */
@@ -137,28 +137,28 @@ export class Matrix extends NDArray implements IMatrix {
   }
 
   /**
-   * Static method. Finds the rank of the matrix using row echelon form
+   * Finds the rank of the matrix using row echelon form
    */
   public static rank(x: Matrix): number {
     return x.copy().rank();
   }
 
   /**
-   * Static method. Multiplies all elements of a matrix `x` with a specified `scalar`.
+   * Multiplies all elements of a matrix `x` with a specified `scalar`.
    */
   public static scale(x: Matrix, scalar: number): Matrix {
     return x.copy().scale(scalar);
   }
 
   /**
-   * Static method. Subtracts the matrix `y` from matrix `x`.
+   * Subtracts the matrix `y` from matrix `x`.
    */
   public static subtract(x: Matrix, y: Matrix): Matrix {
     return x.copy().subtract(y);
   }
 
   /**
-   * Static method. Creates an `r x c` matrix containing zeros (`0`), takes an
+   * Creates an `r x c` matrix containing zeros (`0`), takes an
    * optional `type` argument which should be an instance of `TypedArray`.
    */
   public static zeros(r: number, c: number, type: TypedArrayConstructor = Float32Array): Matrix {
@@ -190,26 +190,26 @@ export class Matrix extends NDArray implements IMatrix {
 
     const { data: d1 } = this;
     const { data: d2 } = x;
-    const length: number = c1 + c2;
-    const data: TypedArray = new this.type(length * r1);
+    const c3: number = c1 + c2;
+    const d3: TypedArray = new this.type(c3 * r1);
 
     let i: number;
     let j: number;
     for (i = 0; i < r1; i += 1) {
       for (j = 0; j < c1; j += 1) {
-        data[i * length + j] = d1[i * c1 + j];
+        d3[i * c3 + j] = d1[i * c1 + j];
       }
     }
 
     for (i = 0; i < r2; i += 1) {
       for (j = 0; j < c2; j += 1) {
-        data[i * length + j + c1] = d2[i * c2 + j];
+        d3[i * c3 + j + c1] = d2[i * c2 + j];
       }
     }
 
-    this.shape = [r1, length];
-    this.length = data.length;
-    this.data = data;
+    this.shape = [r1, c3];
+    this.length = d3.length;
+    this.data = d3;
 
     return this;
   }
@@ -742,14 +742,16 @@ export class Matrix extends NDArray implements IMatrix {
    * Swaps two rows `i` and `j` in a matrix
    */
   public swap(i: number, j: number): Matrix {
+    const { data: d1 } = this;
     const [r, c] = this.shape;
+
     if (i < 0 || j < 0 || i > r - 1 || j > r - 1) {
       throw new Error('index out of bounds');
     }
 
-    const copy: TypedArray = this.data.slice(i * c, (i + 1) * c);
-    this.data.copyWithin(i * c, j * c, (j + 1) * c);
-    this.data.set(copy, j * c);
+    const copy: TypedArray = d1.slice(i * c, (i + 1) * c);
+    d1.copyWithin(i * c, j * c, (j + 1) * c);
+    d1.set(copy, j * c);
 
     return this;
   }
@@ -758,12 +760,13 @@ export class Matrix extends NDArray implements IMatrix {
    * Converts current matrix into a two-dimensional array
    */
   public toArray(): number[][] {
+    const { data: d1 } = this;
     const [r, c] = this.shape;
     const result: number[][] = [];
 
     let i: number;
     for (i = 0; i < r; i += 1) {
-      result.push(Array.prototype.slice.call(this.data.subarray(i * c, (i + 1) * c)));
+      result.push(Array.prototype.slice.call(d1.subarray(i * c, (i + 1) * c)));
     }
 
     return result;
@@ -773,12 +776,13 @@ export class Matrix extends NDArray implements IMatrix {
    * Converts current matrix into a readable formatted string
    */
   public toString(): string {
+    const { data: d1 } = this;
     const [r, c] = this.shape;
     const result: string[] = [];
 
     let i: number;
     for (i = 0; i < r; i += 1) {
-      result.push(`[${this.data.subarray(i * c, (i + 1) * c)}]`);
+      result.push(`[${d1.subarray(i * c, (i + 1) * c)}]`);
     }
 
     return `[${result.join(', \n')}]`;
@@ -805,6 +809,7 @@ export class Matrix extends NDArray implements IMatrix {
    * Transposes a matrix (mirror across the diagonal).
    */
   public transpose(): Matrix {
+    const { data: d1 } = this;
     const [r, c] = this.shape;
     const data: TypedArray = new this.type(c * r);
 
@@ -812,7 +817,7 @@ export class Matrix extends NDArray implements IMatrix {
     let j: number;
     for (i = 0; i < r; i += 1) {
       for (j = 0; j < c; j += 1) {
-        data[j * r + i] = this.data[i * c + j];
+        data[j * r + i] = d1[i * c + j];
       }
     }
 

@@ -3,13 +3,13 @@ import { INDArray } from '../types';
 /**
  * Makes a copy of the class and underlying data
  */
-export function copy<T extends INDArray<T>>(this: T): T {
-  const copy: T = Object.assign(Object.create(Object.getPrototypeOf(this)), this) as T;
+export function copy<T extends INDArray>(this: T): T {
+  const cp: T = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
 
-  copy.data = new this.type(this.data);
-  copy.shape = this.shape;
-  copy.length = this.length;
-  copy.type = this.type;
+  cp.data = new this.type(this.data);
+  cp.shape = this.shape;
+  cp.length = this.length;
+  cp.type = this.type;
 
-  return copy as T;
-};
+  return cp;
+}

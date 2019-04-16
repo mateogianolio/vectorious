@@ -1,5 +1,8 @@
 import { INDArray } from '../types';
 
+import { equidimensional } from './equidimensional';
+import { equilateral } from './equilateral';
+
 let nblas: any;
 try {
   nblas = require('nblas');
@@ -8,9 +11,9 @@ try {
 /**
  * Performs dot multiplication with `x`
  */
-export function dot<T extends INDArray<T>>(this: T, x: T): number {
-  this.equilateral(x);
-  this.equidimensional(x);
+export function dot<T extends INDArray>(this: T, x: T): number {
+  equilateral.call(this, x);
+  equidimensional.call(this, x);
 
   const { data: d1, length: l1 } = this;
   const { data: d2 } = x;
@@ -27,4 +30,4 @@ export function dot<T extends INDArray<T>>(this: T, x: T): number {
 
     return result;
   }
-};
+}

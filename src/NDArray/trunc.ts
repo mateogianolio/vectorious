@@ -1,15 +1,16 @@
 import { INDArray } from '../types';
 
 /**
- * Returns the integer part of each element of current array, removing any fractional digits.
+ * Returns the integer part of each element of current array,
+ * removing any fractional digits.
  */
-export function trunc<T extends INDArray<T>>(this: T): T {
-  const { length: l1 } = this;
+export function trunc<T extends INDArray>(this: T): T {
+  const { length: l1, data: d1 } = this;
 
   let i: number;
   for (i = 0; i < l1; i += 1) {
-    this.data[i] = Math.trunc(this.data[i]);
+    d1[i] = Math.trunc(d1[i]);
   }
 
   return this;
-};
+}
