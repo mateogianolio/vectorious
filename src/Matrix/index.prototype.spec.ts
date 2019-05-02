@@ -5,7 +5,6 @@ import {
 } from 'assert';
 
 import { Matrix } from './';
-import { Vector } from '../';
 
 const round: (value: number, precision: number) => number = (value: number, precision: number): number =>
   Number(value.toFixed(precision));
@@ -53,8 +52,8 @@ describe('Matrix.prototype', () => {
       const z: Matrix = new Matrix([[5]]);
       const u: Matrix = new Matrix([[1, 2], [2, 4]]);
 
-      deepStrictEqual(z, x.multiply(y));
-      deepStrictEqual(u, y.multiply(x));
+      deepStrictEqual(z, x.copy().multiply(y));
+      deepStrictEqual(u, y.copy().multiply(x));
     });
 
     it('should work as expected', () => {
@@ -78,21 +77,21 @@ describe('Matrix.prototype', () => {
       const x: Matrix = new Matrix([[1, 2]]);
       const y: Matrix = new Matrix([[1], [2]]);
 
-      deepStrictEqual(x, y.T);
-      deepStrictEqual(y, x.T);
+      deepStrictEqual(x, y.copy().T);
+      deepStrictEqual(y, x.copy().T);
     });
 
     it('should work as expected', () => {
       const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
       const y: Matrix = new Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
 
-      deepStrictEqual(x, y.T);
-      deepStrictEqual(y, x.T);
+      deepStrictEqual(x, y.copy().T);
+      deepStrictEqual(y, x.copy().T);
     });
 
     it('should work as expected', () => {
       const x: Matrix = Matrix.random(2, 2);
-      const y: Matrix = x.T.T;
+      const y: Matrix = x.copy().T.T;
 
       deepStrictEqual(x, y);
     });
@@ -128,7 +127,7 @@ describe('Matrix.prototype', () => {
       ]);
 
       // Need to round result to avoid floating point rounding errors, e.g. 0.99999999994
-      deepStrictEqual(y, x.inverse().map((value: number) => round(value, 2)));
+      deepStrictEqual(y, x.copy().inverse().map((value: number) => round(value, 2)));
     });
   });
 
@@ -192,19 +191,6 @@ describe('Matrix.prototype', () => {
     });
   });
 
-  describe('.lusolve()', () => {
-    it('should work as expected', () => {
-      const x: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
-      const y: Matrix = new Matrix([[1], [3], [5]]);
-      const z: Matrix = new Matrix([[3.25], [1.75], [-1.5]]);
-
-      const [lu, ipiv] = x.plu();
-
-      lu.lusolve(y, ipiv);
-      deepStrictEqual(z, y);
-    });
-  });
-
   describe('.solve()', () => {
     it('should work as expected', () => {
       const x: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
@@ -242,8 +228,8 @@ describe('Matrix.prototype', () => {
       const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
       const y: Matrix = new Matrix([[1, 2, 3, 4], [5, 6, 7, 8]]);
 
-      deepStrictEqual(new Vector([1, 5, 9]), x.diag());
-      deepStrictEqual(new Vector([1, 6]), y.diag());
+      deepStrictEqual(new Matrix([1, 5, 9]), x.diag());
+      deepStrictEqual(new Matrix([1, 6]), y.diag());
     });
   });
 
@@ -274,52 +260,6 @@ describe('Matrix.prototype', () => {
     });
   });
 
-  describe('.get()', () => {
-    it('should throw error if index out of bounds', () => {
-      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
-
-      throws(() => { x.get(-1, 0); }, Error);
-      throws(() => { x.get(0, -1); }, Error);
-      throws(() => { x.get(2, 0); }, Error);
-      throws(() => { x.get(0, 2); }, Error);
-    });
-
-    it('should work as expected', () => {
-      const x: Matrix = new Matrix([[1, 2], [3, 4], [5, 6]]);
-
-      strictEqual(1, x.get(0, 0));
-      strictEqual(2, x.get(0, 1));
-      strictEqual(3, x.get(1, 0));
-      strictEqual(4, x.get(1, 1));
-      strictEqual(5, x.get(2, 0));
-    });
-  });
-
-  describe('.set()', () => {
-    it('should throw error if index out of bounds', () => {
-      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
-
-      throws(() => { x.set(-1, 0, 0); }, Error);
-      throws(() => { x.set(0, -1, 0); }, Error);
-      throws(() => { x.set(2, 0, 0); }, Error);
-      throws(() => { x.set(0, 2, 0); }, Error);
-    });
-
-    it('should work as expected', () => {
-      const x: Matrix = new Matrix([[1, 2], [3, 4]]);
-
-      x.set(0, 0, 0);
-      x.set(0, 1, 1);
-      x.set(1, 0, 0);
-      x.set(1, 1, 1);
-
-      strictEqual(0, x.get(0, 0));
-      strictEqual(1, x.get(0, 1));
-      strictEqual(0, x.get(1, 0));
-      strictEqual(1, x.get(1, 1));
-    });
-  });
-
   describe('.swap()', () => {
     it('should throw error if index out of bounds', () => {
       const x: Matrix = new Matrix([[1, 2], [3, 4]]);
@@ -335,8 +275,8 @@ describe('Matrix.prototype', () => {
 
       x.swap(0, 1);
       deepStrictEqual(new Matrix([[3, 4], [1, 2], [5, 6]]), x);
-      x.swap(0, 2);
-      deepStrictEqual(new Matrix([[5, 6], [1, 2], [3, 4]]), x);
+      x.swap(1, 2);
+      deepStrictEqual(new Matrix([[3, 4], [5, 6], [1, 2]]), x);
     });
   });
 
@@ -354,8 +294,11 @@ describe('Matrix.prototype', () => {
       const x: Matrix = new Matrix([[1, 2], [3, 4]]);
       const y: Matrix = Matrix.zeros(2, 2);
 
-      x.each((value: number, i: number, j: number) => {
-        y.set(i, j, value * j);
+      x.each((value: number, i: number) => {
+        const r: number = Math.floor(i / 2);
+        const c: number = i % 2;
+
+        y.set(r, c, value * c);
       });
 
       deepStrictEqual(new Matrix([[0, 2], [0, 4]]), y);

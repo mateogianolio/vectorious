@@ -2,18 +2,11 @@ import { NDArray } from '../NDArray';
 import { TypedArray, TypedArrayConstructor } from '../types';
 
 import { angle } from './angle';
-import { binOp } from './binOp';
-import { check } from './check';
 import { combine } from './combine';
 import { cross } from './cross';
-import { each } from './each';
-import { get } from './get';
-import { map } from './map';
 import { normalize } from './normalize';
 import { project } from './project';
 import { push } from './push';
-import { reduce } from './reduce';
-import { set } from './set';
 import { toArray } from './toArray';
 import { toString } from './toString';
 
@@ -188,18 +181,11 @@ export class Vector extends NDArray {
   ): Vector => Vector.fill(count, 0, type)
 
   public angle: typeof angle = angle;
-  public binOp: typeof binOp = binOp;
-  public check: typeof check = check;
   public combine: typeof combine = combine;
   public cross: typeof cross = cross;
-  public each: typeof each = each;
-  public get: typeof get = get;
-  public map: typeof map = map;
   public normalize: typeof normalize = normalize;
   public project: typeof project = project;
   public push: typeof push = push;
-  public reduce: typeof reduce = reduce;
-  public set: typeof set = set;
   public toArray: typeof toArray = toArray;
   public toString: typeof toString = toString;
 

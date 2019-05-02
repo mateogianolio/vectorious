@@ -80,22 +80,6 @@ describe('Vector.prototype', () => {
     });
   });
 
-  describe('.get()', () => {
-    it('should throw error if index out of bounds', () => {
-      const x: Vector = new Vector([1, 2, 3]);
-      throws(() => { x.get(-1); }, Error);
-      throws(() => { x.get(3); }, Error);
-    });
-
-    it('should work as expected', () => {
-      const x: Vector = new Vector([1, 3, 2, 4]);
-      strictEqual(1, x.get(0));
-      strictEqual(3, x.get(1));
-      strictEqual(2, x.get(2));
-      strictEqual(4, x.get(3));
-    });
-  });
-
   describe('.x, .y, .z, .w', () => {
     it('should retrieve properties as expected', () => {
       const x: Vector = new Vector([1, 2, 3, 4, 5]);
@@ -118,22 +102,6 @@ describe('Vector.prototype', () => {
       strictEqual(x.get(1), 1);
       strictEqual(x.get(2), 2);
       strictEqual(x.get(3), 3);
-    });
-  });
-
-  describe('.set()', () => {
-    it('should throw error if index out of bounds', () => {
-      const x: Vector = new Vector([1, 2]);
-      throws(() => { x.set(-1, 0); }, Error);
-      throws(() => { x.set(2, 0); }, Error);
-    });
-
-    it('should work as expected', () => {
-      const x: Vector = new Vector([1, 2]);
-      x.set(0, 0);
-      x.set(1, 1);
-      strictEqual(0, x.get(0));
-      strictEqual(1, x.get(1));
     });
   });
 
