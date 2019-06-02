@@ -1,16 +1,13 @@
-import { INDArray } from '../types';
-
-import { plu } from './plu';
-import { square } from './square';
+import { IMatrix } from '../types';
 
 /**
  * Gets the determinant of any square matrix using LU factorization.
  */
-export function determinant<T extends INDArray>(this: T): number {
-  square.call(this);
+export function determinant<T extends IMatrix>(this: T): number {
+  this.square();
 
   const [r, c] = this.shape;
-  const [lu, ipiv] = plu.call(this);
+  const [lu, ipiv] = this.plu();
 
   let product: number = 1;
   let sign: number = 1;

@@ -1,9 +1,9 @@
-import { INDArray, TypedArray } from '../types';
+import { IVector, TypedArray } from '../types';
 
 /**
  * Combines the current vector with `x`
  */
-export function combine<T extends INDArray>(this: T, x: T): T {
+export function combine<T extends IVector>(this: T, x: T): T {
   const { length: l1, data: d1 } = this;
   const { length: l2, data: d2 } = x;
 

@@ -1,11 +1,9 @@
-import { INDArray } from '../types';
-
-import { swap } from './swap';
+import { IMatrix } from '../types';
 
 /**
  * Performs Gaussian elimination on current matrix.
  */
-export function gauss<T extends INDArray>(this: T): T {
+export function gauss<T extends IMatrix>(this: T): T {
   const { data: d1 } = this;
   const [r, c] = this.shape;
 
@@ -35,7 +33,7 @@ export function gauss<T extends INDArray>(this: T): T {
     }
 
     if (i !== j) {
-      swap.call(this, i, j);
+      this.swap(i, j);
     }
 
     pivot = d1[i * c + lead];

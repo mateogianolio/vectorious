@@ -1,16 +1,13 @@
-import { copy } from '../NDArray/copy';
-import { INDArray } from '../types';
-
-import { plu } from './plu';
+import { IMatrix } from '../types';
 
 /**
  * Performs full LU decomposition on a matrix.
  */
-export function lu<T extends INDArray>(this: T): [T, T, Int32Array] {
+export function lu<T extends IMatrix>(this: T): [T, T, Int32Array] {
   const [r, c] = this.shape;
-  const [PLU, ipiv] = plu.call(copy.call(this));
-  const L: T = copy.call(PLU) as T;
-  const U: T = copy.call(PLU) as T;
+  const [PLU, ipiv] = this.copy().plu();
+  const L: T = PLU.copy() as T;
+  const U: T = PLU.copy() as T;
 
   let i: number;
   let j: number;

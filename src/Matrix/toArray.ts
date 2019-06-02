@@ -1,9 +1,9 @@
-import { INDArray } from '../types';
+import { IMatrix } from '../types';
 
 /**
  * Converts current matrix into a two-dimensional array
  */
-export function toArray<T extends INDArray>(this: T): number[][] {
+export function toArray<T extends IMatrix>(this: T): number[][] {
   const { data: d1 } = this;
   const [r, c] = this.shape;
   const result: number[][] = [];

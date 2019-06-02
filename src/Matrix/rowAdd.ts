@@ -1,5 +1,4 @@
-import { check } from '../NDArray/check';
-import { INDArray } from '../types';
+import { IMatrix } from '../types';
 
 /**
  * Adds a multiple of one row to another inside a matrix.
@@ -11,9 +10,9 @@ import { INDArray } from '../types';
  *        - scalar : the scalar of type number.
  * OUTPUT: The current changed matrix.
  */
-export function rowAdd<T extends INDArray>(this: T, dest: number, source: number, scalar: number = 1): T {
-  check.call(this, dest, 0);
-  check.call(this, source, 0);
+export function rowAdd<T extends IMatrix>(this: T, dest: number, source: number, scalar: number = 1): T {
+  this.check(dest, 0);
+  this.check(source, 0);
 
   const { data: d1 } = this;
   const c: number = this.shape[1];

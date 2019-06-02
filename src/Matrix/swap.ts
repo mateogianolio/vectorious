@@ -1,12 +1,11 @@
-import { check } from '../NDArray/check';
-import { INDArray, TypedArray } from '../types';
+import { IMatrix, TypedArray } from '../types';
 
 /**
  * Swaps two rows `i` and `j` in a matrix.
  */
-export function swap<T extends INDArray>(this: T, i: number, j: number): T {
-  check.call(this, i, 0);
-  check.call(this, j, 0);
+export function swap<T extends IMatrix>(this: T, i: number, j: number): T {
+  this.check(i, 0);
+  this.check(j, 0);
 
   const { data: d1 } = this;
   const c: number = this.shape[1];

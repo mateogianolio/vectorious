@@ -1,9 +1,9 @@
-import { INDArray, TypedArray } from '../types';
+import { IMatrix, TypedArray } from '../types';
 
 /**
  * Gets the diagonal of current matrix.
  */
-export function diagonal<T extends INDArray>(this: T): T {
+export function diagonal<T extends IMatrix>(this: T): T {
   const { data: d1 } = this;
   const [r, c] = this.shape;
 

@@ -1,4 +1,4 @@
-import { INDArray } from '../types';
+import { IVector } from '../types';
 
 /**
  * Computes the cross product of the current vector and the vector 'x'
@@ -6,7 +6,7 @@ import { INDArray } from '../types';
  * Otherwise it's throws an exception.
  * The method returns a new (result) vector.
  */
-export function cross<T extends INDArray>(this: T, x: T): T {
+export function cross<T extends IVector>(this: T, x: T): T {
   const { length: l1 } = this;
   const { length: l2 } = x;
 

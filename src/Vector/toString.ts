@@ -1,9 +1,9 @@
-import { INDArray } from '../types';
+import { IVector } from '../types';
 
 /**
  * Converts current vector into a readable formatted string.
  */
-export function toString<T extends INDArray>(this: T): string {
+export function toString<T extends IVector>(this: T): string {
   const { length: l1, data: d1 } = this;
   const result: string[] = ['['];
 

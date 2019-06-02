@@ -1,9 +1,9 @@
-import { INDArray } from '../types';
+import { IMatrix } from '../types';
 
 /**
  * Converts current matrix into a readable formatted string
  */
-export function toString<T extends INDArray>(this: T): string {
+export function toString<T extends IMatrix>(this: T): string {
   const { data: d1 } = this;
   const [r, c] = this.shape;
   const result: string[] = [];

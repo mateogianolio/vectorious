@@ -1,5 +1,6 @@
 import { NDArray } from '../NDArray';
-import { TypedArray, TypedArrayConstructor } from '../types';
+import { copy } from '../NDArray/copy';
+import { IMatrix, TypedArray, TypedArrayConstructor } from '../types';
 
 import { augment } from './augment';
 import { determinant } from './determinant';
@@ -12,6 +13,7 @@ import { plu } from './plu';
 import { rank } from './rank';
 import { rowAdd } from './rowAdd';
 import { solve } from './solve';
+import { square } from './square';
 import { swap } from './swap';
 import { toArray } from './toArray';
 import { toString } from './toString';
@@ -21,7 +23,7 @@ import { transpose } from './transpose';
 const magicHelper: (n: number, x: number, y: number) => number = (n: number, x: number, y: number): number =>
   (x + y * 2 + 1) % n;
 
-export class Matrix extends NDArray {
+export class Matrix extends NDArray implements IMatrix {
   /**
    * Adds two matrices `x` and `y` together.
    */
@@ -177,6 +179,7 @@ export class Matrix extends NDArray {
   }
 
   public augment: typeof augment = augment;
+  public copy: typeof copy = copy;
   public det: typeof determinant = determinant;
   public determinant: typeof determinant = determinant;
   public diag: typeof diagonal = diagonal;
@@ -192,6 +195,7 @@ export class Matrix extends NDArray {
   public rk: typeof rank = rank;
   public rowAdd: typeof rowAdd = rowAdd;
   public solve: typeof solve = solve;
+  public square: typeof square = square;
   public swap: typeof swap = swap;
   public toArray: typeof toArray = toArray;
   public toString: typeof toString = toString;

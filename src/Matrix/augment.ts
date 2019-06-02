@@ -1,9 +1,9 @@
-import { INDArray, TypedArray } from '../types';
+import { IMatrix, TypedArray } from '../types';
 
 /**
  * Augments `matrix` with current matrix.
  */
-export function augment<T extends INDArray>(this: T, x: T): T {
+export function augment<T extends IMatrix>(this: T, x: T): T {
   const [r1, c1] = this.shape;
   const [r2, c2] = x.shape;
 
@@ -18,7 +18,7 @@ export function augment<T extends INDArray>(this: T, x: T): T {
   const { data: d1 } = this;
   const { data: d2 } = x;
   const c3: number = c1 + c2;
-  const d3: TypedArray = new this.type(c3 * r1);
+  const d3: TypedArray = new this.type(r1 * c3);
 
   let i: number;
   let j: number;
@@ -36,7 +36,7 @@ export function augment<T extends INDArray>(this: T, x: T): T {
 
   this.shape = [r1, c3];
   this.length = d3.length;
-  d1.set(d3);
+  this.data = d3;
 
   return this;
 }

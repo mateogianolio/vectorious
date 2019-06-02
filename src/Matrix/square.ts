@@ -1,9 +1,9 @@
-import { INDArray } from '../types';
+import { IMatrix } from '../types';
 
 /**
  * Asserts if current matrix is square.
  */
-export function square<T extends INDArray>(this: T): void {
+export function square<T extends IMatrix>(this: T): void {
   const { length } = this.shape;
   const [r, c] = this.shape;
 

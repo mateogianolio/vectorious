@@ -1,32 +1,28 @@
-import { copy } from '../NDArray/copy';
-import { eye } from '../NDArray/eye';
-import { INDArray, TypedArray } from '../types';
-
-import { augment } from './augment';
-import { gauss } from './gauss';
-import { square } from './square';
+import { IMatrix, TypedArray } from '../types';
 
 /**
  * Determines the inverse of current matrix using
  * Gaussian elimination.
  */
-export function inverse<T extends INDArray>(this: T): T {
-  square.call(this);
+export function inverse<T extends IMatrix>(this: T): T {
+  this.square();
 
   const [r, c] = this.shape;
   const { data: d1, length: l1 } = this;
 
-  augment.call(this, eye.call(copy.call(this), r));
-  console.log(d1, this.data);
-  gauss.call(this);
+  const identity: T = this.copy().eye(r) as T;
+  const echelon: T = this.copy().augment(identity).gauss() as T;
 
   const d2: TypedArray = new this.type(l1);
 
   let i: number;
   let j: number;
   for (i = 0; i < r; i += 1) {
-    for (j = 0; j < c; j += 1) {
-      d2[i * c + j] = d1[i * c + j];
+    for (j = 0; j < c + r; j += 1) {
+      if (j < c) {
+      } else {
+        d2[i * c + j - r] = d1[i * c + j];
+      }
     }
   }
 

@@ -1,11 +1,9 @@
-import { INDArray } from '../types';
-
-import { swap } from './swap';
+import { IMatrix } from '../types';
 
 /**
  * Performs LU factorization on current matrix.
  */
-export function plu<T extends INDArray>(this: T): [T, Int32Array] {
+export function plu<T extends IMatrix>(this: T): [T, Int32Array] {
   const { data: d1 } = this;
   const [n] = this.shape;
   const ipiv: Int32Array = new Int32Array(n);
@@ -32,7 +30,7 @@ export function plu<T extends INDArray>(this: T): [T, Int32Array] {
     ipiv[k] = p;
 
     if (p !== k) {
-      swap.call(this, k, p);
+      this.swap(k, p);
     }
 
     diag = d1[k * n + k];

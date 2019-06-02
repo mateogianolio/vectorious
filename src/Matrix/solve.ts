@@ -1,13 +1,10 @@
-import { INDArray } from '../types';
-
-import { plu } from './plu';
-import { swap } from './swap';
+import { IMatrix } from '../types';
 
 /**
  * Solves an LU factorized matrix with the supplied right hand side(s)
  */
-export function solve<T extends INDArray>(this: T, x: T): T {
-  const [PLU, ipiv] = plu.call(this);
+export function solve<T extends IMatrix>(this: T, x: T): T {
+  const [PLU, ipiv] = this.plu();
   const { data: d1 } = PLU;
   const { data: d2 } = x;
   const [n, nrhs] = x.shape;
@@ -18,7 +15,7 @@ export function solve<T extends INDArray>(this: T, x: T): T {
 
   for (i = 0; i < ipiv.length; i += 1) {
     if (i !== ipiv[i]) {
-      swap.call(x, i, ipiv[i]);
+      x.swap(i, ipiv[i]);
     }
   }
 

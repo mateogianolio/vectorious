@@ -1,12 +1,10 @@
-import { INDArray } from '../types';
-
-import { gauss } from './gauss';
+import { IMatrix } from '../types';
 
 /**
  * Finds the rank of the matrix using gaussian elimination.
  */
-export function rank<T extends INDArray>(this: T): number {
-  gauss.call(this);
+export function rank<T extends IMatrix>(this: T): number {
+  this.gauss();
 
   const { data: d1 } = this;
   const [r, c] = this.shape;

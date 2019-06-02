@@ -1,9 +1,9 @@
-import { INDArray } from '../types';
+import { IMatrix } from '../types';
 
 /**
  * Gets the trace of the matrix (the sum of all diagonal elements).
  */
-export function trace<T extends INDArray>(this: T): number {
+export function trace<T extends IMatrix>(this: T): number {
   const { data: d1 } = this;
   const c: number = this.shape[1];
 
