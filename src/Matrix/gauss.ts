@@ -1,7 +1,7 @@
 import { IMatrix } from '../types';
 
 /**
- * Performs Gaussian elimination on current matrix.
+ * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.
  */
 export function gauss<T extends IMatrix>(this: T): T {
   const { data: d1 } = this;
@@ -16,7 +16,7 @@ export function gauss<T extends IMatrix>(this: T): T {
   let k: number;
   for (i = 0; i < r; i += 1) {
     if (c <= lead) {
-      throw new Error('matrix is singular');
+      return this;
     }
 
     j = i;
@@ -27,7 +27,7 @@ export function gauss<T extends IMatrix>(this: T): T {
         lead += 1;
 
         if (c === lead) {
-          throw new Error('matrix is singular');
+          return this;
         }
       }
     }

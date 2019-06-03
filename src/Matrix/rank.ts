@@ -12,9 +12,10 @@ export function rank<T extends IMatrix>(this: T): number {
   let rk: number = 0;
   let i: number;
   let j: number;
+
   for (i = 0; i < r; i += 1) {
     for (j = i; j < c; j += 1) {
-      if (d1[i * c + j] !== 0) {
+      if (rk <= i && d1[i * c + j] !== 0) {
         rk += 1;
         continue;
       }

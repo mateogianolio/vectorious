@@ -37,26 +37,11 @@ export interface IMatrix extends INDArray {
   augment(x: IMatrix): IMatrix;
   check(r: number, c: number): void;
   copy(): IMatrix;
-  det(): number;
-  determinant(): number;
-  diag(): IMatrix;
-  diagonal(): IMatrix;
+  equals(x: IMatrix): boolean;
   eye(size: number): IMatrix;
   gauss(): IMatrix;
-  inv(): IMatrix;
-  inverse(): IMatrix;
-  lu(): [IMatrix, IMatrix, Int32Array];
-  mul(x: IMatrix): IMatrix;
-  multiply(x: IMatrix): IMatrix;
   plu(): [IMatrix, Int32Array];
-  rank(): number;
-  rk(): number;
-  rowAdd(dest: number, source: number, scalar?: number): IMatrix;
-  solve(x: IMatrix): IMatrix;
+  scale(scalar: number): IMatrix;
   square(): void;
   swap(i: number, j: number): IMatrix;
-  toArray(): number[][];
-  toString(): string;
-  trace(): number;
-  transpose(): IMatrix;
 }

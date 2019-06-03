@@ -145,14 +145,6 @@ describe('Matrix.prototype', () => {
 
       deepStrictEqual(y, x.gauss());
     });
-
-    it('should throw error if matrix is singular', () => {
-      const x: Matrix = new Matrix([[0, 0], [0, 1]]);
-      const y: Matrix = new Matrix([[1, 0], [0, 0]]);
-
-      throws(() => { x.gauss(); }, Error);
-      throws(() => { y.gauss(); }, Error);
-    });
   });
 
   describe('.lu()', () => {

@@ -194,6 +194,7 @@ export class Matrix extends NDArray implements IMatrix {
   public rank: typeof rank = rank;
   public rk: typeof rank = rank;
   public rowAdd: typeof rowAdd = rowAdd;
+  public rref: typeof gauss = gauss;
   public solve: typeof solve = solve;
   public square: typeof square = square;
   public swap: typeof swap = swap;
