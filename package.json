@@ -78,7 +78,7 @@
     "ts-node": "^8.0.3",
     "tsify": "^4.0.1",
     "tslint": "^5.14.0",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.15.0",
     "typescript": "^3.3.4000",
     "vinyl-source-stream": "^2.0.0"
   },
