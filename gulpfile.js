@@ -23,9 +23,13 @@
         mode: 'file',
         out: 'docs/',
         name: 'Vectorious',
-        theme: 'default',
         readme: 'none',
-        hideGenerator: true
+        hideGenerator: true,
+        ignoreCompilerErrors: true,
+        disableOutputCheck: true,
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeNotExported: true
       }))
   });
 

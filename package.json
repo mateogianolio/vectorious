@@ -85,5 +85,6 @@
   },
   "optionalDependencies": {
     "nblas": "^2.1.5"
-  }
+  },
+  "dependencies": {}
 }
