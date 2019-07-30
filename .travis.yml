@@ -3,6 +3,8 @@ node_js:
   - "lts/*"
 before_install:
   - sudo apt-get install libblas-dev
+install:
+  - npm install
 env:
   global:
     - CXX=g++-4.8
