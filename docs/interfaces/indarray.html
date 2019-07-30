@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;NDArray/check&quot; | vectorious</title>
+	<title>INDArray | Vectorious</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">vectorious</a>
+					<a href="../index.html" class="title">Vectorious</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -53,70 +53,100 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="_ndarray_check_.html">&quot;NDArray/check&quot;</a>
+					<a href="indarray.html">INDArray</a>
 				</li>
 			</ul>
-			<h1>External module &quot;NDArray/check&quot;</h1>
+			<h1>Interface INDArray</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">INDArray</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="ivector.html" class="tsd-signature-type">IVector</a>
+							</li>
+							<li>
+								<a href="imatrix.html" class="tsd-signature-type">IMatrix</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/matrix.html" class="tsd-signature-type">Matrix</a></li>
+					<li><a href="../classes/ndarray.html" class="tsd-signature-type">NDArray</a></li>
+					<li><a href="../classes/vector.html" class="tsd-signature-type">Vector</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_ndarray_check_.html#check" class="tsd-kind-icon">check</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#shape" class="tsd-kind-icon">shape</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-					<a name="check" class="tsd-anchor"></a>
-					<h3>check</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">check&lt;T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, <span class="tsd-signature-symbol">...</span>indices<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/a97d1d2/src/NDArray/check.ts#L6">NDArray/check.ts:6</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Asserts if indices <code>i, j, ..., n</code> are within the bounds of current array</p>
-								</div>
-							</div>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/_types_.indarray.html" class="tsd-signature-type">INDArray</a></h4>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>this: <span class="tsd-signature-type">T</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>indices: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="data" class="tsd-anchor"></a>
+					<h3>data</h3>
+					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../index.html#typedarray" class="tsd-signature-type">TypedArray</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/f68addb/src/types.ts#L24">types.ts:24</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="length" class="tsd-anchor"></a>
+					<h3>length</h3>
+					<div class="tsd-signature tsd-kind-icon">length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/f68addb/src/types.ts#L25">types.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="shape" class="tsd-anchor"></a>
+					<h3>shape</h3>
+					<div class="tsd-signature tsd-kind-icon">shape<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/f68addb/src/types.ts#L26">types.ts:26</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="type" class="tsd-anchor"></a>
+					<h3>type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../index.html#typedarrayconstructor" class="tsd-signature-type">TypedArrayConstructor</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/f68addb/src/types.ts#L27">types.ts:27</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -124,24 +154,39 @@
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
-					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="_ndarray_check_.html">"NDArray/check"</a>
+						<a href="../index.html"><em>Globals</em></a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_ndarray_check_.html#check" class="tsd-kind-icon">check</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="indarray.html" class="tsd-kind-icon">INDArray</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="indarray.html#data" class="tsd-kind-icon">data</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="indarray.html#length" class="tsd-kind-icon">length</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="indarray.html#shape" class="tsd-kind-icon">shape</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="indarray.html#type" class="tsd-kind-icon">type</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 				</ul>
 			</nav>
 		</div>
 	</div>
 </div>
-<footer class="with-border-bottom">
+<footer>
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
@@ -201,9 +246,6 @@
 		</div>
 	</div>
 </footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
 <script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>

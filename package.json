@@ -9,7 +9,7 @@
     "test": "npm run test:node && npm run test:browser",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
     "benchmark": "ts-node ./src/NDArray/index.bench.ts && ts-node ./src/Vector/index.bench.ts && ts-node ./src/Matrix/index.bench.ts",
-    "docs": "typedoc --out docs --exclude \"**/*+(index|bench|.spec|.bench).ts\" --target es6 src && touch docs/.nojekyll",
+    "docs": "gulp typedoc && touch docs/.nojekyll",
     "build": "gulp clean && gulp build && tsc"
   },
   "browser": {
@@ -69,6 +69,7 @@
     "del": "5.0.0",
     "gulp": "^4.0.2",
     "gulp-streamify": "^1.0.2",
+    "gulp-typedoc": "^2.2.2",
     "gulp-uglify": "^3.0.2",
     "matplotnode": "^0.4.0",
     "mocha": "^6.2.0",
