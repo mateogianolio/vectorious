@@ -15,8 +15,7 @@
 
   gulp.task('build', function () {
     var files = [
-      'src/Vector.ts',
-      'src/Matrix.ts'
+      'src/index.ts'
     ];
 
     return browserify({ entries: files })

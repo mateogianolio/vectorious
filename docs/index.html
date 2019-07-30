@@ -69,9 +69,13 @@
 				<blockquote>
 					<p>A linear algebra library, written in TypeScript and accelerated with C++ bindings to <a href="http://www.netlib.org/blas/">BLAS</a>.</p>
 				</blockquote>
-				<h3 id="usage">Usage</h3>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h3>Usage</h3>
+				</a>
 				<p><a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/mateogianolio/vectorious.svg" alt="greenkeeper"></a></p>
-				<h5 id="in-node-js">In node.js</h5>
+				<a href="#in-nodejs" id="in-nodejs" style="color: inherit; text-decoration: none;">
+					<h5>In node.js</h5>
+				</a>
 				<pre><code class="language-bash"><span class="hljs-comment"># with BLAS bindings</span>
 $ npm install vectorious
 
@@ -118,11 +122,13 @@ NDArray {
 					<li><strong>Debian/Ubuntu</strong> - different options, easiest is to <code>apt-get install libblas-dev</code></li>
 					<li><strong>Windows</strong> - <a href="https://icl.cs.utk.edu/lapack-for-windows/">https://icl.cs.utk.edu/lapack-for-windows/</a></li>
 				</ul>
-				<h5 id="in-browser">In browser</h5>
+				<a href="#in-browser" id="in-browser" style="color: inherit; text-decoration: none;">
+					<h5>In browser</h5>
+				</a>
 				<p>Download a <a href="https://github.com/mateogianolio/vectorious/releases"><strong>release</strong></a> and use it like this:</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"vectorious.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"vectorious.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<p>Or if you prefer to use a CDN:</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/vectorious/5.3.1/vectorious.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/vectorious/5.3.1/vectorious.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   <span class="hljs-keyword">var</span> A = <span class="hljs-keyword">new</span> Matrix([[<span class="hljs-number">1</span>], [<span class="hljs-number">2</span>], [<span class="hljs-number">3</span>]]),
       B = <span class="hljs-keyword">new</span> Matrix([[<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>]]),
@@ -135,7 +141,9 @@ NDArray {
     [3, 9, 15]
   ] */</span>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-				<h3 id="examples">Examples</h3>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h3>Examples</h3>
+				</a>
 				<p><strong>Basic</strong></p>
 				<ul>
 					<li><a href="https://github.com/mateogianolio/vectorious/tree/master/examples/solve.js"><strong>Solving linear systems of equations</strong></a></li>
@@ -146,42 +154,130 @@ NDArray {
 					<li><a href="https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js"><strong>Neural network</strong></a> (by <a href="https://github.com/lucidrains">@lucidrains</a>)</li>
 					<li><a href="https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.js"><strong>Logistic regression</strong></a></li>
 				</ul>
-				<h3 id="documentation">Documentation</h3>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h3>Documentation</h3>
+				</a>
 				<p>The documentation is located in the wiki section of this repository.</p>
 				<p><a href="https://github.com/mateogianolio/vectorious/wiki"><strong>Go to wiki.</strong></a></p>
-				<h3 id="benchmarks">Benchmarks</h3>
+				<a href="#benchmarks" id="benchmarks" style="color: inherit; text-decoration: none;">
+					<h3>Benchmarks</h3>
+				</a>
 				<p>Benchmarks are performed using <code>Float32Array</code> of size <code>n</code> (matrices are sized <code>sqrt(n) x sqrt(n)</code>).</p>
-				<h4 id="specs">Specs</h4>
-				<pre><code><span class="hljs-attr">Macbook</span> <span class="hljs-string">Pro Early '15</span>
-<span class="hljs-attr">Processor</span>: <span class="hljs-string">2,7 GHz Intel Core i5</span>
-<span class="hljs-attr">Memory</span>: <span class="hljs-string">8 GB 1867 MHz DDR3</span>
-<span class="hljs-attr">GPU</span>: <span class="hljs-string">Intel Iris Graphics 6100 1536 MB</span></code></pre><h4 id="results">Results</h4>
-				<p>| Matrix |  |  |
-					|---------|--------|--------|
-					| <img src="benchmarks/Matrix/add.png" alt="add"> | <img src="benchmarks/Matrix/augment.png" alt="augment"> | <img src="benchmarks/Matrix/binOp.png" alt="binOp"> |
-					| <img src="benchmarks/Matrix/determinant.png" alt="determinant"> | <img src="benchmarks/Matrix/diag.png" alt="diag"> | <img src="benchmarks/Matrix/gauss.png" alt="gauss"> |
-					| <img src="benchmarks/Matrix/inverse.png" alt="inverse"> | <img src="benchmarks/Matrix/lu.png" alt="lu"> | <img src="benchmarks/Matrix/multiply.png" alt="multiply"> |
-					| <img src="benchmarks/Matrix/plu.png" alt="plu"> | <img src="benchmarks/Matrix/product.png" alt="product"> | <img src="benchmarks/Matrix/rank.png" alt="rank"> |
-					| <img src="benchmarks/Matrix/rowAdd.png" alt="rowAdd"> | <img src="benchmarks/Matrix/scale.png" alt="scale"> | <img src="benchmarks/Matrix/solve.png" alt="solve"> |
-					| <img src="benchmarks/Matrix/subtract.png" alt="subtract"> | <img src="benchmarks/Matrix/swap.png" alt="swap"> | <img src="benchmarks/Matrix/trace.png" alt="trace"> |
-				| <img src="benchmarks/Matrix/transpose.png" alt="transpose"> | | |</p>
-				<p>| Vector |  |  |
-					|---------|--------|--------|
-					| <img src="benchmarks/Vector/add.png" alt="add"> | <img src="benchmarks/Vector/angle.png" alt="angle"> | <img src="benchmarks/Vector/binOp.png" alt="binOp"> |
-					| <img src="benchmarks/Vector/combine.png" alt="combine"> | <img src="benchmarks/Vector/dot.png" alt="dot"> | <img src="benchmarks/Vector/normalize.png" alt="normalize"> |
-				| <img src="benchmarks/Vector/project.png" alt="project"> | <img src="benchmarks/Vector/scale.png" alt="scale"> | <img src="benchmarks/Vector/subtract.png" alt="subtract"> |</p>
-				<p>| NDArray |  |  |
-					|---------|--------|--------|
-					| <img src="benchmarks/NDArray/add.png" alt="add"> | <img src="benchmarks/NDArray/copy.png" alt="copy"> | <img src="benchmarks/NDArray/dot.png" alt="dot"> |
-					| <img src="benchmarks/NDArray/magnitude.png" alt="magnitude"> | <img src="benchmarks/NDArray/max.png" alt="max"> | <img src="benchmarks/NDArray/min.png" alt="min"> |
-				| <img src="benchmarks/NDArray/product.png" alt="product"> | <img src="benchmarks/NDArray/scale.png" alt="scale"> | <img src="benchmarks/NDArray/subtract.png" alt="subtract"> |</p>
-				<h2 id="contributors">Contributors</h2>
+				<a href="#specs" id="specs" style="color: inherit; text-decoration: none;">
+					<h4>Specs</h4>
+				</a>
+				<pre><code>Macbook Pro Early '15
+Processor: 2,7 GHz Intel Core i5
+Memory: 8 GB <span class="hljs-number">1867</span> MHz DDR3
+GPU: Intel Iris Graphics <span class="hljs-number">6100</span> <span class="hljs-number">1536</span> MB</code></pre>
+				<a href="#results" id="results" style="color: inherit; text-decoration: none;">
+					<h4>Results</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Matrix</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><img src="benchmarks/Matrix/add.png" alt="add"></td>
+							<td><img src="benchmarks/Matrix/augment.png" alt="augment"></td>
+							<td><img src="benchmarks/Matrix/binOp.png" alt="binOp"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Matrix/determinant.png" alt="determinant"></td>
+							<td><img src="benchmarks/Matrix/diag.png" alt="diag"></td>
+							<td><img src="benchmarks/Matrix/gauss.png" alt="gauss"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Matrix/inverse.png" alt="inverse"></td>
+							<td><img src="benchmarks/Matrix/lu.png" alt="lu"></td>
+							<td><img src="benchmarks/Matrix/multiply.png" alt="multiply"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Matrix/plu.png" alt="plu"></td>
+							<td><img src="benchmarks/Matrix/product.png" alt="product"></td>
+							<td><img src="benchmarks/Matrix/rank.png" alt="rank"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Matrix/rowAdd.png" alt="rowAdd"></td>
+							<td><img src="benchmarks/Matrix/scale.png" alt="scale"></td>
+							<td><img src="benchmarks/Matrix/solve.png" alt="solve"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Matrix/subtract.png" alt="subtract"></td>
+							<td><img src="benchmarks/Matrix/swap.png" alt="swap"></td>
+							<td><img src="benchmarks/Matrix/trace.png" alt="trace"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Matrix/transpose.png" alt="transpose"></td>
+							<td></td>
+							<td></td>
+						</tr>
+				</tbody></table>
+				<table>
+					<thead>
+						<tr>
+							<th>Vector</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><img src="benchmarks/Vector/add.png" alt="add"></td>
+							<td><img src="benchmarks/Vector/angle.png" alt="angle"></td>
+							<td><img src="benchmarks/Vector/binOp.png" alt="binOp"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Vector/combine.png" alt="combine"></td>
+							<td><img src="benchmarks/Vector/dot.png" alt="dot"></td>
+							<td><img src="benchmarks/Vector/normalize.png" alt="normalize"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/Vector/project.png" alt="project"></td>
+							<td><img src="benchmarks/Vector/scale.png" alt="scale"></td>
+							<td><img src="benchmarks/Vector/subtract.png" alt="subtract"></td>
+						</tr>
+				</tbody></table>
+				<table>
+					<thead>
+						<tr>
+							<th>NDArray</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><img src="benchmarks/NDArray/add.png" alt="add"></td>
+							<td><img src="benchmarks/NDArray/copy.png" alt="copy"></td>
+							<td><img src="benchmarks/NDArray/dot.png" alt="dot"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/NDArray/magnitude.png" alt="magnitude"></td>
+							<td><img src="benchmarks/NDArray/max.png" alt="max"></td>
+							<td><img src="benchmarks/NDArray/min.png" alt="min"></td>
+						</tr>
+						<tr>
+							<td><img src="benchmarks/NDArray/product.png" alt="product"></td>
+							<td><img src="benchmarks/NDArray/scale.png" alt="scale"></td>
+							<td><img src="benchmarks/NDArray/subtract.png" alt="subtract"></td>
+						</tr>
+				</tbody></table>
+				<a href="#contributors" id="contributors" style="color: inherit; text-decoration: none;">
+					<h2>Contributors</h2>
+				</a>
 				<p>This project exists thanks to all the people who contribute. [<a href="CONTRIBUTING.md">Contribute</a>].
 				<a href="https://github.com/mateogianolio/vectorious/graphs/contributors"><img src="https://opencollective.com/vectorious/contributors.svg?width=890&button=false" /></a></p>
-				<h2 id="backers">Backers</h2>
+				<a href="#backers" id="backers" style="color: inherit; text-decoration: none;">
+					<h2>Backers</h2>
+				</a>
 				<p>Thank you to all our backers! 🙏 [<a href="https://opencollective.com/vectorious#backer">Become a backer</a>]</p>
 				<p><a href="https://opencollective.com/vectorious#backers" target="_blank"><img src="https://opencollective.com/vectorious/backers.svg?width=890"></a></p>
-				<h2 id="sponsors">Sponsors</h2>
+				<a href="#sponsors" id="sponsors" style="color: inherit; text-decoration: none;">
+					<h2>Sponsors</h2>
+				</a>
 				<p>Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [<a href="https://opencollective.com/vectorious#sponsor">Become a sponsor</a>]</p>
 				<p><a href="https://opencollective.com/vectorious/sponsor/0/website" target="_blank"><img src="https://opencollective.com/vectorious/sponsor/0/avatar.svg"></a>
 					<a href="https://opencollective.com/vectorious/sponsor/1/website" target="_blank"><img src="https://opencollective.com/vectorious/sponsor/1/avatar.svg"></a>
@@ -202,13 +298,229 @@ NDArray {
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_matrix_.html">"<wbr>Matrix"</a>
+						<a href="modules/_matrix_augment_.html">"<wbr>Matrix/augment"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_ndarray_.html">"NDArray"</a>
+						<a href="modules/_matrix_determinant_.html">"<wbr>Matrix/determinant"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_vector_.html">"<wbr>Vector"</a>
+						<a href="modules/_matrix_diagonal_.html">"<wbr>Matrix/diagonal"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_gauss_.html">"<wbr>Matrix/gauss"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_inverse_.html">"<wbr>Matrix/inverse"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_lu_.html">"<wbr>Matrix/lu"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_multiply_.html">"<wbr>Matrix/multiply"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_plu_.html">"<wbr>Matrix/plu"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_rank_.html">"<wbr>Matrix/rank"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_rowadd_.html">"<wbr>Matrix/row<wbr>Add"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_solve_.html">"<wbr>Matrix/solve"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_square_.html">"<wbr>Matrix/square"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_swap_.html">"<wbr>Matrix/swap"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_toarray_.html">"<wbr>Matrix/to<wbr>Array"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_tostring_.html">"<wbr>Matrix/to<wbr>String"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_trace_.html">"<wbr>Matrix/trace"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_matrix_transpose_.html">"<wbr>Matrix/transpose"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_abs_.html">"NDArray/abs"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_acos_.html">"NDArray/acos"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_acosh_.html">"NDArray/acosh"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_add_.html">"NDArray/add"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_asin_.html">"NDArray/asin"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_asinh_.html">"NDArray/asinh"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_atan_.html">"NDArray/atan"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_atanh_.html">"NDArray/atanh"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_binop_.html">"NDArray/bin<wbr>Op"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_cbrt_.html">"NDArray/cbrt"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_ceil_.html">"NDArray/ceil"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_check_.html">"NDArray/check"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_copy_.html">"NDArray/copy"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_cos_.html">"NDArray/cos"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_cosh_.html">"NDArray/cosh"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_dot_.html">"NDArray/dot"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_each_.html">"NDArray/each"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_equals_.html">"NDArray/equals"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_equidimensional_.html">"NDArray/equidimensional"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_equilateral_.html">"NDArray/equilateral"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_exp_.html">"NDArray/exp"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_expm1_.html">"NDArray/expm1"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_eye_.html">"NDArray/eye"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_fill_.html">"NDArray/fill"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_floor_.html">"NDArray/floor"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_fround_.html">"NDArray/fround"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_get_.html">"NDArray/get"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_log_.html">"NDArray/log"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_log10_.html">"NDArray/log10"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_log1p_.html">"NDArray/log1p"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_log2_.html">"NDArray/log2"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_magnitude_.html">"NDArray/magnitude"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_map_.html">"NDArray/map"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_max_.html">"NDArray/max"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_min_.html">"NDArray/min"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_pow_.html">"NDArray/pow"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_product_.html">"NDArray/product"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_reduce_.html">"NDArray/reduce"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_reshape_.html">"NDArray/reshape"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_round_.html">"NDArray/round"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_scale_.html">"NDArray/scale"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_set_.html">"NDArray/set"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_sign_.html">"NDArray/sign"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_sin_.html">"NDArray/sin"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_sinh_.html">"NDArray/sinh"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_sqrt_.html">"NDArray/sqrt"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_subtract_.html">"NDArray/subtract"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_tan_.html">"NDArray/tan"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_tanh_.html">"NDArray/tanh"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_ndarray_trunc_.html">"NDArray/trunc"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_angle_.html">"<wbr>Vector/angle"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_combine_.html">"<wbr>Vector/combine"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_cross_.html">"<wbr>Vector/cross"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_normalize_.html">"<wbr>Vector/normalize"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_project_.html">"<wbr>Vector/project"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_push_.html">"<wbr>Vector/push"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_toarray_.html">"<wbr>Vector/to<wbr>Array"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_vector_tostring_.html">"<wbr>Vector/to<wbr>String"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_types_.html">"types"</a>
@@ -237,6 +549,7 @@ NDArray {
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -285,7 +598,7 @@ NDArray {
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>

@@ -8,7 +8,7 @@
     "test:browser": "mochify --plugin tsify \"./src/**/*.spec.ts\"",
     "test": "npm run test:node && npm run test:browser",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
-    "benchmark": "ts-node ./src/NDArray.bench.ts && ts-node ./src/Vector.bench.ts && ts-node ./src/Matrix.bench.ts",
+    "benchmark": "ts-node ./src/NDArray/index.bench.ts && ts-node ./src/Vector/index.bench.ts && ts-node ./src/Matrix/index.bench.ts",
     "docs": "typedoc --out docs --exclude \"**/*+(index|bench|.spec|.bench).ts\" --target es6 src && touch docs/.nojekyll",
     "build": "gulp clean && gulp build && tsc"
   },
@@ -62,27 +62,27 @@
   },
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
-    "@types/mocha": "^5.2.6",
-    "@types/node": "^12.0.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.6.8",
     "benchmark": "^2.1.4",
-    "browserify": "^16.2.3",
-    "del": "4.1.1",
-    "gulp": "^4.0.0",
+    "browserify": "^16.3.0",
+    "del": "5.0.0",
+    "gulp": "^4.0.2",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.2",
-    "matplotnode": "^0.3.0",
-    "mocha": "^6.0.2",
-    "mochify": "^6.1.1",
+    "matplotnode": "^0.4.0",
+    "mocha": "^6.2.0",
+    "mochify": "^6.3.0",
     "nodemark": "^0.3.0",
-    "nyc": "^14.0.0",
-    "ts-node": "^8.0.3",
+    "nyc": "^14.1.1",
+    "ts-node": "^8.3.0",
     "tsify": "^4.0.1",
-    "tslint": "^5.14.0",
-    "typedoc": "^0.14.2",
-    "typescript": "^3.3.4000",
+    "tslint": "^5.18.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.5.3",
     "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
-    "nblas": "^2.1.2"
+    "nblas": "^2.1.5"
   }
 }
