@@ -71,7 +71,7 @@
     "gulp-streamify": "^1.0.2",
     "gulp-typedoc": "^2.2.2",
     "gulp-uglify": "^3.0.2",
-    "matplotnode": "^0.4.0",
+    "matplotnode": "^0.4.1",
     "mocha": "^6.2.0",
     "mochify": "^6.3.0",
     "nodemark": "^0.3.0",
