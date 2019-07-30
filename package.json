@@ -29,9 +29,10 @@
       "docs/**",
       "examples/**",
       "coverage/**",
-      "src/*.spec.ts",
-      "src/*.bench.ts",
-      "src/util.ts"
+      "src/**/*.spec.ts",
+      "src/**/*.bench.ts",
+      "src/util.ts",
+      "src/bench.ts"
     ],
     "reporter": [
       "lcov"
