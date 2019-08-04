@@ -1,6 +1,8 @@
 import { Matrix } from './';
 
-function maxElem<T extends Matrix>(x: T): [number, number, number] {
+const maxElem:
+  <T extends Matrix>(x: T) => number[] =
+  <T extends Matrix>(x: T): [number, number, number] => {
   const [n] = x.shape;
 
   let max: number = 0;
@@ -20,9 +22,11 @@ function maxElem<T extends Matrix>(x: T): [number, number, number] {
   }
 
   return [max, k, l];
-}
+};
 
-function rotate<T extends Matrix>(x: T, p: T, i: number, j: number): void {
+const rotate:
+  <T extends Matrix>(x: T, p: T, i: number, j: number) => void =
+  <T extends Matrix>(x: T, p: T, i: number, j: number): void => {
   const [n] = x.shape;
   const xDiff: number = x.get(j, j);
 
@@ -67,7 +71,7 @@ function rotate<T extends Matrix>(x: T, p: T, i: number, j: number): void {
     p.set(k, i, temp - s * (p.get(k, j) + tau * p.get(k, i)));
     p.set(k, j, p.get(k, j) + s * (temp - tau * p.get(k, j)));
   }
-}
+};
 
 Matrix.jacobi = <T extends Matrix>(x: T): [T, T] => x.copy().jacobi();
 
@@ -75,11 +79,10 @@ Matrix.prototype.jacobi = function<T extends Matrix>(this: T): [T, T] {
   this.square();
 
   const [n] = this.shape;
-  const maxRot: number = (n * n) * 5;
   const p: T = Matrix.eye(n);
 
   let i: number;
-  for (i = 0; i < maxRot; i += 1) {
+  for (i = 0; i < (n * n) * 5; i += 1) {
     const [max, j, k] = maxElem(this);
     if (max < 1e-9) {
       return [this.diagonal(), p];
