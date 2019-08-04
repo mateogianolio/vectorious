@@ -8,6 +8,7 @@ export class Matrix extends NDArray {
   public static gauss: <T extends Matrix>(x: T) => T;
   public static identity: <T extends Matrix>(size: number) => T;
   public static inverse: <T extends Matrix>(x: T) => T;
+  public static jacobi: <T extends Matrix>(x: T) => [T, T];
   public static lu: <T extends Matrix>(x: T) => [T, T, Int32Array];
   public static magic: <T extends Matrix>(size: number, type?: TypedArrayConstructor) => T;
   public static multiply: <T extends Matrix>(x: T, y: T) => T;
@@ -27,6 +28,7 @@ export class Matrix extends NDArray {
   public diagonal!: () => this;
   public gauss!: () => this;
   public inverse!: () => this;
+  public jacobi!: <T extends Matrix>() => [T, T];
   public lu!: <T extends Matrix>() => [T, T, Int32Array];
   public multiply!: <T extends Matrix>(x: T) => this;
   public plu!: () => [this, Int32Array];
@@ -61,6 +63,7 @@ import './determinant';
 import './diagonal';
 import './gauss';
 import './inverse';
+import './jacobi';
 import './lu';
 import './magic';
 import './multiply';
