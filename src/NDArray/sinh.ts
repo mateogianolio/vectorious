@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
 /**
  * Returns the hyperbolic sine of each element of current array.
  */
-export function sinh<T extends INDArray>(this: T): T {
+NDArray.sinh = <T extends NDArray>(x: T): T => x.copy().sinh();
+
+/**
+ * Returns the hyperbolic sine of each element of current array.
+ */
+NDArray.prototype.sinh = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function sinh<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

@@ -11,10 +11,10 @@
       typedoc = require('gulp-typedoc');
 
   gulp.task('clean', function () {
-    return del(['dist']);
+    return del(['built', 'dist', 'docs']);
   });
 
-  gulp.task('typedoc', function () {
+  gulp.task('docs', function () {
     return gulp
       .src(['src/**/*.ts'])
       .pipe(typedoc({
@@ -24,6 +24,8 @@
         out: 'docs/',
         name: 'Vectorious',
         readme: 'none',
+        theme: 'markdown',
+        platform: 'markdown',
         hideGenerator: true,
         ignoreCompilerErrors: true,
         disableOutputCheck: true,
@@ -34,11 +36,7 @@
   });
 
   gulp.task('build', function () {
-    var files = [
-      'src/index.ts'
-    ];
-
-    return browserify({ entries: files })
+    return browserify({ entries: ['src/index.ts'] })
       .ignore('nblas')
       .plugin(tsify)
       .bundle()

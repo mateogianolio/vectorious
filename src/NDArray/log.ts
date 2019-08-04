@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the natural logarithm (log_e, also ln) of each element of `x`.
+ */
+NDArray.log = <T extends NDArray>(x: T): T => x.copy().log();
 
 /**
  * Returns the natural logarithm (log_e, also ln) of each element of current array.
  */
-export function log<T extends INDArray>(this: T): T {
+NDArray.prototype.log = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function log<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

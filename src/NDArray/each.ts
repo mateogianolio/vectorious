@@ -1,10 +1,18 @@
-import { INDArray, TypedArray } from '../types';
+import { TypedArray } from '../types';
+
+import { NDArray } from './';
 
 /**
  * Functional version of for-looping the vector, is equivalent
  * to `Array.prototype.forEach`.
  */
-export function each<T extends INDArray>(
+NDArray.each = <T extends NDArray>(x: T, f: (value: number, i: number, src: TypedArray) => void): T => x.each(f);
+
+/**
+ * Functional version of for-looping the vector, is equivalent
+ * to `Array.prototype.forEach`.
+ */
+NDArray.prototype.each = function<T extends NDArray>(
   this: T,
   f: (value: number, i: number, src: TypedArray) => void
 ): T {
@@ -15,4 +23,4 @@ export function each<T extends INDArray>(
   }
 
   return this;
-}
+};

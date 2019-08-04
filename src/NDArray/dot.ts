@@ -1,7 +1,4 @@
-import { INDArray } from '../types';
-
-import { equidimensional } from './equidimensional';
-import { equilateral } from './equilateral';
+import { NDArray } from './';
 
 let nblas: any;
 try {
@@ -9,11 +6,16 @@ try {
 } catch (err) {}
 
 /**
- * Performs dot multiplication with `x`
+ * Performs dot multiplication with `x` and `y`
  */
-export function dot<T extends INDArray>(this: T, x: T): number {
-  equilateral.call(this, x);
-  equidimensional.call(this, x);
+NDArray.dot = <T extends NDArray>(x: T, y: T): number => x.dot(y);
+
+/**
+ * Performs dot multiplication with `x` and current array
+ */
+NDArray.prototype.dot = function<T extends NDArray>(this: T, x: T): number {
+  this.equilateral(x);
+  this.equidimensional(x);
 
   const { data: d1, length: l1 } = this;
   const { data: d2 } = x;
@@ -30,4 +32,4 @@ export function dot<T extends INDArray>(this: T, x: T): number {
 
     return result;
   }
-}
+};

@@ -1,15 +1,20 @@
-import { INDArray } from '../types';
-
-import { check } from './check';
+import { NDArray } from './';
 
 /**
  * Sets the element at `i, j, ..., n` to `value`.
  */
-export function set<T extends INDArray>(this: T, ...args: number[]): void {
+NDArray.set = <T extends NDArray>(x: T, ...args: number[]): void => {
+  x.set(...args);
+};
+
+/**
+ * Sets the element at `i, j, ..., n` to `value`.
+ */
+NDArray.prototype.set = function<T extends NDArray>(this: T, ...args: number[]): void {
   const indices: number[] = args.slice(0, -1);
   const value: number = args[args.length - 1];
 
-  check.call(this, ...indices);
+  this.check(...indices);
 
   const { shape: s1 } = this;
   let index: number = indices[indices.length - 1];
@@ -20,4 +25,4 @@ export function set<T extends INDArray>(this: T, ...args: number[]): void {
   }
 
   this.data[index] = value;
-}
+};

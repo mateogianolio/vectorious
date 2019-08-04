@@ -1,14 +1,16 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
-import { equidimensional } from './equidimensional';
-import { equilateral } from './equilateral';
+/**
+ * Checks if `x` and `y` are equal.
+ */
+NDArray.equals = <T extends NDArray>(x: T, y: T): boolean => x.equals(y);
 
 /**
  * Checks if current array and `x` are equal.
  */
-export function equals<T extends INDArray>(this: T, x: T): boolean {
-  equilateral.call(this, x);
-  equidimensional.call(this, x);
+NDArray.prototype.equals = function<T extends NDArray>(this: T, x: T): boolean {
+  this.equilateral(x);
+  this.equidimensional(x);
 
   const { data: d1, length: l1 } = this;
   const { data: d2 } = x;
@@ -21,4 +23,4 @@ export function equals<T extends INDArray>(this: T, x: T): boolean {
   }
 
   return true;
-}
+};

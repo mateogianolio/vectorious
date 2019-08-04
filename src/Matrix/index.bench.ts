@@ -1,4 +1,5 @@
 import { bench } from '../bench';
+
 import { Matrix } from './';
 
 const { floor, random, sqrt } = Math;
@@ -155,7 +156,7 @@ bench(
   'diag',
   (n: number): [Matrix] => [r(n)],
   (x: Matrix): void => {
-    x.diag();
+    x.diagonal();
   }
 );
 

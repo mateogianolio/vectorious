@@ -1,14 +1,16 @@
-import { INDArray } from '../types';
-
-import { equidimensional } from './equidimensional';
-import { equilateral } from './equilateral';
+import { NDArray } from './';
 
 /**
- * Hadamard product with `x`
+ * Hadamard product of `x` and `y`
  */
-export function product<T extends INDArray>(this: T, x: T): T {
-  equilateral.call(this, x);
-  equidimensional.call(this, x);
+NDArray.product = <T extends NDArray>(x: T, y: T): T => x.copy().product(y);
+
+/**
+ * Hadamard product of current matrix and `x`
+ */
+NDArray.prototype.product = function<T extends NDArray>(this: T, x: T): T {
+  this.equilateral(x);
+  this.equidimensional(x);
 
   const { data: d1, length: l1 } = this;
   const { data: d2 } = x;
@@ -19,4 +21,4 @@ export function product<T extends INDArray>(this: T, x: T): T {
   }
 
   return this;
-}
+};

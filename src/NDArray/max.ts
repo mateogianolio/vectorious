@@ -1,4 +1,4 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
 let nblas: any;
 try {
@@ -6,9 +6,14 @@ try {
 } catch (err) {}
 
 /**
+ * Gets the maximum value (largest) element of `x`.
+ */
+NDArray.max = <T extends NDArray>(x: T): number => x.max();
+
+/**
  * Gets the maximum value (largest) element of current array.
  */
-export function max<T extends INDArray>(this: T): number {
+NDArray.prototype.max = function<T extends NDArray>(this: T): number {
   const { data } = this;
   try {
     return data[nblas.iamax(data)];
@@ -23,4 +28,4 @@ export function max<T extends INDArray>(this: T): number {
 
     return result;
   }
-}
+};

@@ -1,4 +1,4 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
 let nblas: any;
 try {
@@ -6,9 +6,14 @@ try {
 } catch (err) {}
 
 /**
+ * Multiplies all elements of `x` with a specified `scalar`.
+ */
+NDArray.scale = <T extends NDArray>(x: T, scalar: number): T => x.copy().scale(scalar);
+
+/**
  * Multiplies all elements of current array with a specified `scalar`.
  */
-export function scale<T extends INDArray>(this: T, scalar: number): T {
+NDArray.prototype.scale = function<T extends NDArray>(this: T, scalar: number): T {
   const { data } = this;
 
   try {
@@ -23,4 +28,4 @@ export function scale<T extends INDArray>(this: T, scalar: number): T {
   }
 
   return this;
-}
+};

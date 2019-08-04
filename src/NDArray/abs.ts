@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the absolute value of each element of `x`.
+ */
+NDArray.abs = <T extends NDArray>(x: T): T => x.copy().abs();
 
 /**
  * Returns the absolute value of each element of current array.
  */
-export function abs<T extends INDArray>(this: T): T {
+NDArray.prototype.abs = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function abs<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

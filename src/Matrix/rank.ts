@@ -1,9 +1,14 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
 
 /**
  * Finds the rank of the matrix using gaussian elimination.
  */
-export function rank<T extends IMatrix>(this: T): number {
+Matrix.rank = <T extends Matrix>(x: T): number => x.rank();
+
+/**
+ * Finds the rank of the matrix using gaussian elimination.
+ */
+Matrix.prototype.rank = function<T extends Matrix>(this: T): number {
   this.gauss();
 
   const { data: d1 } = this;
@@ -23,4 +28,4 @@ export function rank<T extends IMatrix>(this: T): number {
   }
 
   return rk;
-}
+};

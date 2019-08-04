@@ -1,9 +1,16 @@
-import { IVector, TypedArray } from '../types';
+import { TypedArray } from '../types';
+
+import { Vector } from './';
+
+/**
+ * Combines the vector `x` with `y`
+ */
+Vector.combine = (x: Vector, y: Vector): Vector => x.copy().combine(y);
 
 /**
  * Combines the current vector with `x`
  */
-export function combine<T extends IVector>(this: T, x: T): T {
+Vector.prototype.combine = function<T extends Vector>(this: T, x: T): T {
   const { length: l1, data: d1 } = this;
   const { length: l2, data: d2 } = x;
 
@@ -30,4 +37,4 @@ export function combine<T extends IVector>(this: T, x: T): T {
   this.shape = [l3];
 
   return this;
-}
+};

@@ -1,24 +1,21 @@
-import { INDArray, TypedArray } from '../types';
+import { TypedArray } from '../types';
+
+import { NDArray } from './';
 
 /**
- * Replaces current array with identity matrix of size `n`.
+ * Creates an identity matrix of size `n` and type `type`.
  */
-export function eye<T extends INDArray>(this: T, n: number): T {
-  const { data: d1 } = this;
-  const l2: number = n * n;
-  const d2: TypedArray = new this.type(l2);
+NDArray.eye = function<T extends NDArray>(this: new(...args: any[]) => T, n: number): T {
+  const l1: number = n * n;
+  const d1: TypedArray = new Float32Array(l1);
 
   let i: number;
   let j: number;
   for (i = 0; i < n; i += 1) {
     for (j = 0; j < n; j += 1) {
-      d2[i * n + j] = i === j ? 1 : 0;
+      d1[i * n + j] = i === j ? 1 : 0;
     }
   }
 
-  d1.set(d2);
-  this.length = l2;
-  this.shape = [n, n];
-
-  return this;
-}
+  return new this(d1, { shape: [n, n] });
+};

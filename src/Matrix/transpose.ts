@@ -1,9 +1,16 @@
-import { IMatrix, TypedArray } from '../types';
+import { TypedArray } from '../types';
+
+import { Matrix } from './';
 
 /**
  * Transposes a matrix (mirror across the diagonal).
  */
-export function transpose<T extends IMatrix>(this: T): T {
+Matrix.transpose = <T extends Matrix>(x: T): T => x.copy().transpose();
+
+/**
+ * Transposes a matrix (mirror across the diagonal).
+ */
+Matrix.prototype.transpose = function<T extends Matrix>(this: T): T {
   const { data: d1 } = this;
   const [r, c] = this.shape;
   const d2: TypedArray = new this.type(c * r);
@@ -20,4 +27,4 @@ export function transpose<T extends IMatrix>(this: T): T {
   this.shape = [c, r];
 
   return this;
-}
+};

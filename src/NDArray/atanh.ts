@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the hyperbolic arctangent of each element of `x`.
+ */
+NDArray.atanh = <T extends NDArray>(x: T): T => x.copy().atanh();
 
 /**
  * Returns the hyperbolic arctangent of each element of current array.
  */
-export function atanh<T extends INDArray>(this: T): T {
+NDArray.prototype.atanh = function(): NDArray {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function atanh<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

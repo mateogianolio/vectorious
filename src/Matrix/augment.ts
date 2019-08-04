@@ -1,9 +1,16 @@
-import { IMatrix, TypedArray } from '../types';
+import { TypedArray } from '../types';
+
+import { Matrix } from './';
 
 /**
- * Augments `matrix` with current matrix.
+ * Augments `x` and `y`.
  */
-export function augment<T extends IMatrix>(this: T, x: T): T {
+Matrix.augment = <T extends Matrix>(x: T, y: T): T => x.copy().augment(y);
+
+/**
+ * Augments `x` with current matrix.
+ */
+Matrix.prototype.augment = function<T extends Matrix>(this: T, x: T): T {
   const [r1, c1] = this.shape;
   const [r2, c2] = x.shape;
 
@@ -39,4 +46,4 @@ export function augment<T extends IMatrix>(this: T, x: T): T {
   this.data = d3;
 
   return this;
-}
+};

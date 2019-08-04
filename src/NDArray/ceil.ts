@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
 /**
- * Returns the smallest integer greater than or equal to each element of current array.
+ * Returns smallest integer greater than or equal to of each element of `x`.
  */
-export function ceil<T extends INDArray>(this: T): T {
+NDArray.ceil = <T extends NDArray>(x: T): T => x.copy().ceil();
+
+/**
+ * Returns smallest integer greater than or equal to of each element of current array.
+ */
+NDArray.prototype.ceil = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function ceil<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

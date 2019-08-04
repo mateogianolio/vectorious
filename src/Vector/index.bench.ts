@@ -1,4 +1,5 @@
 import { bench } from '../bench';
+
 import { Vector } from './';
 
 const { random } = Math;

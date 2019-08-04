@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the largest integer less than or equal to a number of each element of `x`.
+ */
+NDArray.floor = <T extends NDArray>(x: T): T => x.copy().floor();
 
 /**
  * Returns the largest integer less than or equal to a number of each element of current array.
  */
-export function floor<T extends INDArray>(this: T): T {
+NDArray.prototype.floor = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function floor<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

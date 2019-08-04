@@ -1,4 +1,6 @@
-import { IMatrix, TypedArray } from '../types';
+import { TypedArray } from '../types';
+
+import { Matrix } from './';
 
 let nblas: any;
 try {
@@ -8,7 +10,12 @@ try {
 /**
  * Multiplies two matrices `x` and `y` of matching dimensions.
  */
-export function multiply<T extends IMatrix>(this: T, x: T): T {
+Matrix.multiply = <T extends Matrix>(x: T, y: T): T => x.multiply(y);
+
+/**
+ * Multiplies two matrices `x` and `y` of matching dimensions.
+ */
+Matrix.prototype.multiply = function<T extends Matrix>(this: T, x: T): T {
   const [r1, c1] = this.shape;
   const [r2, c2] = x.shape;
 
@@ -46,4 +53,4 @@ export function multiply<T extends IMatrix>(this: T, x: T): T {
   this.shape = [r1, c2];
 
   return this;
-}
+};

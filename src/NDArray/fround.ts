@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the nearest single precision float representation of each element of `x`.
+ */
+NDArray.fround = <T extends NDArray>(x: T): T => x.copy().fround();
 
 /**
  * Returns the nearest single precision float representation of each element of current array.
  */
-export function fround<T extends INDArray>(this: T): T {
+NDArray.prototype.fround = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function fround<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

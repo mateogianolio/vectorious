@@ -1,9 +1,14 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
+
+/**
+ * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
+ */
+Matrix.gauss = <T extends Matrix>(x: T): T => x.copy().gauss();
 
 /**
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.
  */
-export function gauss<T extends IMatrix>(this: T): T {
+Matrix.prototype.gauss = function<T extends Matrix>(this: T): T {
   const { data: d1 } = this;
   const [r, c] = this.shape;
 
@@ -71,4 +76,4 @@ export function gauss<T extends IMatrix>(this: T): T {
   }
 
   return this;
-}
+};

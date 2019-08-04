@@ -1,9 +1,14 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
 
 /**
  * Gets the trace of the matrix (the sum of all diagonal elements).
  */
-export function trace<T extends IMatrix>(this: T): number {
+Matrix.trace = <T extends Matrix>(x: T): number => x.trace();
+
+/**
+ * Gets the trace of the matrix (the sum of all diagonal elements).
+ */
+Matrix.prototype.trace = function<T extends Matrix>(this: T): number {
   const { data: d1 } = this;
   const c: number = this.shape[1];
 
@@ -15,4 +20,4 @@ export function trace<T extends IMatrix>(this: T): number {
   }
 
   return result;
-}
+};

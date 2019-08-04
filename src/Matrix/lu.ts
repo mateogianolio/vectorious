@@ -1,13 +1,18 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
 
 /**
  * Performs full LU decomposition on a matrix.
  */
-export function lu<T extends IMatrix>(this: T): [T, T, Int32Array] {
+Matrix.lu = <T extends Matrix>(x: T): [T, T, Int32Array] => x.lu();
+
+/**
+ * Performs full LU decomposition on a matrix.
+ */
+Matrix.prototype.lu = function<T extends Matrix>(this: T): [T, T, Int32Array] {
   const [r, c] = this.shape;
   const [PLU, ipiv] = this.copy().plu();
-  const L: T = PLU.copy() as T;
-  const U: T = PLU.copy() as T;
+  const L: T = PLU.copy();
+  const U: T = PLU.copy();
 
   let i: number;
   let j: number;
@@ -24,4 +29,4 @@ export function lu<T extends IMatrix>(this: T): [T, T, Int32Array] {
   }
 
   return [L, U, ipiv];
-}
+};

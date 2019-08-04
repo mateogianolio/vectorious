@@ -1,9 +1,14 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
 
 /**
  * Solves an LU factorized matrix with the supplied right hand side(s)
  */
-export function solve<T extends IMatrix>(this: T, x: T): T {
+Matrix.solve = <T extends Matrix>(x: T, y: T): T => x.copy().solve(y);
+
+/**
+ * Solves an LU factorized matrix with the supplied right hand side(s)
+ */
+Matrix.prototype.solve = function<T extends Matrix>(this: T, x: T): T {
   const [PLU, ipiv] = this.plu();
   const { data: d1 } = PLU;
   const { data: d2 } = x;
@@ -36,4 +41,4 @@ export function solve<T extends IMatrix>(this: T, x: T): T {
   }
 
   return x;
-}
+};

@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the positive square root of each element of `x`.
+ */
+NDArray.sqrt = <T extends NDArray>(x: T): T => x.copy().sqrt();
 
 /**
  * Returns the positive square root of each element of current array.
  */
-export function sqrt<T extends INDArray>(this: T): T {
+NDArray.prototype.sqrt = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function sqrt<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

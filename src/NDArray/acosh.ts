@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the hyperbolic arccosine of each element of `x`.
+ */
+NDArray.acosh = <T extends NDArray>(x: T): T => x.copy().acosh();
 
 /**
  * Returns the hyperbolic arccosine of each element of current array.
  */
-export function acosh<T extends INDArray>(this: T): T {
+NDArray.prototype.acosh = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function acosh<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

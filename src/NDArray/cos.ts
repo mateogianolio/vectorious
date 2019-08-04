@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the cosine of each element of `x`.
+ */
+NDArray.cos = <T extends NDArray>(x: T): T => x.copy().cos();
 
 /**
  * Returns the cosine of each element of current array.
  */
-export function cos<T extends INDArray>(this: T): T {
+NDArray.prototype.cos = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function cos<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

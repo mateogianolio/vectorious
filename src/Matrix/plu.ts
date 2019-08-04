@@ -1,9 +1,14 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
+
+/**
+ * Performs LU factorization on `x`.
+ */
+Matrix.plu = <T extends Matrix>(x: T): [T, Int32Array] => x.copy().plu();
 
 /**
  * Performs LU factorization on current matrix.
  */
-export function plu<T extends IMatrix>(this: T): [T, Int32Array] {
+Matrix.prototype.plu = function<T extends Matrix>(this: T): [T, Int32Array] {
   const { data: d1 } = this;
   const [n] = this.shape;
   const ipiv: Int32Array = new Int32Array(n);
@@ -52,4 +57,4 @@ export function plu<T extends IMatrix>(this: T): [T, Int32Array] {
   }
 
   return [this, ipiv];
-}
+};

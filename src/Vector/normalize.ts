@@ -1,8 +1,13 @@
-import { IVector } from '../types';
+import { Vector } from './';
+
+/**
+ * Normalizes `x`.
+ */
+Vector.normalize = (x: Vector): Vector => x.copy().normalize();
 
 /**
  * Normalizes current vector.
  */
-export function normalize<T extends IVector>(this: T): T {
-  return this.scale(1 / this.magnitude()) as T;
-}
+Vector.prototype.normalize = function<T extends Vector>(this: T): Vector {
+  return this.scale(1 / this.magnitude());
+};

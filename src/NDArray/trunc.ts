@@ -1,10 +1,16 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the integer part of each element of `x`,
+ * removing any fractional digits.
+ */
+NDArray.trunc = <T extends NDArray>(x: T): T => x.copy().trunc();
 
 /**
  * Returns the integer part of each element of current array,
  * removing any fractional digits.
  */
-export function trunc<T extends INDArray>(this: T): T {
+NDArray.prototype.trunc = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -13,4 +19,4 @@ export function trunc<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

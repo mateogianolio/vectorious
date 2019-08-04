@@ -1,4 +1,10 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
+
+/**
+ * Adds a multiple of one row to another inside `x`.
+ */
+Matrix.rowAdd = <T extends Matrix>(x: T, dest: number, source: number, scalar: number = 1): T =>
+  x.copy().rowAdd(dest, source, scalar);
 
 /**
  * Adds a multiple of one row to another inside a matrix.
@@ -10,12 +16,12 @@ import { IMatrix } from '../types';
  *        - scalar : the scalar of type number.
  * OUTPUT: The current changed matrix.
  */
-export function rowAdd<T extends IMatrix>(this: T, dest: number, source: number, scalar: number = 1): T {
+Matrix.prototype.rowAdd = function<T extends Matrix>(this: T, dest: number, source: number, scalar: number = 1): T {
   this.check(dest, 0);
   this.check(source, 0);
 
   const { data: d1 } = this;
-  const c: number = this.shape[1];
+  const [, c] = this.shape;
 
   let j: number;
   for (j = 0; j < c; j += 1) {
@@ -23,4 +29,4 @@ export function rowAdd<T extends IMatrix>(this: T, dest: number, source: number,
   }
 
   return this;
-}
+};

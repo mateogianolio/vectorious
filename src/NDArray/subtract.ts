@@ -1,10 +1,13 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
-import { add } from './add';
+/**
+ * Subtracts `y` from `x`.
+ */
+NDArray.subtract = <T extends NDArray>(x: T, y: T): T => x.copy().subtract(y);
 
 /**
  * Subtracts `x` from the current array.
  */
-export function subtract<T extends INDArray>(this: T, x: T): T {
-  return add.call(this, x, -1) as T;
-}
+NDArray.prototype.subtract = function<T extends NDArray>(this: T, x: T): T {
+  return this.add(x, -1);
+};

@@ -1,9 +1,14 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
+
+/**
+ * Converts `x` into a readable formatted string
+ */
+Matrix.toString = <T extends Matrix>(x: T): string => x.toString();
 
 /**
  * Converts current matrix into a readable formatted string
  */
-export function toString<T extends IMatrix>(this: T): string {
+Matrix.prototype.toString = function<T extends Matrix>(this: T): string {
   const { data: d1 } = this;
   const [r, c] = this.shape;
   const result: string[] = [];
@@ -14,4 +19,4 @@ export function toString<T extends IMatrix>(this: T): string {
   }
 
   return `[${result.join(', \n')}]`;
-}
+};

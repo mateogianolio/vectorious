@@ -1,10 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
 /**
- * Fills the array with a scalar value, takes an optional `type` argument
- * which should be an instance of `TypedArray`.
+ * Fills `x` with a scalar value
  */
-export function fill<T extends INDArray>(this: T, value: number | ((index: number) => number) = 0): T {
+NDArray.fill = <T extends NDArray>(x: T, value: number | ((index: number) => number) = 0): T => x.copy().fill(value);
+
+/**
+ * Fills the current array with a scalar value
+ */
+NDArray.prototype.fill = function<T extends NDArray>(this: T, value: number | ((index: number) => number) = 0): T {
   const { data, length } = this;
 
   let i: number;
@@ -13,4 +17,4 @@ export function fill<T extends INDArray>(this: T, value: number | ((index: numbe
   }
 
   return this;
-}
+};

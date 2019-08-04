@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the base 2 logarithm of each element of `x`.
+ */
+NDArray.log2 = <T extends NDArray>(x: T): T => x.copy().log2();
 
 /**
  * Returns the base 2 logarithm of each element of current array.
  */
-export function log2<T extends INDArray>(this: T): T {
+NDArray.prototype.log2 = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function log2<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

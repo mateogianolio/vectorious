@@ -26,22 +26,3 @@ export interface INDArray {
   shape: number[];
   type: TypedArrayConstructor;
 }
-
-export interface IVector extends INDArray {
-  dot(x: IVector): number;
-  magnitude(): number;
-  scale(scalar: number): IVector;
-}
-
-export interface IMatrix extends INDArray {
-  augment(x: IMatrix): IMatrix;
-  check(r: number, c: number): void;
-  copy(): IMatrix;
-  equals(x: IMatrix): boolean;
-  eye(size: number): IMatrix;
-  gauss(): IMatrix;
-  plu(): [IMatrix, Int32Array];
-  scale(scalar: number): IMatrix;
-  square(): void;
-  swap(i: number, j: number): IMatrix;
-}

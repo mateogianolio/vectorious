@@ -1,4 +1,4 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
 
 let nblas: any;
 try {
@@ -6,9 +6,14 @@ try {
 } catch (err) {}
 
 /**
+ * Calculates the magnitude of `x` (also called L2 norm or Euclidean length).
+ */
+NDArray.magnitude = <T extends NDArray>(x: T): number => x.magnitude();
+
+/**
  * Calculates the magnitude of an array (also called L2 norm or Euclidean length).
  */
-export function magnitude<T extends INDArray>(this: T): number {
+NDArray.prototype.magnitude = function<T extends NDArray>(this: T): number {
   const { length } = this;
   if (length === 0) {
     return 0;
@@ -27,4 +32,4 @@ export function magnitude<T extends INDArray>(this: T): number {
 
     return Math.sqrt(result);
   }
-}
+};

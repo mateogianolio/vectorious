@@ -1,9 +1,14 @@
-import { INDArray } from '../types';
+import { NDArray } from './';
+
+/**
+ * Returns the hyperbolic arcsine of each element of `x`.
+ */
+NDArray.asinh = <T extends NDArray>(x: T): T => x.copy().asinh();
 
 /**
  * Returns the hyperbolic arcsine of each element of current array.
  */
-export function asinh<T extends INDArray>(this: T): T {
+NDArray.prototype.asinh = function<T extends NDArray>(this: T): T {
   const { length: l1, data: d1 } = this;
 
   let i: number;
@@ -12,4 +17,4 @@ export function asinh<T extends INDArray>(this: T): T {
   }
 
   return this;
-}
+};

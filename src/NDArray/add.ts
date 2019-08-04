@@ -1,7 +1,4 @@
-import { INDArray } from '../types';
-
-import { equidimensional } from './equidimensional';
-import { equilateral } from './equilateral';
+import { NDArray } from '../NDArray';
 
 let nblas: any;
 try {
@@ -9,11 +6,16 @@ try {
 } catch (err) {}
 
 /**
- * Adds `x` multiplied by `alpha` to the current array.
+ * Adds `y` multiplied by `alpha` to `x`
  */
-export function add<T extends INDArray>(this: T, x: T, alpha: number = 1): T {
-  equilateral.call(this, x);
-  equidimensional.call(this, x);
+NDArray.add = <T extends NDArray>(x: T, y: T, alpha: number = 1): T => x.copy().add(y, alpha);
+
+/**
+ * Adds `x` multiplied by `alpha` to the current array
+ */
+NDArray.prototype.add = function<T extends NDArray>(this: T, x: NDArray, alpha: number = 1): T {
+  this.equilateral(x);
+  this.equidimensional(x);
 
   const { data: d1, length: l1 } = this;
   const { data: d2 } = x;
@@ -28,4 +30,4 @@ export function add<T extends INDArray>(this: T, x: T, alpha: number = 1): T {
   }
 
   return this;
-}
+};

@@ -1,19 +1,25 @@
-import { IMatrix } from '../types';
+import { Matrix } from './';
+
+/**
+ * Determines the inverse of `x` using
+ * Gaussian elimination.
+ */
+Matrix.inverse = <T extends Matrix>(x: T): T => x.inverse();
 
 /**
  * Determines the inverse of current matrix using
  * Gaussian elimination.
  */
-export function inverse<T extends IMatrix>(this: T): T {
+Matrix.prototype.inverse = function<T extends Matrix>(this: T): T {
   this.square();
 
   const [r, c] = this.shape;
   const { length: l1 } = this;
 
-  const identity: T = this.copy().eye(r) as T;
-  const rref: T = this.copy().augment(identity).gauss() as T;
-  const left: T = this.copy().scale(0) as T;
-  const right: T = this.copy().scale(0) as T;
+  const identity: T = Matrix.eye(r);
+  const rref: T = Matrix.augment(this, identity).gauss();
+  const left: T = Matrix.zeros(r, c);
+  const right: T = Matrix.zeros(r, c);
 
   const { data: d1 } = left;
   const { data: d2 } = right;
@@ -42,4 +48,4 @@ export function inverse<T extends IMatrix>(this: T): T {
   this.shape = [r, c];
 
   return this;
-}
+};
