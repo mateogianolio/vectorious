@@ -24,14 +24,6 @@
         out: 'docs/',
         name: 'Vectorious',
         readme: 'none',
-        theme: 'markdown',
-        platform: 'markdown',
-        hideGenerator: true,
-        ignoreCompilerErrors: true,
-        disableOutputCheck: true,
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeNotExported: true
       }))
   });
 
