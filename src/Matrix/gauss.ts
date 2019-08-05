@@ -9,7 +9,6 @@ Matrix.gauss = <T extends Matrix>(x: T): T => x.copy().gauss();
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.
  */
 Matrix.prototype.gauss = function<T extends Matrix>(this: T): T {
-  const { data: d1 } = this;
   const [r, c] = this.shape;
 
   let lead: number = 0;
@@ -25,7 +24,7 @@ Matrix.prototype.gauss = function<T extends Matrix>(this: T): T {
     }
 
     j = i;
-    while (d1[j * c + lead] === 0) {
+    while (this.get(j, lead) === 0) {
       j += 1;
       if (r === j) {
         j = i;
@@ -41,18 +40,18 @@ Matrix.prototype.gauss = function<T extends Matrix>(this: T): T {
       this.swap(i, j);
     }
 
-    pivot = d1[i * c + lead];
+    pivot = this.get(i, lead);
     if (pivot !== 0) {
       for (k = 0; k < c; k += 1) {
-        d1[i * c + k] /= pivot;
+        this.set(i, k, this.get(i, k) / pivot);
       }
     }
 
     for (j = 0; j < r; j += 1) {
-      leadValue = d1[j * c + lead];
+      leadValue = this.get(j, lead);
       if (j !== i) {
         for (k = 0; k < c; k += 1) {
-          d1[j * c + k] -= d1[i * c + k] * leadValue;
+          this.set(j, k, this.get(j, k) - this.get(i, k) * leadValue);
         }
       }
     }
@@ -64,13 +63,13 @@ Matrix.prototype.gauss = function<T extends Matrix>(this: T): T {
     pivot = 0;
     for (j = 0; j < c; j += 1) {
       if (pivot === 0) {
-        pivot = d1[i * c + j];
+        pivot = this.get(i, j);
       }
     }
 
     if (pivot === 0) {
       for (k = 0; k < c; k += 1) {
-        d1[i * c + k] /= pivot;
+        this.set(i, k, this.get(i, k) / pivot);
       }
     }
   }

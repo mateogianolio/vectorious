@@ -1,13 +1,7 @@
 import { NDArray } from './';
 
-/**
- * Gets the element at `i, j, ..., n` from `x`
- */
 NDArray.get = <T extends NDArray>(x: T, ...indices: number[]): number => x.get(...indices);
 
-/**
- * Gets the element at `i, j, ..., n` from current vector.
- */
 NDArray.prototype.get = function<T extends NDArray>(this: T, ...indices: number[]): number {
   this.check(...indices);
 

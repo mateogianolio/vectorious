@@ -5,31 +5,34 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-/**
- * Performs dot multiplication with `x` and `y`
- */
 NDArray.dot = <T extends NDArray>(x: T, y: T): number => x.dot(y);
 
-/**
- * Performs dot multiplication with `x` and current array
- */
 NDArray.prototype.dot = function<T extends NDArray>(this: T, x: T): number {
   this.equilateral(x);
   this.equidimensional(x);
 
-  const { data: d1, length: l1 } = this;
-  const { data: d2 } = x;
+  const { length: l1 } = this;
+  let result: number = 0;
 
   try {
-    return nblas.dot(d1, d2);
-  } catch (err) {
-    let result: number = 0;
-
-    let i: number;
-    for (i = 0; i < l1; i += 1) {
-      result += d1[i] * d2[i];
+    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
+      this.type = Float32Array;
+      this.data = Float32Array.from(this.data);
     }
 
-    return result;
+    if (this.data instanceof Float64Array) {
+      result = nblas.ddot(l1, x.data, 1, this.data, 1);
+    }
+
+    if (this.data instanceof Float32Array) {
+      result = nblas.sdot(l1, x.data, 1, this.data, 1);
+    }
+  } catch (err) {
+    let i: number;
+    for (i = 0; i < l1; i += 1) {
+      result += this.get(i) * x.get(i);
+    }
   }
+
+  return result;
 };

@@ -1,5 +1,3 @@
-import { TypedArray } from '../types';
-
 import { Matrix } from './';
 
 let nblas: any;
@@ -7,14 +5,8 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-/**
- * Multiplies two matrices `x` and `y` of matching dimensions.
- */
 Matrix.multiply = <T extends Matrix>(x: T, y: T): T => x.multiply(y);
 
-/**
- * Multiplies two matrices `x` and `y` of matching dimensions.
- */
 Matrix.prototype.multiply = function<T extends Matrix>(this: T, x: T): T {
   const [r1, c1] = this.shape;
   const [r2, c2] = x.shape;
@@ -23,14 +15,19 @@ Matrix.prototype.multiply = function<T extends Matrix>(this: T, x: T): T {
     throw new Error('sizes do not match');
   }
 
-  const { data: d1 } = this;
-  const { data: d2 } = x;
-
-  const l3: number = r1 * c2;
-  const d3: TypedArray = new this.type(l3);
+  const y: Matrix = new Matrix(r1, c2);
 
   try {
-    nblas.gemm(d1, d2, d3, r1, c2, c1);
+    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
+      this.type = Float32Array;
+      this.data = Float32Array.from(this.data);
+    }
+
+    if (this.data instanceof Float64Array) {
+      nblas.dgemm(nblas.NoTrans, nblas.NoTrans, r1, c2, c1, 1, this.data, c1, x.data, c2, 0, y.data, c2);
+    } else if (this.data instanceof Float32Array) {
+      nblas.sgemm(nblas.NoTrans, nblas.NoTrans, r1, c2, c1, 1, this.data, c1, x.data, c2, 0, y.data, c2);
+    }
   } catch (err) {
     let i: number;
     let j: number;
@@ -40,17 +37,13 @@ Matrix.prototype.multiply = function<T extends Matrix>(this: T, x: T): T {
       for (j = 0; j < c2; j += 1) {
         sum = 0;
         for (k = 0; k < c1; k += 1) {
-          sum += d1[i * c1 + k] * d2[j + k * c2];
+          sum += this.get(i, k) * x.get(k, j);
         }
 
-        d3[i * c2 + j] = sum;
+        y.set(i, j, sum);
       }
     }
   }
 
-  this.data = d3;
-  this.length = l3;
-  this.shape = [r1, c2];
-
-  return this;
+  return y as T;
 };

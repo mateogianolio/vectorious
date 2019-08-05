@@ -18,6 +18,7 @@
         "esSpecCompliant": true
       }
     ],
+    "variable-name": false,
     "no-unused-expression": false,
     "no-empty": false,
     "no-var-requires": false,

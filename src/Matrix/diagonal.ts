@@ -1,13 +1,7 @@
 import { Matrix } from './';
 
-/**
- * Gets the diagonal of `x`.
- */
 Matrix.diagonal = <T extends Matrix>(x: T): T => x.copy().diagonal();
 
-/**
- * Gets the diagonal of current matrix.
- */
 Matrix.prototype.diagonal = function<T extends Matrix>(this: T): T {
   this.square();
 

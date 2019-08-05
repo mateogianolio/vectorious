@@ -2,14 +2,8 @@ import { TypedArray } from '../types';
 
 import { NDArray } from './';
 
-/**
- * Maps a function `f` to all elements of `x`.
- */
 NDArray.map = <T extends NDArray>(x: T, f: (value: number, i: number, src: TypedArray) => number): T => x.map(f);
 
-/**
- * Maps a function `f` to all elements of current vector.
- */
 NDArray.prototype.map = function<T extends NDArray>(
   this: T,
   f: (value: number, i: number, src: TypedArray) => number

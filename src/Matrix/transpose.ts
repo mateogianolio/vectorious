@@ -1,30 +1,20 @@
-import { TypedArray } from '../types';
-
 import { Matrix } from './';
 
-/**
- * Transposes a matrix (mirror across the diagonal).
- */
 Matrix.transpose = <T extends Matrix>(x: T): T => x.copy().transpose();
 
-/**
- * Transposes a matrix (mirror across the diagonal).
- */
 Matrix.prototype.transpose = function<T extends Matrix>(this: T): T {
-  const { data: d1 } = this;
   const [r, c] = this.shape;
-  const d2: TypedArray = new this.type(c * r);
+  const n: number = Math.min(r, c);
 
   let i: number;
   let j: number;
-  for (i = 0; i < r; i += 1) {
-    for (j = 0; j < c; j += 1) {
-      d2[j * r + i] = d1[i * c + j];
+  for (i = 0; i < n; i += 1) {
+    for (j = i; j < n; j += 1) {
+      const temp: number = this.get(i, j);
+      this.set(i, j, this.get(j, i));
+      this.set(j, i, temp);
     }
   }
 
-  this.data = d2;
-  this.shape = [c, r];
-
-  return this;
+  return this.reshape([c, r]);
 };

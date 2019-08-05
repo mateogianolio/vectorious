@@ -5,25 +5,26 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-/**
- * Multiplies all elements of `x` with a specified `scalar`.
- */
 NDArray.scale = <T extends NDArray>(x: T, scalar: number): T => x.copy().scale(scalar);
 
-/**
- * Multiplies all elements of current array with a specified `scalar`.
- */
 NDArray.prototype.scale = function<T extends NDArray>(this: T, scalar: number): T {
-  const { data } = this;
+  const { length: l1 } = this;
 
   try {
-    nblas.scal(data, scalar);
-  } catch (err) {
-    const { length } = this;
+    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
+      this.type = Float32Array;
+      this.data = Float32Array.from(this.data);
+    }
 
+    if (this.data instanceof Float64Array) {
+      nblas.dscal(l1, scalar, this.data, 1);
+    } else if (this.data instanceof Float32Array) {
+      nblas.sscal(l1, scalar, this.data, 1);
+    }
+  } catch (err) {
     let i: number;
-    for (i = 0; i < length; i += 1) {
-      data[i] *= scalar;
+    for (i = 0; i < l1; i += 1) {
+      this.set(i, this.get(i) * scalar);
     }
   }
 

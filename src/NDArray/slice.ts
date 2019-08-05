@@ -5,13 +5,6 @@ import { NDArray } from './';
 NDArray.slice = <T extends NDArray>(x: T, start?: number, step?: number, end?: number): T =>
   x.copy().slice(start, step, end);
 
-/**
- * The basic slice syntax is i:j:k where i is the starting index, j is the stopping index,
- * and k is the step (k\neq0). This selects the m elements (in the corresponding dimension)
- * with index values i, i + k, ..., i + (m - 1) k where m = q + (r\neq0) and q and r are the
- * quotient and remainder obtained by dividing j - i by k: j - i = q k + r, so that
- * i + (m - 1) k < j.
- */
 NDArray.prototype.slice = function<T extends NDArray>(
   this: T,
   begin: number = 0,

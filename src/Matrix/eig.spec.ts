@@ -5,11 +5,11 @@ import {
 
 import { Matrix } from './';
 
-describe('jacobi', () => {
+describe('eig', () => {
   it('should throw error if matrix is not square', () => {
     const x: Matrix = new Matrix([[1, 2]]);
 
-    throws(() => { x.jacobi(); }, Error);
+    throws(() => { x.eig(); }, Error);
   });
 
   it('should work as expected', () => {
@@ -25,7 +25,7 @@ describe('jacobi', () => {
       [0, 0, 1],
     ]);
 
-    const [w, v] = x.jacobi();
+    const [w, v] = x.eig();
 
     deepStrictEqual(y, w);
     deepStrictEqual(z, v);
@@ -38,6 +38,6 @@ describe('jacobi', () => {
       [0, 0, 3],
     ]);
 
-    deepStrictEqual(x.copy().jacobi(), Matrix.jacobi(x));
+    deepStrictEqual(x.copy().eig(), Matrix.eig(x));
   });
 });

@@ -1,19 +1,13 @@
 import { NDArray } from './';
 
-/**
- * Returns the positive square root of each element of `x`.
- */
 NDArray.sqrt = <T extends NDArray>(x: T): T => x.copy().sqrt();
 
-/**
- * Returns the positive square root of each element of current array.
- */
 NDArray.prototype.sqrt = function<T extends NDArray>(this: T): T {
-  const { length: l1, data: d1 } = this;
+  const { length: l1 } = this;
 
   let i: number;
   for (i = 0; i < l1; i += 1) {
-    d1[i] = Math.sqrt(d1[i]);
+    this.set(i, Math.sqrt(this.get(i)));
   }
 
   return this;

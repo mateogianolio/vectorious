@@ -5,27 +5,32 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-/**
- * Gets the maximum value (largest) element of `x`.
- */
 NDArray.max = <T extends NDArray>(x: T): number => x.max();
 
-/**
- * Gets the maximum value (largest) element of current array.
- */
 NDArray.prototype.max = function<T extends NDArray>(this: T): number {
-  const { data } = this;
-  try {
-    return data[nblas.iamax(data)];
-  } catch (err) {
-    const { length } = this;
-    let result: number = Number.NEGATIVE_INFINITY;
+  const { length: l1 } = this;
+  let result: number = Number.NEGATIVE_INFINITY;
 
-    let i: number;
-    for (i = 0; i < length; i += 1) {
-      result = result < data[i] ? data[i] : result;
+  try {
+    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
+      this.type = Float32Array;
+      this.data = Float32Array.from(this.data);
     }
 
-    return result;
+    if (this.data instanceof Float64Array) {
+      result = this.data[nblas.idamax(l1, this.data, 1)];
+    }
+
+    if (this.data instanceof Float32Array) {
+      result = this.data[nblas.isamax(l1, this.data, 1)];
+    }
+  } catch (err) {
+    let i: number;
+    for (i = 0; i < l1; i += 1) {
+      const value: number = this.get(i);
+      result = result < value ? value : result;
+    }
   }
+
+  return result;
 };

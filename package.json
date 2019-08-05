@@ -14,7 +14,8 @@
     "build": "gulp clean && gulp build && tsc"
   },
   "browser": {
-    "nblas": false
+    "nblas": false,
+    "nlapack": false
   },
   "nyc": {
     "extension": [
@@ -86,7 +87,8 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
-    "nblas": "^2.1.5"
+    "nblas": "^2.1.5",
+    "nlapack": "^2.0.0"
   },
   "dependencies": {}
 }

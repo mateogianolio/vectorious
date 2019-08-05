@@ -2,18 +2,12 @@ import { TypedArray } from '../types';
 
 import { NDArray } from './';
 
-/**
- * Equivalent to `TypedArray.prototype.reduce`.
- */
 NDArray.reduce = <T extends NDArray>(
   x: T,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,
   initialValue?: number
 ): number => x.reduce(f, initialValue);
 
-/**
- * Equivalent to `TypedArray.prototype.reduce`.
- */
 NDArray.prototype.reduce = function<T extends NDArray>(
   this: T,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,

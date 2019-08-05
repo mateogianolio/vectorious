@@ -30,6 +30,7 @@
   gulp.task('build', function () {
     return browserify({ entries: ['src/index.ts'] })
       .ignore('nblas')
+      .ignore('nlapack')
       .plugin(tsify)
       .bundle()
       .pipe(source('vectorious.min.js'))

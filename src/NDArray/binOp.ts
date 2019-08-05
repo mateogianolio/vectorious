@@ -1,8 +1,5 @@
 import { NDArray } from './';
 
-/**
- * Perform binary operation `f` on `y` in `x`.
- */
 NDArray.binOp = <T extends NDArray>(
   x: T,
   y: T,
@@ -13,9 +10,6 @@ NDArray.binOp = <T extends NDArray>(
   ) => number
 ): T => x.copy().binOp(y, f);
 
-/**
- * Perform binary operation `f` on `x` in the current array.
- */
 NDArray.prototype.binOp = function<T extends NDArray>(
   this: T,
   x: T,
@@ -28,12 +22,11 @@ NDArray.prototype.binOp = function<T extends NDArray>(
   this.equilateral(x);
   this.equidimensional(x);
 
-  const { data: d1, length } = this;
-  const { data: d2 } = x;
+  const { length: l1 } = this;
 
   let i: number;
-  for (i = 0; i < length; i += 1) {
-    d1[i] = f(d1[i], d2[i], i);
+  for (i = 0; i < l1; i += 1) {
+    this.set(i, f(this.get(i), x.get(i), i));
   }
 
   return this;

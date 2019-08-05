@@ -2,12 +2,6 @@ import { TypedArray, TypedArrayConstructor } from '../types';
 
 import { NDArray } from './';
 
-/**
- * Creates an array containing a range (can be either ascending or descending)
- * of numbers specified by the arguments provided (e.g. `NDArray.range(0, .5, 2)`
- * gives an array containing all numbers in the interval `[0, 2)` separated by
- * steps of `0.5`)
- */
 NDArray.range = function<T extends NDArray>(this: new(...args: any[]) => T, ...args: number[]): T {
   const type: TypedArrayConstructor = Float32Array;
   let backwards: boolean = false;

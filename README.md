@@ -1,20 +1,20 @@
 ![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.gif)
 
-[![Backers on Open Collective](https://opencollective.com/vectorious/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/vectorious/sponsors/badge.svg)](#sponsors) ![version](https://img.shields.io/npm/v/vectorious.svg) [![CDNJS](https://img.shields.io/cdnjs/v/vectorious.svg)](https://cdnjs.com/libraries/vectorious) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat&label=build) [![maintainability](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/maintainability)](https://codeclimate.com/github/mateogianolio/vectorious/maintainability) [![test coverage](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/test_coverage)](https://codeclimate.com/github/mateogianolio/vectorious/test_coverage)
+[![Backers on Open Collective](https://opencollective.com/vectorious/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/vectorious/sponsors/badge.svg)](#sponsors) ![version](https://img.shields.io/npm/v/vectorious.svg) [![CDNJS](https://img.shields.io/cdnjs/v/vectorious.svg)](https://cdnjs.com/libraries/vectorious) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat&label=build) [![maintainability](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/maintainability)](https://codeclimate.com/github/mateogianolio/vectorious/maintainability) [![test coverage](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/test_coverage)](https://codeclimate.com/github/mateogianolio/vectorious/test_coverage) [![greenkeeper](https://badges.greenkeeper.io/mateogianolio/vectorious.svg)](https://greenkeeper.io/)
 
-> A linear algebra library, written in TypeScript and accelerated with C++ bindings to [BLAS](http://www.netlib.org/blas/).
+> A linear algebra library, written in TypeScript and accelerated with C++ bindings to [BLAS](http://www.netlib.org/blas/) and [LAPACK](http://www.netlib.org/lapack/).
 
 ### Usage
 
-[![greenkeeper](https://badges.greenkeeper.io/mateogianolio/vectorious.svg)](https://greenkeeper.io/)
+Follow the installation instructions in [nlapack](https://github.com/nperf/nlapack) and [nblas](https://github.com/nperf/nblas) to get maximum performance.
 
 ##### In node.js
 
 ```bash
-# with BLAS bindings
+# with C++ bindings
 $ npm install vectorious
 
-# or, if you don't want BLAS bindings
+# or, if you don't want C++ bindings
 $ npm install vectorious --no-optional
 ```
 
@@ -37,23 +37,6 @@ Matrix {
      0.5198025534810546 ],
   type: [Function: Float32Array] }
 */
-
-const y: Vector = Vector.random(4, -5, 5, Int8Array);
-/*
-Vector {
-  type: [Function: Int8Array],
-  data: Int8Array [ -2, 2, 2, -1 ],
-  length: 4 }
-*/
-
-const z = new NDArray([[[1], [2]]]).add(new NDArray([[[3], [4]]]));
-/*
-NDArray {
-  data: Float32Array [ 4, 6 ],
-  length: 2,
-  shape: [ 1, 2, 1 ],
-  type: [Function: Float32Array] }
-*/
 ```
 
 Will use your local BLAS copy (if any). Some notes for different operating systems:
@@ -73,7 +56,7 @@ Download a [**release**](https://github.com/mateogianolio/vectorious/releases) a
 Or if you prefer to use a CDN:
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/5.3.1/vectorious.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/6.0.0/vectorious.min.js"></script>
 ```
 
 ```html
@@ -102,11 +85,7 @@ Or if you prefer to use a CDN:
 * [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js) (by [@lucidrains](https://github.com/lucidrains))
 * [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.js)
 
-### Documentation
-
-The documentation is located in the wiki section of this repository.
-
-[**Go to wiki.**](https://github.com/mateogianolio/vectorious/wiki)
+### [Documentation](https://github.com/mateogianolio/vectorious/wiki)
 
 ### Benchmarks
 

@@ -120,13 +120,13 @@ bench(
 
 bench(
   'Matrix',
-  'plu',
+  'lu_factor',
   (n: number): [Matrix] => [r(n)],
   (x: Matrix): void => {
-    x.plu();
+    x.lu_factor();
   },
   (x: Matrix): void => {
-    Matrix.plu(x);
+    Matrix.lu_factor(x);
   }
 );
 
