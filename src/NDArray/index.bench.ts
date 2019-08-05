@@ -1,4 +1,5 @@
 import { bench } from '../bench';
+
 import { NDArray } from './';
 
 const { random } = Math;
@@ -61,10 +62,10 @@ bench(
 
 bench(
   'NDArray',
-  'magnitude',
+  'norm',
   (n: number): [NDArray] => [r(n)],
   (x: NDArray): void => {
-    x.magnitude();
+    x.norm();
   }
 );
 

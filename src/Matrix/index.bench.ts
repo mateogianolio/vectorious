@@ -93,10 +93,10 @@ bench(
 
 bench(
   'Matrix',
-  'inverse',
+  'inv',
   (n: number): [Matrix] => [r(n)],
   (x: Matrix): void => {
-    x.inverse();
+    x.inv();
   }
 );
 
@@ -162,10 +162,10 @@ bench(
 
 bench(
   'Matrix',
-  'determinant',
+  'det',
   (n: number): [Matrix] => [r(n)],
   (x: Matrix): void => {
-    x.determinant();
+    x.det();
   }
 );
 
