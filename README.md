@@ -12,10 +12,10 @@ Follow the installation instructions in [nlapack](https://github.com/nperf/nlapa
 
 ```bash
 # with C++ bindings
-$ npm install vectorious
+$ npm install vectorious@beta
 
 # or, if you don't want C++ bindings
-$ npm install vectorious --no-optional
+$ npm install vectorious@beta --no-optional
 ```
 
 ```javascript
@@ -42,7 +42,7 @@ Matrix {
 #### In browser
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/6.0.0/vectorious.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/5.5.0/vectorious.min.js"></script>
 ```
 
 ```html
