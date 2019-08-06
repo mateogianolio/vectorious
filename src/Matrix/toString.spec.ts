@@ -4,7 +4,7 @@ import {
 
 import { Matrix } from './';
 
-describe('toString', () => {
+describe('(Matrix) toString', () => {
   it('should work as expected', () => {
     const x: Matrix = new Matrix([[1, 2], [3, 4]]);
     const y: Matrix = new Matrix([[1, 2], [3, 4], [5, 6]]);

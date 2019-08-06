@@ -20,9 +20,22 @@ export type TypedArrayConstructor =
     | Float32ArrayConstructor
     | Float64ArrayConstructor;
 
+export type DType =
+  | 'int8'
+  | 'uint8'
+  | 'int16'
+  | 'uint16'
+  | 'int32'
+  | 'uint32'
+  | 'uint8c'
+  | 'float32'
+  | 'float64'
+  | 'complex64'
+  | 'complex128';
+
 export interface INDArray {
   data: TypedArray;
+  dtype: DType;
   length: number;
   shape: number[];
-  type: TypedArrayConstructor;
 }

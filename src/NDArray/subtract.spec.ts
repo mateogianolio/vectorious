@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('subtract', () => {
+describe('(NDArray) subtract', () => {
   it('should return empty vector if subtracting two empty vectors', () => {
     const x: NDArray = new NDArray();
     const y: NDArray = new NDArray();

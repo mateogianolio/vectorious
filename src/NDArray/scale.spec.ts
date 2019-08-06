@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('scale', () => {
+describe('(NDArray) scale', () => {
   it('should scale NDArray(1, 2, 3) by 2 to NDArray(2, 4, 6)', () => {
     const x: NDArray = new NDArray([1, 2, 3]);
     const y: NDArray = new NDArray([2, 4, 6]);

@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('eye', () => {
+describe('(NDArray) eye', () => {
   it('should work as expected', () => {
     const x: NDArray = new NDArray([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
 

@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('max', () => {
+describe('(NDArray) max', () => {
   it('should find the maximum number in arrays', () => {
     const x: NDArray = new NDArray([1, 2, 3]);
     const y: NDArray = new NDArray([3, -1, 1]);

@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('equidimensional', () => {
+describe('(NDArray) equidimensional', () => {
   it('should pass if shapes match', () => {
     const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
     const f32y: Float32Array = new Float32Array([1, 2, 3, 4]);

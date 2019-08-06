@@ -90,9 +90,9 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#data" class="tsd-kind-icon">data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#dtype" class="tsd-kind-icon">dtype</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#length" class="tsd-kind-icon">length</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#shape" class="tsd-kind-icon">shape</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indarray.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -106,7 +106,17 @@
 					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="../index.html#typedarray" class="tsd-signature-type">TypedArray</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/4969c7c/src/types.ts#L24">types.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/bc9835b/src/types.ts#L37">types.ts:37</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="dtype" class="tsd-anchor"></a>
+					<h3>dtype</h3>
+					<div class="tsd-signature tsd-kind-icon">dtype<span class="tsd-signature-symbol">:</span> <a href="../index.html#dtype" class="tsd-signature-type">DType</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/bc9835b/src/types.ts#L38">types.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -116,7 +126,7 @@
 					<div class="tsd-signature tsd-kind-icon">length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/4969c7c/src/types.ts#L25">types.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/bc9835b/src/types.ts#L39">types.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -126,17 +136,7 @@
 					<div class="tsd-signature tsd-kind-icon">shape<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/4969c7c/src/types.ts#L26">types.ts:26</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../index.html#typedarrayconstructor" class="tsd-signature-type">TypedArrayConstructor</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/4969c7c/src/types.ts#L27">types.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/mateogianolio/vectorious/blob/bc9835b/src/types.ts#L40">types.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -170,18 +170,21 @@
 								<a href="indarray.html#data" class="tsd-kind-icon">data</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="indarray.html#dtype" class="tsd-kind-icon">dtype</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="indarray.html#length" class="tsd-kind-icon">length</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="indarray.html#shape" class="tsd-kind-icon">shape</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="indarray.html#type" class="tsd-kind-icon">type</a>
-							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#dtype" class="tsd-kind-icon">DType</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../index.html#typedarray" class="tsd-kind-icon">Typed<wbr>Array</a>
 					</li>
@@ -216,7 +219,16 @@
 						<a href="../index.html#flatten" class="tsd-kind-icon">flatten</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="../index.html#istypedarray" class="tsd-kind-icon">is<wbr>Typed<wbr>Array</a>
+						<a href="../index.html#get_dtype" class="tsd-kind-icon">get_<wbr>dtype</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#get_shape" class="tsd-kind-icon">get_<wbr>shape</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#get_type" class="tsd-kind-icon">get_<wbr>type</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#is_typed_array" class="tsd-kind-icon">is_<wbr>typed_<wbr>array</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="../index.html#magichelper" class="tsd-kind-icon">magic<wbr>Helper</a>
@@ -229,12 +241,6 @@
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-not-exported">
 						<a href="../index.html#rotate" class="tsd-kind-icon">rotate</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#shape" class="tsd-kind-icon">shape</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#type" class="tsd-kind-icon">type</a>
 					</li>
 				</ul>
 			</nav>

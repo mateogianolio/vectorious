@@ -4,7 +4,7 @@ import {
 
 import { Matrix } from './';
 
-describe('lu', () => {
+describe('(Matrix) lu', () => {
   it('should work as expected', () => {
     const x: Matrix = new Matrix([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
     const ys: Matrix[] = [

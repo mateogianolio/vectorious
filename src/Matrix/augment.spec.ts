@@ -5,7 +5,7 @@ import {
 
 import { Matrix } from './';
 
-describe('augment', () => {
+describe('(Matrix) augment', () => {
   it('should return current matrix when combined with empty matrix', () => {
     const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 

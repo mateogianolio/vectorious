@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('min', () => {
+describe('(NDArray) min', () => {
   it('should find the minimum number in arrays', () => {
     const x: NDArray = new NDArray([1, 2, 3]);
     const y: NDArray = new NDArray([3, -1, 1]);

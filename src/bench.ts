@@ -1,5 +1,6 @@
 const benchmark: any = require('nodemark');
 const plt: any = require('matplotnode');
+const { execSync } = require('child_process');
 
 export const bench: (
   group: string,
@@ -12,7 +13,8 @@ export const bench: (
   setup: (n: number) => any[],
   ...funcs: Array<(...args: any[]) => void>
 ): typeof benchmark => {
-  const filename: string = `benchmarks/${group}/${name}.png`;
+  execSync(`mkdir -p docs/media/${group}`);
+  const filename: string = `docs/media/${group}/${name}.png`;
   const xs: number[] = [4, 16, 64, 256, 1024];
   let ys: number[] = [];
 

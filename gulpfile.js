@@ -11,7 +11,7 @@
       typedoc = require('gulp-typedoc');
 
   gulp.task('clean', function () {
-    return del(['built', 'dist', 'docs']);
+    return del(['built', 'dist']);
   });
 
   gulp.task('docs', function () {
@@ -24,7 +24,6 @@
         out: 'docs/',
         name: 'Vectorious',
         readme: 'none',
-        media: 'benchmarks',
       }))
   });
 

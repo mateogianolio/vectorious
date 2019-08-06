@@ -4,7 +4,7 @@ import {
 
 import { Vector } from '.';
 
-describe('normalize', () => {
+describe('(Vector) normalize', () => {
   it('should work as expected', () => {
     const x: Vector = new Vector([1, 1]);
     const y: Vector = new Vector([1 / Math.sqrt(2), 1 / Math.sqrt(2)]);

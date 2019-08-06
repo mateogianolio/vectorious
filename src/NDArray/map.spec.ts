@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('map', () => {
+describe('(NDArray) map', () => {
   it('should work as expected', () => {
     const x: NDArray = new NDArray([1, 2, 3]);
 

@@ -6,7 +6,7 @@ import { TypedArray } from '../types';
 
 import { NDArray } from '.';
 
-describe('each', () => {
+describe('(NDArray) each', () => {
   it('should work as expected', () => {
     const x: NDArray = new NDArray([1, 2, 3]);
     x.each((value: number, index: number, src: TypedArray) => {

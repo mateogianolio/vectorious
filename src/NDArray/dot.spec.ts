@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('dot', () => {
+describe('(NDArray) dot', () => {
   it('should throw error if sizes do not match', () => {
     const x: NDArray = new NDArray([1]);
     const y: NDArray = new NDArray([1, 2]);

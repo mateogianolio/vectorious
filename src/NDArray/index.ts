@@ -1,13 +1,14 @@
 import {
+  DType,
   INDArray,
   TypedArray,
-  TypedArrayConstructor,
 } from '../types';
 import {
   flatten,
-  isTypedArray,
-  shape,
-  type,
+  get_dtype,
+  get_shape,
+  get_type,
+  is_typed_array,
 } from '../util';
 
 export class NDArray implements INDArray {
@@ -314,7 +315,7 @@ export class NDArray implements INDArray {
   public static sinh: <T extends NDArray>(x: T) => T;
 
   /**
-   * Slices `x` in the corresponding dimesion
+   * Slices `x` in the corresponding dimension
    * ![](media://NDArray/slice.png)
    */
   public static slice: <T extends NDArray>(x: T, start?: number, step?: number, end?: number) => T;
@@ -455,6 +456,8 @@ export class NDArray implements INDArray {
    * ![](media://NDArray/dot.png)
    */
   public dot!: (y: NDArray) => number;
+
+  public dtype: DType = 'float32';
 
   /**
    * Equivalent to `TypedArray.prototype.forEach`.
@@ -636,7 +639,7 @@ export class NDArray implements INDArray {
   public sinh!: () => this;
 
   /**
-   * Slices the current array in the corresponding dimesion
+   * Slices the current array in the corresponding dimension
    * ![](media://NDArray/slice.png)
    */
   public slice!: (start?: number, step?: number, end?: number) => this;
@@ -673,22 +676,18 @@ export class NDArray implements INDArray {
    */
   public trunc!: () => this;
 
-  public type: TypedArrayConstructor = Float32Array;
-
   public constructor(
     data?: any,
-    options?: {
-      shape: number[];
-    }
+    options?: any
   ) {
-    if (isTypedArray(data)) {
+    if (is_typed_array(data)) {
       this.data = data as TypedArray;
-      this.shape = typeof options === 'object' ? options.shape : [this.data.length];
+      this.shape = typeof options === 'object' && options.hasOwnProperty('shape') ? options.shape : [this.data.length];
       this.length = this.data.length;
-      this.type = type(data);
+      this.dtype = typeof options === 'object' && options.hasOwnProperty('dtype') ? options.dtype : get_dtype(data);
     } else if (data instanceof Array) {
-      this.data = new Float32Array(flatten(data));
-      this.shape = shape(data);
+      this.data = new (get_type(this.dtype))(flatten(data));
+      this.shape = get_shape(data);
       this.length = this.data.length;
     } else if (data instanceof NDArray) {
       return data.copy();
@@ -727,10 +726,10 @@ import './log';
 import './log10';
 import './log1p';
 import './log2';
-import './norm';
 import './map';
 import './max';
 import './min';
+import './norm';
 import './ones';
 import './pow';
 import './product';

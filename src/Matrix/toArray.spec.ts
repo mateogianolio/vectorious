@@ -4,7 +4,7 @@ import {
 
 import { Matrix } from './';
 
-describe('toArray', () => {
+describe('(Matrix) toArray', () => {
   it('should work as expected', () => {
     deepStrictEqual([[1, 2], [3, 4]], new Matrix([[1, 2], [3, 4]]).toArray());
     deepStrictEqual([[1, 2], [3, 4], [5, 6]], new Matrix([[1, 2], [3, 4], [5, 6]]).toArray());

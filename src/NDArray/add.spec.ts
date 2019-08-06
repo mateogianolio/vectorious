@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('add', () => {
+describe('(NDArray) add', () => {
   it('should return empty vector if adding two empty vectors', () => {
     const x: NDArray = new NDArray();
     const y: NDArray = new NDArray();

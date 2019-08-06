@@ -1,3 +1,5 @@
+import { get_type } from '../util';
+
 import { Matrix } from './';
 
 let nlapack: any;
@@ -12,14 +14,14 @@ Matrix.prototype.lu_factor = function<T extends Matrix>(this: T): [T, Int32Array
   const ipiv: Int32Array = new Int32Array(n);
 
   try {
-    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
-      this.type = Float32Array;
-      this.data = Float32Array.from(this.data);
+    if (!['float32', 'float64'].includes(this.dtype)) {
+      this.dtype = 'float32';
+      this.data = get_type(this.dtype).from(this.data);
     }
 
-    if (this.data instanceof Float64Array) {
+    if (this.dtype === 'float64') {
       nlapack.dgetrf(n, n, this.data, n, ipiv);
-    } else if (this.data instanceof Float32Array) {
+    } else if (this.dtype === 'float32') {
       nlapack.sgetrf(n, n, this.data, n, ipiv);
     }
   } catch (err) {

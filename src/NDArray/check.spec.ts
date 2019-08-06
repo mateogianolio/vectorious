@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('check', () => {
+describe('(NDArray) check', () => {
   it('should throw error if the index is NaN', () => {
     const x: NDArray = new NDArray([1, 2, 3, 4]);
 

@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('reshape', () => {
+describe('(NDArray) reshape', () => {
   it('should throw error if new shape does not match length', () => {
     const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
     const x: NDArray = new NDArray(f32);

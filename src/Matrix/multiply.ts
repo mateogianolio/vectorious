@@ -1,3 +1,5 @@
+import { get_type } from '../util';
+
 import { Matrix } from './';
 
 let nblas: any;
@@ -18,14 +20,14 @@ Matrix.prototype.multiply = function<T extends Matrix>(this: T, x: T): T {
   const y: Matrix = new Matrix(r1, c2);
 
   try {
-    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
-      this.type = Float32Array;
-      this.data = Float32Array.from(this.data);
+    if (!['float32', 'float64'].includes(this.dtype)) {
+      this.dtype = 'float32';
+      this.data = get_type(this.dtype).from(this.data);
     }
 
-    if (this.data instanceof Float64Array) {
+    if (this.dtype === 'float64') {
       nblas.dgemm(nblas.NoTrans, nblas.NoTrans, r1, c2, c1, 1, this.data, c1, x.data, c2, 0, y.data, c2);
-    } else if (this.data instanceof Float32Array) {
+    } else if (this.dtype === 'float32') {
       nblas.sgemm(nblas.NoTrans, nblas.NoTrans, r1, c2, c1, 1, this.data, c1, x.data, c2, 0, y.data, c2);
     }
   } catch (err) {

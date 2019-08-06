@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('random', () => {
+describe('(NDArray) random', () => {
   it('should work as expected', () => {
     const x: NDArray = NDArray.random(3);
 

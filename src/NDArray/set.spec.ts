@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('set', () => {
+describe('(NDArray) set', () => {
   it('should set properties as expected', () => {
     const x: NDArray = new NDArray([-1, -1, -1, -1]);
 

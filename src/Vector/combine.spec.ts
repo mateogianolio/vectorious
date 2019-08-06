@@ -4,7 +4,7 @@ import {
 
 import { Vector } from '.';
 
-describe('combine', () => {
+describe('(Vector) combine', () => {
   it('should return current vector if combined with empty vector', () => {
     deepStrictEqual(new Vector([1, 2, 3]), new Vector([1, 2, 3]).combine(new Vector()));
   });

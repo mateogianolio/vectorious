@@ -5,7 +5,7 @@ import {
 
 import { Vector } from '.';
 
-describe('cross', () => {
+describe('(Vector) cross', () => {
   it('should work as expected', () => {
     const x: Vector = new Vector([1, 2, 3]);
     const y: Vector = new Vector([2, 3, 4]);

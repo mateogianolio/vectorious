@@ -4,7 +4,7 @@ import {
 
 import { Matrix } from './';
 
-describe('diagonal', () => {
+describe('(Matrix) diagonal', () => {
   it('should work as expected', () => {
     const x: Matrix = new Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
 

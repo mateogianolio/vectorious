@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('copy', () => {
+describe('(NDArray) copy', () => {
   it('should create an immutable copy of class', () => {
     const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
     const original: NDArray = new NDArray(f32);

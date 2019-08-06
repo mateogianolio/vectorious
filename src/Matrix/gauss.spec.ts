@@ -4,7 +4,7 @@ import {
 
 import { Matrix } from './';
 
-describe('gauss', () => {
+describe('(Matrix) gauss', () => {
   it('should work as expected', () => {
     const x: Matrix = new Matrix([[1, 2, 3], [3, 4, 5]]);
     const y: Matrix = new Matrix([[1, 0, -1], [-0, 1, 2]]);

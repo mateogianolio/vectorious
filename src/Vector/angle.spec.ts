@@ -4,7 +4,7 @@ import {
 
 import { Vector } from '.';
 
-describe('angle', () => {
+describe('(Vector) angle', () => {
   it('should work as expected', () => {
     const x: Vector = new Vector([1, 0]);
     const y: Vector = new Vector([0, 1]);

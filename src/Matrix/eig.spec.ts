@@ -5,7 +5,7 @@ import {
 
 import { Matrix } from './';
 
-describe('eig', () => {
+describe('(Matrix) eig', () => {
   it('should throw error if matrix is not square', () => {
     const x: Matrix = new Matrix([[1, 2]]);
 

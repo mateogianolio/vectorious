@@ -4,7 +4,7 @@ import {
 
 import { Vector } from '.';
 
-describe('toArray', () => {
+describe('(Vector) toArray', () => {
   it('should work as expected', () => {
     deepStrictEqual([], new Vector().toArray());
     deepStrictEqual([1, 2, 3], new Vector([1, 2, 3]).toArray());

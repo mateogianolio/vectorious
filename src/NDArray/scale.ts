@@ -1,3 +1,5 @@
+import { get_type } from '../util';
+
 import { NDArray } from './';
 
 let nblas: any;
@@ -11,14 +13,14 @@ NDArray.prototype.scale = function<T extends NDArray>(this: T, scalar: number): 
   const { length: l1 } = this;
 
   try {
-    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
-      this.type = Float32Array;
-      this.data = Float32Array.from(this.data);
+    if (!['float32', 'float64'].includes(this.dtype)) {
+      this.dtype = 'float32';
+      this.data = get_type(this.dtype).from(this.data);
     }
 
-    if (this.data instanceof Float64Array) {
+    if (this.dtype === 'float64') {
       nblas.dscal(l1, scalar, this.data, 1);
-    } else if (this.data instanceof Float32Array) {
+    } else if (this.dtype === 'float32') {
       nblas.sscal(l1, scalar, this.data, 1);
     }
   } catch (err) {

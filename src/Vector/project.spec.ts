@@ -5,7 +5,7 @@ import {
 
 import { Vector } from '.';
 
-describe('project', () => {
+describe('(Vector) project', () => {
   it('should throw error if sizes do not match', () => {
     const x: Vector = new Vector([1]);
     const y: Vector = new Vector([1, 2]);

@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('zeros', () => {
+describe('(NDArray) zeros', () => {
   it('should work as expected', () => {
     const x: NDArray = new NDArray([0, 0, 0]);
 

@@ -5,7 +5,7 @@ import {
 
 import { Matrix } from './';
 
-describe('magic', () => {
+describe('(Matrix) magic', () => {
   it('should throw error if invalid size', () => {
     throws(() => { Matrix.magic(-1); }, Error);
   });

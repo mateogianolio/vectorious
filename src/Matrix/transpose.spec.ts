@@ -4,7 +4,7 @@ import {
 
 import { Matrix } from './';
 
-describe('transpose', () => {
+describe('(Matrix) transpose', () => {
   it('should work as expected', () => {
     const x: Matrix = new Matrix([[1, 2]]);
     const y: Matrix = new Matrix([[1], [2]]);

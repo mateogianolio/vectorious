@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('equals', () => {
+describe('(NDArray) equals', () => {
   it('should work as expected', () => {
     strictEqual(true, new NDArray([1, 3, 2]).equals(new NDArray([1, 3, 2])));
     strictEqual(true, new NDArray().equals(new NDArray()));

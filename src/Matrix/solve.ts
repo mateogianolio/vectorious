@@ -1,3 +1,5 @@
+import { get_type } from '../util';
+
 import { Matrix } from './';
 
 let nlapack: any;
@@ -11,15 +13,15 @@ Matrix.prototype.solve = function<T extends Matrix>(this: T, x: T): T {
   const [n, nrhs] = x.shape;
 
   try {
-    if (!(this.data instanceof Float64Array) || !(this.data instanceof Float32Array)) {
-      this.type = Float32Array;
-      this.data = Float32Array.from(this.data);
+    if (!['float32', 'float64'].includes(this.dtype)) {
+      this.dtype = 'float32';
+      this.data = get_type(this.dtype).from(this.data);
     }
 
     const ipiv: Int32Array = new Int32Array(n);
-    if (this.data instanceof Float64Array) {
+    if (this.dtype === 'float64') {
       nlapack.dgesv(n, nrhs, this.data, n, ipiv, x.data, nrhs);
-    } else if (this.data instanceof Float32Array) {
+    } else if (this.dtype === 'float32') {
       nlapack.sgesv(n, nrhs, this.data, n, ipiv, x.data, nrhs);
     }
   } catch (err) {

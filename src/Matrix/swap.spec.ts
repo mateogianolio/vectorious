@@ -5,7 +5,7 @@ import {
 
 import { Matrix } from './';
 
-describe('swap', () => {
+describe('(Matrix) swap', () => {
   it('should throw error if index out of bounds', () => {
     const x: Matrix = new Matrix([[1, 2], [3, 4]]);
 

@@ -4,7 +4,7 @@ import {
 
 import { Vector } from '.';
 
-describe('push', () => {
+describe('(Vector) push', () => {
   it('should start with Vector(1, 2), push(3) to get Vector(1, 2, 3)', () => {
     deepStrictEqual(new Vector([1, 2, 3]), new Vector([1, 2]).push(3));
   });

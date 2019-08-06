@@ -1,4 +1,5 @@
 import { TypedArray } from '../types';
+import { get_type } from '../util';
 
 import { NDArray } from './';
 
@@ -13,17 +14,17 @@ NDArray.prototype.slice = function<T extends NDArray>(
 ): T {
   const { data: d1, shape: s1 } = this;
 
-  let i: number = begin < 0 ? s1.length + begin : begin;
+  const i: number = begin < 0 ? s1.length + begin : begin;
   const j: number = end < 0 ? s1.length + end : end;
   const k: number = step;
-  const m: number = Math.ceil((j - i) / k);
 
-  const s2: number[] = [m, ...s1.slice(1)];
+  const s2: number[] = [Math.ceil((j - i) / k), ...s1.slice(1)];
   const l2: number = s2.reduce((sum: number, dim: number) => sum * dim, 1);
-  const d2: TypedArray = new this.type(l2);
+  const d2: TypedArray = new (get_type(this.dtype))(l2);
 
-  for (; i < m * k; i += k) {
-    d2[i / k] = d1[i];
+  let l: number;
+  for (l = 0; l < l2; l += 1) {
+    d2[l] = d1[i + l * k];
   }
 
   this.length = l2;

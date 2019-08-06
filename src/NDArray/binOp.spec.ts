@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('binOp', () => {
+describe('(NDArray) binOp', () => {
   it('should work as expected', () => {
     const x: NDArray = new NDArray([1, 1, 1]);
     const y: NDArray = new NDArray([1, 2, 3]);

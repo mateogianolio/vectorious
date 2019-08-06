@@ -4,7 +4,7 @@ import {
 
 import { Vector } from '.';
 
-describe('toString', () => {
+describe('(Vector) toString', () => {
   it('should work as expected', () => {
     strictEqual('[1, 2, 3]', new Vector([1, 2, 3]).toString());
   });

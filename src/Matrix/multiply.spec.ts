@@ -5,7 +5,7 @@ import {
 
 import { Matrix } from './';
 
-describe('multiply', () => {
+describe('(Matrix) multiply', () => {
   it('should throw error if sizes do not match', () => {
     const x: Matrix = new Matrix([[1, 2], [3, 4]]);
     const y: Matrix = new Matrix([[1, 2]]);

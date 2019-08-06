@@ -5,7 +5,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('reduce', () => {
+describe('(NDArray) reduce', () => {
   it('should work as expected', () => {
     const x: NDArray = new NDArray([1, 2, 3]);
     const y: NDArray = new NDArray([1, 2, 3, 4, 5, 6]);

@@ -4,7 +4,7 @@ import {
 
 import { NDArray } from '.';
 
-describe('norm', () => {
+describe('(NDArray) norm', () => {
   it('should return 0 if empty vector', () => {
     strictEqual(0, new NDArray().norm());
   });
