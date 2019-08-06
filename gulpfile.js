@@ -7,20 +7,30 @@
       uglify = require('gulp-uglify'),
       browserify = require('browserify'),
       source = require('vinyl-source-stream'),
-      del = require('del');
+      del = require('del'),
+      typedoc = require('gulp-typedoc');
 
   gulp.task('clean', function () {
-    return del(['dist']);
+    return del(['built', 'dist']);
+  });
+
+  gulp.task('docs', function () {
+    return gulp
+      .src(['src/**/*.ts'])
+      .pipe(typedoc({
+        module: 'commonjs',
+        target: 'es5',
+        mode: 'file',
+        out: 'docs/',
+        name: 'Vectorious',
+        readme: 'none',
+      }))
   });
 
   gulp.task('build', function () {
-    var files = [
-      'src/Vector.ts',
-      'src/Matrix.ts'
-    ];
-
-    return browserify({ entries: files })
+    return browserify({ entries: ['src/index.ts'] })
       .ignore('nblas')
+      .ignore('nlapack')
       .plugin(tsify)
       .bundle()
       .pipe(source('vectorious.min.js'))

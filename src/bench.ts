@@ -1,5 +1,6 @@
 const benchmark: any = require('nodemark');
 const plt: any = require('matplotnode');
+const { execSync } = require('child_process');
 
 export const bench: (
   group: string,
@@ -12,8 +13,9 @@ export const bench: (
   setup: (n: number) => any[],
   ...funcs: Array<(...args: any[]) => void>
 ): typeof benchmark => {
+  execSync(`mkdir -p benchmarks/${group}`);
   const filename: string = `benchmarks/${group}/${name}.png`;
-  const xs: number[] = [4, 16, 64, 256, 1024, 4096, 16384, 65536];
+  const xs: number[] = [4, 16, 64, 256, 1024];
   let ys: number[] = [];
 
   plt.title(name);
@@ -21,34 +23,30 @@ export const bench: (
   // tslint:disable-next-line: no-console
   console.log(`${group} > ${name}`);
 
-  for (const func of funcs) {
-    for (const x of xs) {
+  funcs.forEach((func: (...args: any[]) => void, i: number) => {
+    xs.forEach((x: number) => {
       let args: any[] = [];
       const result: typeof benchmark = benchmark(
         (): void => { func(...args); },
-        (): void => { args = setup(x); }
+        (): void => { args = setup(x); },
+        100
       );
 
       ys.push(result.milliseconds(3));
 
       // tslint:disable-next-line: no-console
       console.log(`n=${x} ${result}`);
-    }
+    });
 
-    const src: string = func.toString().replace(/\s/g, '');
-    const label: string = src.substring(
-      src.lastIndexOf('{') + 1,
-      src.lastIndexOf('}')
-    );
+    const label: string = i === 0 ? `${name} [prototype]` : `${name} [static]`;
 
     plt.plot(xs, ys, `label=${label}`);
     ys = [];
-  }
+  });
 
   plt.xlabel('n');
   plt.ylabel('ms');
-  plt.xlim(0, xs[xs.length - 1]);
-  plt.ylim(0, 1);
+  plt.xlim(0, 1024);
 
   plt.grid(true);
   plt.legend();

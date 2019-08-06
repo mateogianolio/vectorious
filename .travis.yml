@@ -2,10 +2,12 @@ language: node_js
 node_js:
   - "lts/*"
 before_install:
-  - sudo apt-get install libblas-dev
+  - sudo apt-get install libblas-dev libpython-dev
+install:
+  - npm install
 env:
   global:
-    - CXX=g++-4.8
+    - CXX=g++-4.9
     - CC_TEST_REPORTER_ID=7bc2ff765ac0619975d32fe57959db6374d14a96780a1438ec68ea14036748e1
 before_script:
   - npm install -g nyc
@@ -22,6 +24,4 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - gcc-4.8
-    - g++-4.8
-    - clang
+    - g++-4.9

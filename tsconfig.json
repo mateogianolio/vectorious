@@ -13,6 +13,10 @@
     "lib": [
       "es5",
       "dom"
+    ],
+    "types": [
+      "mocha",
+      "node"
     ]
   },
   "include": [

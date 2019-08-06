@@ -18,6 +18,7 @@
         "esSpecCompliant": true
       }
     ],
+    "variable-name": false,
     "no-unused-expression": false,
     "no-empty": false,
     "no-var-requires": false,
@@ -30,7 +31,8 @@
     "no-this-assignment": false,
     "no-implicit-dependencies": false,
     "newline-per-chained-call": false,
-    "no-unsafe-any": false
+    "no-unsafe-any": false,
+    "no-import-side-effect": false
   },
   "rulesDirectory": []
 }
