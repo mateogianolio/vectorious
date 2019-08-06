@@ -29,7 +29,7 @@ NDArray.prototype.slice = function<T extends NDArray>(
 
   this.length = l2;
   this.data = d2;
-  this.reshape(s2);
+  this.reshape(...s2);
 
   return this;
 };

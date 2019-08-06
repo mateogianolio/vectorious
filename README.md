@@ -8,7 +8,7 @@
 
 Follow the installation instructions in [nlapack](https://github.com/nperf/nlapack) and [nblas](https://github.com/nperf/nblas) to get maximum performance.
 
-##### In node.js
+#### In node.js
 
 ```bash
 # with C++ bindings
@@ -39,21 +39,7 @@ Matrix {
 */
 ```
 
-Will use your local BLAS copy (if any). Some notes for different operating systems:
-
-* **OSX** - by default included in the Accelerate framework
-* **Debian/Ubuntu** - different options, easiest is to `apt-get install libblas-dev`
-* **Windows** - https://icl.cs.utk.edu/lapack-for-windows/
-
-##### In browser
-
-Download a [**release**](https://github.com/mateogianolio/vectorious/releases) and use it like this:
-
-```html
-<script src="vectorious.min.js"></script>
-```
-
-Or if you prefer to use a CDN:
+#### In browser
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/6.0.0/vectorious.min.js"></script>
@@ -77,7 +63,6 @@ Or if you prefer to use a CDN:
 ### Examples
 
 **Basic**
-
 * [**Solving linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/solve.js)
 * [**Using low-level BLAS routines**](https://github.com/mateogianolio/vectorious/tree/master/examples/blas.js)
 
@@ -85,45 +70,18 @@ Or if you prefer to use a CDN:
 * [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js) (by [@lucidrains](https://github.com/lucidrains))
 * [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.js)
 
-### [Documentation](https://github.com/mateogianolio/vectorious/wiki)
+### Documentation
+
+* [**API Documentation**](https://mateogianolio.github.io/vectorious)
+* [**Usage guides**](https://github.com/mateogianolio/vectorious/wiki)
 
 ### Benchmarks
 
-Benchmarks are performed using `Float32Array` of size `n` (matrices are sized `sqrt(n) x sqrt(n)`).
+Run benchmarks with
 
-#### Specs
-
+```bash
+$ npm run benchmark
 ```
-Macbook Pro Early '15
-Processor: 2,7 GHz Intel Core i5
-Memory: 8 GB 1867 MHz DDR3
-GPU: Intel Iris Graphics 6100 1536 MB
-```
-
-#### Results
-
-| Matrix |  |  |
-|---------|--------|--------|
-| ![add](benchmarks/Matrix/add.png) | ![augment](benchmarks/Matrix/augment.png) | ![binOp](benchmarks/Matrix/binOp.png) |
-| ![determinant](benchmarks/Matrix/determinant.png) | ![diag](benchmarks/Matrix/diag.png) | ![gauss](benchmarks/Matrix/gauss.png) |
-| ![inverse](benchmarks/Matrix/inverse.png) | ![lu](benchmarks/Matrix/lu.png) | ![multiply](benchmarks/Matrix/multiply.png) |
-| ![plu](benchmarks/Matrix/plu.png) | ![product](benchmarks/Matrix/product.png) | ![rank](benchmarks/Matrix/rank.png) |
-| ![rowAdd](benchmarks/Matrix/rowAdd.png) | ![scale](benchmarks/Matrix/scale.png) | ![solve](benchmarks/Matrix/solve.png) |
-| ![subtract](benchmarks/Matrix/subtract.png) | ![swap](benchmarks/Matrix/swap.png) | ![trace](benchmarks/Matrix/trace.png) |
-| ![transpose](benchmarks/Matrix/transpose.png) | | |
-
-| Vector |  |  |
-|---------|--------|--------|
-| ![add](benchmarks/Vector/add.png) | ![angle](benchmarks/Vector/angle.png) | ![binOp](benchmarks/Vector/binOp.png) |
-| ![combine](benchmarks/Vector/combine.png) | ![dot](benchmarks/Vector/dot.png) | ![normalize](benchmarks/Vector/normalize.png) |
-| ![project](benchmarks/Vector/project.png) | ![scale](benchmarks/Vector/scale.png) | ![subtract](benchmarks/Vector/subtract.png) |
-
-| NDArray |  |  |
-|---------|--------|--------|
-| ![add](benchmarks/NDArray/add.png) | ![copy](benchmarks/NDArray/copy.png) | ![dot](benchmarks/NDArray/dot.png) |
-| ![magnitude](benchmarks/NDArray/magnitude.png) | ![max](benchmarks/NDArray/max.png) | ![min](benchmarks/NDArray/min.png) |
-| ![product](benchmarks/NDArray/product.png) | ![scale](benchmarks/NDArray/scale.png) | ![subtract](benchmarks/NDArray/subtract.png) |
-
 
 ## Contributors
 

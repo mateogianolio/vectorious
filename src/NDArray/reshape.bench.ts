@@ -11,9 +11,9 @@ bench(
   'reshape',
   (n: number): [NDArray, number] => [r(n), n],
   (x: NDArray, n: number): void => {
-    x.reshape([n]);
+    x.reshape(n);
   },
   (x: NDArray, n: number): void => {
-    NDArray.reshape(x, [n]);
+    NDArray.reshape(x, n);
   }
 );

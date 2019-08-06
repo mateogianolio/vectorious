@@ -16,5 +16,5 @@ Matrix.prototype.transpose = function<T extends Matrix>(this: T): T {
     }
   }
 
-  return this.reshape([c, r]);
+  return this.reshape(c, r);
 };
