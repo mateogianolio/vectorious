@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "6.0.0-beta.0",
+  "version": "6.0.0-beta.1",
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "scripts": {
@@ -87,8 +87,8 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
-    "nblas": "^2.1.5",
-    "nlapack": "^2.0.0"
+    "nblas": "^2.1.6",
+    "nlapack": "^2.0.2"
   },
   "dependencies": {}
 }
