@@ -11,7 +11,8 @@
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
     "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node --transpile-only $file; done",
     "docs": "gulp docs",
-    "build": "gulp clean && gulp build && gulp docs && tsc"
+    "build": "gulp clean && gulp build && gulp docs && tsc",
+    "prepublish": "npm run build"
   },
   "browser": {
     "nblas": false,
