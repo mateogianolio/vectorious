@@ -28,14 +28,16 @@ import {
 const x: Matrix = Matrix.random(2, 2);
 /*
 Matrix {
-  shape: [ 2, 2 ],
-  data:
-   Float32Array [
-     0.7041265660588281,
-     0.6186458305857421,
-     0.032954109874604454,
-     0.5198025534810546 ],
-  type: [Function: Float32Array] }
+  data: Float32Array [
+    0.38323071599006653,
+    0.9094724655151367,
+    0.8513918519020081,
+    0.2443944215774536
+  ],
+  dtype: 'float32',
+  length: 4,
+  shape: [ 2, 2 ]
+}
 */
 ```
 
