@@ -4,14 +4,14 @@
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "scripts": {
-    "test:node": "nyc mocha -r ts-node/register \"./src/**/*.spec.ts\"",
-    "test:single": "mocha -r ts-node/register",
-    "test:browser": "mochify --plugin tsify \"./src/**/*.spec.ts\"",
+    "test:node": "nyc mocha -r ts-node/register/transpile-only src/**/*.spec.ts",
+    "test:single": "mocha -r ts-node/register/transpile-only",
+    "test:browser": "mochify --plugin tsify src/**/*.spec.ts",
     "test": "npm run test:node && npm run test:browser",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
-    "benchmark": "ts-node ./src/NDArray/index.bench.ts && ts-node ./src/Vector/index.bench.ts && ts-node ./src/Matrix/index.bench.ts",
+    "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node --transpile-only $file; done",
     "docs": "gulp docs",
-    "build": "gulp clean && gulp build && tsc"
+    "build": "gulp clean && gulp build && gulp docs && tsc"
   },
   "browser": {
     "nblas": false,

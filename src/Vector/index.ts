@@ -3,11 +3,13 @@ import { NDArray } from '../NDArray';
 export class Vector extends NDArray {
   /**
    * Determines the angle between the `x` and `y`
+   * ![](media://Vector/angle.png)
    */
   public static angle: (x: Vector, y: Vector) => number;
 
   /**
    * Combines the vector `x` with `y`
+   * ![](media://Vector/combine.png)
    */
   public static combine: (x: Vector, y: Vector) => Vector;
 
@@ -16,41 +18,49 @@ export class Vector extends NDArray {
    * This operation can only calculated for vectors with three components.
    * Otherwise it throws an exception.
    * The method returns a new (result) vector.
+   * ![](media://Vector/cross.png)
    */
   public static cross: (x: Vector, y: Vector) => Vector;
 
   /**
    * Normalizes `x`.
+   * ![](media://Vector/normalize.png)
    */
   public static normalize: (x: Vector) => Vector;
 
   /**
    * Projects the `y` onto `x` using the projection formula `(y * (x * y / y * y))`.
+   * ![](media://Vector/project.png)
    */
   public static project: (x: Vector, y: Vector) => Vector;
 
   /**
    * Pushes a new `value` into `x`.
+   * ![](media://Vector/push.png)
    */
   public static push: (x: Vector, value: number) => Vector;
 
   /**
    * Converts `x` into a JavaScript array.
+   * ![](media://Vector/toArray.png)
    */
   public static toArray: (x: Vector) => number[];
 
   /**
    * Converts `x` into a readable formatted string.
+   * ![](media://Vector/toString.png)
    */
   public static toString: (x: Vector) => string;
 
   /**
-   * Determines the angle between the current vector and `x`
+   * Determines the angle between the current vector and `x`.
+   * ![](media://Vector/angle.png)
    */
   public angle!: (x: Vector) => number;
 
   /**
    * Combines the current vector with `x`
+   * ![](media://Vector/combine.png)
    */
   public combine!: (x: Vector) => this;
 
@@ -59,31 +69,37 @@ export class Vector extends NDArray {
    * This operation can only be calculated for vectors with three components.
    * Otherwise it throws an exception.
    * The method returns a new (result) vector.
+   * ![](media://Vector/cross.png)
    */
   public cross!: (x: Vector) => this;
 
   /**
    * Normalizes current vector.
+   * ![](media://Vector/normalize.png)
    */
   public normalize!: () => this;
 
   /**
    * Projects the current vector onto `x` using the projection formula `(y * (x * y / y * y))`.
+   * ![](media://Vector/project.png)
    */
   public project!: (x: Vector) => this;
 
   /**
    * Pushes a new `value` into current vector.
+   * ![](media://Vector/push.png)
    */
   public push!: (value: number) => this;
 
   /**
    * Converts current vector into a JavaScript array.
+   * ![](media://Vector/toArray.png)
    */
   public toArray!: () => number[];
 
   /**
    * Converts current vector into a readable formatted string.
+   * ![](media://Vector/toString.png)
    */
   public toString!: () => string;
 

@@ -24,6 +24,7 @@
         out: 'docs/',
         name: 'Vectorious',
         readme: 'none',
+        media: 'benchmarks',
       }))
   });
 
