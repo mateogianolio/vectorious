@@ -2,23 +2,22 @@
   // logistic regression example based on https://github.com/junku901/dnn
   'use strict';
 
-  var v = require('../built'),
-      Matrix = v.Matrix,
-      Vector = v.Vector;
-
-  var subtract = Matrix.subtract;
+  var v = require('../built');
+  var subtract = v.subtract;
 
   // perform row-wise softmax on matrix
   function softmax(m) {
     var c = m.shape[1],
-        max = m.reduce(Math.max),
+        max = m.max(),
         sum;
 
     return m
-      .map(function (x) {
-        return Math.exp(x - max);
-      })
-      .map(function (x, i, j) {
+      .add(v.ones(...m.shape).scale(-max))
+      .exp()
+      .map(function (x, index) {
+        var i = Math.floor(index / c);
+        var j = index % c;
+
         if (j === 0) {
           sum = 0;
           for (var k = 0; k < c; k++)
@@ -32,10 +31,10 @@
   // get col-wise mean of matrix as vector
   function mean(m) {
     var c = m.shape[1],
-        v = Vector.zeros(c),
+        vec = v.zeros(c),
         sum;
 
-    return v.map(function (x, i) {
+    return vec.map(function (x, i) {
       sum = 0;
       for (var j = 0; j < c; j++)
         sum += m.get(i, j);
@@ -46,43 +45,45 @@
 
   // row-wise add vector to matrix
   function addMatVec(m, v) {
-    return m.map(function (x, i, j) {
+    var c = m.shape[1];
+    return m.map(function (x, index) {
+      var j = index % c;
       return x + v.get(j);
     });
   }
 
-  var X = new Matrix([
+  var x = v.array([
     [1, 1, 1, 0, 0],
     [0, 0, 1, 1, 1]
   ]);
 
-  var y = new Matrix([
+  var y = v.array([
     [1, 0],
     [0, 1]
   ]);
 
-  var W = Matrix.zeros(X.shape[1], y.shape[1]),
-      b = Vector.zeros(y.shape[1]);
+  var w = v.zeros(x.shape[1], y.shape[1]),
+      b = v.zeros(y.shape[1]);
 
   var alpha = 0.01, // learning rate
       prob, delta;
 
   // train
   for (var i = 0; i < 800; i++) {
-    prob = softmax(addMatVec(X.multiply(W), b));
+    prob = softmax(addMatVec(x.multiply(w), b));
     delta = subtract(y, prob);
 
-    W.add(X.T.multiply(delta).scale(alpha));
+    w.add(x.copy().T.multiply(delta).scale(alpha));
     b.add(mean(delta).scale(alpha));
   }
 
   // predict
-  var x = new Matrix([
+  var x = v.array([
     [1, 1, 0, 0, 0],
     [0, 0, 0, 1, 1],
     [1, 1, 1, 1, 1]
   ]);
 
-  console.log(softmax(addMatVec(x.multiply(W), b)).toArray());
+  console.log(softmax(addMatVec(x.multiply(w), b)));
   // prediction should be close to [[1, 0], [0, 1], [0.5, 0.5]]
 }());

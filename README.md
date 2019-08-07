@@ -19,15 +19,11 @@ $ npm install vectorious@beta --no-optional
 ```
 
 ```javascript
-import {
-  Matrix,
-  Vector,
-  NDArray,
-} from 'vectorious';
+import v from 'vectorious';
 
-const x: Matrix = Matrix.random(2, 2);
+const x = v.random(2, 2);
 /*
-Matrix {
+x: NDArray {
   data: Float32Array [
     0.38323071599006653,
     0.9094724655151367,
@@ -39,18 +35,50 @@ Matrix {
   shape: [ 2, 2 ]
 }
 */
+
+const y = v.range(0, 9).reshape(3, 3);
+/*
+y: NDArray {
+  data: Float32Array [
+    0, 1, 2, 3, 4,
+    5, 6, 7, 8
+  ],
+  dtype: 'float32',
+  length: 9,
+  shape: [ 3, 3 ]
+}
+*/
+
+const z = v.array([[1, 2], [3, 4]]);
+
+x.add(z);
+/*
+x: NDArray {
+  data: Float32Array [
+    1.3832306861877441,
+    2.9094724655151367,
+    3.8513917922973633,
+    4.244394302368164
+  ],
+  dtype: 'float32',
+  length: 4,
+  shape: [ 2, 2 ]
+}
+*/
 ```
 
 #### In browser
 
+Download `dist/vectorious.min.js` or search for vectorious on [cdnjs](https://cdnjs.com).
+
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vectorious/5.5.0/vectorious.min.js"></script>
+<script src="vectorious.min.js"></script>
 ```
 
 ```html
 <script>
-  var A = new Matrix([[1], [2], [3]]),
-      B = new Matrix([[1, 3, 5]]),
+  var A = v.array([[1], [2], [3]]),
+      B = v.array([[1, 3, 5]]),
       C = A.multiply(B);
 
   console.log('C:', C.toArray());

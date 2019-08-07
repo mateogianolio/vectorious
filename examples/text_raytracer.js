@@ -1,11 +1,11 @@
 (function (){
   // Ported from Rust from https://gist.github.com/joshmarinacci/c84d0979e100d107f685 http://joshondesign.com/2014/09/17/rustlang
   'use strict';
-  var Vector = require('../built').Vector,
-      add = Vector.add,
-      subtract = Vector.subtract,
-      scale = Vector.scale,
-      dot = Vector.dot,
+  var v = require('../built'),
+      add = v.add,
+      subtract = v.subtract,
+      scale = v.scale,
+      dot = v.dot,
       render = process.stdout.write.bind(process.stdout);
 
   function Ray(orig, dir) {
@@ -82,13 +82,13 @@
   }
 
   // declare colors
-  var WHITE = new Vector([1.0, 1.0, 1.0]),
-      RED   = new Vector([1.0, 0.0, 0.0]),
-      GREEN = new Vector([0.0, 1.0, 0.0]),
-      BLUE  = new Vector([0.0, 0.0, 1.0]);
+  var WHITE = new v([1.0, 1.0, 1.0]),
+      RED   = new v([1.0, 0.0, 0.0]),
+      GREEN = new v([0.0, 1.0, 0.0]),
+      BLUE  = new v([0.0, 0.0, 1.0]);
 
   // declare lighting
-  var LIGHT1 = new Light(new Vector([0.7, -1.0, 1.7]), WHITE)
+  var LIGHT1 = new Light(new v([0.7, -1.0, 1.7]), WHITE)
 
   // declare pixel intensities & screen size
   var lut = ['.', '-', '+', '*', 'X', 'M'],
@@ -97,9 +97,9 @@
 
   // declare scene
   var scene = [
-    new Sphere(new Vector([-1.0, 0.0, 3.0]), 0.3, RED),
-    new Sphere(new Vector([0.0, 0.0, 3.0]), 0.8, GREEN),
-    new Sphere(new Vector([1.0, 0.0, 3.0]), 0.4, BLUE)
+    new Sphere(new v([-1.0, 0.0, 3.0]), 0.3, RED),
+    new Sphere(new v([0.0, 0.0, 3.0]), 0.8, GREEN),
+    new Sphere(new v([1.0, 0.0, 3.0]), 0.4, BLUE)
   ];
 
   // render scene
@@ -111,8 +111,8 @@
           fh = parseFloat(h);
 
       var ray = new Ray(
-        new Vector([0.0, 0.0, 0.0]),
-        new Vector([(fi - fw/2.0)/fw, (fj - fh/2.0)/fh, 1.0]).normalize()
+        new v([0.0, 0.0, 0.0]),
+        new v([(fi - fw/2.0)/fw, (fj - fh/2.0)/fh, 1.0]).normalize()
       )
 
       var hit, minRet, pixel;

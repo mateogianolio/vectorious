@@ -1,17 +1,17 @@
 (function() {
   'use strict';
 
-  var Matrix = require('../built').Matrix;
+  var v = require('../built');
 
-  var a = Matrix.random(3, 3).scale(10),
-      b = Matrix.random(3, 1).scale(10);
+  var a = v.random(3, 3).scale(10),
+      b = v.random(3, 1).scale(10);
 
   console.log('a:');
-  console.log(a.toArray());
+  console.log(a);
 
   console.log('b:');
-  console.log(b.toArray());
+  console.log(b);
 
   console.log('a.solve(b):');
-  console.log(a.solve(b).toArray());
+  console.log(a.solve(b));
 }());
