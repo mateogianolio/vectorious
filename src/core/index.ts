@@ -467,7 +467,6 @@ export class NDArray implements INDArray {
    */
   public add!: <T extends NDArray>(y: T, alpha?: number) => this;
 
-
   /**
    * Determines the angle between the current vector and `x`.
    */

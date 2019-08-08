@@ -19,12 +19,13 @@ NDArray.prototype.norm = function<T extends NDArray>(this: T): number {
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
     if (this.dtype === 'float64') {
-      result = nblas.dnrm2(l1, this.data, 1);
+      result = nblas.dnrm2(l1, d1, 1);
     }
 
     if (this.dtype === 'float32') {
-      result = nblas.snrm2(l1, this.data, 1);
+      result = nblas.snrm2(l1, d1, 1);
     }
   } catch (err) {
     result = Math.sqrt(this.dot(this));

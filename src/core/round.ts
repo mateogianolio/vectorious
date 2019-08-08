@@ -3,11 +3,11 @@ import { NDArray } from './';
 NDArray.round = <T extends NDArray>(x: T): T => x.copy().round();
 
 NDArray.prototype.round = function<T extends NDArray>(this: T): T {
-  const { length: l1 } = this;
+  const { data: d1, length: l1 } = this;
 
   let i: number;
   for (i = 0; i < l1; i += 1) {
-    this.set(i, Math.round(this.get(i)));
+    d1[i] = Math.round(d1[i]);
   }
 
   return this;

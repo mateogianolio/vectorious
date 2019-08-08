@@ -5,7 +5,7 @@ NDArray.get = <T extends NDArray>(x: T, ...indices: number[]): number => x.get(.
 NDArray.prototype.get = function<T extends NDArray>(this: T, ...indices: number[]): number {
   this.check(...indices);
 
-  const { shape: s1 } = this;
+  const { data: d1, shape: s1 } = this;
   let index: number = indices[indices.length - 1];
 
   let i: number;
@@ -13,5 +13,5 @@ NDArray.prototype.get = function<T extends NDArray>(this: T, ...indices: number[
     index += indices[i] * s1[i + 1];
   }
 
-  return this.data[index];
+  return d1[index];
 };

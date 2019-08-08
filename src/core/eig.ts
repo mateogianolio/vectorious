@@ -17,11 +17,13 @@ try {
 const rotate:
   <T extends NDArray>(x: T, c: number, s: number, k: number, l: number, i: number, j: number) => void =
   <T extends NDArray>(x: T, c: number, s: number, k: number, l: number, i: number, j: number): void => {
-    const temp: number = x.get(k, l);
+    const [n] = x.shape;
+    const { data: d1 } = x;
+    const temp: number = d1[k * n + l];
     const tau: number = 1 / (c + s);
 
-    x.set(k, l, temp - s * (x.get(i, j) + tau * temp));
-    x.set(i, j, x.get(i, j) + s * (temp - tau * x.get(i, j)));
+    d1[k * n + l] = temp - s * (d1[i * n + j] + tau * temp);
+    d1[i * n + j] += s * (temp - tau * d1[i * n + j]);
   };
 
 NDArray.eig = <T extends NDArray>(x: T): [T, T] => x.copy().eig();
@@ -46,16 +48,22 @@ NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
     const vl: T = NDArray.zeros(n, n);
     const vr: T = NDArray.zeros(n, n);
 
+    const { data: d1 } = this;
+    const { data: d2 } = wr;
+    const { data: d3 } = wi;
+    const { data: d4 } = vl;
+    const { data: d5 } = vr;
     if (this.dtype === 'float64') {
-      nlapack.dgeev(jobvl, jobvr, n, this.data, n, wr.data, wi.data, vl.data, n, vr.data, n);
+      nlapack.dgeev(jobvl, jobvr, n, d1, n, d2, d3, d4, n, d5, n);
     }
 
     if (this.dtype === 'float32') {
-      nlapack.sgeev(jobvl, jobvr, n, this.data, n, wr.data, wi.data, vl.data, n, vr.data, n);
+      nlapack.sgeev(jobvl, jobvr, n, d1, n, d2, d3, d4, n, d5, n);
     }
 
     return [wr, vr];
   } catch (err) {
+    const { data: d1 } = this;
     const p: T = NDArray.eye(n);
 
     let max: number = 0;
@@ -68,8 +76,8 @@ NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
       // Find maximum off-diagonal element
       for (i = 0; i < n; i += 1) {
         for (j = i + 1; j < n; j += 1) {
-          if (Math.abs(this.get(i, j)) >= max) {
-            max = Math.abs(this.get(i, j));
+          if (Math.abs(d1[i * n + j]) >= max) {
+            max = Math.abs(d1[i * n + j]);
             k = i;
             l = j;
           }
@@ -78,20 +86,20 @@ NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
 
       // Find c and s
       let t: number;
-      if (Math.abs(this.get(k, l)) < Math.abs(this.get(l, l)) * 1e-36) {
-        t = this.get(k, l) / this.get(l, l);
+      if (Math.abs(d1[k * n + l]) < Math.abs(d1[l * n + l]) * 1e-36) {
+        t = d1[k * n + l] / d1[l * n + l];
       } else {
-        const phi: number = this.get(l, l) / 2 * this.get(k, l);
+        const phi: number = d1[l * n + l] / 2 * d1[k * n + l];
         t = 1 / (Math.abs(phi) + Math.sqrt(phi * phi + 1));
       }
 
       const c: number = 1 / Math.sqrt(t * t + 1);
       const s: number = t * c;
 
-      const e: number = this.get(k, l);
-      this.set(k, l, 0);
-      this.set(k, k, this.get(k, k) - t * e);
-      this.set(l, l, this.get(l, l) + t * e);
+      const e: number = d1[k * n + l];
+      d1[k * n + l] = 0;
+      d1[k * n + k] -= t * e;
+      d1[l * n + l] += t * e;
 
       // Rotate rows and columns k and l
       for (i = 0; i < k; i += 1) {

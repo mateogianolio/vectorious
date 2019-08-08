@@ -11,7 +11,7 @@ NDArray.prototype.each = function<T extends NDArray>(
   const { data: d1, length: l1 } = this;
   let i: number;
   for (i = 0; i < l1; i += 1) {
-    f.call(this, this.get(i), i, d1);
+    f.call(this, d1[i], i, d1);
   }
 
   return this;

@@ -13,12 +13,11 @@ NDArray.prototype.reduce = function<T extends NDArray>(
   f: (acc: number, value: number, i: number, src: TypedArray) => number,
   initialValue?: number
 ): number {
-  const { length: l1 } = this;
+  const { data: d1, length: l1 } = this;
   if (l1 === 0 && typeof initialValue === 'undefined') {
     throw new Error('Reduce of empty matrix with no initial value.');
   }
 
-  const { data: d1 } = this;
   let i: number;
   let value: number;
 

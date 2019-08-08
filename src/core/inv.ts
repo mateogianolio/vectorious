@@ -20,13 +20,14 @@ NDArray.prototype.inv = function<T extends NDArray>(this: T): T {
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
     const ipiv: Int32Array = new Int32Array(n);
     if (this.dtype === 'float64') {
-      nlapack.dgetrf(n, n, this.data, n, ipiv);
-      nlapack.dgetri(n, this.data, n, ipiv);
+      nlapack.dgetrf(n, n, d1, n, ipiv);
+      nlapack.dgetri(n, d1, n, ipiv);
     } else if (this.dtype === 'float32') {
-      nlapack.sgetrf(n, n, this.data, n, ipiv);
-      nlapack.sgetri(n, this.data, n, ipiv);
+      nlapack.sgetrf(n, n, d1, n, ipiv);
+      nlapack.sgetri(n, d1, n, ipiv);
     }
 
     return this;
@@ -36,15 +37,19 @@ NDArray.prototype.inv = function<T extends NDArray>(this: T): T {
     const left: T = NDArray.zeros(n, n);
     const right: T = NDArray.zeros(n, n);
 
+    const { data: d1 } = rref;
+    const { data: d2 } = left;
+    const { data: d3 } = right;
+
     let i: number;
     let j: number;
 
     for (i = 0; i < n; i += 1) {
       for (j = 0; j < n + n; j += 1) {
         if (j < n) {
-          left.set(i, j, rref.get(i, j));
+          d2[i * n + j] = d1[i * (n + n) + j];
         } else {
-          right.set(i, j - n, rref.get(i, j));
+          d3[i * n + (j - n)] = d1[i * (n + n) + j];
         }
       }
     }

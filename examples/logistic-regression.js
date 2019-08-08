@@ -21,7 +21,7 @@
         if (j === 0) {
           sum = 0;
           for (var k = 0; k < c; k++)
-            sum += this.get(i, k);
+            sum += d1[i * c + k];
         }
 
         return x / sum;
@@ -37,7 +37,7 @@
     return vec.map(function (x, i) {
       sum = 0;
       for (var j = 0; j < c; j++)
-        sum += m.get(i, j);
+        sum += m.data[i * c + j];
 
       return sum / c;
     });
@@ -48,7 +48,7 @@
     var c = m.shape[1];
     return m.map(function (x, index) {
       var j = index % c;
-      return x + v.get(j);
+      return x + v.data[j];
     });
   }
 

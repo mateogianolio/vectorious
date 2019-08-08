@@ -22,17 +22,22 @@ NDArray.prototype.dot = function<T extends NDArray>(this: T, x: T): number {
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
+    const { data: d2 } = x;
     if (this.dtype === 'float64') {
-      result = nblas.ddot(l1, x.data, 1, this.data, 1);
+      result = nblas.ddot(l1, d2, 1, d1, 1);
     }
 
     if (this.dtype === 'float32') {
-      result = nblas.sdot(l1, x.data, 1, this.data, 1);
+      result = nblas.sdot(l1, d2, 1, d1, 1);
     }
   } catch (err) {
+    const { data: d1 } = this;
+    const { data: d2 } = x;
+
     let i: number;
     for (i = 0; i < l1; i += 1) {
-      result += this.get(i) * x.get(i);
+      result += d1[i] * d2[i];
     }
   }
 

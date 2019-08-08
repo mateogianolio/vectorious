@@ -10,6 +10,7 @@ NDArray.gauss = <T extends NDArray>(x: T): T => x.copy().gauss();
  */
 NDArray.prototype.gauss = function<T extends NDArray>(this: T): T {
   const [r, c] = this.shape;
+  const { data: d1 } = this;
 
   let lead: number = 0;
   let leadValue: number;
@@ -24,7 +25,7 @@ NDArray.prototype.gauss = function<T extends NDArray>(this: T): T {
     }
 
     j = i;
-    while (this.get(j, lead) === 0) {
+    while (d1[j * c + lead] === 0) {
       j += 1;
       if (r === j) {
         j = i;
@@ -40,18 +41,18 @@ NDArray.prototype.gauss = function<T extends NDArray>(this: T): T {
       this.swap(i, j);
     }
 
-    pivot = this.get(i, lead);
+    pivot = d1[i * c + lead];
     if (pivot !== 0) {
       for (k = 0; k < c; k += 1) {
-        this.set(i, k, this.get(i, k) / pivot);
+        d1[i * c + k] /= pivot;
       }
     }
 
     for (j = 0; j < r; j += 1) {
-      leadValue = this.get(j, lead);
+      leadValue = d1[j * c + lead];
       if (j !== i) {
         for (k = 0; k < c; k += 1) {
-          this.set(j, k, this.get(j, k) - this.get(i, k) * leadValue);
+          d1[j * c + k] -= d1[i * c + k] * leadValue;
         }
       }
     }
@@ -63,13 +64,13 @@ NDArray.prototype.gauss = function<T extends NDArray>(this: T): T {
     pivot = 0;
     for (j = 0; j < c; j += 1) {
       if (pivot === 0) {
-        pivot = this.get(i, j);
+        pivot = d1[i * c + j];
       }
     }
 
     if (pivot === 0) {
       for (k = 0; k < c; k += 1) {
-        this.set(i, k, this.get(i, k) / pivot);
+        d1[i * c + k] /= pivot;
       }
     }
   }

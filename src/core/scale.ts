@@ -18,15 +18,18 @@ NDArray.prototype.scale = function<T extends NDArray>(this: T, scalar: number): 
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
     if (this.dtype === 'float64') {
-      nblas.dscal(l1, scalar, this.data, 1);
+      nblas.dscal(l1, scalar, d1, 1);
     } else if (this.dtype === 'float32') {
-      nblas.sscal(l1, scalar, this.data, 1);
+      nblas.sscal(l1, scalar, d1, 1);
     }
   } catch (err) {
+    const { data: d1 } = this;
+
     let i: number;
     for (i = 0; i < l1; i += 1) {
-      this.set(i, this.get(i) * scalar);
+      d1[i] *= scalar;
     }
   }
 

@@ -19,12 +19,15 @@ NDArray.prototype.lu_factor = function<T extends NDArray>(this: T): [T, Int32Arr
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
     if (this.dtype === 'float64') {
-      nlapack.dgetrf(n, n, this.data, n, ipiv);
+      nlapack.dgetrf(n, n, d1, n, ipiv);
     } else if (this.dtype === 'float32') {
-      nlapack.sgetrf(n, n, this.data, n, ipiv);
+      nlapack.sgetrf(n, n, d1, n, ipiv);
     }
   } catch (err) {
+    const { data: d1 } = this;
+
     let max: number;
     let abs: number;
     let diag: number;
@@ -35,9 +38,9 @@ NDArray.prototype.lu_factor = function<T extends NDArray>(this: T): [T, Int32Arr
     let k: number;
     for (k = 0; k < n; k += 1) {
       p = k;
-      max = Math.abs(this.get(k, k));
+      max = Math.abs(d1[k * n + k]);
       for (j = k + 1; j < n; j += 1) {
-        abs = Math.abs(this.get(j, k));
+        abs = Math.abs(d1[j * n + k]);
         if (max < abs) {
           max = abs;
           p = j;
@@ -50,19 +53,19 @@ NDArray.prototype.lu_factor = function<T extends NDArray>(this: T): [T, Int32Arr
         this.swap(k, p);
       }
 
-      diag = this.get(k, k);
+      diag = d1[k * n + k];
       for (i = k + 1; i < n; i += 1) {
-        this.set(i, k, this.get(i, k) / diag);
+        d1[i * n + k] /= diag;
       }
 
       for (i = k + 1; i < n; i += 1) {
         for (j = k + 1; j < n - 1; j += 2) {
-          this.set(i, j, this.get(i, j) - this.get(i, k) * this.get(k, j));
-          this.set(i, j + 1, this.get(i, j + 1) - this.get(i, k) * this.get(k, j + 1));
+          d1[i * n + j] -= d1[i * n + k] * d1[k * n + j];
+          d1[i * n + j + 1] -= d1[i * n + k] * d1[k * n + j + 1];
         }
 
         if (j === n - 1) {
-          this.set(i, j, this.get(i, j) - this.get(i, k) * this.get(k, j));
+          d1[i * n + j] -= d1[i * n + k] * d1[k * n + j];
         }
       }
     }

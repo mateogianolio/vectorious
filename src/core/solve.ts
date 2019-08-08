@@ -18,14 +18,19 @@ NDArray.prototype.solve = function<T extends NDArray>(this: T, x: T): T {
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
+    const { data: d2 } = x;
     const ipiv: Int32Array = new Int32Array(n);
     if (this.dtype === 'float64') {
-      nlapack.dgesv(n, nrhs, this.data, n, ipiv, x.data, nrhs);
+      nlapack.dgesv(n, nrhs, d1, n, ipiv, d2, nrhs);
     } else if (this.dtype === 'float32') {
-      nlapack.sgesv(n, nrhs, this.data, n, ipiv, x.data, nrhs);
+      nlapack.sgesv(n, nrhs, d1, n, ipiv, d2, nrhs);
     }
   } catch (err) {
     const [LU, ipiv] = this.lu_factor();
+    const { data: d1 } = LU;
+    const { data: d2 } = x;
+
     let i: number;
     let j: number;
     let k: number;
@@ -39,16 +44,16 @@ NDArray.prototype.solve = function<T extends NDArray>(this: T, x: T): T {
     for (k = 0; k < nrhs; k += 1) {
       for (i = 0; i < n; i += 1) {
         for (j = 0; j < i; j += 1) {
-          x.set(i, k, x.get(i, k) - LU.get(i, j) * x.get(j, k));
+          d2[i * nrhs + k] -= d1[i * n + j] * d2[j * nrhs + k];
         }
       }
 
       for (i = n - 1; i >= 0; i -= 1) {
         for (j = i + 1; j < n; j += 1) {
-          x.set(i, k, x.get(i, k) - LU.get(i, j) * x.get(j, k));
+         d2[i * nrhs + k] -= d1[i * n + j] * d2[j * nrhs + k];
         }
 
-        x.set(i, k, x.get(i, k) / LU.get(i, i));
+        d2[i * nrhs + k] /= d1[i * n + i];
       }
     }
   }

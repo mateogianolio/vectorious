@@ -8,10 +8,11 @@ NDArray.prototype.row_add = function<T extends NDArray>(this: T, dest: number, s
   this.check(source, 0);
 
   const [, c] = this.shape;
+  const { data: d1 } = this;
 
   let j: number;
   for (j = 0; j < c; j += 1) {
-    this.set(dest, j, this.get(dest, j) + this.get(source, j) * scalar);
+    d1[dest * c + j] += d1[source * c + j] * scalar;
   }
 
   return this;

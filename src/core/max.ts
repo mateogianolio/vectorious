@@ -19,17 +19,20 @@ NDArray.prototype.max = function<T extends NDArray>(this: T): number {
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
     if (this.dtype === 'float64') {
-      result = this.data[nblas.idamax(l1, this.data, 1)];
+      result = d1[nblas.idamax(l1, d1, 1)];
     }
 
     if (this.dtype === 'float32') {
-      result = this.data[nblas.isamax(l1, this.data, 1)];
+      result = d1[nblas.isamax(l1, d1, 1)];
     }
   } catch (err) {
+    const { data: d1 } = this;
+
     let i: number;
     for (i = 0; i < l1; i += 1) {
-      const value: number = this.get(i);
+      const value: number = d1[i];
       result = result < value ? value : result;
     }
   }

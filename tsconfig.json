@@ -2,10 +2,13 @@
   "compilerOptions": {
     "outDir": "./built",
     "target": "es5",
+    "module": "commonjs",
+    "downlevelIteration": true,
     "strict": true,
     "declaration": true,
     "removeComments": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,

@@ -22,11 +22,12 @@ NDArray.prototype.binOp = function<T extends NDArray>(
   this.equilateral(x);
   this.equidimensional(x);
 
-  const { length: l1 } = this;
+  const { data: d1, length: l1 } = this;
+  const { data: d2 } = x;
 
   let i: number;
   for (i = 0; i < l1; i += 1) {
-    this.set(i, f(this.get(i), x.get(i), i));
+    d1[i] = f(d1[i], d2[i], i);
   }
 
   return this;

@@ -21,15 +21,20 @@ NDArray.prototype.add = function<T extends NDArray>(this: T, x: NDArray, alpha: 
       this.data = get_type(this.dtype).from(this.data);
     }
 
+    const { data: d1 } = this;
+    const { data: d2 } = x;
     if (this.dtype === 'float64') {
-      nblas.daxpy(l1, alpha, x.data, 1, this.data, 1);
+      nblas.daxpy(l1, alpha, d2, 1, d1, 1);
     } else if (this.dtype === 'float32') {
-      nblas.sapxy(l1, alpha, x.data, 1, this.data, 1);
+      nblas.sapxy(l1, alpha, d2, 1, d1, 1);
     }
   } catch (err) {
+    const { data: d1 } = this;
+    const { data: d2 } = x;
+
     let i: number;
     for (i = 0; i < l1; i += 1) {
-      this.set(i, this.get(i) + alpha * x.get(i));
+      d1[i] += alpha * d2[i];
     }
   }
 

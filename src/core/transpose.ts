@@ -4,15 +4,17 @@ NDArray.transpose = <T extends NDArray>(x: T): T => x.copy().transpose();
 
 NDArray.prototype.transpose = function<T extends NDArray>(this: T): T {
   const [r, c] = this.shape;
-  const out: T = this.copy().reshape(c, r);
+  const { data: d1 } = this;
+  const x: T = this.copy().reshape(c, r);
+  const { data: d2 } = x;
 
   let i: number;
   let j: number;
   for (i = 0; i < r; i += 1) {
     for (j = 0; j < c; j += 1) {
-      out.set(j, i, this.get(i, j));
+      d2[j * c + i] = d1[i * c + j];
     }
   }
 
-  return out;
+  return x;
 };
