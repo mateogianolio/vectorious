@@ -6,11 +6,18 @@ NDArray.prototype.get = function<T extends NDArray>(this: T, ...indices: number[
   this.check(...indices);
 
   const { data: d1, shape: s1 } = this;
-  let index: number = indices[indices.length - 1];
+  const { length: ndim } = s1;
+  let index: number = indices[ndim - 1];
 
   let i: number;
-  for (i = 0; i < indices.length - 1; i += 1) {
-    index += indices[i] * s1[i + 1];
+  let j: number;
+  for (i = 0; i < ndim - 1; i += 1) {
+    let p: number = 1;
+    for (j = i + 1; j < ndim; j += 1) {
+      p *= s1[j];
+    }
+
+    index += indices[i] * p;
   }
 
   return d1[index];
