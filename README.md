@@ -19,7 +19,7 @@ $ npm install vectorious --no-optional
 ```
 
 ```javascript
-import v from 'vectorious';
+import v = require('vectorious');
 
 const x = v.random(2, 2);
 /*
@@ -74,9 +74,9 @@ Download `dist/vectorious.min.js` or search for vectorious on [cdnjs](https://cd
 
 ```html
 <script>
-  var A = v.array([[1], [2], [3]]),
-      B = v.array([[1, 3, 5]]),
-      C = A.multiply(B);
+  const A = v.array([[1], [2], [3]]);
+  const B = v.array([[1, 3, 5]]);
+  const C = A.multiply(B);
 
   console.log('C:', C.toArray());
   /* C: [

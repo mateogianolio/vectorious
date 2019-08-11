@@ -13,18 +13,23 @@ NDArray.prototype.slice = function<T extends NDArray>(
   step: number = 1
 ): T {
   const { data: d1, shape: s1 } = this;
+  const { length: ndim } = s1;
 
-  const i: number = begin < 0 ? s1.length + begin : begin;
-  const j: number = end < 0 ? s1.length + end : end;
-  const k: number = step;
+  if (begin < 0 || end < 0) {
+    return this.slice(begin < 0 ? ndim + begin : begin, end < 0 ? ndim + end : end);
+  }
 
-  const s2: number[] = [Math.ceil((j - i) / k), ...s1.slice(1)];
+  if (step === 0) {
+    throw new Error('step argument cannot be 0');
+  }
+
+  const s2: number[] = [Math.ceil((end - begin) / step), ...s1.slice(1)];
   const l2: number = s2.reduce((sum: number, dim: number) => sum * dim, 1);
   const d2: TypedArray = new (get_type(this.dtype))(l2);
 
-  let l: number;
-  for (l = 0; l < l2; l += 1) {
-    d2[l] = d1[i + l * k];
+  let i: number;
+  for (i = 0; i < l2; i += 1) {
+    d2[i] = d1[begin + i * step];
   }
 
   this.length = l2;
