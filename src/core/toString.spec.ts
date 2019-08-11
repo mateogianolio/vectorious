@@ -6,34 +6,34 @@ import { NDArray } from '.';
 
 describe('(NDArray) toString', () => {
   it('should work as expected', () => {
-    strictEqual('array([], dtype=float32)', new NDArray().toString());
+    strictEqual('array([],dtype=float32)', new NDArray().toString().replace(/\s/g, ''));
     strictEqual(
-      'array([\n  0, 1, 2, 3,\n  4, 5, 6, 7\n], dtype=float32)',
-      new NDArray([0, 1, 2, 3, 4, 5, 6, 7]).toString()
+      'array([0,1,2,3,4,5,6,7],dtype=float32)',
+      new NDArray([0, 1, 2, 3, 4, 5, 6, 7]).toString().replace(/\s/g, '')
     );
     strictEqual(
-      'array([\n  [ 0, 1, 2, 3 ],\n  [ 4, 5, 6, 7 ]\n], dtype=float32)',
-      new NDArray([[0, 1, 2, 3], [4, 5, 6, 7]]).toString()
+      'array([[0,1,2,3],[4,5,6,7]],dtype=float32)',
+      new NDArray([[0, 1, 2, 3], [4, 5, 6, 7]]).toString().replace(/\s/g, '')
     );
     strictEqual(
-      'array([\n  [ [ 0, 1 ], [ 2, 3 ] ],\n  [ [ 4, 5 ], [ 6, 7 ] ]\n], dtype=float32)',
-      new NDArray([[[0, 1], [2, 3]], [[4, 5], [6, 7]]]).toString()
+      'array([[[0,1],[2,3]],[[4,5],[6,7]]],dtype=float32)',
+      new NDArray([[[0, 1], [2, 3]], [[4, 5], [6, 7]]]).toString().replace(/\s/g, '')
     );
   });
 
   it('should work as the static equivalent', () => {
-    strictEqual('array([], dtype=float32)', NDArray.toString(new NDArray()));
+    strictEqual('array([],dtype=float32)', NDArray.toString(new NDArray()).replace(/\s/g, ''));
     strictEqual(
-      'array([\n  0, 1, 2, 3,\n  4, 5, 6, 7\n], dtype=float32)',
-      NDArray.toString(new NDArray([0, 1, 2, 3, 4, 5, 6, 7]))
+      'array([0,1,2,3,4,5,6,7],dtype=float32)',
+      NDArray.toString(new NDArray([0, 1, 2, 3, 4, 5, 6, 7])).replace(/\s/g, '')
     );
     strictEqual(
-      'array([\n  [ 0, 1, 2, 3 ],\n  [ 4, 5, 6, 7 ]\n], dtype=float32)',
-      NDArray.toString(new NDArray([[0, 1, 2, 3], [4, 5, 6, 7]]))
+      'array([[0,1,2,3],[4,5,6,7]],dtype=float32)',
+      NDArray.toString(new NDArray([[0, 1, 2, 3], [4, 5, 6, 7]])).replace(/\s/g, '')
     );
     strictEqual(
-      'array([\n  [ [ 0, 1 ], [ 2, 3 ] ],\n  [ [ 4, 5 ], [ 6, 7 ] ]\n], dtype=float32)',
-      NDArray.toString(new NDArray([[[0, 1], [2, 3]], [[4, 5], [6, 7]]]))
+      'array([[[0,1],[2,3]],[[4,5],[6,7]]],dtype=float32)',
+      NDArray.toString(new NDArray([[[0, 1], [2, 3]], [[4, 5], [6, 7]]])).replace(/\s/g, '')
     );
   });
 });
