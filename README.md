@@ -12,10 +12,10 @@ Follow the installation instructions in [nlapack](https://github.com/nperf/nlapa
 
 ```bash
 # with C++ bindings
-$ npm install vectorious@beta
+$ npm install vectorious
 
 # or, if you don't want C++ bindings
-$ npm install vectorious@beta --no-optional
+$ npm install vectorious --no-optional
 ```
 
 ```javascript
