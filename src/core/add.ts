@@ -26,7 +26,7 @@ NDArray.prototype.add = function<T extends NDArray>(this: T, x: NDArray, alpha: 
     if (this.dtype === 'float64') {
       nblas.daxpy(l1, alpha, d2, 1, d1, 1);
     } else if (this.dtype === 'float32') {
-      nblas.sapxy(l1, alpha, d2, 1, d1, 1);
+      nblas.saxpy(l1, alpha, d2, 1, d1, 1);
     }
   } catch (err) {
     const { data: d1 } = this;
