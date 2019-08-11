@@ -11,6 +11,8 @@ import {
   is_typed_array,
 } from '../util';
 
+export const inspectSymbol: unique symbol = Symbol.for('nodejs.util.inspect.custom');
+
 export class NDArray implements INDArray {
   /**
    * Returns the absolute value of each element of `x`.
@@ -445,6 +447,8 @@ export class NDArray implements INDArray {
    * Creates an array containing zeros (`0`) of shape `shape`
    */
   public static zeros: <T extends NDArray>(...shape: number[]) => T;
+
+  public [inspectSymbol]!: () => string;
 
   /**
    * Returns the absolute value of each element of current array.
