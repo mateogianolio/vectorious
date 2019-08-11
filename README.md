@@ -23,47 +23,44 @@ import v from 'vectorious';
 
 const x = v.random(2, 2);
 /*
-x: NDArray {
-  data: Float32Array [
-    0.38323071599006653,
-    0.9094724655151367,
-    0.8513918519020081,
-    0.2443944215774536
+array([
+  [
+    0.26472008228302,
+    0.4102575480937958
   ],
-  dtype: 'float32',
-  length: 4,
-  shape: [ 2, 2 ]
-}
+  [
+    0.4068726599216461,
+    0.4589384198188782
+  ]
+], dtype=float32)
 */
 
 const y = v.range(0, 9).reshape(3, 3);
 /*
-y: NDArray {
-  data: Float32Array [
-    0, 1, 2, 3, 4,
-    5, 6, 7, 8
-  ],
-  dtype: 'float32',
-  length: 9,
-  shape: [ 3, 3 ]
-}
+array([
+  [ 0, 1, 2 ],
+  [ 3, 4, 5 ],
+  [ 6, 7, 8 ]
+], dtype=float32)
 */
 
 const z = v.array([[1, 2], [3, 4]]);
+/*
+array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float32)
+*/
 
 x.add(z);
 /*
-x: NDArray {
-  data: Float32Array [
-    1.3832306861877441,
-    2.9094724655151367,
-    3.8513917922973633,
-    4.244394302368164
+array([
+  [
+    1.26472008228302,
+    2.410257577896118
   ],
-  dtype: 'float32',
-  length: 4,
-  shape: [ 2, 2 ]
-}
+  [
+    3.4068727493286133,
+    4.4589385986328125
+  ]
+], dtype=float32)
 */
 ```
 
