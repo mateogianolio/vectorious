@@ -2,11 +2,10 @@ import v = require('..');
 import { bench } from '../bench';
 
 const r: (n: number) => v = (n: number): v => v.random(n);
-
 bench(
   'v',
   'normalize',
-  (n: number): [v] => [r(n)],
+  (n: number): [v] => [v.random(n)],
   (x: v): void => {
     x.normalize();
   },

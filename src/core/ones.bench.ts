@@ -1,6 +1,5 @@
 import v = require('..');
 import { bench } from '../bench';
-
 bench(
   'v',
   'ones',
