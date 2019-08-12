@@ -403,6 +403,11 @@ export class NDArray implements INDArray {
   public static subtract: <T extends NDArray>(x: T, y: T) => T;
 
   /**
+   * Sum of `x`
+   */
+  public static sum: <T extends NDArray>(x: T) => number;
+
+  /**
    * Swaps two rows `i` and `j` in `x`.
    */
   public static swap: <T extends NDArray>(x: T, i: number, j: number) => T;
@@ -808,6 +813,11 @@ export class NDArray implements INDArray {
   public subtract!: <T extends NDArray>(y: T) => this;
 
   /**
+   * Sum of array elements
+   */
+  public sum!: () => number;
+
+  /**
    * Swaps two rows `i` and `j` in current matrix
    */
   public swap!: (i: number, j: number) => this;
@@ -1003,6 +1013,7 @@ import './solve';
 import './sqrt';
 import './square';
 import './subtract';
+import './sum';
 import './swap';
 import './tan';
 import './tanh';
