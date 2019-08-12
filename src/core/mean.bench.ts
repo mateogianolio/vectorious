@@ -3,7 +3,7 @@ import { bench } from '../bench';
 
 bench(
   'v',
-  'abs',
+  'mean',
   (n: number): [v] => [v.random(n)],
   (x: v): void => {
     x.mean();

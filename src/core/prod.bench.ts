@@ -3,12 +3,12 @@ import { bench } from '../bench';
 
 bench(
   'v',
-  'sum',
+  'prod',
   (n: number): [v] => [v.random(n)],
   (x: v): void => {
-    x.sum();
+    x.prod();
   },
   (x: v): void => {
-    v.sum(x);
+    v.prod(x);
   }
 );

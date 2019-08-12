@@ -298,6 +298,11 @@ export class NDArray implements INDArray {
   public static pow: <T extends NDArray>(x: T, exponent: number) => T;
 
   /**
+   * Product of all elements of `x`.
+   */
+  public static prod: <T extends NDArray>(x: T) => number;
+
+  /**
    * Hadamard product of `x` and `y`
    */
   public static product: <T extends NDArray>(x: T, y: T) => T;
@@ -724,6 +729,11 @@ export class NDArray implements INDArray {
   public pow!: (exponent: number) => this;
 
   /**
+   * Product of all elements of current array
+   */
+  public prod!: () => number;
+
+  /**
    * Hadamard product of current matrix and `x`
    */
   public product!: <T extends NDArray>(y: T) => this;
@@ -1004,6 +1014,7 @@ import './norm';
 import './normalize';
 import './ones';
 import './pow';
+import './prod';
 import './product';
 import './project';
 import './push';
