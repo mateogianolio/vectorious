@@ -261,6 +261,11 @@ export class NDArray implements INDArray {
   public static max: <T extends NDArray>(x: T) => number;
 
   /**
+   * Gets the arithmetic mean of `x`.
+   */
+  public static mean: <T extends NDArray>(x: T) => number;
+
+  /**
    * Gets the minimum value (smallest) element of `x`.
    */
   public static min: <T extends NDArray>(x: T) => number;
@@ -687,6 +692,11 @@ export class NDArray implements INDArray {
   public max!: () => number;
 
   /**
+   * Gets the arithmetic mean of current array.
+   */
+  public mean!: () => number;
+
+  /**
    * Gets the minimum value (smallest) element of current array.
    */
   public min!: () => number;
@@ -987,6 +997,7 @@ import './magic';
 import './map';
 import './matrix';
 import './max';
+import './mean';
 import './min';
 import './multiply';
 import './norm';
