@@ -14,13 +14,10 @@ NDArray.prototype.det = function<T extends NDArray>(this: T): number {
 
   let i: number;
   for (i = 0; i < n; i += 1) {
+    product *= d1[i * n + i];
     if (i !== ipiv[i] - 1) {
       sign *= -1;
     }
-  }
-
-  for (i = 0; i < n; i += 1) {
-    product *= d1[i * n + i];
   }
 
   return sign * product;
