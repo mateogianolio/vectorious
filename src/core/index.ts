@@ -761,7 +761,7 @@ export class NDArray implements INDArray {
   /**
    * Gets the element-wise reciprocal of current array.
    */
-  public reciprocal!: () => number;
+  public reciprocal!: () => this;
 
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
