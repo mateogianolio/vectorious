@@ -336,6 +336,11 @@ export class NDArray implements INDArray {
   public static rank: <T extends NDArray>(x: T) => number;
 
   /**
+   * Gets the element-wise reciprocal of `x`.
+   */
+  public static reciprocal: <T extends NDArray>(x: T) => T;
+
+  /**
    * Equivalent to `TypedArray.prototype.reduce`.
    */
   public static reduce: (
@@ -754,6 +759,11 @@ export class NDArray implements INDArray {
   public rank!: () => number;
 
   /**
+   * Gets the element-wise reciprocal of current array.
+   */
+  public reciprocal!: () => number;
+
+  /**
    * Equivalent to `TypedArray.prototype.reduce`.
    */
   public reduce!: (
@@ -1021,6 +1031,7 @@ import './push';
 import './random';
 import './range';
 import './rank';
+import './reciprocal';
 import './reduce';
 import './reshape';
 import './round';
