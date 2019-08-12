@@ -12,7 +12,7 @@ NDArray.prototype.transpose = function<T extends NDArray>(this: T): T {
   let j: number;
   for (i = 0; i < r; i += 1) {
     for (j = 0; j < c; j += 1) {
-      d2[j * c + i] = d1[i * c + j];
+      d2[j * r + i] = d1[i * c + j];
     }
   }
 
