@@ -3,36 +3,36 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) add', () => {
+describe('(v) add', () => {
   it('should return empty vector if adding two empty vectors', () => {
-    const x: NDArray = new NDArray();
-    const y: NDArray = new NDArray();
+    const x: v = v.array();
+    const y: v = v.array();
 
-    deepStrictEqual(new NDArray(), x.add(y));
+    deepStrictEqual(v.array(), x.add(y));
   });
 
   it('should throw error if sizes do not match', () => {
-    const x: NDArray = new NDArray([1]);
-    const y: NDArray = new NDArray([1, 2]);
+    const x: v = v.array([1]);
+    const y: v = v.array([1, 2]);
 
     throws(() => { x.add(y); }, Error);
   });
 
-  it('should produce NDArray([5, 7, 9]) from NDArray([1, 2, 3]) and NDArray([4, 5, 6])', () => {
-    const x: NDArray = new NDArray([1, 2, 3]);
-    const y: NDArray = new NDArray([4, 5, 6]);
-    const z: NDArray = new NDArray([5, 7, 9]);
+  it('should produce v([5, 7, 9]) from v([1, 2, 3]) and v([4, 5, 6])', () => {
+    const x: v = v.array([1, 2, 3]);
+    const y: v = v.array([4, 5, 6]);
+    const z: v = v.array([5, 7, 9]);
 
     deepStrictEqual(z, x.add(y));
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([1, 2, 3]);
-    const y: NDArray = new NDArray([4, 5, 6]);
-    const z: NDArray = new NDArray([5, 7, 9]);
+    const x: v = v.array([1, 2, 3]);
+    const y: v = v.array([4, 5, 6]);
+    const z: v = v.array([5, 7, 9]);
 
-    deepStrictEqual(z, NDArray.add(x, y));
+    deepStrictEqual(z, v.add(x, y));
   });
 });

@@ -1,17 +1,16 @@
+import v = require('..');
 import { bench } from '../bench';
 
-import { NDArray } from './';
-
-const r: (n: number) => NDArray = (n: number): NDArray => NDArray.random(n);
+const r: (n: number) => v = (n: number): v => v.random(n);
 
 bench(
-  'NDArray',
+  'v',
   'toArray',
-  (n: number): [NDArray] => [r(n)],
-  (x: NDArray): void => {
+  (n: number): [v] => [r(n)],
+  (x: v): void => {
     x.toArray();
   },
-  (x: NDArray): void => {
-    NDArray.toArray(x);
+  (x: v): void => {
+    v.toArray(x);
   }
 );

@@ -1,12 +1,11 @@
+import v = require('..');
 import { bench } from '../bench';
 
-import { NDArray } from './';
-
 bench(
-  'NDArray',
+  'v',
   'range',
   (n: number): [number, number] => [0, n],
   (start: number, end: number): void => {
-    NDArray.range(start, end);
+    v.range(start, end);
   }
 );

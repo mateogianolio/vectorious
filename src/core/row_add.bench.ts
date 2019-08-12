@@ -1,18 +1,17 @@
+import v = require('..');
 import { bench } from '../bench';
 
-import { NDArray } from './';
-
 const { floor, random, sqrt } = Math;
-const r: (n: number) => NDArray = (n: number): NDArray => NDArray.random(floor(sqrt(n)), floor(sqrt(n)));
+const r: (n: number) => v = (n: number): v => v.random(floor(sqrt(n)), floor(sqrt(n)));
 
 bench(
-  'NDArray',
+  'v',
   'row_add',
-  (n: number): [NDArray, number, number] => [r(n), floor(random() * floor(sqrt(n))), floor(random() * floor(sqrt(n)))],
-  (x: NDArray, dest: number, source: number): void => {
+  (n: number): [v, number, number] => [r(n), floor(random() * floor(sqrt(n))), floor(random() * floor(sqrt(n)))],
+  (x: v, dest: number, source: number): void => {
     x.row_add(dest, source);
   },
-  (x: NDArray, dest: number, source: number): void => {
-    NDArray.row_add(x, dest, source);
+  (x: v, dest: number, source: number): void => {
+    v.row_add(x, dest, source);
   }
 );

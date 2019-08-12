@@ -1,12 +1,11 @@
+import v = require('..');
 import { bench } from '../bench';
 
-import { NDArray } from './';
-
 bench(
-  'NDArray',
+  'v',
   'random',
   (n: number): [number] => [n],
   (n: number): void => {
-    NDArray.random(n);
+    v.random(n);
   }
 );

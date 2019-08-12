@@ -2,11 +2,11 @@ import {
   strictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) set', () => {
+describe('(v) set', () => {
   it('should set properties as expected', () => {
-    const x: NDArray = new NDArray([-1, -1, -1, -1]);
+    const x: v = v.array([-1, -1, -1, -1]);
 
     x.set(0, 0);
     x.set(1, 1);
@@ -20,12 +20,12 @@ describe('(NDArray) set', () => {
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([-1, -1, -1, -1]);
+    const x: v = v.array([-1, -1, -1, -1]);
 
-    NDArray.set(x, 0, 0);
-    NDArray.set(x, 1, 1);
-    NDArray.set(x, 2, 2);
-    NDArray.set(x, 3, 3);
+    v.set(x, 0, 0);
+    v.set(x, 1, 1);
+    v.set(x, 2, 2);
+    v.set(x, 3, 3);
 
     strictEqual(0, x.data[0]);
     strictEqual(1, x.data[1]);

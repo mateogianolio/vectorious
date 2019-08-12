@@ -2,18 +2,18 @@ import {
   strictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) equals', () => {
+describe('(v) equals', () => {
   it('should work as expected', () => {
-    strictEqual(true, new NDArray([1, 3, 2]).equals(new NDArray([1, 3, 2])));
-    strictEqual(true, new NDArray().equals(new NDArray()));
-    strictEqual(false, new NDArray([1, 2, 3]).equals(new NDArray([1, 3, 2])));
+    strictEqual(true, v.array([1, 3, 2]).equals(v.array([1, 3, 2])));
+    strictEqual(true, v.array().equals(v.array()));
+    strictEqual(false, v.array([1, 2, 3]).equals(v.array([1, 3, 2])));
   });
 
   it('should work as the static equivalent', () => {
-    strictEqual(true, NDArray.equals(new NDArray([1, 3, 2]), new NDArray([1, 3, 2])));
-    strictEqual(true, NDArray.equals(new NDArray(), new NDArray()));
-    strictEqual(false, NDArray.equals(new NDArray([1, 2, 3]), new NDArray([1, 3, 2])));
+    strictEqual(true, v.equals(v.array([1, 3, 2]), v.array([1, 3, 2])));
+    strictEqual(true, v.equals(v.array(), v.array()));
+    strictEqual(false, v.equals(v.array([1, 2, 3]), v.array([1, 3, 2])));
   });
 });

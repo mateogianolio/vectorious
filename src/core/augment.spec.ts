@@ -3,33 +3,33 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from './';
+import v = require('..');
 
-describe('(NDArray) augment', () => {
+describe('(v) augment', () => {
   it('should return current matrix when combined with empty matrix', () => {
-    const x: NDArray = new NDArray([[1, 2], [3, 4]]);
+    const x: v = v.array([[1, 2], [3, 4]]);
 
-    deepStrictEqual(x, x.augment(new NDArray()));
+    deepStrictEqual(x, x.augment(v.array()));
   });
 
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([[1, 2], [3, 4]]);
-    const y: NDArray = new NDArray([[5, 6], [7, 8]]);
-    const z: NDArray = new NDArray([[1, 2, 5, 6], [3, 4, 7, 8]]);
+    const x: v = v.array([[1, 2], [3, 4]]);
+    const y: v = v.array([[5, 6], [7, 8]]);
+    const z: v = v.array([[1, 2, 5, 6], [3, 4, 7, 8]]);
 
     deepStrictEqual(z, x.augment(y));
   });
 
   it('should throw error when rows do not match', () => {
-    const x: NDArray = new NDArray([[1, 2], [3, 4]]);
+    const x: v = v.array([[1, 2], [3, 4]]);
 
-    throws(() => { x.augment(new NDArray([[1]])); }, Error);
+    throws(() => { x.augment(v.array([[1]])); }, Error);
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([[1, 1, 1]]);
-    const y: NDArray = new NDArray([[1, 2, 3]]);
+    const x: v = v.array([[1, 1, 1]]);
+    const y: v = v.array([[1, 2, 3]]);
 
-    deepStrictEqual(x.copy().augment(y), NDArray.augment(x, y));
+    deepStrictEqual(x.copy().augment(y), v.augment(x, y));
   });
 });

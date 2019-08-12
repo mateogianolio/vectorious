@@ -2,11 +2,11 @@ import {
   strictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) get', () => {
+describe('(v) get', () => {
   it('should work as expected', () => {
-    const x: NDArray = NDArray.random(3);
+    const x: v = v.random(3);
 
     strictEqual(x.data[0], x.get(0));
     strictEqual(x.data[1], x.get(1));
@@ -14,7 +14,7 @@ describe('(NDArray) get', () => {
   });
 
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([[[-1]], [[-2]], [[3]]]);
+    const x: v = v.array([[[-1]], [[-2]], [[3]]]);
 
     strictEqual(x.data[0], x.get(0, 0, 0));
     strictEqual(x.data[1], x.get(1, 0, 0));
@@ -22,10 +22,10 @@ describe('(NDArray) get', () => {
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = NDArray.random(3);
+    const x: v = v.random(3);
 
-    strictEqual(x.data[0], NDArray.get(x, 0));
-    strictEqual(x.data[1], NDArray.get(x, 1));
-    strictEqual(x.data[2], NDArray.get(x, 2));
+    strictEqual(x.data[0], v.get(x, 0));
+    strictEqual(x.data[1], v.get(x, 1));
+    strictEqual(x.data[2], v.get(x, 2));
   });
 });

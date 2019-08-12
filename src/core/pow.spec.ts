@@ -2,18 +2,18 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) pow', () => {
+describe('(v) pow', () => {
   it('should work as expected', () => {
-    const x: NDArray = NDArray.random(3);
+    const x: v = v.random(3);
 
     deepStrictEqual(x.map((value: number) => Math.pow(value, 2)), x.pow(2));
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = NDArray.random(3);
+    const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.pow(value, 2)), NDArray.pow(x, 2));
+    deepStrictEqual(x.map((value: number) => Math.pow(value, 2)), v.pow(x, 2));
   });
 });

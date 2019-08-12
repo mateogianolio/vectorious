@@ -2,24 +2,24 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) slice', () => {
+describe('(v) slice', () => {
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([-1, -2, 3, 4]);
+    const x: v = v.array([-1, -2, 3, 4]);
 
-    deepStrictEqual(new NDArray([-1, 3]), x.slice(0, 4, 2));
+    deepStrictEqual(v.array([-1, 3]), x.slice(0, 4, 2));
   });
 
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([-1, -2, 3, 4]);
+    const x: v = v.array([-1, -2, 3, 4]);
 
-    deepStrictEqual(new NDArray([-2, 3]), x.slice(1, 3));
+    deepStrictEqual(v.array([-2, 3]), x.slice(1, 3));
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([-1, -2, 3, 4]);
+    const x: v = v.array([-1, -2, 3, 4]);
 
-    deepStrictEqual(new NDArray([-1, 3]), NDArray.slice(x, 0, 4, 2));
+    deepStrictEqual(v.array([-1, 3]), v.slice(x, 0, 4, 2));
   });
 });

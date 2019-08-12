@@ -2,18 +2,18 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) combine', () => {
+describe('(v) combine', () => {
   it('should return current vector if combined with empty vector', () => {
-    deepStrictEqual(new NDArray([1, 2, 3]), new NDArray([1, 2, 3]).combine(new NDArray()));
+    deepStrictEqual(v.array([1, 2, 3]), v.array([1, 2, 3]).combine(v.array()));
   });
 
   it('should work as expected', () => {
-    deepStrictEqual(new NDArray([1, 2, 3, 0, 1]), new NDArray([1, 2, 3]).combine(new NDArray([0, 1])));
+    deepStrictEqual(v.array([1, 2, 3, 0, 1]), v.array([1, 2, 3]).combine(v.array([0, 1])));
   });
 
   it('should work as the static equivalent', () => {
-    deepStrictEqual(new NDArray([1, 2, 3, 0, 1]), NDArray.combine(new NDArray([1, 2, 3]), new NDArray([0, 1])));
+    deepStrictEqual(v.array([1, 2, 3, 0, 1]), v.combine(v.array([1, 2, 3]), v.array([0, 1])));
   });
 });

@@ -3,11 +3,11 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from './';
+import v = require('..');
 
-describe('(NDArray) swap', () => {
+describe('(v) swap', () => {
   it('should throw error if index out of bounds', () => {
-    const x: NDArray = new NDArray([[1, 2], [3, 4]]);
+    const x: v = v.array([[1, 2], [3, 4]]);
 
     throws(() => { x.swap(-1, 0); }, Error);
     throws(() => { x.swap(0, -1); }, Error);
@@ -16,17 +16,17 @@ describe('(NDArray) swap', () => {
   });
 
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([[1, 2], [3, 4], [5, 6]]);
+    const x: v = v.array([[1, 2], [3, 4], [5, 6]]);
 
     x.swap(0, 1);
-    deepStrictEqual(new NDArray([[3, 4], [1, 2], [5, 6]]), x);
+    deepStrictEqual(v.array([[3, 4], [1, 2], [5, 6]]), x);
     x.swap(1, 2);
-    deepStrictEqual(new NDArray([[3, 4], [5, 6], [1, 2]]), x);
+    deepStrictEqual(v.array([[3, 4], [5, 6], [1, 2]]), x);
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([[1, 2], [3, 4], [5, 6]]);
+    const x: v = v.array([[1, 2], [3, 4], [5, 6]]);
 
-    deepStrictEqual(new NDArray([[3, 4], [1, 2], [5, 6]]), NDArray.swap(x, 0, 1));
+    deepStrictEqual(v.array([[3, 4], [1, 2], [5, 6]]), v.swap(x, 0, 1));
   });
 });

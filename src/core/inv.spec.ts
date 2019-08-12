@@ -3,22 +3,22 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from './';
+import v = require('..');
 
-describe('(NDArray) inv', () => {
+describe('(v) inv', () => {
   it('should throw error if matrix is not square', () => {
-    const x: NDArray = new NDArray([[1, 2]]);
+    const x: v = v.array([[1, 2]]);
 
     throws(() => { x.inv(); }, Error);
   });
 
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([
+    const x: v = v.array([
       [2, -1, 0],
       [-1, 2, -1],
       [0, -1, 2],
     ]);
-    const y: NDArray = new NDArray([
+    const y: v = v.array([
       [3 / 4, 1 / 2, 1 / 4],
       [1 / 2, 1, 1 / 2],
       [1 / 4, 1 / 2, 3 / 4],
@@ -29,12 +29,12 @@ describe('(NDArray) inv', () => {
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([
+    const x: v = v.array([
       [2, -1, 0],
       [-1, 2, -1],
       [0, -1, 2],
     ]);
 
-    deepStrictEqual(x.copy().inv(), NDArray.inv(x));
+    deepStrictEqual(x.copy().inv(), v.inv(x));
   });
 });

@@ -2,13 +2,13 @@ import {
   strictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) min', () => {
+describe('(v) min', () => {
   it('should find the minimum number in arrays', () => {
-    const x: NDArray = new NDArray([1, 2, 3]);
-    const y: NDArray = new NDArray([3, -1, 1]);
-    const z: NDArray = new NDArray([2, 5, 1]);
+    const x: v = v.array([1, 2, 3]);
+    const y: v = v.array([3, -1, 1]);
+    const z: v = v.array([2, 5, 1]);
 
     strictEqual(1, x.min());
     strictEqual(-1, y.min());
@@ -16,12 +16,12 @@ describe('(NDArray) min', () => {
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([1, 2, 3]);
-    const y: NDArray = new NDArray([3, -1, 1]);
-    const z: NDArray = new NDArray([2, 5, 1]);
+    const x: v = v.array([1, 2, 3]);
+    const y: v = v.array([3, -1, 1]);
+    const z: v = v.array([2, 5, 1]);
 
-    strictEqual(1, NDArray.min(x));
-    strictEqual(-1, NDArray.min(y));
-    strictEqual(1, NDArray.min(z));
+    strictEqual(1, v.min(x));
+    strictEqual(-1, v.min(y));
+    strictEqual(1, v.min(z));
   });
 });

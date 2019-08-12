@@ -1,19 +1,18 @@
+import v = require('..');
 import { bench } from '../bench';
 
-import { NDArray } from './';
-
 const { random } = Math;
-const r: (n: number) => NDArray = (n: number): NDArray =>
-  new NDArray(new Float32Array(n)).fill(random);
+const r: (n: number) => v = (n: number): v =>
+  v.array(new Float32Array(n)).fill(random);
 
 bench(
-  'NDArray',
+  'v',
   'subtract',
-  (n: number): [NDArray, NDArray] => [r(n), r(n)],
-  (x: NDArray, y: NDArray): void => {
+  (n: number): [v, v] => [r(n), r(n)],
+  (x: v, y: v): void => {
     x.subtract(y);
   },
-  (x: NDArray, y: NDArray): void => {
-    NDArray.subtract(x, y);
+  (x: v, y: v): void => {
+    v.subtract(x, y);
   }
 );

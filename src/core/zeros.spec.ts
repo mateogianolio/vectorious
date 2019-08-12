@@ -2,18 +2,18 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) zeros', () => {
+describe('(v) zeros', () => {
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([0, 0, 0]);
+    const x: v = v.array([0, 0, 0]);
 
-    deepStrictEqual(x, NDArray.zeros(3));
+    deepStrictEqual(x, v.zeros(3));
   });
 
   it('should work as expected in two dimensions', () => {
-    const x: NDArray = new NDArray([[0, 0], [0, 0]]);
+    const x: v = v.array([[0, 0], [0, 0]]);
 
-    deepStrictEqual(x, NDArray.zeros(2, 2));
+    deepStrictEqual(x, v.zeros(2, 2));
   });
 });

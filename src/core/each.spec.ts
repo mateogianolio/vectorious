@@ -4,24 +4,24 @@ import {
 
 import { TypedArray } from '../types';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) each', () => {
+describe('(v) each', () => {
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([1, 2, 3]);
+    const x: v = v.array([1, 2, 3]);
     x.each((value: number, index: number, src: TypedArray) => {
       src[index] = value * 2;
     });
 
-    deepStrictEqual(new NDArray([2, 4, 6]), x);
+    deepStrictEqual(v.array([2, 4, 6]), x);
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([1, 2, 3]);
-    NDArray.each(x, (value: number, index: number, src: TypedArray) => {
+    const x: v = v.array([1, 2, 3]);
+    v.each(x, (value: number, index: number, src: TypedArray) => {
       src[index] = value * 2;
     });
 
-    deepStrictEqual(new NDArray([2, 4, 6]), x);
+    deepStrictEqual(v.array([2, 4, 6]), x);
   });
 });

@@ -2,16 +2,16 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from './';
+import v = require('..');
 
-describe('(NDArray) square', () => {
+describe('(v) square', () => {
   it('should throw error if matrix is not square', () => {
-    const x: NDArray = new NDArray([[0, 0]]);
+    const x: v = v.array([[0, 0]]);
     throws(() => { x.square(); }, Error);
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = new NDArray([[0, 0]]);
-    throws(() => { NDArray.square(x); }, Error);
+    const x: v = v.array([[0, 0]]);
+    throws(() => { v.square(x); }, Error);
   });
 });

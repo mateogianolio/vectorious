@@ -3,13 +3,13 @@ import {
   notStrictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) copy', () => {
+describe('(v) copy', () => {
   it('should create an immutable copy of class', () => {
     const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
-    const original: NDArray = new NDArray(f32);
-    const copy: NDArray = original.copy();
+    const original: v = v.array(f32);
+    const copy: v = original.copy();
 
     notStrictEqual(original, copy);
     notStrictEqual(original.data, copy.data);
@@ -18,8 +18,8 @@ describe('(NDArray) copy', () => {
 
   it('should work as the static equivalent', () => {
     const f32: Float32Array = new Float32Array([1, 2, 3, 4]);
-    const original: NDArray = new NDArray(f32);
-    const copy: NDArray = NDArray.copy(original);
+    const original: v = v.array(f32);
+    const copy: v = v.copy(original);
 
     notStrictEqual(original, copy);
     notStrictEqual(original.data, copy.data);

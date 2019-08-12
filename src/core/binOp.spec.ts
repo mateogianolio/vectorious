@@ -3,31 +3,31 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) binOp', () => {
+describe('(v) binOp', () => {
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([1, 1, 1]);
-    const y: NDArray = new NDArray([1, 2, 3]);
-    const z: NDArray = new NDArray([2, 3, 4]);
+    const x: v = v.array([1, 1, 1]);
+    const y: v = v.array([1, 2, 3]);
+    const z: v = v.array([2, 3, 4]);
     const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
     deepStrictEqual(x.binOp(y, sum), z);
   });
 
   it('should throw error when sizes do not match', () => {
-    const x: NDArray = new NDArray([1, 1, 1]);
-    const y: NDArray = new NDArray([1, 2, 3, 4]);
+    const x: v = v.array([1, 1, 1]);
+    const y: v = v.array([1, 2, 3, 4]);
     const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
     throws(() => { x.binOp(y, sum); }, Error);
   });
 
   it('should work as the static equivalent of a.binOp(b, (a, b) => a + b)', () => {
-    const x: NDArray = new NDArray([1, 1, 1]);
-    const y: NDArray = new NDArray([1, 2, 3]);
+    const x: v = v.array([1, 1, 1]);
+    const y: v = v.array([1, 2, 3]);
     const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-    deepStrictEqual(x.copy().binOp(y, sum), NDArray.binOp(x, y, sum));
+    deepStrictEqual(x.copy().binOp(y, sum), v.binOp(x, y, sum));
   });
 });

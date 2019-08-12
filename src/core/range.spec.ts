@@ -2,24 +2,24 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) range', () => {
+describe('(v) range', () => {
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([0, 1, 2]);
+    const x: v = v.array([0, 1, 2]);
 
-    deepStrictEqual(x, NDArray.range(0, 3));
+    deepStrictEqual(x, v.range(0, 3));
   });
 
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([2, 1, 0]);
+    const x: v = v.array([2, 1, 0]);
 
-    deepStrictEqual(x, NDArray.range(2, -1));
+    deepStrictEqual(x, v.range(2, -1));
   });
 
   it('should work as expected', () => {
-    const x: NDArray = new NDArray([0, 0.5, 1, 1.5]);
+    const x: v = v.array([0, 0.5, 1, 1.5]);
 
-    deepStrictEqual(x, NDArray.range(0, 0.5, 2));
+    deepStrictEqual(x, v.range(0, 0.5, 2));
   });
 });

@@ -3,17 +3,17 @@ import {
   throws,
 } from 'assert';
 
-import { NDArray } from '.';
+import v = require('..');
 
-describe('(NDArray) check', () => {
+describe('(v) check', () => {
   it('should throw error if the index is NaN', () => {
-    const x: NDArray = new NDArray([1, 2, 3, 4]);
+    const x: v = v.array([1, 2, 3, 4]);
 
     throws(() => { x.check(NaN); }, Error);
   });
 
   it('should work as the static equivalent', () => {
-    const x: NDArray = NDArray.random(3);
+    const x: v = v.random(3);
 
     doesNotThrow(() => { x.check(0); }, Error);
   });

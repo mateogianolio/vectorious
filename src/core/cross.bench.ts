@@ -1,17 +1,16 @@
+import v = require('..');
 import { bench } from '../bench';
 
-import { NDArray } from './';
-
-const r: (n: number) => NDArray = (n: number): NDArray => NDArray.random(n);
+const r: (n: number) => v = (n: number): v => v.random(n);
 
 bench(
-  'NDArray',
+  'v',
   'cross',
-  (): [NDArray, NDArray] => [r(3), r(3)],
-  (x: NDArray, y: NDArray): void => {
+  (): [v, v] => [r(3), r(3)],
+  (x: v, y: v): void => {
     x.cross(y);
   },
-  (x: NDArray, y: NDArray): void => {
-    NDArray.cross(x, y);
+  (x: v, y: v): void => {
+    v.cross(x, y);
   }
 );
