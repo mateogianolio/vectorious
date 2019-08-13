@@ -1,19 +1,19 @@
 {
   "name": "vectorious",
-  "version": "6.0.0-beta.10",
+  "version": "6.0.0-beta.11",
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "types": "built/index.d.ts",
   "scripts": {
-    "test:node": "nyc mocha -r ts-node/register/transpile-only 'src/**/*.spec.ts'",
-    "test:single": "mocha -r ts-node/register/transpile-only",
+    "test:node": "nyc mocha -r ts-node/register 'src/**/*.spec.ts'",
+    "test:single": "mocha -r ts-node/register",
     "test:browser": "mochify --plugin tsify 'src/**/*.spec.ts'",
     "test": "npm run test:node && npm run test:browser",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
-    "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node --transpile-only $file; done",
+    "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node $file; done",
     "docs": "gulp docs",
     "build": "gulp clean && gulp build && gulp docs && tsc",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "browser": {
     "nblas": false,
