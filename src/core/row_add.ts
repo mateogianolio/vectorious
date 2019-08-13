@@ -1,7 +1,12 @@
 import { NDArray } from './';
 
-NDArray.row_add = <T extends NDArray>(x: T, dest: number, source: number, scalar: number = 1): T =>
-  x.copy().row_add(dest, source, scalar);
+NDArray.row_add = <T extends NDArray>(
+  x: T | ArrayLike<any>,
+  dest: number,
+  source: number,
+  scalar: number = 1
+): T =>
+  NDArray.array<T>(x).row_add(dest, source, scalar);
 
 NDArray.prototype.row_add = function<T extends NDArray>(this: T, dest: number, source: number, scalar: number = 1): T {
   this.check(dest, 0);

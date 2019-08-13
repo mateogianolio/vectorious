@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.det = <T extends NDArray>(x: T): number => x.det();
+NDArray.det = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).det();
 
 NDArray.prototype.det = function<T extends NDArray>(this: T): number {
   this.square();

@@ -7,7 +7,7 @@ try {
   nlapack = require('nlapack');
 } catch (err) {}
 
-NDArray.inv = <T extends NDArray>(x: T): T => x.inv();
+NDArray.inv = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).inv();
 
 NDArray.prototype.inv = function<T extends NDArray>(this: T): T {
   this.square();

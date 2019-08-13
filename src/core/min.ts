@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.min = <T extends NDArray>(x: T): number => x.min();
+NDArray.min = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).min();
 
 NDArray.prototype.min = function<T extends NDArray>(this: T): number {
   const { data, length } = this;

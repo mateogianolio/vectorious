@@ -1,7 +1,7 @@
 import { NDArray } from './';
 
-NDArray.equidimensional = <T extends NDArray>(x: T, y: T): void => {
-  x.equidimensional(y);
+NDArray.equidimensional = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): void => {
+  NDArray.array<T>(x).equidimensional(NDArray.array<T>(y));
 };
 
 NDArray.prototype.equidimensional = function<T extends NDArray>(this: T, x: T): void {

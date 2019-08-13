@@ -2,7 +2,8 @@ import { TypedArray } from '../types';
 
 import { NDArray } from './';
 
-NDArray.swap = <T extends NDArray>(x: T, i: number, j: number): T => x.copy().swap(i, j);
+NDArray.swap = <T extends NDArray>(x: T | ArrayLike<any>, i: number, j: number): T =>
+  NDArray.array<T>(x).swap(i, j);
 
 NDArray.prototype.swap = function<T extends NDArray>(this: T, i: number, j: number): T {
   this.check(i, 0);

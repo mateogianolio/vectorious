@@ -17,28 +17,28 @@ export class NDArray implements INDArray {
   /**
    * Returns the absolute value of each element of `x`.
    */
-  public static abs: <T extends NDArray>(x: T) => T;
+  public static abs: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the arccosine of each element of `x`.
    */
-  public static acos: <T extends NDArray>(x: T) => T;
+  public static acos: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the hyperbolic arccosine of each element of `x`.
    */
-  public static acosh: <T extends NDArray>(x: T) => T;
+  public static acosh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Adds `y` multiplied by `alpha` to `x`.
    * Accelerated with BLAS `?axpy`.
    */
-  public static add: <T extends NDArray>(x: T, y: T, alpha?: number) => T;
+  public static add: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>, alpha?: number) => T;
 
   /**
    * Determines the angle between the `x` and `y`
    */
-  public static angle: <T extends NDArray>(x: T, y: T) => number;
+  public static angle: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => number;
 
   /**
    * Constructor alias
@@ -48,67 +48,71 @@ export class NDArray implements INDArray {
   /**
    * Returns the arcsine of each element of `x`.
    */
-  public static asin: <T extends NDArray>(x: T) => T;
+  public static asin: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the hyperbolic arcsine of each element of `x`.
    */
-  public static asinh: <T extends NDArray>(x: T) => T;
+  public static asinh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the arctangent of each element of `x`.
    */
-  public static atan: <T extends NDArray>(x: T) => T;
+  public static atan: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the hyperbolic arctangent of each element of `x`.
    */
-  public static atanh: <T extends NDArray>(x: T) => T;
+  public static atanh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Augments `x` and `y`.
    */
-  public static augment: <T extends NDArray>(x: T, y: T) => T;
+  public static augment: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Perform binary operation `f` on `y` in `x`.
    */
-  public static binOp: <T extends NDArray>(x: T, y: T, f: (a: number, b: number, index: number) => number) => T;
+  public static binOp: <T extends NDArray>(
+    x: T | ArrayLike<any>,
+    y: T | ArrayLike<any>,
+    f: (a: number, b: number, index: number) => number
+  ) => T;
 
   /**
    * Returns the cube root of each element of `x`.
    */
-  public static cbrt: <T extends NDArray>(x: T) => T;
+  public static cbrt: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns smallest integer greater than or equal to of each element of `x`.
    */
-  public static ceil: <T extends NDArray>(x: T) => T;
+  public static ceil: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Asserts if indices `i, j, ..., n` are within the bounds of `x`
    */
-  public static check: <T extends NDArray>(x: T, ...indices: number[]) => void;
+  public static check: <T extends NDArray>(x: T | ArrayLike<any>, ...indices: number[]) => void;
 
   /**
    * Combines the vector `x` with `y`
    */
-  public static combine: <T extends NDArray>(x: T, y: T) => T;
+  public static combine: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Makes a copy of `x`
    */
-  public static copy: <T extends NDArray>(x: T) => T;
+  public static copy: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the cosine of each element of `x`.
    */
-  public static cos: <T extends NDArray>(x: T) => T;
+  public static cos: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the hyperbolic cosine of each element of `x`.
    */
-  public static cosh: <T extends NDArray>(x: T) => T;
+  public static cosh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Computes the cross product of the `x` and the vector `y`
@@ -116,60 +120,55 @@ export class NDArray implements INDArray {
    * Otherwise it throws an exception.
    * The method returns a new (result) vector.
    */
-  public static cross: <T extends NDArray>(x: T, y: T) => T;
+  public static cross: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Gets the determinant of `x`.
    */
-  public static det: <T extends NDArray>(x: T) => number;
+  public static det: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Gets the diagonal of `x`.
    */
-  public static diagonal: <T extends NDArray>(x: T) => T;
+  public static diagonal: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Performs dot multiplication with `x` and `y`.
    * Accelerated with BLAS `?dot`.
    */
-  public static dot: <T extends NDArray>(x: T, y: T) => number;
-
-  /**
-   * Equivalent to `TypedArray.prototype.forEach`.
-   */
-  public static each: <T extends NDArray>(x: T, f: (value: number, i: number, src: TypedArray) => void) => T;
+  public static dot: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => number;
 
   /**
    * Gets eigenvalues and eigenvectors of `x` using the Jacobi method.
    * Accelerated with LAPACK `?geev`.
    */
-  public static eig: <T extends NDArray>(x: T) => [T, T];
+  public static eig: <T extends NDArray>(x: T | ArrayLike<any>) => [T, T];
 
   /**
    * Checks if `x` and `y` are equal.
    */
-  public static equals: <T extends NDArray>(x: T, y: T) => boolean;
+  public static equals: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => boolean;
 
   /**
    * Asserts if `x` and `y` have the same shape
    */
-  public static equidimensional: <T extends NDArray>(x: T, y: T) => void;
+  public static equidimensional: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => void;
 
   /**
    * Asserts if `x` and `y` have the same length
    */
-  public static equilateral: <T extends NDArray>(x: T, y: T) => void;
+  public static equilateral: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => void;
 
   /**
    * Returns e^x of each element of `x`, where x is the argument,
    * and e is Euler's constant (2.718…), the base of the natural logarithm.
    */
-  public static exp: <T extends NDArray>(x: T) => T;
+  public static exp: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns subtracting 1 from exp(x) of each element of `x`.
    */
-  public static expm1: <T extends NDArray>(x: T) => T;
+  public static expm1: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Creates an identity matrix of size `n` and type `type`.
@@ -179,65 +178,76 @@ export class NDArray implements INDArray {
   /**
    * Fills `x` with a scalar value
    */
-  public static fill: <T extends NDArray>(x: T, value: number | ((index: number) => number)) => T;
+  public static fill: <T extends NDArray>(
+    x: T | ArrayLike<any>,
+    value: number | ((index: number) => number)
+  ) => T;
 
   /**
    * Returns the largest integer less than or equal to a number of each element of `x`.
    */
-  public static floor: <T extends NDArray>(x: T) => T;
+  public static floor: <T extends NDArray>(x: T | ArrayLike<any>) => T;
+
+  /**
+   * Equivalent to `TypedArray.prototype.forEach`.
+   */
+  public static forEach: <T extends NDArray>(
+    x: T,
+    f: (value: number, i: number, src: TypedArray) => void
+  ) => void;
 
   /**
    * Returns the nearest single precision float representation of each element of `x`.
    */
-  public static fround: <T extends NDArray>(x: T) => T;
+  public static fround: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
    */
-  public static gauss: <T extends NDArray>(x: T) => T;
+  public static gauss: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Gets the element at `i, j, ..., n` from `x`
    */
-  public static get: <T extends NDArray>(x: T, ...indices: number[]) => number;
+  public static get: <T extends NDArray>(x: T | ArrayLike<any>, ...indices: number[]) => number;
 
   /**
    * Determines the inverse of `x`.
    * Accelerated with LAPACK `?getri`.
    */
-  public static inv: <T extends NDArray>(x: T) => T;
+  public static inv: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the natural logarithm (log_e, also ln) of each element of `x`.
    */
-  public static log: <T extends NDArray>(x: T) => T;
+  public static log: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the natural logarithm (log_e, also ln) of 1 + x for each element of `x`.
    */
-  public static log10: <T extends NDArray>(x: T) => T;
+  public static log10: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the base 2 logarithm of each element of `x`.
    */
-  public static log1p: <T extends NDArray>(x: T) => T;
+  public static log1p: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the base 10 logarithm of each element of `x`.
    */
-  public static log2: <T extends NDArray>(x: T) => T;
+  public static log2: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Performs full LU decomposition on `x`.
    * Accelerated with LAPACK `?getrf`.
    */
-  public static lu: <T extends NDArray>(x: T) => [T, T, Int32Array];
+  public static lu: <T extends NDArray>(x: T | ArrayLike<any>) => [T, T, Int32Array];
 
   /**
    * Performs LU factorization on `x`.
    * Accelerated with LAPACK `?getrf`.
    */
-  public static lu_factor: <T extends NDArray>(x: T) => [T, Int32Array];
+  public static lu_factor: <T extends NDArray>(x: T | ArrayLike<any>) => [T, Int32Array];
 
   /**
    * Creates a magic square matrix of `size`
@@ -247,7 +257,10 @@ export class NDArray implements INDArray {
   /**
    * Equivalent to `TypedArray.prototype.map`.
    */
-  public static map: <T extends NDArray>(x: T, f: (value: number, i: number, src: TypedArray) => number) => T;
+  public static map: <T extends NDArray>(
+    x: T | ArrayLike<any>,
+    f: (value: number, i: number, src: TypedArray) => number
+  ) => T;
 
   /**
    * Creates a matrix of `r` rows and `c` columns.
@@ -258,34 +271,34 @@ export class NDArray implements INDArray {
    * Gets the maximum value (largest) element of `x`.
    * Accelerated with BLAS `i?amax`.
    */
-  public static max: <T extends NDArray>(x: T) => number;
+  public static max: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Gets the arithmetic mean of `x`.
    */
-  public static mean: <T extends NDArray>(x: T) => number;
+  public static mean: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Gets the minimum value (smallest) element of `x`.
    */
-  public static min: <T extends NDArray>(x: T) => number;
+  public static min: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Multiplies two matrices `x` and `y` of matching dimensions.
    * Accelerated with BLAS `?gemm`.
    */
-  public static multiply: <T extends NDArray>(x: T, y: T) => T;
+  public static multiply: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Calculates the norm of current array (also called L2 norm or Euclidean length).
    * Accelerated with BLAS `?nrm2`.
    */
-  public static norm: <T extends NDArray>(x: T) => number;
+  public static norm: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Normalizes `x`.
    */
-  public static normalize: <T extends NDArray>(x: T) => T;
+  public static normalize: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Creates an array containing ones (`1`) of shape `shape`
@@ -295,27 +308,27 @@ export class NDArray implements INDArray {
   /**
    * Returns each element of `x` to the exponent power, that is, element^exponent.
    */
-  public static pow: <T extends NDArray>(x: T, exponent: number) => T;
+  public static pow: <T extends NDArray>(x: T | ArrayLike<any>, exponent: number) => T;
 
   /**
    * Product of all elements of `x`.
    */
-  public static prod: <T extends NDArray>(x: T) => number;
+  public static prod: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Hadamard product of `x` and `y`
    */
-  public static product: <T extends NDArray>(x: T, y: T) => T;
+  public static product: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Projects the `y` onto `x` using the projection formula `(y * (x * y / y * y))`.
    */
-  public static project: <T extends NDArray>(x: T, y: T) => T;
+  public static project: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Pushes a new `value` into `x`.
    */
-  public static push: <T extends NDArray>(x: T, value: number) => T;
+  public static push: <T extends NDArray>(x: T | ArrayLike<any>, value: number) => T;
 
   /**
    * Creates a vector containing random samples from a uniform distribution over `[0, 1)` of shape `shape`
@@ -333,12 +346,12 @@ export class NDArray implements INDArray {
   /**
    * Finds the rank of `x` using gaussian elimination.
    */
-  public static rank: <T extends NDArray>(x: T) => number;
+  public static rank: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Gets the element-wise reciprocal of `x`.
    */
-  public static reciprocal: <T extends NDArray>(x: T) => T;
+  public static reciprocal: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Equivalent to `TypedArray.prototype.reduce`.
@@ -352,23 +365,28 @@ export class NDArray implements INDArray {
   /**
    * Reshapes `x`
    */
-  public static reshape: <T extends NDArray>(x: T, ...shape: number[]) => T;
+  public static reshape: <T extends NDArray>(x: T | ArrayLike<any>, ...shape: number[]) => T;
 
   /**
    * Returns the value of each element of `x` rounded to the nearest integer.
    */
-  public static round: <T extends NDArray>(x: T) => T;
+  public static round: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Adds a multiple of one row multiplied by `scalar` to another inside `x`.
    */
-  public static row_add: <T extends NDArray>(x: T, dest: number, source: number, scalar?: number) => T;
+  public static row_add: <T extends NDArray>(
+    x: T | ArrayLike<any>,
+    dest: number,
+    source: number,
+    scalar?: number
+  ) => T;
 
   /**
    * Multiplies all elements of `x` with a specified `scalar`.
    * Accelerated with BLAS `?scal`.
    */
-  public static scale: <T extends NDArray>(x: T, scalar: number) => T;
+  public static scale: <T extends NDArray>(x: T | ArrayLike<any>, scalar: number) => T;
 
   /**
    * Sets the element at `i, j, ..., n` to `value`.
@@ -379,89 +397,94 @@ export class NDArray implements INDArray {
    * Returns the sign of each element of `x`, indicating
    * whether it is positive, negative or zero.
    */
-  public static sign: <T extends NDArray>(x: T) => T;
+  public static sign: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the sine of each element of `x`.
    */
-  public static sin: <T extends NDArray>(x: T) => T;
+  public static sin: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the hyperbolic sine of each element of `x`.
    */
-  public static sinh: <T extends NDArray>(x: T) => T;
+  public static sinh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Slices `x` in the corresponding dimension
    */
-  public static slice: <T extends NDArray>(x: T, start?: number, step?: number, end?: number) => T;
+  public static slice: <T extends NDArray>(
+    x: T | ArrayLike<any>,
+    start?: number,
+    step?: number,
+    end?: number
+  ) => T;
 
   /**
    * Solves the equation AX = B (where A is `x` and B is `y`).
    * Accelerated with LAPACK `?gesv`.
    */
-  public static solve: <T extends NDArray>(x: T, y: T) => T;
+  public static solve: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Returns the positive square root of each element of `x`.
    */
-  public static sqrt: <T extends NDArray>(x: T) => T;
+  public static sqrt: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Asserts if `x` is square.
    */
-  public static square: <T extends NDArray>(x: T) => void;
+  public static square: <T extends NDArray>(x: T | ArrayLike<any>) => void;
 
   /**
    * Subtracts `y` from `x`.
    */
-  public static subtract: <T extends NDArray>(x: T, y: T) => T;
+  public static subtract: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
 
   /**
    * Sum of `x`
    */
-  public static sum: <T extends NDArray>(x: T) => number;
+  public static sum: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Swaps two rows `i` and `j` in `x`.
    */
-  public static swap: <T extends NDArray>(x: T, i: number, j: number) => T;
+  public static swap: <T extends NDArray>(x: T | ArrayLike<any>, i: number, j: number) => T;
 
   /**
    * Returns the tangent of each element of `x`.
    */
-  public static tan: <T extends NDArray>(x: T) => T;
+  public static tan: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the hyperbolic tangent of each element of `x`.
    */
-  public static tanh: <T extends NDArray>(x: T) => T;
+  public static tanh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Converts `x` into a JavaScript array.
    */
-  public static toArray: <T extends NDArray>(x: T) => number[];
+  public static toArray: <T extends NDArray>(x: T | ArrayLike<any>) => number[];
 
   /**
    * Converts `x` into a readable formatted string.
    */
-  public static toString: <T extends NDArray>(x: T) => string;
+  public static toString: <T extends NDArray>(x: T | ArrayLike<any>) => string;
 
   /**
    * Gets the trace of `x` (the sum of all diagonal elements).
    */
-  public static trace: <T extends NDArray>(x: T) => number;
+  public static trace: <T extends NDArray>(x: T | ArrayLike<any>) => number;
 
   /**
    * Transposes `x` (mirror across the diagonal).
    */
-  public static transpose: <T extends NDArray>(x: T) => T;
+  public static transpose: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Returns the integer part of each element of `x`,
    * removing any fractional digits.
    */
-  public static trunc: <T extends NDArray>(x: T) => T;
+  public static trunc: <T extends NDArray>(x: T | ArrayLike<any>) => T;
 
   /**
    * Creates an array containing zeros (`0`) of shape `shape`
@@ -590,11 +613,6 @@ export class NDArray implements INDArray {
   public dtype: DType = 'float32';
 
   /**
-   * Equivalent to `TypedArray.prototype.forEach`.
-   */
-  public each!: (f: (value: number, i: number, src: TypedArray) => void) => this;
-
-  /**
    * Gets eigenvalues and eigenvectors of the current matrix using the Jacobi method.
    * Accelerated with LAPACK `?geev`.
    */
@@ -635,6 +653,11 @@ export class NDArray implements INDArray {
    * Returns the largest integer less than or equal to a number of each element of current array.
    */
   public floor!: () => this;
+
+  /**
+   * Equivalent to `TypedArray.prototype.forEach`.
+   */
+  public forEach!: (f: (value: number, i: number, src: TypedArray) => void) => void;
 
   /**
    * Returns the nearest single precision float representation of each element of current array.
@@ -993,7 +1016,6 @@ import './cross';
 import './det';
 import './diagonal';
 import './dot';
-import './each';
 import './eig';
 import './equals';
 import './equidimensional';
@@ -1003,6 +1025,7 @@ import './expm1';
 import './eye';
 import './fill';
 import './floor';
+import './forEach';
 import './fround';
 import './gauss';
 import './get';

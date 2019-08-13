@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.log10 = <T extends NDArray>(x: T): T => x.copy().log10();
+NDArray.log10 = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).log10();
 
 NDArray.prototype.log10 = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

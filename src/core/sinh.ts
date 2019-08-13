@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.sinh = <T extends NDArray>(x: T): T => x.copy().sinh();
+NDArray.sinh = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).sinh();
 
 NDArray.prototype.sinh = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

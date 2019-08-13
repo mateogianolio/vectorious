@@ -1,6 +1,7 @@
 import { NDArray } from './';
 
-NDArray.equals = <T extends NDArray>(x: T, y: T): boolean => x.equals(y);
+NDArray.equals = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): boolean =>
+  NDArray.array<T>(x).equals(NDArray.array<T>(y));
 
 NDArray.prototype.equals = function<T extends NDArray>(this: T, x: T): boolean {
   this.equilateral(x);

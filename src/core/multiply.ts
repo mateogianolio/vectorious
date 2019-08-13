@@ -7,7 +7,8 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.multiply = <T extends NDArray>(x: T, y: T): T => x.multiply(y);
+NDArray.multiply = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).multiply(NDArray.array<T>(y));
 
 NDArray.prototype.multiply = function<T extends NDArray>(this: T, x: T): T {
   const [r1, c1] = this.shape;

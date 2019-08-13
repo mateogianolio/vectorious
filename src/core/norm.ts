@@ -7,7 +7,7 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.norm = <T extends NDArray>(x: T): number => x.norm();
+NDArray.norm = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).norm();
 
 NDArray.prototype.norm = function<T extends NDArray>(this: T): number {
   const { length: l1 } = this;

@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.mean = <T extends NDArray>(x: T): number => x.mean();
+NDArray.mean = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).mean();
 
 NDArray.prototype.mean = function<T extends NDArray>(this: T): number {
   const { data: d1, length: l1 } = this;

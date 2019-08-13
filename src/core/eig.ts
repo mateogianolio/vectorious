@@ -26,7 +26,7 @@ const rotate:
     d1[i * n + j] += s * (temp - tau * d1[i * n + j]);
   };
 
-NDArray.eig = <T extends NDArray>(x: T): [T, T] => x.copy().eig();
+NDArray.eig = <T extends NDArray>(x: T | ArrayLike<any>): [T, T] => NDArray.array<T>(x).eig();
 
 NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
   this.square();

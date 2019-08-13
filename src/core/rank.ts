@@ -3,7 +3,7 @@ import { NDArray } from './';
 /**
  * Finds the rank of the matrix using gaussian elimination.
  */
-NDArray.rank = <T extends NDArray>(x: T): number => x.rank();
+NDArray.rank = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).rank();
 
 /**
  * Finds the rank of the matrix using gaussian elimination.

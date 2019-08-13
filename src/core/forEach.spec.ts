@@ -2,14 +2,13 @@ import {
   deepStrictEqual,
 } from 'assert';
 
+import v = require('..');
 import { TypedArray } from '../types';
 
-import v = require('..');
-
-describe('(v) each', () => {
+describe('(v) forEach', () => {
   it('should work as expected', () => {
     const x: v = v.array([1, 2, 3]);
-    x.each((value: number, index: number, src: TypedArray) => {
+    x.forEach((value: number, index: number, src: TypedArray) => {
       src[index] = value * 2;
     });
 
@@ -18,7 +17,7 @@ describe('(v) each', () => {
 
   it('should work as the static equivalent', () => {
     const x: v = v.array([1, 2, 3]);
-    v.each(x, (value: number, index: number, src: TypedArray) => {
+    v.forEach(x, (value: number, index: number, src: TypedArray) => {
       src[index] = value * 2;
     });
 

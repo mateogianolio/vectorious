@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.trace = <T extends NDArray>(x: T): number => x.trace();
+NDArray.trace = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).trace();
 
 NDArray.prototype.trace = function<T extends NDArray>(this: T): number {
   const [r, c] = this.shape;

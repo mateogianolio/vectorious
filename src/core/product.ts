@@ -1,6 +1,7 @@
 import { NDArray } from './';
 
-NDArray.product = <T extends NDArray>(x: T, y: T): T => x.copy().product(y);
+NDArray.product = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).product(NDArray.array<T>(y));
 
 NDArray.prototype.product = function<T extends NDArray>(this: T, x: T): T {
   this.equilateral(x);

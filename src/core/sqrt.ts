@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.sqrt = <T extends NDArray>(x: T): T => x.copy().sqrt();
+NDArray.sqrt = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).sqrt();
 
 NDArray.prototype.sqrt = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

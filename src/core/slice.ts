@@ -3,8 +3,13 @@ import { get_type } from '../util';
 
 import { NDArray } from './';
 
-NDArray.slice = <T extends NDArray>(x: T, start?: number, step?: number, end?: number): T =>
-  x.copy().slice(start, step, end);
+NDArray.slice = <T extends NDArray>(
+  x: T | ArrayLike<any>,
+  start?: number,
+  step?: number,
+  end?: number
+): T =>
+  NDArray.array<T>(x).slice(start, step, end);
 
 NDArray.prototype.slice = function<T extends NDArray>(
   this: T,

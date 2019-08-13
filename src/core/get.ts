@@ -1,6 +1,7 @@
 import { NDArray } from './';
 
-NDArray.get = <T extends NDArray>(x: T, ...indices: number[]): number => x.get(...indices);
+NDArray.get = <T extends NDArray>(x: T | ArrayLike<any>, ...indices: number[]): number =>
+  NDArray.array<T>(x).get(...indices);
 
 NDArray.prototype.get = function<T extends NDArray>(this: T, ...indices: number[]): number {
   this.check(...indices);

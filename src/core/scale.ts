@@ -7,7 +7,8 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.scale = <T extends NDArray>(x: T, scalar: number): T => x.copy().scale(scalar);
+NDArray.scale = <T extends NDArray>(x: T | ArrayLike<any>, scalar: number): T =>
+  NDArray.array<T>(x).scale(scalar);
 
 NDArray.prototype.scale = function<T extends NDArray>(this: T, scalar: number): T {
   const { length: l1 } = this;

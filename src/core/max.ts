@@ -7,7 +7,7 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.max = <T extends NDArray>(x: T): number => x.max();
+NDArray.max = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).max();
 
 NDArray.prototype.max = function<T extends NDArray>(this: T): number {
   const { length: l1 } = this;

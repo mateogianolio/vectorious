@@ -1,6 +1,7 @@
 import { NDArray } from './';
 
-NDArray.reciprocal = <T extends NDArray>(x: T): T => x.copy().reciprocal();
+NDArray.reciprocal = <T extends NDArray>(x: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).reciprocal();
 
 NDArray.prototype.reciprocal = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

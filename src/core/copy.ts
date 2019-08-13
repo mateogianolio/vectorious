@@ -2,7 +2,7 @@ import { get_type } from '../util';
 
 import { NDArray } from './';
 
-NDArray.copy = <T extends NDArray>(x: T): T => x.copy();
+NDArray.copy = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).copy();
 
 NDArray.prototype.copy = function<T extends NDArray>(this: T): T {
   const copy: T = Object.assign(Object.create(Object.getPrototypeOf(this)), this);

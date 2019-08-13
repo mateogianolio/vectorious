@@ -7,7 +7,8 @@ try {
   nlapack = require('nlapack');
 } catch (err) {}
 
-NDArray.lu_factor = <T extends NDArray>(x: T): [T, Int32Array] => x.copy().lu_factor();
+NDArray.lu_factor = <T extends NDArray>(x: T | ArrayLike<any>): [T, Int32Array] =>
+  NDArray.array<T>(x).lu_factor();
 
 NDArray.prototype.lu_factor = function<T extends NDArray>(this: T): [T, Int32Array] {
   const [n] = this.shape;

@@ -7,7 +7,8 @@ try {
   nlapack = require('nlapack');
 } catch (err) {}
 
-NDArray.solve = <T extends NDArray>(x: T, y: T): T => x.copy().solve(y);
+NDArray.solve = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).solve(NDArray.array<T>(y));
 
 NDArray.prototype.solve = function<T extends NDArray>(this: T, x: T): T {
   const [n, nrhs] = x.shape;

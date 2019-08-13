@@ -1,7 +1,7 @@
 import { NDArray } from './';
 
-NDArray.square = <T extends NDArray>(x: T): void => {
-  x.square();
+NDArray.square = <T extends NDArray>(x: T | ArrayLike<any>): void => {
+  NDArray.array<T>(x).square();
 };
 
 NDArray.prototype.square = function<T extends NDArray>(this: T): void {

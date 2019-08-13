@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.toArray = <T extends NDArray>(x: T): number[] => x.toArray();
+NDArray.toArray = <T extends NDArray>(x: T | ArrayLike<any>): number[] => NDArray.array<T>(x).toArray();
 
 NDArray.prototype.toArray = function<T extends NDArray>(this: T): number[] {
   const { length: l1, shape: s1 } = this;

@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.sin = <T extends NDArray>(x: T): T => x.copy().sin();
+NDArray.sin = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).sin();
 
 NDArray.prototype.sin = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

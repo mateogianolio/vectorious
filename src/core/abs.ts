@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.abs = <T extends NDArray>(x: T): T => x.copy().abs();
+NDArray.abs = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).abs();
 
 NDArray.prototype.abs = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

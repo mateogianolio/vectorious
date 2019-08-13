@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.sum = <T extends NDArray>(x: T): number => x.sum();
+NDArray.sum = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).sum();
 
 NDArray.prototype.sum = function<T extends NDArray>(this: T): number {
   const { data: d1, length: l1 } = this;

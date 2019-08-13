@@ -3,7 +3,8 @@ import { get_type } from '../util';
 
 import { NDArray } from './';
 
-NDArray.combine = <T extends NDArray>(x: T, y: T): T => x.copy().combine(y);
+NDArray.combine = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).combine(NDArray.array<T>(y));
 
 NDArray.prototype.combine = function<T extends NDArray>(this: T, x: T): T {
   if (this.shape.length !== 1 && x.shape.length !== 1) {

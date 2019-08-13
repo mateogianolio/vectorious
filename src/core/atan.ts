@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.atan = <T extends NDArray>(x: T): T => x.copy().atan();
+NDArray.atan = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).atan();
 
 NDArray.prototype.atan = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

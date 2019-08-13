@@ -1,6 +1,7 @@
 import { NDArray } from './';
 
-NDArray.diagonal = <T extends NDArray>(x: T): T => x.copy().diagonal();
+NDArray.diagonal = <T extends NDArray>(x: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).diagonal();
 
 NDArray.prototype.diagonal = function<T extends NDArray>(this: T): T {
   this.square();

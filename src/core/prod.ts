@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.prod = <T extends NDArray>(x: T): number => x.prod();
+NDArray.prod = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).prod();
 
 NDArray.prototype.prod = function<T extends NDArray>(this: T): number {
   const { data: d1, length: l1 } = this;

@@ -6,7 +6,7 @@ NDArray.reduce = <T extends NDArray>(
   x: T,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,
   initialValue?: number
-): number => x.reduce(f, initialValue);
+): number => NDArray.array<T>(x).reduce(f, initialValue);
 
 NDArray.prototype.reduce = function<T extends NDArray>(
   this: T,

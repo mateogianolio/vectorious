@@ -1,14 +1,14 @@
 import { NDArray } from './';
 
 NDArray.binOp = <T extends NDArray>(
-  x: T,
-  y: T,
+  x: T | ArrayLike<any>,
+  y: T | ArrayLike<any>,
   f: (
     a: number,
     b: number,
     index: number
   ) => number
-): T => x.copy().binOp(y, f);
+): T => NDArray.array<T>(x).binOp(NDArray.array<T>(y), f);
 
 NDArray.prototype.binOp = function<T extends NDArray>(
   this: T,

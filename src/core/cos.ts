@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.cos = <T extends NDArray>(x: T): T => x.copy().cos();
+NDArray.cos = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).cos();
 
 NDArray.prototype.cos = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

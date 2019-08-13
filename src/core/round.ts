@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.round = <T extends NDArray>(x: T): T => x.copy().round();
+NDArray.round = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).round();
 
 NDArray.prototype.round = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

@@ -3,7 +3,8 @@ import { get_type } from '../util';
 
 import { NDArray } from './';
 
-NDArray.push = <T extends NDArray>(x: T, value: number): T => x.copy().push(value);
+NDArray.push = <T extends NDArray>(x: T | ArrayLike<any>, value: number): T =>
+  NDArray.array<T>(x).push(value);
 
 NDArray.prototype.push = function<T extends NDArray>(this: T, value: number): T {
   if (this.shape.length !== 1) {

@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.sign = <T extends NDArray>(x: T): T => x.copy().sign();
+NDArray.sign = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).sign();
 
 NDArray.prototype.sign = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;

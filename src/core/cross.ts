@@ -1,6 +1,7 @@
 import { NDArray } from './';
 
-NDArray.cross = <T extends NDArray>(x: T, y: T): T => x.copy().cross(y);
+NDArray.cross = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).cross(NDArray.array<T>(y));
 
 NDArray.prototype.cross = function<T extends NDArray>(this: T, x: T): T {
   const { length: l1 } = this;

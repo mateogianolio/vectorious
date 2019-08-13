@@ -7,7 +7,8 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.dot = <T extends NDArray>(x: T, y: T): number => x.dot(y);
+NDArray.dot = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): number =>
+  NDArray.array<T>(x).dot(NDArray.array<T>(y));
 
 NDArray.prototype.dot = function<T extends NDArray>(this: T, x: T): number {
   this.equilateral(x);

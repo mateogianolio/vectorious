@@ -3,7 +3,7 @@ import { NDArray } from './';
 /**
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
  */
-NDArray.gauss = <T extends NDArray>(x: T): T => x.copy().gauss();
+NDArray.gauss = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).gauss();
 
 /**
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.

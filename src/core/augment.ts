@@ -1,6 +1,7 @@
 import { NDArray } from './';
 
-NDArray.augment = <T extends NDArray>(x: T, y: T): T => x.copy().augment(y);
+NDArray.augment = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
+  NDArray.array<T>(x).augment(NDArray.array<T>(y));
 
 NDArray.prototype.augment = function<T extends NDArray>(this: T, x: T): T {
   const [r1, c1] = this.shape;

@@ -3,12 +3,12 @@ import { bench } from '../bench';
 
 bench(
   'v',
-  'each',
+  'forEach',
   (n: number): [v] => [v.random(n)],
   (x: v): void => {
-    x.each((value: number) => value);
+    x.forEach((value: number) => value);
   },
   (x: v): void => {
-    v.each(x, (value: number) => value);
+    v.forEach(x, (value: number) => value);
   }
 );

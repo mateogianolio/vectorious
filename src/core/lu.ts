@@ -3,21 +3,22 @@ import { NDArray } from './';
 /**
  * Performs full LU decomposition on a matrix.
  */
-NDArray.lu = <T extends NDArray>(x: T): [T, T, Int32Array] => x.lu();
+NDArray.lu = <T extends NDArray>(x: T | ArrayLike<any>): [T, T, Int32Array] =>
+  NDArray.array<T>(x).lu();
 
 NDArray.prototype.lu = function<T extends NDArray>(this: T): [T, T, Int32Array] {
   const [r, c] = this.shape;
   const [LU, ipiv] = this.copy().lu_factor();
   const L: T = LU.copy();
-  const U: T = LU.copy();
+  const T: T = LU.copy();
   const { data: d1 } = L;
-  const { data: d2 } = U;
+  const { data: d2 } = T;
 
   let i: number;
   let j: number;
   for (i = 0; i < r; i += 1) {
     for (j = i; j < c; j += 1) {
-      d1[i * c + j] = i === j ? 1 : 0
+      d1[i * c + j] = i === j ? 1 : 0;
     }
   }
 
@@ -27,5 +28,5 @@ NDArray.prototype.lu = function<T extends NDArray>(this: T): [T, T, Int32Array] 
     }
   }
 
-  return [L, U, ipiv];
+  return [L, T, ipiv];
 };

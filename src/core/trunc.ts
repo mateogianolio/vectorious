@@ -1,6 +1,6 @@
 import { NDArray } from './';
 
-NDArray.trunc = <T extends NDArray>(x: T): T => x.copy().trunc();
+NDArray.trunc = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).trunc();
 
 NDArray.prototype.trunc = function<T extends NDArray>(this: T): T {
   const { data: d1, length: l1 } = this;
