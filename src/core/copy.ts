@@ -9,6 +9,7 @@ NDArray.prototype.copy = function<T extends NDArray>(this: T): T {
 
   copy.data = new (get_type(this.dtype))(this.data);
   copy.shape = this.shape;
+  copy.strides = this.strides;
   copy.length = this.length;
   copy.dtype = this.dtype;
 

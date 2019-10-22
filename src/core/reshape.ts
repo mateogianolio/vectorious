@@ -1,3 +1,5 @@
+import { get_strides } from '../util';
+
 import { NDArray } from './';
 
 NDArray.reshape = <T extends NDArray>(x: T | ArrayLike<any>, ...shape: number[]): T =>
@@ -10,6 +12,7 @@ NDArray.prototype.reshape = function<T extends NDArray>(this: T, ...shape: numbe
   }
 
   this.shape = shape;
+  this.strides = get_strides(shape);
 
   return this;
 };
