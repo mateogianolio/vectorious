@@ -914,6 +914,20 @@ export class NDArray implements INDArray {
    */
   public trunc!: () => this;
 
+  public *[Symbol.iterator](): Iterator<TypedArray> {
+    const {
+      data: d1,
+      length: l1,
+      shape: s1,
+      strides: st1,
+    } = this;
+
+    let i: number;
+    for (i = 0; i < l1; i += 1) {
+      yield d1.subarray(i, i + 1);
+    }
+  }
+
   public constructor(
     data?: any,
     options?: any
