@@ -914,39 +914,6 @@ export class NDArray implements INDArray {
    */
   public trunc!: () => this;
 
-  public *[Symbol.iterator](): Iterator<TypedArray> {
-    const {
-      data: d1,
-      shape: s1,
-      strides: st1,
-    } = this;
-
-    function* cartesian(dims: number[][]) {
-      const [head, ...tail] = dims;
-      const remainder: any = tail.length > 0 ? cartesian(tail) : [[]];
-
-      for (let r of remainder) {
-        for (let h of head) {
-          yield [h, ...r];
-        }
-      }
-    }
-
-    const dims = s1
-      .map(s => Array.from(new Array(s), (_, i) => i))
-      .filter((_, i) => i % st1[i] === 0);
-
-    let i;
-    let pos = 0;
-    for (const index of cartesian(dims)) {
-      for (i = 0; i < index[i].length; i += 1) {
-        pos += index[i] * st1[i];
-      }
-
-      yield d1.subarray(pos, 1);
-    }
-  }
-
   public constructor(
     data?: any,
     options?: any

@@ -15,7 +15,7 @@ export const get_shape: (input: any) => number[] = (input: any): number[] => Arr
   : [];
 
 export const get_strides: (input: number[]) => number[] = (input: number[]): number[] =>
-  input.map((_) => input.slice(1).reduce((a: number, b: number): number => a * b, 1));
+  [...input.slice(1).map((_, i) => input.slice(i + 1).reduce((a: number, b: number): number => a * b, 1)), 1];
 
 export const get_dtype: (input: TypedArray) => DType = (input: TypedArray): DType => {
   switch (input.constructor.name) {
