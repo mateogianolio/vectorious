@@ -8,12 +8,12 @@ describe('(v) expm1', () => {
   it('should work as expected', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.expm1(value)), x.expm1());
+    deepStrictEqual(v.map(x, (value: number) => Math.expm1(value)), x.expm1());
   });
 
   it('should work as the static equivalent', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.expm1(value)), v.expm1(x));
+    deepStrictEqual(v.map(x, (value: number) => Math.expm1(value)), v.expm1(x));
   });
 });

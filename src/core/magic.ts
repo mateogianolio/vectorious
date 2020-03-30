@@ -1,25 +1,26 @@
 import { TypedArray } from '../types';
 
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 
-const magicHelper: (n: number, x: number, y: number) => number = (n: number, x: number, y: number): number =>
-  (x + y * 2 + 1) % n;
-
-NDArray.magic = function<T extends NDArray>(this: new(...args: any[]) => T, size: number): T {
-  if (size < 0) {
-    throw new Error('invalid size');
+NDArray.magic = function<T extends NDArray>(this: new(...args: any[]) => T, n: number): T {
+  if (n < 0) {
+    throw new Error('invalid n');
   }
 
-  const d1: TypedArray = new Float32Array(size * size);
+  const d1: TypedArray = new Float32Array(n * n);
+  const magic: T = new this(d1, { shape: [n, n] });
+  const iter = new NDIter(magic);
 
-  let i: number;
-  let j: number;
-  for (i = 0; i < size; i += 1) {
-    for (j = 0; j < size; j += 1) {
-      d1[(size - i - 1) * size + (size - j - 1)] =
-        magicHelper(size, size - j - 1, i) * size + magicHelper(size, j, i) + 1;
-    }
-  }
+  do {
+    const [y, x] = iter.coords;
+    const i = n - y - 1;
+    const j = n - x - 1;
 
-  return new this(d1, { shape: [size, size] });
+    d1[iter.pos] = ((x + i * 2 + 1) % n) * n + ((j + i * 2 + 1) % n) + 1;
+
+    iter.next();
+  } while (!iter.done());
+
+  return magic;
 };

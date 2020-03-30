@@ -1,15 +1,18 @@
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 
 NDArray.prod = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).prod();
 
 NDArray.prototype.prod = function<T extends NDArray>(this: T): number {
-  const { data: d1, length: l1 } = this;
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
 
-  let i: number;
   let prod: number = 1;
-  for (i = 0; i < l1; i += 1) {
-    prod *= d1[i];
-  }
+  do {
+    prod *= d1[iter.pos];
+
+    iter.next();
+  } while (!iter.done());
 
   return prod;
 };

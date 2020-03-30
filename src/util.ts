@@ -10,6 +10,9 @@ export const flatten: (input: any[]) => number[] = (input: any[]): number[] =>
     []
   );
 
+export const get_length: (input: number[]) => number = (input: number[]): number =>
+  input.reduce((a: number, b: number): number => a * b, 1);
+
 export const get_shape: (input: any) => number[] = (input: any): number[] => Array.isArray(input)
   ? [input.length].concat(get_shape(input[0]))
   : [];

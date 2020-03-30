@@ -6,6 +6,7 @@ import {
 import {
   flatten,
   get_dtype,
+  get_length,
   get_shape,
   get_strides,
   get_type,
@@ -921,14 +922,14 @@ export class NDArray implements INDArray {
     if (is_typed_array(data)) {
       this.data = data as TypedArray;
       this.shape = typeof options === 'object' && options.hasOwnProperty('shape') ? options.shape : [this.data.length];
-      this.length = this.data.length;
+      this.length = get_length(this.shape);
       this.dtype = typeof options === 'object' && options.hasOwnProperty('dtype') ? options.dtype : get_dtype(data);
       this.strides = typeof options === 'object' && options.hasOwnProperty('strides') ? options.strides : get_strides(this.shape);
     } else if (data instanceof Array) {
       this.data = new (get_type(this.dtype))(flatten(data));
       this.shape = get_shape(data);
       this.strides = get_strides(this.shape);
-      this.length = this.data.length;
+      this.length = get_length(this.shape);
     } else if (data instanceof NDArray) {
       return data.copy();
     }

@@ -1,4 +1,5 @@
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 
 NDArray.fill = <T extends NDArray>(
   x: T | ArrayLike<any>,
@@ -7,12 +8,14 @@ NDArray.fill = <T extends NDArray>(
   NDArray.array<T>(x).fill(value);
 
 NDArray.prototype.fill = function<T extends NDArray>(this: T, value: number | ((index: number) => number) = 0): T {
-  const { data: d1, length: l1 } = this;
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] = value instanceof Function ? value(i) : value;
-  }
+  do {
+    d1[iter.pos] = value instanceof Function ? value(iter.pos) : value;
+
+    iter.next();
+  } while (!iter.done());
 
   return this;
 };

@@ -7,6 +7,8 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
+const { sqrt } = Math;
+
 NDArray.norm = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).norm();
 
 NDArray.prototype.norm = function<T extends NDArray>(this: T): number {
@@ -28,7 +30,7 @@ NDArray.prototype.norm = function<T extends NDArray>(this: T): number {
       result = nblas.snrm2(l1, d1, 1);
     }
   } catch (err) {
-    result = Math.sqrt(this.dot(this));
+    result = sqrt(this.dot(this));
   }
 
   return result;

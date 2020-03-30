@@ -8,12 +8,12 @@ describe('(v) floor', () => {
   it('should work as expected', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.floor(value)), x.floor());
+    deepStrictEqual(v.map(x, (value: number) => Math.floor(value)), x.floor());
   });
 
   it('should work as the static equivalent', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.floor(value)), v.floor(x));
+    deepStrictEqual(v.map(x, (value: number) => Math.floor(value)), v.floor(x));
   });
 });

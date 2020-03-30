@@ -8,12 +8,12 @@ describe('(v) trunc', () => {
   it('should work as expected', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.trunc(value)), x.trunc());
+    deepStrictEqual(v.map(x, (value: number) => Math.trunc(value)), x.trunc());
   });
 
   it('should work as the static equivalent', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.trunc(value)), v.trunc(x));
+    deepStrictEqual(v.map(x, (value: number) => Math.trunc(value)), v.trunc(x));
   });
 });

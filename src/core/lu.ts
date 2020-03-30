@@ -10,9 +10,9 @@ NDArray.prototype.lu = function<T extends NDArray>(this: T): [T, T, Int32Array] 
   const [r, c] = this.shape;
   const [LU, ipiv] = this.copy().lu_factor();
   const L: T = LU.copy();
-  const T: T = LU.copy();
+  const U: T = LU.copy();
   const { data: d1 } = L;
-  const { data: d2 } = T;
+  const { data: d2 } = U;
 
   let i: number;
   let j: number;
@@ -28,5 +28,5 @@ NDArray.prototype.lu = function<T extends NDArray>(this: T): [T, T, Int32Array] 
     }
   }
 
-  return [L, T, ipiv];
+  return [L, U, ipiv];
 };

@@ -1,6 +1,7 @@
 import { TypedArray } from '../types';
 
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 
 NDArray.map = <T extends NDArray>(
   x: T | ArrayLike<any>,
@@ -11,14 +12,15 @@ NDArray.prototype.map = function<T extends NDArray>(
   this: T,
   f: (value: number, i: number, src: TypedArray) => number
 ): T {
-  const { data: d1, length: l1 } = this;
-  const mapped: T = this.copy();
-  const { data: d2 } = mapped;
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
+  const map = f.bind(this);
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d2[i] = f.call(mapped, d1[i], i, d1);
-  }
+  do {
+    d1[iter.pos] = map(d1[iter.pos], iter.pos, d1);
 
-  return mapped;
+    iter.next();
+  } while (!iter.done());
+
+  return this;
 };

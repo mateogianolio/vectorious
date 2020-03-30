@@ -1,6 +1,7 @@
 import { get_type } from '../util';
 
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 
 let nblas: any;
 try {
@@ -27,11 +28,13 @@ NDArray.prototype.scale = function<T extends NDArray>(this: T, scalar: number): 
     }
   } catch (err) {
     const { data: d1 } = this;
+    const iter = new NDIter(this);
 
-    let i: number;
-    for (i = 0; i < l1; i += 1) {
-      d1[i] *= scalar;
-    }
+    do {
+      d1[iter.pos] *= scalar;
+
+      iter.next();
+    } while (!iter.done());
   }
 
   return this;

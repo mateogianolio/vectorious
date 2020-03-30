@@ -50,7 +50,7 @@ const addMatVec: (x: v, y: v) => v = (x: v, y: v): v => {
   const { data: d1 } = y;
   const [, c] = x.shape;
 
-  return x.map((value: number, index: number): number => {
+  return v.map(x, (value: number, index: number): number => {
     const j: number = index % c;
 
     return value + d1[j];

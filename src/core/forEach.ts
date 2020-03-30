@@ -1,6 +1,7 @@
 import { TypedArray } from '../types';
 
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 
 NDArray.forEach = <T extends NDArray>(
   x: T,
@@ -13,9 +14,12 @@ NDArray.prototype.forEach = function<T extends NDArray>(
   this: T,
   f: (value: number, i: number, src: TypedArray) => void
 ): void {
-  const { data: d1, length: l1 } = this;
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    f.call(this, d1[i], i, d1);
-  }
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
+
+  do {
+    f.call(this, d1[iter.pos], iter.pos, d1);
+
+    iter.next();
+  } while (!iter.done());
 };

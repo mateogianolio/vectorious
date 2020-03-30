@@ -1,6 +1,7 @@
 import { get_type } from '../util';
 
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 
 let nblas: any;
 try {
@@ -11,7 +12,7 @@ NDArray.max = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.arra
 
 NDArray.prototype.max = function<T extends NDArray>(this: T): number {
   const { length: l1 } = this;
-  let result: number = Number.NEGATIVE_INFINITY;
+  let max: number = Number.NEGATIVE_INFINITY;
 
   try {
     if (!['float32', 'float64'].includes(this.dtype)) {
@@ -21,21 +22,25 @@ NDArray.prototype.max = function<T extends NDArray>(this: T): number {
 
     const { data: d1 } = this;
     if (this.dtype === 'float64') {
-      result = d1[nblas.idamax(l1, d1, 1)];
+      max = d1[nblas.idamax(l1, d1, 1)];
     }
 
     if (this.dtype === 'float32') {
-      result = d1[nblas.isamax(l1, d1, 1)];
+      max = d1[nblas.isamax(l1, d1, 1)];
     }
   } catch (err) {
     const { data: d1 } = this;
+    const iter = new NDIter(this);
 
-    let i: number;
-    for (i = 0; i < l1; i += 1) {
-      const value: number = d1[i];
-      result = result < value ? value : result;
-    }
+    do {
+      const value = d1[iter.pos];
+      if (max < value) {
+        max = value;
+      }
+
+      iter.next();
+    } while (!iter.done());
   }
 
-  return result;
+  return max;
 };

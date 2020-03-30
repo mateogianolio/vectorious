@@ -8,12 +8,12 @@ describe('(v) tan', () => {
   it('should work as expected', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.tan(value)), x.tan());
+    deepStrictEqual(v.map(x, (value: number) => Math.tan(value)), x.tan());
   });
 
   it('should work as the static equivalent', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.tan(value)), v.tan(x));
+    deepStrictEqual(v.map(x, (value: number) => Math.tan(value)), v.tan(x));
   });
 });

@@ -8,12 +8,12 @@ describe('(v) asinh', () => {
   it('should work as expected', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.asinh(value)), x.asinh());
+    deepStrictEqual(v.map(x, (value: number) => Math.asinh(value)), x.asinh());
   });
 
   it('should work as the static equivalent', () => {
     const x: v = v.random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.asinh(value)), v.asinh(x));
+    deepStrictEqual(v.map(x, (value: number) => Math.asinh(value)), v.asinh(x));
   });
 });
