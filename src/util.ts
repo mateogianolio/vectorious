@@ -6,7 +6,7 @@ import {
 
 export const flatten: (input: any[]) => number[] = (input: any[]): number[] =>
   input.reduce(
-    (acc: any[], next: any) => acc.concat(Array.isArray(next) ? flatten(next) : next),
+    (acc: any[], next: any): any[] => acc.concat(Array.isArray(next) ? flatten(next) : next),
     []
   );
 
@@ -18,7 +18,15 @@ export const get_shape: (input: any) => number[] = (input: any): number[] => Arr
   : [];
 
 export const get_strides: (input: number[]) => number[] = (input: number[]): number[] =>
-  [...input.slice(1).map((_, i) => input.slice(i + 1).reduce((a: number, b: number): number => a * b, 1)), 1];
+  [
+    ...input
+      .slice(1)
+      .map((_: number, i: number): number => input
+        .slice(i + 1)
+        .reduce((a: number, b: number): number => a * b, 1)
+      ),
+    1,
+];
 
 export const get_dtype: (input: TypedArray) => DType = (input: TypedArray): DType => {
   switch (input.constructor.name) {
