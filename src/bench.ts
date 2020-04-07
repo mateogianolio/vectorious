@@ -2,12 +2,7 @@ const benchmark: any = require('nodemark');
 const plt: any = require('matplotnode');
 const { execSync } = require('child_process');
 
-export const bench: (
-  group: string,
-  name: string,
-  setup: (n: number) => any[],
-  ...funcs: Array<(...args: any[]) => void>
-) => typeof benchmark = (
+export const bench = (
   group: string,
   name: string,
   setup: (n: number) => any[],
