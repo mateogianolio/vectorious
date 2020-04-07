@@ -2,41 +2,45 @@
 // URL: https://gist.github.com/joshmarinacci/c84d0979e100d107f685
 // URL: http://joshondesign.com/2014/09/17/rustlang
 // tslint:disable: max-classes-per-file
-import v = require('../src');
+import { array } from '../src/core/array';
+import { add } from '../src/core/add';
+import { dot } from '../src/core/dot';
+import { scale } from '../src/core/scale';
+import { subtract } from '../src/core/subtract';
 
 const render: (pixel: string) => void = process.stdout.write.bind(process.stdout);
 
 class Ray {
-  public dir: v;
-  public orig: v;
+  public dir;
+  public orig;
 
-  public constructor(orig: v, dir: v) {
+  public constructor(orig, dir) {
     this.orig = orig;
     this.dir = dir;
   }
 }
 
 class Sphere {
-  public center: v;
-  public color: v;
+  public center;
+  public color;
   public radius: number;
 
-  public constructor(center: v, radius: number, color: v) {
+  public constructor(center, radius: number, color) {
     this.center = center;
     this.radius = radius;
     this.color = color;
   }
 
-  public normal(pt: v): v {
-    return v.subtract(pt, this.center).normalize();
+  public normal(pt) {
+    return subtract(pt, this.center).normalize();
   }
 }
 
 class Light {
-  public color: v;
-  public position: v;
+  public color;
+  public position;
 
-  public constructor(position: v, color: v) {
+  public constructor(position, color) {
     this.position = position;
     this.color = color;
   }
@@ -66,26 +70,22 @@ const clamp:
   return x;
 };
 
-const diffuseShading:
-(pi: v, obj: Sphere, light: Light) => v =
-(pi: v, obj: Sphere, light: Light): v => {
-  const n: v = obj.normal(pi);
-  const lam1: number = v.subtract(light.position, pi).normalize().dot(n);
+const diffuseShading = (pi, obj: Sphere, light: Light) => {
+  const n = obj.normal(pi);
+  const lam1: number = subtract(light.position, pi).normalize().dot(n);
   const lam2: number = clamp(lam1, 0, 1);
 
-  return v.scale(light.color, lam2 * 0.5).add(v.scale(obj.color, 0.3));
+  return scale(light.color, lam2 * 0.5).add(scale(obj.color, 0.3));
 };
 
-const intersectSphere:
-(ray: Ray, center: v, radius: number) => number | undefined =
-(ray: Ray, center: v, radius: number): number | undefined => {
-  const l: v = v.subtract(center, ray.orig);
+const intersectSphere = (ray: Ray, center, radius: number): number | undefined => {
+  const l = subtract(center, ray.orig);
   const tca: number = l.dot(ray.dir);
   if (tca < 0) {
     return undefined;
   }
 
-  const d2: number = v.dot(l, l) - tca * tca;
+  const d2: number = dot(l, l) - tca * tca;
   const r2: number = radius * radius;
   if (d2 > r2) {
     return undefined;
@@ -100,9 +100,7 @@ const intersectSphere:
   return t0;
 };
 
-const range:
-(lo: number, hi: number, cb: (value: number) => void) => void =
-(lo: number, hi: number, cb: (value: number) => void): void => {
+const range = (lo: number, hi: number, cb: (value: number) => void): void => {
   let i: number;
   for (i = lo; i < hi; i += 1) {
     cb(i);
@@ -110,19 +108,17 @@ const range:
 };
 
 // Declare colors
-const WHITE: v = new v([1, 1, 1]);
-const RED: v = new v([1, 0, 0]);
-const GREEN: v = new v([0, 1, 0]);
-const BLUE: v  = new v([0, 0, 1]);
+const WHITE = array([1, 1, 1]);
+const RED = array([1, 0, 0]);
+const GREEN = array([0, 1, 0]);
+const BLUE  = array([0, 0, 1]);
 
 // Declare lighting
-const LIGHT1: Light = new Light(new v([0.7, -1, 1.7]), WHITE);
+const LIGHT1: Light = new Light(array([0.7, -1, 1.7]), WHITE);
 
-const shadePixel:
-(ray: Ray, obj: Sphere, tval: number) => number =
-(ray: Ray, obj: Sphere, tval: number): number => {
-  const pi: v = v.add(ray.orig, v.scale(ray.dir, tval));
-  const color: v = diffuseShading(pi, obj, LIGHT1);
+const shadePixel = (ray: Ray, obj: Sphere, tval: number): number => {
+  const pi = add(ray.orig, scale(ray.dir, tval));
+  const color = diffuseShading(pi, obj, LIGHT1);
   const col: number = (color.data[0] + color.data[1] + color.data[2]) / 3;
 
   return Math.floor(col * 6);
@@ -135,17 +131,17 @@ const h: number = 10 * 4;
 
 // Declare scene
 const scene: Sphere[] = [
-  new Sphere(new v([-1, 0, 3]), 0.3, RED),
-  new Sphere(new v([0, 0, 3]), 0.8, GREEN),
-  new Sphere(new v([1, 0, 3]), 0.4, BLUE),
+  new Sphere(array([-1, 0, 3]), 0.3, RED),
+  new Sphere(array([0, 0, 3]), 0.8, GREEN),
+  new Sphere(array([1, 0, 3]), 0.4, BLUE),
 ];
 
 // Render scene
 range(0, h, (j: number): void => {
   range(0, w, (i: number): void => {
     const ray: Ray = new Ray(
-      new v([0, 0, 0]),
-      new v([(i - w / 2) / w, (j - h / 2) / h, 1]).normalize()
+      array([0, 0, 0]),
+      array([(i - w / 2) / w, (j - h / 2) / h, 1]).normalize()
     );
 
     let hit: Hit | undefined;

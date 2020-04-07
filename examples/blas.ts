@@ -1,4 +1,4 @@
-import v = require('../src');
+import { array } from '../src/core/array';
 
 let nblas: any;
 try {
@@ -7,8 +7,8 @@ try {
   throw new Error('no blas support!');
 }
 
-const a: v = v.array([[1, 2, 3]]);
-const b: v = v.array([[3], [2], [1]]);
+const a = array([[1, 2, 3]]);
+const b = array([[3], [2], [1]]);
 
 console.log(`a: ${a}`);
 console.log(`b: ${b}`);
