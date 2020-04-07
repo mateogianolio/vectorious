@@ -3,6 +3,9 @@ import {
   TypedArray,
 } from '../types';
 
+/**
+ * @class NDIter
+ */
 export class NDIter {
   private data: TypedArray;
   private shape_m1: number[];
@@ -33,10 +36,36 @@ export class NDIter {
     this.pos = 0;
   }
 
+  /**
+   * @function done
+   * @memberof NDIter
+   * @description Returns true if the iterator is done, false otherwise
+   * @returns {Boolean}
+   * @example
+   * import { array } from 'vectorious/core/array';
+   * import { NDIter } from 'vectorious/iterator';
+   * 
+   * const iter = new NDIter(array([1, 2, 3]));
+   * iter.done(); // false
+   */
   done() {
     return this.counter > this.length_m1;
   }
 
+  /**
+   * @function next
+   * @memberof NDIter
+   * @description Returns the next element of the iterator, or undefined if done
+   * @returns {Object}
+   * @example
+   * import { array } from 'vectorious/core/array';
+   * import { NDIter } from 'vectorious/iterator';
+   * 
+   * const iter = new NDIter(array([1, 2, 3]));
+   * iter.next(); // { value: 2, done: false }
+   * iter.next(); // { value: 3, done: false }
+   * iter.next(); // { done: true }
+   */
   next() {
     this.counter += 1;
 

@@ -1,7 +1,19 @@
 import { NDArray } from './';
 
-NDArray.eye = function<T extends NDArray>(this: new(...args: any[]) => T, n: number): T {
-  const x: T = new this(new Float32Array(n * n), { shape: [n, n] });
+/**
+ * @static
+ * @function eye
+ * @memberof NDArray
+ * @description Creates an identity matrix of size `n` and type `type`.
+ * @param {Number} n
+ * @returns {NDArray}
+ * @example
+ * import { eye } from 'vectorious/core/eye';
+ * 
+ * eye(2); // => array([[1, 0], [0, 1]])
+ */
+export const eye = (n: number): NDArray => {
+  const x = new NDArray(new Float32Array(n * n), { shape: [n, n] });
   const { data: d1 } = x;
 
   let i: number;

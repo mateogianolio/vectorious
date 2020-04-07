@@ -1,4 +1,5 @@
-import v = require('..');
+import { transpose } from './transpose';
+import { random } from './random';
 import { bench } from '../bench';
 
 const { floor, sqrt } = Math;
@@ -6,11 +7,11 @@ const { floor, sqrt } = Math;
 bench(
   'v',
   'transpose',
-  (n: number): [v] => [v.random(floor(sqrt(n)), floor(sqrt(n)))],
-  (x: v): void => {
+  (n: number) => [random(floor(sqrt(n)), floor(sqrt(n)))],
+  (x): void => {
     x.transpose();
   },
-  (x: v): void => {
-    v.transpose(x);
+  (x): void => {
+    transpose(x);
   }
 );

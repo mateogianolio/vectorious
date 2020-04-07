@@ -1,14 +1,15 @@
-import v = require('..');
+import { pow } from './pow';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'pow',
-  (n: number): [v, number] => [v.random(n), Math.random()],
-  (x: v, exponent: number): void => {
+  (n: number) => [random(n), Math.random()],
+  (x, exponent: number): void => {
     x.pow(exponent);
   },
-  (x: v, exponent: number): void => {
-    v.pow(x, exponent);
+  (x, exponent: number): void => {
+    pow(x, exponent);
   }
 );

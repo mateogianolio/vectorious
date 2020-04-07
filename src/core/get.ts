@@ -1,9 +1,33 @@
 import { NDArray } from './';
 
-NDArray.get = <T extends NDArray>(x: T | ArrayLike<any>, ...indices: number[]): number =>
-  NDArray.array<T>(x).get(...indices);
+/**
+ * @static
+ * @function get
+ * @memberof NDArray
+ * @description Gets the element at `i, j, ..., n` from `x`
+ * @param {NDArray} x
+ * @param {Number[]} ...indices
+ * @returns {Number}
+ * @example
+ * import { get } from 'vectorious/core/get';
+ * 
+ * get([1, 2, 3], 2); // 3
+ */
+export const get = (x: NDArray | ArrayLike<any>, ...indices: number[]): number =>
+  NDArray.array(x).get(...indices);
 
-NDArray.prototype.get = function<T extends NDArray>(this: T, ...indices: number[]): number {
+/**
+ * @function get
+ * @memberof NDArray.prototype
+ * @description Gets the element at `i, j, ..., n` from current vector.
+ * @param {Number[]} ...indices
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).get(2); // 3
+ */
+export default function(this: NDArray, ...indices: number[]): number {
   this.check(...indices);
 
   const { data: d1, shape: s1 } = this;

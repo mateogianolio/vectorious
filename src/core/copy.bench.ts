@@ -1,14 +1,15 @@
-import v = require('..');
+import { copy } from './copy';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'copy',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.copy();
   },
-  (x: v): void => {
-    v.copy(x);
+  (x): void => {
+    copy(x);
   }
 );

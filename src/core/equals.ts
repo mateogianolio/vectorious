@@ -1,9 +1,33 @@
 import { NDArray } from './';
 
-NDArray.equals = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): boolean =>
-  NDArray.array<T>(x).equals(NDArray.array<T>(y));
+/**
+ * @static
+ * @function equals
+ * @memberof NDArray
+ * @description Checks if `x` and `y` are equal.
+ * @param {NDArray} x
+ * @param {NDArray} y
+ * @returns {Boolean}
+ * @example
+ * import { equals } from 'vectorious/core/equals';
+ * 
+ * equals([1, 2, 3], [1, 2, 3]); // => true
+ */
+export const equals = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): boolean =>
+  NDArray.array(x).equals(NDArray.array(y));
 
-NDArray.prototype.equals = function<T extends NDArray>(this: T, x: T): boolean {
+/**
+ * @function equals
+ * @memberof NDArray.prototype
+ * @description Checks if current array and `x` are equal.
+ * @param {NDArray} x
+ * @returns {Boolean}
+ * @example
+ * import { equals } from 'vectorious/core/equals';
+ * 
+ * array([1, 2, 3]).equals([1, 2, 3]); // => true
+ */
+export default function(this: NDArray, x: NDArray): boolean {
   this.equilateral(x);
   this.equidimensional(x);
 

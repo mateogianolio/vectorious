@@ -1,14 +1,15 @@
-import v = require('..');
+import { scale } from './scale';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'scale',
-  (n: number): [v, number] => [v.random(n), Math.random()],
-  (x: v, alpha: number) => {
+  (n: number) => [random(n), Math.random()],
+  (x, alpha: number) => {
     x.scale(alpha);
   },
-  (x: v, alpha: number) => {
-    v.scale(x, alpha);
+  (x, alpha: number) => {
+    scale(x, alpha);
   }
 );

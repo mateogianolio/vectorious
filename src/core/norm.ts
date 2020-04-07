@@ -7,11 +7,37 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-const { sqrt } = Math;
+const { sqrt: f } = Math;
 
-NDArray.norm = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).norm();
+/**
+ * @static
+ * @function norm
+ * @memberof NDArray
+ * @description
+ * Calculates the norm of current array (also called L2 norm or Euclidean length).
+ * Accelerated with BLAS `?nrm2`.
+ * @param {NDArray} x
+ * @returns {Number}
+ * @example
+ * import { norm } from 'vectorious/core/norm';
+ * 
+ * norm([1, 2, 3]); // => 3.7416574954986572
+ */
+export const norm = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).norm();
 
-NDArray.prototype.norm = function<T extends NDArray>(this: T): number {
+/**
+ * @function norm
+ * @memberof NDArray.prototype
+ * @description
+ * Calculates the norm of current array (also called L2 norm or Euclidean length).
+ * Accelerated with BLAS `?nrm2`.
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).norm(); // => 3.7416574954986572
+ */
+export default function(this: NDArray): number {
   const { length: l1 } = this;
   let result: number = 0;
 
@@ -30,7 +56,7 @@ NDArray.prototype.norm = function<T extends NDArray>(this: T): number {
       result = nblas.snrm2(l1, d1, 1);
     }
   } catch (err) {
-    result = sqrt(this.dot(this));
+    result = f(this.dot(this));
   }
 
   return result;

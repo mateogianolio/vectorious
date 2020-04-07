@@ -7,10 +7,38 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.multiply = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
-  NDArray.array<T>(x).multiply(NDArray.array<T>(y));
+/**
+ * @static
+ * @function multiply
+ * @memberof NDArray
+ * @description
+ * Multiplies two matrices `x` and `y` of matching dimensions.
+ * Accelerated with BLAS `?gemm`.
+ * @param {NDArray} x
+ * @param {NDArray} y
+ * @returns {NDArray}
+ * @example
+ * import { multiply } from 'vectorious/core/multiply';
+ * 
+ * multiply([[1, 2]], [[1], [2]]); // => array([[5]])
+ */
+export const multiply = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
+  NDArray.array(x).multiply(NDArray.array(y));
 
-NDArray.prototype.multiply = function<T extends NDArray>(this: T, x: T): T {
+/**
+ * @function multiply
+ * @memberof NDArray.prototype
+ * @description
+ * Multiplies current matrix with `x`.
+ * Accelerated with BLAS `?gemm`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 2]]).multiply([[1], [2]]); // <=> array([[5]])
+ */
+export default function(this: NDArray, x: NDArray): NDArray {
   const [r1, c1] = this.shape;
   const [r2, c2] = x.shape;
 
@@ -55,5 +83,5 @@ NDArray.prototype.multiply = function<T extends NDArray>(this: T, x: T): T {
     }
   }
 
-  return y as T;
+  return y as NDArray;
 };

@@ -2,18 +2,19 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import v = require('..');
+import { sum } from './sum';
+import { random } from './random';
 
 describe('(v) sum', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
     deepStrictEqual(x.reduce((acc: number, value: number) => acc + value, 0), x.sum());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.reduce((acc: number, value: number) => acc + value, 0), v.sum(x));
+    deepStrictEqual(x.reduce((acc: number, value: number) => acc + value, 0), sum(x));
   });
 });

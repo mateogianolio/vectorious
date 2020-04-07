@@ -1,10 +1,11 @@
-import v = require('..');
+import { zeros } from './zeros';
 import { bench } from '../bench';
+
 bench(
   'v',
   'zeros',
   (n: number): [number] => [n],
   (n: number): void => {
-    v.zeros(n);
+    zeros(n);
   }
 );

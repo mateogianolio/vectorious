@@ -1,14 +1,15 @@
-import v = require('..');
+import { cos } from './cos';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'cos',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.cos();
   },
-  (x: v): void => {
-    v.cos(x);
+  (x): void => {
+    cos(x);
   }
 );

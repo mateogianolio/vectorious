@@ -1,8 +1,30 @@
 import { NDArray } from './';
 
-NDArray.trace = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).trace();
+/**
+ * @static
+ * @function trace
+ * @memberof NDArray
+ * @description Gets the trace of `x` (the sum of all diagonal elements).
+ * @param {NDArray} x
+ * @returns {Number}
+ * @example
+ * import { trace } from 'vectorious/core/trace';
+ * 
+ * trace([[1, 2], [3, 4]]); // => 5
+ */
+export const trace = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).trace();
 
-NDArray.prototype.trace = function<T extends NDArray>(this: T): number {
+/**
+ * @function trace
+ * @memberof NDArray.prototype
+ * @description Gets the trace of the matrix (the sum of all diagonal elements).
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).trace(); // => 5
+ */
+export default function(this: NDArray): number {
   const [r, c] = this.shape;
   const { data: d1 } = this;
   const n: number = Math.min(r, c);

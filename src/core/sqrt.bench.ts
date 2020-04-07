@@ -1,14 +1,15 @@
-import v = require('..');
+import { sqrt } from './sqrt';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'sqrt',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.sqrt();
   },
-  (x: v): void => {
-    v.sqrt(x);
+  (x): void => {
+    sqrt(x);
   }
 );

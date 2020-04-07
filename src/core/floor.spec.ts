@@ -2,18 +2,20 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import v = require('..');
+import { floor } from './floor';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) floor', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.floor(value)), x.floor());
+    deepStrictEqual(map(x, (value: number) => Math.floor(value)), x.floor());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.floor(value)), v.floor(x));
+    deepStrictEqual(map(x, (value: number) => Math.floor(value)), floor(x));
   });
 });

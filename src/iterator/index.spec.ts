@@ -2,12 +2,12 @@ import {
   deepStrictEqual, strictEqual,
 } from 'assert';
 
-import v = require('..');
+import { array } from '../core/array';
 import { NDIter } from '.';
 
 describe('(NDIter) constructor', () => {
   it('should work as expected', () => {
-    const x: v = v.array([0, 1, 2]);
+    const x = array([0, 1, 2]);
     const iter: NDIter = new NDIter(x);
 
     deepStrictEqual(iter.next(), {
@@ -25,7 +25,7 @@ describe('(NDIter) constructor', () => {
   });
 
   it('should work as expected in two dimensions', () => {
-    const x: v = v.array([[0, 1], [2, 3]]);
+    const x = array([[0, 1], [2, 3]]);
     const iter: NDIter = new NDIter(x);
 
     deepStrictEqual(iter.next(), {
@@ -47,7 +47,7 @@ describe('(NDIter) constructor', () => {
   });
 
   it('should work in for...of loops', () => {
-    const x: v = v.array([[0, 1], [2, 3]]);
+    const x = array([[0, 1], [2, 3]]);
     const iter: NDIter = new NDIter(x);
 
     let i = 0;
@@ -58,7 +58,7 @@ describe('(NDIter) constructor', () => {
   });
 
   it('should work in do...while loops', () => {
-    const x: v = v.array([[0, 1], [2, 3]]);
+    const x = array([[0, 1], [2, 3]]);
     const iter: NDIter = new NDIter(x);
 
     let i = 0;

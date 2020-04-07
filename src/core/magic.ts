@@ -3,13 +3,25 @@ import { TypedArray } from '../types';
 import { NDArray } from './';
 import { NDIter } from '../iterator';
 
-NDArray.magic = function<T extends NDArray>(this: new(...args: any[]) => T, n: number): T {
+/**
+ * @static
+ * @function magic
+ * @memberof NDArray
+ * @description Creates a magic square matrix of size `n`
+ * @param {Number} n
+ * @returns {NDArray}
+ * @example
+ * import { magic } from 'vectorious/core/magic';
+ * 
+ * magic(3); // => array([[8, 1, 6], [3, 5, 7], [4, 9, 2]])
+ */
+export const magic = (n: number): NDArray => {
   if (n < 0) {
     throw new Error('invalid n');
   }
 
   const d1: TypedArray = new Float32Array(n * n);
-  const magic: T = new this(d1, { shape: [n, n] });
+  const magic = new NDArray(d1, { shape: [n, n] });
   const iter = new NDIter(magic);
 
   do {

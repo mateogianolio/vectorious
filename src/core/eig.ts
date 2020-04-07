@@ -15,8 +15,8 @@ try {
  *  └   ┘    └     ┘└   ┘
  */
 const rotate:
-  <T extends NDArray>(x: T, c: number, s: number, k: number, l: number, i: number, j: number) => void =
-  <T extends NDArray>(x: T, c: number, s: number, k: number, l: number, i: number, j: number): void => {
+  (x: NDArray, c: number, s: number, k: number, l: number, i: number, j: number) => void =
+  (x: NDArray, c: number, s: number, k: number, l: number, i: number, j: number): void => {
     const [n] = x.shape;
     const { data: d1 } = x;
     const temp: number = d1[k * n + l];
@@ -26,9 +26,35 @@ const rotate:
     d1[i * n + j] += s * (temp - tau * d1[i * n + j]);
   };
 
-NDArray.eig = <T extends NDArray>(x: T | ArrayLike<any>): [T, T] => NDArray.array<T>(x).eig();
+/**
+ * @static
+ * @function eig
+ * @memberof NDArray
+ * @description
+ * Gets eigenvalues and eigenvectors of `x` using the Jacobi method.
+ * Accelerated with LAPACK `?geev`.
+ * @param {NDArray} x
+ * @returns {Array<NDArray>}
+ * @example
+ * import { eig } from 'vectorious/core/eig';
+ * 
+ * eig([[1, 0, 0], [0, 2, 0], [0, 0, 3]]); // => [array([1, 2, 3]), array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])]
+ */
+export const eig = (x: NDArray | ArrayLike<any>): [NDArray, NDArray] => NDArray.array(x).eig();
 
-NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
+/**
+ * @function eig
+ * @memberof NDArray.prototype
+ * @description
+ * Gets eigenvalues and eigenvectors of the current matrix using the Jacobi method.
+ * Accelerated with LAPACK `?geev`.
+ * @returns {Array<NDArray>}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 0, 0], [0, 2, 0], [0, 0, 3]]).eig(); // => [array([1, 2, 3]), array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])]
+ */
+export default function(this: NDArray): [NDArray, NDArray] {
   this.square();
 
   const [n] = this.shape;
@@ -42,11 +68,11 @@ NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
     const jobvl: typeof nlapack.NDArrayEigenvector = nlapack.NoEigenvector;
     const jobvr: typeof nlapack.NDArrayEigenvector = nlapack.Eigenvector;
 
-    const wr: T = NDArray.zeros(n);
-    const wi: T = NDArray.zeros(n);
+    const wr = NDArray.zeros(n);
+    const wi = NDArray.zeros(n);
 
-    const vl: T = NDArray.zeros(n, n);
-    const vr: T = NDArray.zeros(n, n);
+    const vl = NDArray.zeros(n, n);
+    const vr = NDArray.zeros(n, n);
 
     const { data: d1 } = this;
     const { data: d2 } = wr;
@@ -64,13 +90,13 @@ NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
     return [wr, vr];
   } catch (err) {
     const { data: d1 } = this;
-    const p: T = NDArray.eye(n);
+    const p = NDArray.eye(n);
 
-    let max: number = 0;
-    let i: number = 0;
-    let j: number = 0;
-    let k: number = 0;
-    let l: number = 0;
+    let max = 0;
+    let i = 0;
+    let j = 0;
+    let k = 0;
+    let l = 0;
 
     do {
       // Find maximum off-diagonal element
@@ -85,18 +111,18 @@ NDArray.prototype.eig = function<T extends NDArray>(this: T): [T, T] {
       }
 
       // Find c and s
-      let t: number;
+      let t;
       if (Math.abs(d1[k * n + l]) < Math.abs(d1[l * n + l]) * 1e-36) {
         t = d1[k * n + l] / d1[l * n + l];
       } else {
-        const phi: number = d1[l * n + l] / 2 * d1[k * n + l];
+        const phi = d1[l * n + l] / 2 * d1[k * n + l];
         t = 1 / (Math.abs(phi) + Math.sqrt(phi * phi + 1));
       }
 
-      const c: number = 1 / Math.sqrt(t * t + 1);
-      const s: number = t * c;
+      const c = 1 / Math.sqrt(t * t + 1);
+      const s = t * c;
 
-      const e: number = d1[k * n + l];
+      const e = d1[k * n + l];
       d1[k * n + l] = 0;
       d1[k * n + k] -= t * e;
       d1[l * n + l] += t * e;

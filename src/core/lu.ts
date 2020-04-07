@@ -1,16 +1,39 @@
 import { NDArray } from './';
 
 /**
- * Performs full LU decomposition on a matrix.
+ * @static
+ * @function lu
+ * @memberof NDArray
+ * @description
+ * Performs full LU decomposition on `x`.
+ * Accelerated with LAPACK `?getrf`.
+ * @param {NDArray} x
+ * @returns {Array<NDArray, Int32Array>}
+ * @example
+ * import { lu } from 'vectorious/core/lu';
+ * 
+ * lu([[1, 3, 5], [2, 4, 7], [1, 1, 0]]); // => [array([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]), array([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]), Int32Array([2, 2, 3])]
  */
-NDArray.lu = <T extends NDArray>(x: T | ArrayLike<any>): [T, T, Int32Array] =>
-  NDArray.array<T>(x).lu();
+export const lu = (x: NDArray | ArrayLike<any>): [NDArray, NDArray, Int32Array] =>
+  NDArray.array(x).lu();
 
-NDArray.prototype.lu = function<T extends NDArray>(this: T): [T, T, Int32Array] {
+/**
+ * @function lu
+ * @memberof NDArray.prototype
+ * @description
+ * Performs full LU decomposition on current matrix.
+ * Accelerated with LAPACK `?getrf`.
+ * @returns {Array<NDArray|Int32Array>}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).lu(); // => [array([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]), array([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]), Int32Array([2, 2, 3])]
+ */
+export default function (this: NDArray): [NDArray, NDArray, Int32Array] {
   const [r, c] = this.shape;
   const [LU, ipiv] = this.copy().lu_factor();
-  const L: T = LU.copy();
-  const U: T = LU.copy();
+  const L = LU.copy();
+  const U = LU.copy();
   const { data: d1 } = L;
   const { data: d2 } = U;
 

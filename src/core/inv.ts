@@ -7,9 +7,35 @@ try {
   nlapack = require('nlapack');
 } catch (err) {}
 
-NDArray.inv = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).inv();
+/**
+ * @static
+ * @function inv
+ * @memberof NDArray
+ * @description
+ * Determines the inverse of `x`.
+ * Accelerated with LAPACK `?getri`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { inv } from 'vectorious/core/inv';
+ * 
+ * inv([[2, -1, 0], [-1, 2, -1], [0, -1, 2]]); // => array([[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]])
+ */
+export const inv = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).inv();
 
-NDArray.prototype.inv = function<T extends NDArray>(this: T): T {
+/**
+ * @function inv
+ * @memberof NDArray.prototype
+ * @description
+ * Determines the inverse of current matrix using Gaussian elimination.
+ * Accelerated with LAPACK `?getri`.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]]).inv(); // <=> array([[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]])
+ */
+export default function(this: NDArray): NDArray {
   this.square();
 
   const [n] = this.shape;
@@ -32,10 +58,10 @@ NDArray.prototype.inv = function<T extends NDArray>(this: T): T {
 
     return this;
   } catch (err) {
-    const eye: T = NDArray.eye(n);
-    const rref: T = NDArray.augment(this, eye).gauss();
-    const left: T = NDArray.zeros(n, n);
-    const right: T = NDArray.zeros(n, n);
+    const eye = NDArray.eye(n);
+    const rref = NDArray.augment(this, eye).gauss();
+    const left = NDArray.zeros(n, n);
+    const right = NDArray.zeros(n, n);
 
     const { data: d1 } = rref;
     const { data: d2 } = left;

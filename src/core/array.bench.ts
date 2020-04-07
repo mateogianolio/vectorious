@@ -1,10 +1,11 @@
-import v = require('..');
+import { array } from './array';
 import { bench } from '../bench';
+
 bench(
   'v',
   'array',
   (n: number): [number] => [n],
   (n: number): void => {
-    v.array(new Array(n));
+    array(new Array(n));
   }
 );

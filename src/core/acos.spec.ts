@@ -2,18 +2,20 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import v = require('..');
+import { acos } from './acos';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) acos', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.acos(value)), x.acos());
+    deepStrictEqual(map(x, (value: number) => Math.acos(value)), x.acos());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.acos(value)), v.acos(x));
+    deepStrictEqual(map(x, (value: number) => Math.acos(value)), acos(x));
   });
 });

@@ -1,14 +1,15 @@
-import v = require('..');
+import { product } from './product';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'product',
-  (n: number): [v, v] => [v.random(n), v.random(n)],
-  (x: v, y: v): void => {
+  (n: number) => [random(n), random(n)],
+  (x, y): void => {
     x.product(y);
   },
-  (x: v, y: v): void => {
-    v.product(x, y);
+  (x, y): void => {
+    product(x, y);
   }
 );

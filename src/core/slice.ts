@@ -3,20 +3,48 @@ import { get_type } from '../util';
 
 import { NDArray } from './';
 
-NDArray.slice = <T extends NDArray>(
-  x: T | ArrayLike<any>,
-  start?: number,
-  step?: number,
-  end?: number
-): T =>
-  NDArray.array<T>(x).slice(start, step, end);
+/**
+ * @static
+ * @function slice
+ * @memberof NDArray
+ * @description Slices `x` in the corresponding dimension
+ * @param {NDArray} x
+ * @param {Number} begin
+ * @param {Number} end
+ * @param {Number} step
+ * @returns {NDArray}
+ * @example
+ * import { slice } from 'vectorious/core/slice';
+ * 
+ * slice([1, 2, 3, 4], 0, 4, 2); // => array([1, 3])
+ */
+export const slice = (
+  x: NDArray | ArrayLike<any>,
+  begin?: number,
+  end?: number,
+  step?: number
+): NDArray =>
+  NDArray.array(x).slice(begin, end, step);
 
-NDArray.prototype.slice = function<T extends NDArray>(
-  this: T,
+/**
+ * @function slice
+ * @memberof NDArray.prototype
+ * @description Slices the current array in the corresponding dimension
+ * @param {Number} begin
+ * @param {Number} end
+ * @param {Number} step
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3, 4]).slice(0, 4, 2); // => array([1, 3])
+ */
+export default function(
+  this: NDArray,
   begin: number = 0,
   end: number = this.shape[0],
   step: number = 1
-): T {
+): NDArray {
   const { data: d1, shape: s1 } = this;
   const { length: ndim } = s1;
 

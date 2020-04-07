@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "6.0.0-beta.11",
+  "version": "6.0.0-beta.12",
   "description": "A high performance linear algebra library.",
   "main": "built/index.js",
   "types": "built/index.d.ts",
@@ -11,8 +11,8 @@
     "test": "npm run test:node && npm run test:browser",
     "lint": "tslint -p . -c tslint.json 'src/*.ts'",
     "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node $file; done",
-    "docs": "gulp docs",
-    "build": "gulp clean && gulp build && gulp docs && tsc",
+    "docs": "jsdoc --configure jsdoc.json",
+    "build": "gulp clean && gulp build && tsc && npm run docs",
     "prepublishOnly": "npm run build"
   },
   "browser": {
@@ -67,30 +67,31 @@
   },
   "homepage": "https://github.com/mateogianolio/vectorious",
   "devDependencies": {
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^12.11.2",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.7",
     "benchmark": "^2.1.4",
-    "browserify": "^16.5.0",
+    "better-docs": "^1.4.7",
+    "browserify": "^16.5.1",
     "del": "5.1.0",
     "gulp": "^4.0.2",
     "gulp-streamify": "^1.0.2",
-    "gulp-typedoc": "^2.2.2",
     "gulp-uglify": "^3.0.2",
+    "jsdoc": "^3.6.3",
     "matplotnode": "^0.4.2",
-    "mocha": "^6.2.2",
+    "mocha": "^7.1.1",
     "mochify": "^6.6.0",
     "nodemark": "^0.3.0",
     "nyc": "^15.0.0",
-    "ts-node": "^8.3.0",
+    "tidy-jsdoc": "^1.4.0",
+    "ts-node": "^8.8.1",
     "tsify": "^4.0.1",
-    "tslint": "^5.18.0",
-    "typedoc": "^0.16.0",
-    "typescript": "^3.5.3",
+    "tslint": "^6.1.0",
+    "typedoc": "^0.17.3",
+    "typescript": "^3.8.3",
     "vinyl-source-stream": "^2.0.0"
   },
   "optionalDependencies": {
-    "nblas": "^2.1.7",
-    "nlapack": "^2.0.3"
+    "nblas": "^2.1.7"
   },
   "dependencies": {}
 }

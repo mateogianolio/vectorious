@@ -1,14 +1,30 @@
 import { NDArray } from './';
 
 /**
- * Finds the rank of the matrix using gaussian elimination.
+ * @static
+ * @function rank
+ * @memberof NDArray
+ * @description Finds the rank of `x` using gaussian elimination.
+ * @param {NDArray} x
+ * @returns {Number}
+ * @example
+ * import { rank } from 'vectorious/core/rank';
+ * 
+ * rank([[1, 1, 1], [2, 2, 2], [3, 3, 3]]); // => 1
  */
-NDArray.rank = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).rank();
+export const rank = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).rank();
 
 /**
- * Finds the rank of the matrix using gaussian elimination.
+ * @function rank
+ * @memberof NDArray.prototype
+ * @description Finds the rank of current matrix using gaussian elimination.
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 1, 1], [2, 2, 2], [3, 3, 3]]).rank(); // => 1
  */
-NDArray.prototype.rank = function<T extends NDArray>(this: T): number {
+export default function(this: NDArray): number {
   this.gauss();
 
   const [r, c] = this.shape;

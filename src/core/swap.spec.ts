@@ -3,11 +3,12 @@ import {
   throws,
 } from 'assert';
 
-import v = require('..');
+import { swap } from './swap';
+import { array } from './array';
 
 describe('(v) swap', () => {
   it('should throw error if index out of bounds', () => {
-    const x: v = v.array([[1, 2], [3, 4]]);
+    const x = array([[1, 2], [3, 4]]);
 
     throws(() => { x.swap(-1, 0); }, Error);
     throws(() => { x.swap(0, -1); }, Error);
@@ -16,17 +17,17 @@ describe('(v) swap', () => {
   });
 
   it('should work as expected', () => {
-    const x: v = v.array([[1, 2], [3, 4], [5, 6]]);
+    const x = array([[1, 2], [3, 4], [5, 6]]);
 
     x.swap(0, 1);
-    deepStrictEqual(v.array([[3, 4], [1, 2], [5, 6]]), x);
+    deepStrictEqual(array([[3, 4], [1, 2], [5, 6]]), x);
     x.swap(1, 2);
-    deepStrictEqual(v.array([[3, 4], [5, 6], [1, 2]]), x);
+    deepStrictEqual(array([[3, 4], [5, 6], [1, 2]]), x);
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.array([[1, 2], [3, 4], [5, 6]]);
+    const x = array([[1, 2], [3, 4], [5, 6]]);
 
-    deepStrictEqual(v.array([[3, 4], [1, 2], [5, 6]]), v.swap(x, 0, 1));
+    deepStrictEqual(array([[3, 4], [1, 2], [5, 6]]), swap(x, 0, 1));
   });
 });

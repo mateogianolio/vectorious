@@ -1,3 +1,2 @@
-import { NDArray } from './core';
-
-export = NDArray;
+export { NDArray } from './core';
+export { NDIter } from './iterator';

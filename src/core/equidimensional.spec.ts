@@ -2,14 +2,15 @@ import {
   throws,
 } from 'assert';
 
-import v = require('..');
+import { equidimensional } from './equidimensional';
+import { array } from './array';
 
 describe('(v) equidimensional', () => {
   it('should pass if shapes match', () => {
     const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
     const f32y: Float32Array = new Float32Array([1, 2, 3, 4]);
-    const x: v = v.array(f32x);
-    const y: v = v.array(f32y);
+    const x = array(f32x);
+    const y = array(f32y);
 
     x.equidimensional(y);
   });
@@ -17,8 +18,8 @@ describe('(v) equidimensional', () => {
   it('should throw error if lengths do not match', () => {
     const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
     const f32y: Float32Array = new Float32Array([1, 2, 3, 4]);
-    const x: v = v.array(f32x);
-    const y: v = v.array(f32y, { shape: [2, 2] });
+    const x = array(f32x);
+    const y = array(f32y, { shape: [2, 2] });
 
     throws(() => { x.equidimensional(y); }, Error);
   });
@@ -26,9 +27,9 @@ describe('(v) equidimensional', () => {
   it('should work as the static equivalent', () => {
     const f32x: Float32Array = new Float32Array([1, 2, 3, 4]);
     const f32y: Float32Array = new Float32Array([1, 2, 3, 4]);
-    const x: v = v.array(f32x);
-    const y: v = v.array(f32y);
+    const x = array(f32x);
+    const y = array(f32y);
 
-    v.equidimensional(x, y);
+    equidimensional(x, y);
   });
 });

@@ -1,4 +1,5 @@
-import v = require('..');
+import { trace } from './trace';
+import { random } from './random';
 import { bench } from '../bench';
 
 const { floor, sqrt } = Math;
@@ -6,11 +7,11 @@ const { floor, sqrt } = Math;
 bench(
   'v',
   'trace',
-  (n: number): [v] => [v.random(floor(sqrt(n)), floor(sqrt(n)))],
-  (x: v): void => {
+  (n: number) => [random(floor(sqrt(n)), floor(sqrt(n)))],
+  (x): void => {
     x.trace();
   },
-  (x: v): void => {
-    v.trace(x);
+  (x): void => {
+    trace(x);
   }
 );

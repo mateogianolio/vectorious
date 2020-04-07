@@ -1,16 +1,38 @@
 import { NDArray } from './';
 import { NDIter } from '../iterator';
 
-const { log10 } = Math;
+const { log10: f } = Math;
 
-NDArray.log10 = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).log10();
+/**
+ * @static
+ * @function log10
+ * @memberof NDArray
+ * @description Returns the base 10 logarithm of each element of `x`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { log10 } from 'vectorious/core/log10';
+ * 
+ * log10([10, 100, 1000]); // => array([1, 2, 3])
+ */
+export const log10 = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).log10();
 
-NDArray.prototype.log10 = function<T extends NDArray>(this: T): T {
+/**
+ * @function log10
+ * @memberof NDArray.prototype
+ * @description Returns the base 10 logarithm of each element of current array.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([10, 100, 1000]).log10(); // <=> array([1, 2, 3])
+ */
+export default function(this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
   do {
-    d1[iter.pos] = log10(d1[iter.pos]);
+    d1[iter.pos] = f(d1[iter.pos]);
 
     iter.next();
   } while (!iter.done());

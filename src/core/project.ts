@@ -1,8 +1,31 @@
 import { NDArray } from './';
 
-NDArray.project = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
-  NDArray.array<T>(x).project(NDArray.array<T>(y));
+/**
+ * @static
+ * @function project
+ * @memberof NDArray
+ * @description Projects the `y` onto `x` using the projection formula `(y * (x * y / y * y))`.
+ * @param {NDArray} x
+ * @param {NDArray} y
+ * @returns {NDArray}
+ * @example
+ * import { project } from 'vectorious/core/project';
+ * 
+ * project([1, 2, 3], [4, 5, 6]); // => array([1.6623376607894897, 2.0779221057891846, 2.49350643157959])
+ */
+export const project = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
+  NDArray.array(x).project(NDArray.array(y));
 
-NDArray.prototype.project = function<T extends NDArray>(this: T, x: T): T {
+/**
+ * @function project
+ * @memberof NDArray.prototype
+ * @description Projects the current vector onto `x` using the projection formula `(y * (x * y / y * y))`.
+ * @returns {NDArray}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).project([4, 5, 6]); // <=> array([1.6623376607894897, 2.0779221057891846, 2.49350643157959])
+ */
+export default function(this: NDArray, x: NDArray): NDArray {
   return x.scale(this.dot(x) / x.dot(x));
 };

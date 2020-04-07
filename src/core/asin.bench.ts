@@ -1,14 +1,15 @@
-import v = require('..');
+import { asin } from './asin';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'asin',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.asin();
   },
-  (x: v): void => {
-    v.asin(x);
+  (x): void => {
+    asin(x);
   }
 );

@@ -1,13 +1,37 @@
 import { NDArray } from './';
 import { NDIter } from '../iterator';
 
-NDArray.fill = <T extends NDArray>(
-  x: T | ArrayLike<any>,
+/**
+ * @static
+ * @function fill
+ * @memberof NDArray
+ * @description Fills `x` with a scalar value
+ * @param {NDArray} x
+ * @param {Number} value
+ * @returns {NDArray}
+ * @example
+ * import { fill } from 'vectorious/core/fill';
+ * 
+ * fill([1, 2, 3], 0); // => array([0, 0, 0])
+ */
+export const fill = (
+  x: NDArray | ArrayLike<any>,
   value: number | ((index: number) => number) = 0
-): T =>
-  NDArray.array<T>(x).fill(value);
+): NDArray =>
+  NDArray.array(x).fill(value);
 
-NDArray.prototype.fill = function<T extends NDArray>(this: T, value: number | ((index: number) => number) = 0): T {
+/**
+ * @function fill
+ * @memberof NDArray.prototype
+ * @description Fills the current array with a scalar value
+ * @param {Number} value
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).fill(0); // <=> array([0, 0, 0])
+ */
+export default function(this: NDArray, value: number | ((index: number) => number) = 0): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 

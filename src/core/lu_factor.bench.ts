@@ -1,4 +1,5 @@
-import v = require('..');
+import { lu_factor } from './lu_factor';
+import { random } from './random';
 import { bench } from '../bench';
 
 const { floor, sqrt } = Math;
@@ -6,11 +7,11 @@ const { floor, sqrt } = Math;
 bench(
   'v',
   'lu_factor',
-  (n: number): [v] => [v.random(floor(sqrt(n)), floor(sqrt(n)))],
-  (x: v): void => {
+  (n: number) => [random(floor(sqrt(n)), floor(sqrt(n)))],
+  (x): void => {
     x.lu_factor();
   },
-  (x: v): void => {
-    v.lu_factor(x);
+  (x): void => {
+    lu_factor(x);
   }
 );

@@ -1,14 +1,15 @@
-import v = require('..');
+import { exp } from './exp';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'exp',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.exp();
   },
-  (x: v): void => {
-    v.exp(x);
+  (x): void => {
+    exp(x);
   }
 );

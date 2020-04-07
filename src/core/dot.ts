@@ -7,10 +7,38 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.dot = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): number =>
-  NDArray.array<T>(x).dot(NDArray.array<T>(y));
+/**
+ * @static
+ * @function dot
+ * @memberof NDArray
+ * @description
+ * Performs dot multiplication with `x` and `y`.
+ * Accelerated with BLAS `?dot`.
+ * @param {NDArray} x
+ * @param {NDArray} y
+ * @returns {Number}
+ * @example
+ * import { dot } from 'vectorious/core/dot';
+ * 
+ * dot([1, 2, 3], [4, 5, 6]); // => 32
+ */
+export const dot = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): number =>
+  NDArray.array(x).dot(NDArray.array(y));
 
-NDArray.prototype.dot = function<T extends NDArray>(this: T, x: T): number {
+/**
+ * @function dot
+ * @memberof NDArray.prototype
+ * @description
+ * Performs dot multiplication with `x` and current array
+ * Accelerated with BLAS `?dot`.
+ * @param {NDArray} x
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).dot([4, 5, 6]); // => 32
+ */
+export default function(this: NDArray, x: NDArray): number {
   this.equilateral(x);
   this.equidimensional(x);
 

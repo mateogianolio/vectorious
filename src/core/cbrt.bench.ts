@@ -1,14 +1,15 @@
-import v = require('..');
+import { cbrt } from './cbrt';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'cbrt',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.cbrt();
   },
-  (x: v): void => {
-    v.cbrt(x);
+  (x): void => {
+    cbrt(x);
   }
 );

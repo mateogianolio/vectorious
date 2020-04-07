@@ -1,16 +1,42 @@
 import { NDArray } from './';
 import { NDIter } from '../iterator';
 
-const { sign } = Math;
+const { sign: f } = Math;
 
-NDArray.sign = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).sign();
+/**
+ * @static
+ * @function sign
+ * @memberof NDArray
+ * @description
+ * Returns the sign of each element of `x`, indicating
+ * whether it is positive, negative or zero.
+ * @param {Number} x
+ * @returns {NDArray}
+ * @example
+ * import { sign } from 'vectorious/core/sign';
+ * 
+ * sign([1, 2, 3]); // => array([1, 1, 1])
+ */
+export const sign = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).sign();
 
-NDArray.prototype.sign = function<T extends NDArray>(this: T): T {
+/**
+ * @function sign
+ * @memberof NDArray.prototype
+ * @description
+ * Returns the sign of each element of current array, indicating
+ * whether it is positive, negative or zero.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).sign(); // <=> array([1, 1, 1])
+ */
+export default function(this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
   do {
-    d1[iter.pos] = sign(d1[iter.pos]);
+    d1[iter.pos] = f(d1[iter.pos]);
 
     iter.next();
   } while (!iter.done());

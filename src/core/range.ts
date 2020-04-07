@@ -2,7 +2,25 @@ import { TypedArray, TypedArrayConstructor } from '../types';
 
 import { NDArray } from './';
 
-NDArray.range = function<T extends NDArray>(this: new(...args: any[]) => T, ...args: number[]): T {
+/**
+ * @static
+ * @function range
+ * @memberof NDArray
+ * @description
+ * Creates an array containing a range (can be either ascending or descending)
+ * of numbers specified by the arguments provided (e.g. `NDArray.range(0, .5, 2)`
+ * gives an array containing all numbers in the interval `[0, 2)` separated by
+ * steps of `0.5`)
+ * @param {Number} start
+ * @param {Number} step
+ * @param {Number} stop
+ * @returns {NDArray}
+ * @example
+ * import { range } from 'vectorious/core/range';
+ * 
+ * range(1, 2, 9); // => array([1, 3, 5, 7])
+ */
+export const range = (...args: number[]): NDArray => {
   const type: TypedArrayConstructor = Float32Array;
   let backwards: boolean = false;
   let start: number;
@@ -50,5 +68,5 @@ NDArray.range = function<T extends NDArray>(this: new(...args: any[]) => T, ...a
     }
   }
 
-  return new this(data);
+  return new NDArray(data);
 };

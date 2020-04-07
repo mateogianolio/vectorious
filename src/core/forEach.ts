@@ -3,15 +3,43 @@ import { TypedArray } from '../types';
 import { NDArray } from './';
 import { NDIter } from '../iterator';
 
-NDArray.forEach = <T extends NDArray>(
-  x: T,
+/**
+ * @static
+ * @function forEach
+ * @memberof NDArray
+ * @description Equivalent to `TypedArray.prototype.forEach`.
+ * @param {NDArray} x
+ * @param {Function} f
+ * @example
+ * import { forEach } from 'vectorious/core/forEach';
+ * 
+ * forEach([1, 2, 3], console.log);
+ * // 1 0 [ 1, 2, 3 ]
+ * // 2 1 [ 1, 2, 3 ]
+ * // 3 2 [ 1, 2, 3 ]
+ */
+export const forEach = (
+  x: NDArray,
   f: (value: number, i: number, src: TypedArray) => void
 ): void => {
   x.forEach(f);
 };
 
-NDArray.prototype.forEach = function<T extends NDArray>(
-  this: T,
+/**
+ * @function forEach
+ * @memberof NDArray.prototype
+ * @description Equivalent to `TypedArray.prototype.forEach`.
+ * @param {Function} f
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).forEach(console.log);
+ * // 1 0 [ 1, 2, 3 ]
+ * // 2 1 [ 1, 2, 3 ]
+ * // 3 2 [ 1, 2, 3 ]
+ */
+export default function(
+  this: NDArray,
   f: (value: number, i: number, src: TypedArray) => void
 ): void {
   const { data: d1 } = this;

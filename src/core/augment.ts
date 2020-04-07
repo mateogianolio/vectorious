@@ -1,13 +1,37 @@
 import { NDArray } from './';
 
-NDArray.augment = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
-  NDArray.array<T>(x).augment(NDArray.array<T>(y));
+/**
+ * @static
+ * @function augment
+ * @memberof NDArray
+ * @description Augments `x` and `y`.
+ * @param {NDArray} x
+ * @param {NDArray} y
+ * @returns {NDArray}
+ * @example
+ * import { augment } from 'vectorious/core/augment';
+ * 
+ * augment([[1, 2], [3, 4]], [[1], [2]]); // => array([[1, 2, 1], [3, 4, 2]])
+ */
+export const augment = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
+  NDArray.array(x).augment(NDArray.array(y));
 
-NDArray.prototype.augment = function<T extends NDArray>(this: T, x: T): T {
+/**
+ * @function augment
+ * @memberof NDArray.prototype
+ * @description Augments `x` with current matrix.
+ * @param {NDArray} x
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 2], [3, 4]]).augment(array([[1], [2]])); // <=> array([[1, 2, 1], [3, 4, 2]])
+ */
+export default function(this: NDArray, x: NDArray | ArrayLike<any>): NDArray {
   const [r1, c1] = this.shape;
-  const [r2, c2] = x.shape;
+  const [r2, c2] = NDArray.array(x).shape;
   const { data: d1 } = this;
-  const { data: d2 } = x;
+  const { data: d2 } = NDArray.array(x);
 
   if (r2 === 0 || c2 === 0) {
     return this;
@@ -17,7 +41,7 @@ NDArray.prototype.augment = function<T extends NDArray>(this: T, x: T): T {
     throw new Error('rows do not match');
   }
 
-  const y: T = NDArray.zeros(r1, c1 + c2);
+  const y = NDArray.zeros(r1, c1 + c2);
   const { data: d3 } = y;
 
   let i: number;

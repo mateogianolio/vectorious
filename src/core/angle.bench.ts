@@ -1,14 +1,15 @@
-import v = require('..');
+import { angle } from './angle';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'angle',
-  (n: number): [v, v] => [v.random(n), v.random(n)],
-  (x: v, y: v): void => {
+  (n: number) => [random(n), random(n)],
+  (x, y): void => {
     x.angle(y);
   },
-  (x: v, y: v): void => {
-    v.angle(x, y);
+  (x, y): void => {
+    angle(x, y);
   }
 );

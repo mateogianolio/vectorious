@@ -7,12 +7,36 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-NDArray.add = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>, alpha: number = 1): T =>
-  NDArray.array<T>(x).add(NDArray.array<T>(y), alpha);
+/**
+ * @static
+ * @function add
+ * @memberof NDArray
+ * @description Adds `y` multiplied by `alpha` to `x`. Accelerated with BLAS `?axpy`.
+ * @param {NDArray} x
+ * @param {NDArray} y
+ * @returns {NDArray}
+ * @example
+ * import { add } from 'vectorious/core/add';
+ * 
+ * add([1, 2, 3], [4, 5, 6]); // => array([5, 7, 9])
+ */
+export const add = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, alpha: number = 1): NDArray =>
+  NDArray.array(x).add(NDArray.array(y), alpha);
 
-NDArray.prototype.add = function<T extends NDArray>(this: T, x: NDArray, alpha: number = 1): T {
-  this.equilateral(x);
-  this.equidimensional(x);
+/**
+ * @function add
+ * @memberof NDArray.prototype
+ * @description Adds `x` multiplied by `alpha` to the current array. Accelerated with BLAS `?axpy`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).add([4, 5, 6]); // <=> array([5, 7, 9])
+ */
+export default function (this: NDArray, x: NDArray | ArrayLike<any>, alpha: number = 1): NDArray {
+  this.equilateral(NDArray.array(x));
+  this.equidimensional(NDArray.array(x));
 
   const { length: l1 } = this;
 
@@ -23,7 +47,7 @@ NDArray.prototype.add = function<T extends NDArray>(this: T, x: NDArray, alpha: 
     }
 
     const { data: d1 } = this;
-    const { data: d2 } = x;
+    const { data: d2 } = NDArray.array(x);
     if (this.dtype === 'float64') {
       nblas.daxpy(l1, alpha, d2, 1, d1, 1);
     } else if (this.dtype === 'float32') {
@@ -31,7 +55,7 @@ NDArray.prototype.add = function<T extends NDArray>(this: T, x: NDArray, alpha: 
     }
   } catch (err) {
     const { data: d1 } = this;
-    const { data: d2 } = x;
+    const { data: d2 } = NDArray.array(x);
 
     let i: number;
     for (i = 0; i < l1; i += 1) {

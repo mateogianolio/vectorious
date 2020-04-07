@@ -1,14 +1,15 @@
-import v = require('..');
+import { floor } from './floor';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'floor',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.floor();
   },
-  (x: v): void => {
-    v.floor(x);
+  (x): void => {
+    floor(x);
   }
 );

@@ -1,4 +1,5 @@
-import v = require('..');
+import { rank } from './rank';
+import { random } from './random';
 import { bench } from '../bench';
 
 const { floor, sqrt } = Math;
@@ -6,11 +7,11 @@ const { floor, sqrt } = Math;
 bench(
   'v',
   'rank',
-  (n: number): [v] => [v.random(floor(sqrt(n)), floor(sqrt(n)))],
-  (x: v): void => {
+  (n: number) => [random(floor(sqrt(n)), floor(sqrt(n)))],
+  (x): void => {
     x.rank();
   },
-  (x: v): void => {
-    v.rank(x);
+  (x): void => {
+    rank(x);
   }
 );

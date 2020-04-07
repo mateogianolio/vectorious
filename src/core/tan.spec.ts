@@ -2,18 +2,20 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import v = require('..');
+import { tan } from './tan';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) tan', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.tan(value)), x.tan());
+    deepStrictEqual(map(x, (value: number) => Math.tan(value)), x.tan());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.tan(value)), v.tan(x));
+    deepStrictEqual(map(x, (value: number) => Math.tan(value)), tan(x));
   });
 });

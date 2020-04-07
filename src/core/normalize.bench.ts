@@ -1,15 +1,15 @@
-import v = require('..');
+import { normalize } from './normalize';
+import { random } from './random';
 import { bench } from '../bench';
 
-const r: (n: number) => v = (n: number): v => v.random(n);
 bench(
   'v',
   'normalize',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.normalize();
   },
-  (x: v): void => {
-    v.normalize(x);
+  (x): void => {
+    normalize(x);
   }
 );

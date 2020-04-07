@@ -1,8 +1,19 @@
 import { NDArray } from './';
 
-NDArray.random = function<T extends NDArray>(this: new(...args: any[]) => T, ...shape: number[]): T {
-  return new this(
+/**
+ * @static
+ * @function random
+ * @memberof NDArray
+ * @description Creates a vector containing random samples from a uniform distribution over `[0, 1)` of shape `shape`
+ * @param {Number[]} ...shape
+ * @returns {NDArray}
+ * @example
+ * import { random } from 'vectorious/core/random';
+ * 
+ * random(3); // => array([0.27496153116226196, 0.7581521272659302, 0.3682245910167694])
+ */
+export const random = (...shape: number[]): NDArray =>
+  new NDArray(
     new Float32Array(shape.reduce((sum: number, dim: number) => sum * dim, 1)),
     { shape }
   ).map(() => Math.random());
-};

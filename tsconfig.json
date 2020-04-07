@@ -6,7 +6,7 @@
     "downlevelIteration": true,
     "strict": true,
     "declaration": true,
-    "removeComments": true,
+    "removeComments": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -29,6 +29,6 @@
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.bench.ts",
-    "bench.ts"
+    "src/bench.ts"
   ]
 }

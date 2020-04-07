@@ -2,18 +2,20 @@ import {
   deepStrictEqual,
 } from 'assert';
 
-import v = require('..');
+import { cbrt } from './cbrt';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) cbrt', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.cbrt(value)), x.cbrt());
+    deepStrictEqual(map(x, (value: number) => Math.cbrt(value)), x.cbrt());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(v.map(x, (value: number) => Math.cbrt(value)), v.cbrt(x));
+    deepStrictEqual(map(x, (value: number) => Math.cbrt(value)), cbrt(x));
   });
 });

@@ -1,14 +1,15 @@
-import v = require('..');
+import { acos } from './acos';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'acos',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.acos();
   },
-  (x: v): void => {
-    v.acos(x);
+  (x): void => {
+    acos(x);
   }
 );

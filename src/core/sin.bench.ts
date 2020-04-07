@@ -1,14 +1,15 @@
-import v = require('..');
+import { sin } from './sin';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'sin',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.sin();
   },
-  (x: v): void => {
-    v.sin(x);
+  (x): void => {
+    sin(x);
   }
 );

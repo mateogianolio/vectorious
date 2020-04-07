@@ -1,14 +1,15 @@
-import v = require('..');
+import { tan } from './tan';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
   'v',
   'tan',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.tan();
   },
-  (x: v): void => {
-    v.tan(x);
+  (x): void => {
+    tan(x);
   }
 );
