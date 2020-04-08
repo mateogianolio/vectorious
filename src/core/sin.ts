@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { sin: f } = Math;
@@ -6,7 +6,6 @@ const { sin: f } = Math;
 /**
  * @static
  * @function sin
- * @memberof NDArray
  * @description Returns the sine of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { sin: f } = Math;
  * 
  * sin([0, Math.PI / 2, Math.PI]); // => array([0, 1, 0])
  */
-export const sin = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).sin();
+export const sin = (x: NDArray | ArrayLike<any>): NDArray => array(x).sin();
 
 /**
  * @function sin

@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function get
- * @memberof NDArray
  * @description Gets the element at `i, j, ..., n` from `x`
  * @param {NDArray} x
  * @param {Number[]} ...indices
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * get([1, 2, 3], 2); // 3
  */
 export const get = (x: NDArray | ArrayLike<any>, ...indices: number[]): number =>
-  NDArray.array(x).get(...indices);
+  array(x).get(...indices);
 
 /**
  * @function get

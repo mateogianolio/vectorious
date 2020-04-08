@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { cos: f } = Math;
@@ -6,7 +6,6 @@ const { cos: f } = Math;
 /**
  * @static
  * @function cos
- * @memberof NDArray
  * @description Returns the cosine of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { cos: f } = Math;
  * 
  * cos([0, Math.PI / 2, Math.PI]); // => array([1, 0, -1])
  */
-export const cos = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).cos();
+export const cos = (x: NDArray | ArrayLike<any>): NDArray => array(x).cos();
 
 /**
  * @function cos

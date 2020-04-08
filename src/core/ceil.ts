@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { ceil: f } = Math;
@@ -6,7 +6,6 @@ const { ceil: f } = Math;
 /**
  * @static
  * @function ceil
- * @memberof NDArray
  * @description Returns smallest integer greater than or equal to of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { ceil: f } = Math;
  * 
  * ceil([0.5, 1.5, 2.5]); // => array([1, 2, 3])
  */
-export const ceil = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).ceil();
+export const ceil = (x: NDArray | ArrayLike<any>): NDArray => array(x).ceil();
 
 /**
  * @function ceil

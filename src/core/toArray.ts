@@ -1,10 +1,9 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function toArray
- * @memberof NDArray
  * @description Converts `x` into a JavaScript array.
  * @param {NDArray} x
  * @returns {Array}
@@ -13,7 +12,7 @@ import { NDIter } from '../iterator';
  * 
  * toArray([1, 2, 3]); // => [1, 2, 3]
  */
-export const toArray = (x: NDArray | ArrayLike<any>): number[] => NDArray.array(x).toArray();
+export const toArray = (x: NDArray | ArrayLike<any>): number[] => array(x).toArray();
 
 /**
  * @function toArray

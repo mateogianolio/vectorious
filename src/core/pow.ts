@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { pow: f } = Math;
@@ -6,7 +6,6 @@ const { pow: f } = Math;
 /**
  * @static
  * @function pow
- * @memberof NDArray
  * @description Returns each element of `x` to the exponent power, that is, element^exponent.
  * @param {NDArray} x
  * @param {Number} exponent
@@ -17,7 +16,7 @@ const { pow: f } = Math;
  * pow([1, 2, 3], 2); // => array([1, 4, 9])
  */
 export const pow = (x: NDArray | ArrayLike<any>, exponent: number): NDArray =>
-  NDArray.array(x).pow(exponent);
+  array(x).pow(exponent);
 
 /**
  * @function pow

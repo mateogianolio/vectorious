@@ -1,12 +1,11 @@
 import { TypedArray } from '../types';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function reduce
- * @memberof NDArray
  * @description Equivalent to `TypedArray.prototype.reduce`.
  * @param {NDArray} x
  * @param {Function} f
@@ -21,7 +20,7 @@ export const reduce = (
   x: NDArray,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,
   initialValue?: number
-): number => NDArray.array(x).reduce(f, initialValue);
+): number => array(x).reduce(f, initialValue);
 
 /**
  * @function reduce

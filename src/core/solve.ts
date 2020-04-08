@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 let nlapack: any;
 try {
@@ -10,7 +10,6 @@ try {
 /**
  * @static
  * @function solve
- * @memberof NDArray
  * @description
  * Solves the equation AX = B (where A is `x` and B is `y`).
  * Accelerated with LAPACK `?gesv`.
@@ -23,7 +22,7 @@ try {
  * solve([[1, 3, 5], [2, 4, 7], [1, 1, 0]], [[1], [3], [5]]); // => array([[3.25], [1.75], [-1.5]])
  */
 export const solve = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).solve(NDArray.array(y));
+  array(x).solve(array(y));
 
 /**
  * @function solve

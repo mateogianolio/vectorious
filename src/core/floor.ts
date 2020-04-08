@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { floor: f } = Math;
@@ -6,7 +6,6 @@ const { floor: f } = Math;
 /**
  * @static
  * @function floor
- * @memberof NDArray
  * @description Returns the largest integer less than or equal to a number of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { floor: f } = Math;
  * 
  * floor([1.5, 2.5, 3.5]); // => array([1, 2, 3])
  */
-export const floor = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).floor();
+export const floor = (x: NDArray | ArrayLike<any>): NDArray => array(x).floor();
 
 /**
  * @function floor

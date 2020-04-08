@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function square
- * @memberof NDArray
  * @description Asserts if `x` is square.
  * @param {NDArray} x
  * @throws {Error} matrix is not square
@@ -13,7 +12,7 @@ import { NDArray } from './';
  * square([1, 2, 3]); // Error: matrix is not square
  */
 export const square = (x: NDArray | ArrayLike<any>): void => {
-  NDArray.array(x).square();
+  array(x).square();
 };
 
 /**

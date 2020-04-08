@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { exp: f } = Math;
@@ -6,7 +6,6 @@ const { exp: f } = Math;
 /**
  * @static
  * @function exp
- * @memberof NDArray
  * @description
  * Returns e^x of each element of `x`, where x is the argument,
  * and e is Euler's constant (2.718…), the base of the natural logarithm.
@@ -17,7 +16,7 @@ const { exp: f } = Math;
  * 
  * exp([1, 2, 3]); // => array([2.7182817459106445, 7.389056205749512, 20.08553695678711])
  */
-export const exp = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).exp();
+export const exp = (x: NDArray | ArrayLike<any>): NDArray => array(x).exp();
 
 /**
  * @function exp

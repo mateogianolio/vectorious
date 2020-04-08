@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function binOp
- * @memberof NDArray
  * @description Perform binary operation `f` on `y` in `x`.
  * @param {NDArray} x
  * @param {NDArray} y
@@ -21,7 +20,7 @@ export const binOp = (
     b: number,
     index: number
   ) => number
-): NDArray => NDArray.array(x).binOp(NDArray.array(y), f);
+): NDArray => array(x).binOp(array(y), f);
 
 /**
  * @function binOp
@@ -43,11 +42,11 @@ export default function(
     index: number
   ) => number
 ): NDArray {
-  this.equilateral(NDArray.array(x));
-  this.equidimensional(NDArray.array(x));
+  this.equilateral(array(x));
+  this.equidimensional(array(x));
 
   const { data: d1, length: l1 } = this;
-  const { data: d2 } = NDArray.array(x);
+  const { data: d2 } = array(x);
 
   let i: number;
   for (i = 0; i < l1; i += 1) {

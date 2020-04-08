@@ -1,10 +1,9 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function min
- * @memberof NDArray
  * @description Gets the minimum value (smallest) element of `x`.
  * @param {NDArray} x
  * @returns {Number}
@@ -13,7 +12,7 @@ import { NDIter } from '../iterator';
  * 
  * min([1, 2, 3]); // => 1
  */
-export const min = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).min();
+export const min = (x: NDArray | ArrayLike<any>): number => array(x).min();
 
 /**
  * @function min

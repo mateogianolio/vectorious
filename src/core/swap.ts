@@ -1,11 +1,10 @@
 import { TypedArray } from '../types';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function swap
- * @memberof NDArray
  * @description Swaps two rows `i` and `j` in `x`.
  * @param {NDArray} x
  * @param {Number} i
@@ -17,7 +16,7 @@ import { NDArray } from './';
  * swap([[1, 2], [3, 4]], 0, 1); // => array([[3, 4], [1, 2]])
  */
 export const swap = (x: NDArray | ArrayLike<any>, i: number, j: number): NDArray =>
-  NDArray.array(x).swap(i, j);
+  array(x).swap(i, j);
 
 /**
  * @function swap

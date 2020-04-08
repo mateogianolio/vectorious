@@ -1,10 +1,9 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function mean
- * @memberof NDArray
  * @description Gets the arithmetic mean of `x`.
  * @param {NDArray} x
  * @returns {Number}
@@ -13,7 +12,7 @@ import { NDIter } from '../iterator';
  * 
  * mean([1, 2, 3]); // => 2
  */
-export const mean = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).mean();
+export const mean = (x: NDArray | ArrayLike<any>): number => array(x).mean();
 
 /**
  * @function mean

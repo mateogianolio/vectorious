@@ -1,12 +1,11 @@
 import { TypedArray } from '../types';
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function slice
- * @memberof NDArray
  * @description Slices `x` in the corresponding dimension
  * @param {NDArray} x
  * @param {Number} begin
@@ -24,7 +23,7 @@ export const slice = (
   end?: number,
   step?: number
 ): NDArray =>
-  NDArray.array(x).slice(begin, end, step);
+  array(x).slice(begin, end, step);
 
 /**
  * @function slice

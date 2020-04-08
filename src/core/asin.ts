@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { asin: f } = Math;
@@ -6,7 +6,6 @@ const { asin: f } = Math;
 /**
  * @static
  * @function asin
- * @memberof NDArray
  * @description Returns the arcsine of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { asin: f } = Math;
  * 
  * asin([-1, 0, 1]) // => array([-1.5707963705062866, 0, 1.5707963705062866])
  */
-export const asin = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).asin();
+export const asin = (x: NDArray | ArrayLike<any>): NDArray => array(x).asin();
 
 /**
  * @function asin

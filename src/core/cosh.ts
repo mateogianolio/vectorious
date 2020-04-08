@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { cosh: f } = Math;
@@ -6,7 +6,6 @@ const { cosh: f } = Math;
 /**
  * @static
  * @function cosh
- * @memberof NDArray
  * @description Returns the hyperbolic cosine of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,11 +14,10 @@ const { cosh: f } = Math;
  * 
  * cosh([0, 1, 2]); // => array([1, 1.5430806875228882, 3.762195587158203])
  */
-export const cosh = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).cosh();
+export const cosh = (x: NDArray | ArrayLike<any>): NDArray => array(x).cosh();
 
 /**
  * @function cosh
- * @memberof NDArray
  * @description Returns the hyperbolic cosine of each element of current array.
  * @returns {this}
  * @example

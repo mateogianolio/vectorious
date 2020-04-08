@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function rank
- * @memberof NDArray
  * @description Finds the rank of `x` using gaussian elimination.
  * @param {NDArray} x
  * @returns {Number}
@@ -12,7 +11,7 @@ import { NDArray } from './';
  * 
  * rank([[1, 1, 1], [2, 2, 2], [3, 3, 3]]); // => 1
  */
-export const rank = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).rank();
+export const rank = (x: NDArray | ArrayLike<any>): number => array(x).rank();
 
 /**
  * @function rank

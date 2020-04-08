@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array, zeros } from './';
 
 /**
  * @static
  * @function augment
- * @memberof NDArray
  * @description Augments `x` and `y`.
  * @param {NDArray} x
  * @param {NDArray} y
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * augment([[1, 2], [3, 4]], [[1], [2]]); // => array([[1, 2, 1], [3, 4, 2]])
  */
 export const augment = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).augment(NDArray.array(y));
+  array(x).augment(array(y));
 
 /**
  * @function augment
@@ -29,9 +28,9 @@ export const augment = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>
  */
 export default function(this: NDArray, x: NDArray | ArrayLike<any>): NDArray {
   const [r1, c1] = this.shape;
-  const [r2, c2] = NDArray.array(x).shape;
+  const [r2, c2] = array(x).shape;
   const { data: d1 } = this;
-  const { data: d2 } = NDArray.array(x);
+  const { data: d2 } = array(x);
 
   if (r2 === 0 || c2 === 0) {
     return this;
@@ -41,7 +40,7 @@ export default function(this: NDArray, x: NDArray | ArrayLike<any>): NDArray {
     throw new Error('rows do not match');
   }
 
-  const y = NDArray.zeros(r1, c1 + c2);
+  const y = zeros(r1, c1 + c2);
   const { data: d3 } = y;
 
   let i: number;

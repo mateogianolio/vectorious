@@ -1,11 +1,10 @@
 import { inspect } from 'util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function toString
- * @memberof NDArray
  * @description Converts `x` into a readable formatted string.
  * @param {NDArray} x
  * @returns {String}
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * 
  * toString([1, 2, 3]); // => '1,2,3'
  */
-export const toString = (x: NDArray | ArrayLike<any>): string => NDArray.array(x).toString();
+export const toString = (x: NDArray | ArrayLike<any>): string => array(x).toString();
 
 /**
  * @function toString

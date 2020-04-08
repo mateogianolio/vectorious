@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { asinh: f } = Math;
@@ -6,7 +6,6 @@ const { asinh: f } = Math;
 /**
  * @static
  * @function asinh
- * @memberof NDArray
  * @description Returns the hyperbolic arcsine of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { asinh: f } = Math;
  * 
  * asinh([0, 1, 2]) // => array([0, 0.8813735842704773, 1.4436354637145996])
  */
-export const asinh = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).asinh();
+export const asinh = (x: NDArray | ArrayLike<any>): NDArray => array(x).asinh();
 
 /**
  * @function asinh

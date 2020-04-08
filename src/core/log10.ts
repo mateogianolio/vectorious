@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { log10: f } = Math;
@@ -6,7 +6,6 @@ const { log10: f } = Math;
 /**
  * @static
  * @function log10
- * @memberof NDArray
  * @description Returns the base 10 logarithm of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { log10: f } = Math;
  * 
  * log10([10, 100, 1000]); // => array([1, 2, 3])
  */
-export const log10 = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).log10();
+export const log10 = (x: NDArray | ArrayLike<any>): NDArray => array(x).log10();
 
 /**
  * @function log10

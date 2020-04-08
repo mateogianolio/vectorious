@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 let nblas: any;
 try {
@@ -10,7 +10,6 @@ try {
 /**
  * @static
  * @function add
- * @memberof NDArray
  * @description Adds `y` multiplied by `alpha` to `x`. Accelerated with BLAS `?axpy`.
  * @param {NDArray} x
  * @param {NDArray} y
@@ -21,7 +20,7 @@ try {
  * add([1, 2, 3], [4, 5, 6]); // => array([5, 7, 9])
  */
 export const add = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, alpha: number = 1): NDArray =>
-  NDArray.array(x).add(NDArray.array(y), alpha);
+  array(x).add(array(y), alpha);
 
 /**
  * @function add
@@ -35,8 +34,8 @@ export const add = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, al
  * array([1, 2, 3]).add([4, 5, 6]); // <=> array([5, 7, 9])
  */
 export default function (this: NDArray, x: NDArray | ArrayLike<any>, alpha: number = 1): NDArray {
-  this.equilateral(NDArray.array(x));
-  this.equidimensional(NDArray.array(x));
+  this.equilateral(array(x));
+  this.equidimensional(array(x));
 
   const { length: l1 } = this;
 
@@ -47,7 +46,7 @@ export default function (this: NDArray, x: NDArray | ArrayLike<any>, alpha: numb
     }
 
     const { data: d1 } = this;
-    const { data: d2 } = NDArray.array(x);
+    const { data: d2 } = array(x);
     if (this.dtype === 'float64') {
       nblas.daxpy(l1, alpha, d2, 1, d1, 1);
     } else if (this.dtype === 'float32') {
@@ -55,7 +54,7 @@ export default function (this: NDArray, x: NDArray | ArrayLike<any>, alpha: numb
     }
   } catch (err) {
     const { data: d1 } = this;
-    const { data: d2 } = NDArray.array(x);
+    const { data: d2 } = array(x);
 
     let i: number;
     for (i = 0; i < l1; i += 1) {

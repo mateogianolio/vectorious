@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function transpose
- * @memberof NDArray
  * @description Transposes `x` (mirror across the diagonal).
  * @param {NDArray} x
  * @returns {NDArray}
@@ -13,7 +12,7 @@ import { NDArray } from './';
  * transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // => array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
  */
 export const transpose = (x: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).transpose();
+  array(x).transpose();
 
 /**
  * @function transpose

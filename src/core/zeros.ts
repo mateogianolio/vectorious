@@ -3,7 +3,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function zeros
- * @memberof NDArray
  * @description Creates an array containing zeros (`0`) of shape `shape`
  * @param {Number[]} ...shape
  * @returns {NDArray}

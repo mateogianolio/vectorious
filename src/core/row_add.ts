@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function row_add
- * @memberof NDArray
  * @description Adds a multiple of one row multiplied by `scalar` to another inside `x`.
  * @param {NDArray} x
  * @param {Number} dest
@@ -21,7 +20,7 @@ export const row_add = (
   source: number,
   scalar: number = 1
 ): NDArray =>
-  NDArray.array(x).row_add(dest, source, scalar);
+  array(x).row_add(dest, source, scalar);
 
 /**
  * @function row_add

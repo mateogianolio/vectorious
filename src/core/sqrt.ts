@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { sqrt: f } = Math;
@@ -6,7 +6,6 @@ const { sqrt: f } = Math;
 /**
  * @static
  * @function sqrt
- * @memberof NDArray
  * @description Returns the positive square root of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { sqrt: f } = Math;
  * 
  * sqrt([1, 4, 9]); // => array([1, 2, 3])
  */
-export const sqrt = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).sqrt();
+export const sqrt = (x: NDArray | ArrayLike<any>): NDArray => array(x).sqrt();
 
 /**
  * @function sqrt

@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { tan: f } = Math;
@@ -6,7 +6,6 @@ const { tan: f } = Math;
 /**
  * @static
  * @function tan
- * @memberof NDArray
  * @description Returns the tangent of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { tan: f } = Math;
  * 
  * tan([1, 2, 3]); // => array([1.5574077367782593, -2.185039758682251, -0.14254654943943024])
  */
-export const tan = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).tan();
+export const tan = (x: NDArray | ArrayLike<any>): NDArray => array(x).tan();
 
 /**
  * @function tan

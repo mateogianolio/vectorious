@@ -1,12 +1,11 @@
 import { TypedArray } from '../types';
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function push
- * @memberof NDArray
  * @description Pushes a new `value` into `x`.
  * @param {NDArray} x
  * @param {Number} value
@@ -17,7 +16,7 @@ import { NDArray } from './';
  * push([1, 2, 3], 4); // => array([1, 2, 3, 4])
  */
 export const push = (x: NDArray | ArrayLike<any>, value: number): NDArray =>
-  NDArray.array(x).push(value);
+  array(x).push(value);
 
 /**
  * @function push

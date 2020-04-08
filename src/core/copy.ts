@@ -1,11 +1,10 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function copy
- * @memberof NDArray
  * @description Makes a copy of `x`
  * @param {NDArray} x
  * @returns {NDArray}
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * 
  * copy([1, 2, 3]); // => array([1, 2, 3])
  */
-export const copy = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).copy();
+export const copy = (x: NDArray | ArrayLike<any>): NDArray => array(x).copy();
 
 /**
  * @function copy

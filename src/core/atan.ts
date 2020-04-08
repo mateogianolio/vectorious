@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { atan: f } = Math;
@@ -6,7 +6,6 @@ const { atan: f } = Math;
 /**
  * @static
  * @function atan
- * @memberof NDArray
  * @description Returns the arctangent of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { atan: f } = Math;
  * 
  * atan([1, 2, 3]); // => array([0.7853981852531433, 1.1071487665176392, 1.249045729637146])
  */
-export const atan = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).atan();
+export const atan = (x: NDArray | ArrayLike<any>): NDArray => array(x).atan();
 
 /**
  * @function atan

@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { abs: f } = Math;
@@ -6,7 +6,6 @@ const { abs: f } = Math;
 /**
  * @static
  * @function abs
- * @memberof NDArray
  * @description Returns the absolute value of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { abs: f } = Math;
  * 
  * abs([-1, -2, -3]) // => array([1, 2, 3])
  */
-export const abs = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).abs();
+export const abs = (x: NDArray | ArrayLike<any>): NDArray => array(x).abs();
 
 /**
  * @function abs

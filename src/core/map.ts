@@ -1,12 +1,11 @@
 import { TypedArray } from '../types';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function map
- * @memberof NDArray
  * @description Equivalent to `TypedArray.prototype.map`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -18,7 +17,7 @@ import { NDIter } from '../iterator';
 export const map = (
   x: NDArray | ArrayLike<any>,
   f: (value: number, i: number, src: TypedArray) => number
-): NDArray => NDArray.array(x).map(f);
+): NDArray => array(x).map(f);
 
 /**
  * @function map

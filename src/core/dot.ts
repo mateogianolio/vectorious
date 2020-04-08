@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 let nblas: any;
 try {
@@ -10,7 +10,6 @@ try {
 /**
  * @static
  * @function dot
- * @memberof NDArray
  * @description
  * Performs dot multiplication with `x` and `y`.
  * Accelerated with BLAS `?dot`.
@@ -23,7 +22,7 @@ try {
  * dot([1, 2, 3], [4, 5, 6]); // => 32
  */
 export const dot = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): number =>
-  NDArray.array(x).dot(NDArray.array(y));
+  array(x).dot(array(y));
 
 /**
  * @function dot

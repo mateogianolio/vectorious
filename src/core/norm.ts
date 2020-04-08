@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 let nblas: any;
 try {
@@ -12,7 +12,6 @@ const { sqrt: f } = Math;
 /**
  * @static
  * @function norm
- * @memberof NDArray
  * @description
  * Calculates the norm of current array (also called L2 norm or Euclidean length).
  * Accelerated with BLAS `?nrm2`.
@@ -23,7 +22,7 @@ const { sqrt: f } = Math;
  * 
  * norm([1, 2, 3]); // => 3.7416574954986572
  */
-export const norm = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).norm();
+export const norm = (x: NDArray | ArrayLike<any>): number => array(x).norm();
 
 /**
  * @function norm

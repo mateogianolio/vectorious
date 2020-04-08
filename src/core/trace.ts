@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function trace
- * @memberof NDArray
  * @description Gets the trace of `x` (the sum of all diagonal elements).
  * @param {NDArray} x
  * @returns {Number}
@@ -12,7 +11,7 @@ import { NDArray } from './';
  * 
  * trace([[1, 2], [3, 4]]); // => 5
  */
-export const trace = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).trace();
+export const trace = (x: NDArray | ArrayLike<any>): number => array(x).trace();
 
 /**
  * @function trace

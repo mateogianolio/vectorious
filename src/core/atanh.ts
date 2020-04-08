@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { atanh: f } = Math;
@@ -6,7 +6,6 @@ const { atanh: f } = Math;
 /**
  * @static
  * @function atanh
- * @memberof NDArray
  * @description Returns the hyperbolic arctangent of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { atanh: f } = Math;
  * 
  * atanh([0, -0.5]); // => array([0, -0.5493061542510986])
  */
-export const atanh = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).atanh();
+export const atanh = (x: NDArray | ArrayLike<any>): NDArray => array(x).atanh();
 
 /**
  * @function atanh

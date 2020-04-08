@@ -3,7 +3,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function random
- * @memberof NDArray
  * @description Creates a vector containing random samples from a uniform distribution over `[0, 1)` of shape `shape`
  * @param {Number[]} ...shape
  * @returns {NDArray}

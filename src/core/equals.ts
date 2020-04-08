@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function equals
- * @memberof NDArray
  * @description Checks if `x` and `y` are equal.
  * @param {NDArray} x
  * @param {NDArray} y
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * equals([1, 2, 3], [1, 2, 3]); // => true
  */
 export const equals = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): boolean =>
-  NDArray.array(x).equals(NDArray.array(y));
+  array(x).equals(array(y));
 
 /**
  * @function equals

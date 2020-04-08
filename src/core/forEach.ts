@@ -6,7 +6,6 @@ import { NDIter } from '../iterator';
 /**
  * @static
  * @function forEach
- * @memberof NDArray
  * @description Equivalent to `TypedArray.prototype.forEach`.
  * @param {NDArray} x
  * @param {Function} f

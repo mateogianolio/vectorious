@@ -3,7 +3,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function matrix
- * @memberof NDArray
  * @description Creates a matrix of `r` rows and `c` columns.
  * @param {Number} r
  * @param {Number} c

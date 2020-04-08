@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function diagonal
- * @memberof NDArray
  * @description Gets the diagonal of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -13,7 +12,7 @@ import { NDArray } from './';
  * diagonal([[1, 2], [3, 4]]); // => array([1, 4])
  */
 export const diagonal = (x: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).diagonal();
+  array(x).diagonal();
 
 /**
  * @function diagonal

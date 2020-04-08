@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 let nblas: any;
@@ -11,7 +11,6 @@ try {
 /**
  * @static
  * @function max
- * @memberof NDArray
  * @description
  * Gets the maximum value (largest) element of `x`.
  * Accelerated with BLAS `i?amax`.
@@ -22,7 +21,7 @@ try {
  * 
  * max([1, 2, 3]); // => 3
  */
-export const max = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).max();
+export const max = (x: NDArray | ArrayLike<any>): number => array(x).max();
 
 /**
  * @function max

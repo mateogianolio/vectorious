@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 let nblas: any;
@@ -11,7 +11,6 @@ try {
 /**
  * @static
  * @function scale
- * @memberof NDArray
  * @description
  * Multiplies all elements of `x` with a specified `scalar`.
  * Accelerated with BLAS `?scal`.
@@ -24,7 +23,7 @@ try {
  * scale([1, 2, 3], 2); // => array([2, 4, 6])
  */
 export const scale = (x: NDArray | ArrayLike<any>, scalar: number): NDArray =>
-  NDArray.array(x).scale(scalar);
+  array(x).scale(scalar);
 
 /**
  * @function scale

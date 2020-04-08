@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { fround: f } = Math;
@@ -6,7 +6,6 @@ const { fround: f } = Math;
 /**
  * @static
  * @function fround
- * @memberof NDArray
  * @description Returns the nearest single precision float representation of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { fround: f } = Math;
  * 
  * fround([-5.05, 5.05]); // => array([-5.050000190734863, 5.050000190734863])
  */
-export const fround = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).fround();
+export const fround = (x: NDArray | ArrayLike<any>): NDArray => array(x).fround();
 
 /**
  * @function fround

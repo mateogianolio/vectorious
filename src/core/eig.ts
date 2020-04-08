@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array, zeros, eye } from './';
 
 let nlapack: any;
 try {
@@ -29,7 +29,6 @@ const rotate:
 /**
  * @static
  * @function eig
- * @memberof NDArray
  * @description
  * Gets eigenvalues and eigenvectors of `x` using the Jacobi method.
  * Accelerated with LAPACK `?geev`.
@@ -40,7 +39,7 @@ const rotate:
  * 
  * eig([[1, 0, 0], [0, 2, 0], [0, 0, 3]]); // => [array([1, 2, 3]), array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])]
  */
-export const eig = (x: NDArray | ArrayLike<any>): [NDArray, NDArray] => NDArray.array(x).eig();
+export const eig = (x: NDArray | ArrayLike<any>): [NDArray, NDArray] => array(x).eig();
 
 /**
  * @function eig
@@ -68,11 +67,11 @@ export default function(this: NDArray): [NDArray, NDArray] {
     const jobvl: typeof nlapack.NDArrayEigenvector = nlapack.NoEigenvector;
     const jobvr: typeof nlapack.NDArrayEigenvector = nlapack.Eigenvector;
 
-    const wr = NDArray.zeros(n);
-    const wi = NDArray.zeros(n);
+    const wr = zeros(n);
+    const wi = zeros(n);
 
-    const vl = NDArray.zeros(n, n);
-    const vr = NDArray.zeros(n, n);
+    const vl = zeros(n, n);
+    const vr = zeros(n, n);
 
     const { data: d1 } = this;
     const { data: d2 } = wr;
@@ -90,7 +89,7 @@ export default function(this: NDArray): [NDArray, NDArray] {
     return [wr, vr];
   } catch (err) {
     const { data: d1 } = this;
-    const p = NDArray.eye(n);
+    const p = eye(n);
 
     let max = 0;
     let i = 0;

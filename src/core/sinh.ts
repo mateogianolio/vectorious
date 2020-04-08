@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { sinh: f } = Math;
@@ -6,7 +6,6 @@ const { sinh: f } = Math;
 /**
  * @static
  * @function sinh
- * @memberof NDArray
  * @description Returns the hyperbolic sine of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { sinh: f } = Math;
  * 
  * sinh([1, 2, 3]); // => array([1.175201177597046, 3.6268603801727295, 10.017874717712402])
  */
-export const sinh = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).sinh();
+export const sinh = (x: NDArray | ArrayLike<any>): NDArray => array(x).sinh();
 
 /**
  * @function sinh

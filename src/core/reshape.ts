@@ -1,11 +1,10 @@
 import { get_strides } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function reshape
- * @memberof NDArray
  * @description Reshapes `x`
  * @param {NDArray} x
  * @param {Number[]} ...shape
@@ -16,7 +15,7 @@ import { NDArray } from './';
  * reshape([1, 2, 3, 4], 2, 2); // => array([[1, 2], [3, 4]])
  */
 export const reshape = (x: NDArray | ArrayLike<any>, ...shape: number[]): NDArray =>
-  NDArray.array(x).reshape(...shape);
+  array(x).reshape(...shape);
 
 /**
  * @function reshape

@@ -3,7 +3,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function array
- * @memberof NDArray
  * @description `array(...args)` is an alias for `new v(...args)`
  * @param {} ...args
  * @returns {NDArray}

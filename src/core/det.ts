@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function det
- * @memberof NDArray
  * @description Gets the determinant of `x`.
  * @param {NDArray} x
  * @returns {Number}
@@ -12,7 +11,7 @@ import { NDArray } from './';
  * 
  * det([[0, 1], [2, 3]]); // => -2
  */
-export const det = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).det();
+export const det = (x: NDArray | ArrayLike<any>): number => array(x).det();
 
 /**
  * @function det

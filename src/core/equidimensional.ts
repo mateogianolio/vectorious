@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function equidimensional
- * @memberof NDArray
  * @description Asserts if `x` and `y` have the same shape
  * @param {NDArray} x
  * @param {NDArray} y
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * equidimensional([1, 2, 3], [1, 2]); // Error: shapes 3 and 2 do not match
  */
 export const equidimensional = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): void => {
-  NDArray.array(x).equidimensional(NDArray.array(y));
+  array(x).equidimensional(array(y));
 };
 
 /**

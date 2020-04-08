@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function equilateral
- * @memberof NDArray
  * @description Asserts if `x` and `y` have the same length
  * @param {NDArray} x
  * @param {NDArray} y
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * equilateral([1, 2, 3], [1, 2]); // Error: lengths 3 and 2 do not match
  */
 export const equilateral = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): void => {
-  NDArray.array(x).equilateral(NDArray.array(y));
+  array(x).equilateral(array(y));
 };
 
 /**

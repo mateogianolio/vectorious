@@ -1,10 +1,9 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function prod
- * @memberof NDArray
  * @description Product of all elements of `x`.
  * @param {NDArray} x
  * @returns {Number}
@@ -13,7 +12,7 @@ import { NDIter } from '../iterator';
  * 
  * prod([1, 2, 3]); // => 6
  */
-export const prod = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).prod();
+export const prod = (x: NDArray | ArrayLike<any>): number => array(x).prod();
 
 /**
  * @function prod

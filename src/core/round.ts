@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { round: f } = Math;
@@ -6,7 +6,6 @@ const { round: f } = Math;
 /**
  * @static
  * @function round
- * @memberof NDArray
  * @description Returns the value of each element of `x` rounded to the nearest integer.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { round: f } = Math;
  * 
  * round([1.2, 2.8, 3.5]); // => array([1, 3, 4])
  */
-export const round = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).round();
+export const round = (x: NDArray | ArrayLike<any>): NDArray => array(x).round();
 
 /**
  * @function round

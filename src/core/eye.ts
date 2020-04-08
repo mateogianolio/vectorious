@@ -3,7 +3,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function eye
- * @memberof NDArray
  * @description Creates an identity matrix of size `n` and type `type`.
  * @param {Number} n
  * @returns {NDArray}

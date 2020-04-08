@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { cbrt: f } = Math;
@@ -6,7 +6,6 @@ const { cbrt: f } = Math;
 /**
  * @static
  * @function cbrt
- * @memberof NDArray
  * @description Returns the cube root of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { cbrt: f } = Math;
  * 
  * cbrt([1, 8, 27]); // => array([1, 2, 3])
  */
-export const cbrt = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).cbrt();
+export const cbrt = (x: NDArray | ArrayLike<any>): NDArray => array(x).cbrt();
 
 /**
  * @function cbrt

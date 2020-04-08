@@ -1,12 +1,11 @@
 import { TypedArray } from '../types';
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function combine
- * @memberof NDArray
  * @description Combines the vector `x` with `y`
  * @param {NDArray} x
  * @param {NDArray} y
@@ -17,7 +16,7 @@ import { NDArray } from './';
  * combine([1, 2, 3], [4, 5, 6]); // => array([1, 2, 3, 4, 5, 6])
  */
 export const combine = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).combine(NDArray.array(y));
+  array(x).combine(array(y));
 
 /**
  * @function combine

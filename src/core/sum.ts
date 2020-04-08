@@ -1,10 +1,9 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function sum
- * @memberof NDArray
  * @description Sum of `x`
  * @param {NDArray} x
  * @returns {Number}
@@ -13,7 +12,7 @@ import { NDIter } from '../iterator';
  * 
  * sum([1, 2, 3]); // => 6
  */
-export const sum = (x: NDArray | ArrayLike<any>): number => NDArray.array(x).sum();
+export const sum = (x: NDArray | ArrayLike<any>): number => array(x).sum();
 
 /**
  * @function sum

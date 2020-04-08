@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array, matrix } from './';
 
 let nblas: any;
 try {
@@ -10,7 +10,6 @@ try {
 /**
  * @static
  * @function multiply
- * @memberof NDArray
  * @description
  * Multiplies two matrices `x` and `y` of matching dimensions.
  * Accelerated with BLAS `?gemm`.
@@ -23,7 +22,7 @@ try {
  * multiply([[1, 2]], [[1], [2]]); // => array([[5]])
  */
 export const multiply = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).multiply(NDArray.array(y));
+  array(x).multiply(array(y));
 
 /**
  * @function multiply
@@ -46,7 +45,7 @@ export default function(this: NDArray, x: NDArray): NDArray {
     throw new Error('sizes do not match');
   }
 
-  const y: NDArray = NDArray.matrix(r1, c2);
+  const y: NDArray = matrix(r1, c2);
 
   try {
     if (!['float32', 'float64'].includes(this.dtype)) {

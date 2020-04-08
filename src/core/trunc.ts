@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { trunc: f } = Math;
@@ -6,7 +6,6 @@ const { trunc: f } = Math;
 /**
  * @static
  * @function trunc
- * @memberof NDArray
  * @description
  * Returns the integer part of each element of `x`,
  * removing any fractional digits.
@@ -17,7 +16,7 @@ const { trunc: f } = Math;
  * 
  * trunc([1.2, 2.8, 3.5]); // => array([1, 2, 3])
  */
-export const trunc = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).trunc();
+export const trunc = (x: NDArray | ArrayLike<any>): NDArray => array(x).trunc();
 
 /**
  * @function trunc

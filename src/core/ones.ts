@@ -3,7 +3,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function ones
- * @memberof NDArray
  * @description Creates an array containing ones (`1`) of shape `shape`
  * @param {Number[]} ...shape
  * @returns {NDArray}

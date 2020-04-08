@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { sign: f } = Math;
@@ -6,7 +6,6 @@ const { sign: f } = Math;
 /**
  * @static
  * @function sign
- * @memberof NDArray
  * @description
  * Returns the sign of each element of `x`, indicating
  * whether it is positive, negative or zero.
@@ -17,7 +16,7 @@ const { sign: f } = Math;
  * 
  * sign([1, 2, 3]); // => array([1, 1, 1])
  */
-export const sign = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).sign();
+export const sign = (x: NDArray | ArrayLike<any>): NDArray => array(x).sign();
 
 /**
  * @function sign

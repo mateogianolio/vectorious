@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function product
- * @memberof NDArray
  * @description Hadamard product of `x` and `y`
  * @param {NDArray} x
  * @param {NDArray} y
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * product([1, 2, 3], [4, 5, 6]); // => array([4, 10, 18])
  */
 export const product = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).product(NDArray.array(y));
+  array(x).product(array(y));
 
 /**
  * @function product

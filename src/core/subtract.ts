@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function subtract
- * @memberof NDArray
  * @description
  * Subtracts `y` from `x`.
  * Accelerated with BLAS `?axpy`.
@@ -15,7 +14,7 @@ import { NDArray } from './';
  * subtract([1, 2, 3], [1, 1, 1]); // => array([0, 1, 2])
  */
 export const subtract = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).subtract(NDArray.array(y));
+  array(x).subtract(array(y));
 
 /**
  * @function subtract

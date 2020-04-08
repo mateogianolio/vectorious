@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 let nlapack: any;
 try {
@@ -10,7 +10,6 @@ try {
 /**
  * @static
  * @function lu_factor
- * @memberof NDArray
  * @description
  * Performs LU factorization on `x`.
  * Accelerated with LAPACK `?getrf`.
@@ -22,7 +21,7 @@ try {
  * lu_factor([[1, 3, 5], [2, 4, 7], [1, 1, 0]]); // => [array([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]), Int32Array([2, 2, 3])]
  */
 export const lu_factor = (x: NDArray | ArrayLike<any>): [NDArray, Int32Array] =>
-  NDArray.array(x).lu_factor();
+  array(x).lu_factor();
 
 /**
  * @function lu_factor

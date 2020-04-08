@@ -6,7 +6,6 @@ import { NDIter } from '../iterator';
 /**
  * @static
  * @function magic
- * @memberof NDArray
  * @description Creates a magic square matrix of size `n`
  * @param {Number} n
  * @returns {NDArray}

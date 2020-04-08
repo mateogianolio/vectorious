@@ -1,6 +1,6 @@
 import { get_type } from '../util';
 
-import { NDArray } from './';
+import { NDArray, array, eye, augment, zeros } from './';
 
 let nlapack: any;
 try {
@@ -10,7 +10,6 @@ try {
 /**
  * @static
  * @function inv
- * @memberof NDArray
  * @description
  * Determines the inverse of `x`.
  * Accelerated with LAPACK `?getri`.
@@ -21,7 +20,7 @@ try {
  * 
  * inv([[2, -1, 0], [-1, 2, -1], [0, -1, 2]]); // => array([[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]])
  */
-export const inv = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).inv();
+export const inv = (x: NDArray | ArrayLike<any>): NDArray => array(x).inv();
 
 /**
  * @function inv
@@ -58,10 +57,10 @@ export default function(this: NDArray): NDArray {
 
     return this;
   } catch (err) {
-    const eye = NDArray.eye(n);
-    const rref = NDArray.augment(this, eye).gauss();
-    const left = NDArray.zeros(n, n);
-    const right = NDArray.zeros(n, n);
+    const identity = eye(n);
+    const rref = augment(this, identity).gauss();
+    const left = zeros(n, n);
+    const right = zeros(n, n);
 
     const { data: d1 } = rref;
     const { data: d2 } = left;
@@ -80,7 +79,7 @@ export default function(this: NDArray): NDArray {
       }
     }
 
-    if (!left.equals(eye)) {
+    if (!left.equals(identity)) {
       throw new Error('matrix is not invertible');
     }
 

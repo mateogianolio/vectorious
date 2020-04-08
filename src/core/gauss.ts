@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function gauss
- * @memberof NDArray
  * @description Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -12,7 +11,7 @@ import { NDArray } from './';
  * 
  * gauss([[1, 2, 3], [4, 5, 6]]); // => array([[1, 0, -1], [-0, 1, 2]])
  */
-export const gauss = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).gauss();
+export const gauss = (x: NDArray | ArrayLike<any>): NDArray => array(x).gauss();
 
 /**
  * @function gauss

@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function project
- * @memberof NDArray
  * @description Projects the `y` onto `x` using the projection formula `(y * (x * y / y * y))`.
  * @param {NDArray} x
  * @param {NDArray} y
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * project([1, 2, 3], [4, 5, 6]); // => array([1.6623376607894897, 2.0779221057891846, 2.49350643157959])
  */
 export const project = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).project(NDArray.array(y));
+  array(x).project(array(y));
 
 /**
  * @function project

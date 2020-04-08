@@ -1,10 +1,9 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function reciprocal
- * @memberof NDArray
  * @description Gets the element-wise reciprocal of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -14,7 +13,7 @@ import { NDIter } from '../iterator';
  * reciprocal([1, 2, 3]); // => array([1, 0.5, 0.3333333432674408])
  */
 export const reciprocal = (x: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).reciprocal();
+  array(x).reciprocal();
 
 /**
  * @function reciprocal

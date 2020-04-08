@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function check
- * @memberof NDArray
  * @description Asserts if indices `i, j, ..., n` are within the bounds of `x`
  * @param {NDArray} x
  * @param {Number[]} ...indices
@@ -14,7 +13,7 @@ import { NDArray } from './';
  * check([0.5, 1.5, 2.5], 3); // Error: index out of bounds
  */
 export const check = (x: NDArray | ArrayLike<any>, ...indices: number[]): void => {
-  NDArray.array(x).check(...indices);
+  array(x).check(...indices);
 };
 
 /**

@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { expm1: f } = Math;
@@ -6,7 +6,6 @@ const { expm1: f } = Math;
 /**
  * @static
  * @function expm1
- * @memberof NDArray
  * @description Returns subtracting 1 from exp(x) of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { expm1: f } = Math;
  * 
  * expm1([1, 2, 3]); // => array([1.7182817459106445, 6.389056205749512, 19.08553695678711])
  */
-export const expm1 = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).expm1();
+export const expm1 = (x: NDArray | ArrayLike<any>): NDArray => array(x).expm1();
 
 /**
  * @function expm1

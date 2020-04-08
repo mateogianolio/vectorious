@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { log: f } = Math;
@@ -6,7 +6,6 @@ const { log: f } = Math;
 /**
  * @static
  * @function log
- * @memberof NDArray
  * @description Returns the natural logarithm (log_e, also ln) of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { log: f } = Math;
  * 
  * log([1, 2, 3]); // => array([0, 0.6931471824645996, 1.0986123085021973])
  */
-export const log = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).log();
+export const log = (x: NDArray | ArrayLike<any>): NDArray => array(x).log();
 
 /**
  * @function log

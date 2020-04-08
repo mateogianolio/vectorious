@@ -1,4 +1,4 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 const { acosh: f } = Math;
@@ -6,7 +6,6 @@ const { acosh: f } = Math;
 /**
  * @static
  * @function acosh
- * @memberof NDArray
  * @description Returns the hyperbolic arccosine of each element of `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -15,7 +14,7 @@ const { acosh: f } = Math;
  * 
  * acosh([1, 2, 3]); // => array([0, 1.316957950592041, 1.7627471685409546])
  */
-export const acosh = (x: NDArray | ArrayLike<any>): NDArray => NDArray.array(x).acosh();
+export const acosh = (x: NDArray | ArrayLike<any>): NDArray => array(x).acosh();
 
 /**
  * @function acosh

@@ -1,10 +1,9 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 import { NDIter } from '../iterator';
 
 /**
  * @static
  * @function fill
- * @memberof NDArray
  * @description Fills `x` with a scalar value
  * @param {NDArray} x
  * @param {Number} value
@@ -18,7 +17,7 @@ export const fill = (
   x: NDArray | ArrayLike<any>,
   value: number | ((index: number) => number) = 0
 ): NDArray =>
-  NDArray.array(x).fill(value);
+  array(x).fill(value);
 
 /**
  * @function fill

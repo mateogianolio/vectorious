@@ -3,7 +3,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function set
- * @memberof NDArray
  * @description Sets the element at `i, j, ..., n` to `value`.
  * @param {NDArray} x
  * @param {Number[]} ...indices

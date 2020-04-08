@@ -5,7 +5,6 @@ import { NDArray } from './';
 /**
  * @static
  * @function range
- * @memberof NDArray
  * @description
  * Creates an array containing a range (can be either ascending or descending)
  * of numbers specified by the arguments provided (e.g. `NDArray.range(0, .5, 2)`

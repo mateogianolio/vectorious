@@ -1,9 +1,8 @@
-import { NDArray } from './';
+import { NDArray, array } from './';
 
 /**
  * @static
  * @function normalize
- * @memberof NDArray
  * @description Normalizes `x`.
  * @param {NDArray} x
  * @returns {NDArray}
@@ -13,7 +12,7 @@ import { NDArray } from './';
  * normalize([1, 2, 3]); // => array([0.26726123690605164, 0.5345224738121033, 0.8017836809158325])
  */
 export const normalize = (x: NDArray | ArrayLike<any>): NDArray =>
-  NDArray.array(x).normalize();
+  array(x).normalize();
 
 /**
  * @function normalize
