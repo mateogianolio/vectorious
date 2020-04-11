@@ -1,5 +1,5 @@
-import { NDArray, array } from './';
-import { NDIter } from '../iterator';
+import { NDArray } from './';
+import { array } from './array';
 
 /**
  * @static
@@ -25,26 +25,8 @@ export const toArray = (x: NDArray | ArrayLike<any>): number[] => array(x).toArr
  * array([1, 2, 3]).toArray(); // => [1, 2, 3]
  */
 export default function(this: NDArray): number[] {
-  const { data: d1, length: l1, shape: s1 } = this;
+  const { length: l1, shape: s1 } = this;
   const { length: ndim } = s1;
-  const out: any = [];
-
-  const iter = new NDIter(this);
-  do {
-    let node = out;
-    for (const i of iter.coords) {
-      if (!node[i]) {
-        node[i] = [];
-      }
-
-      node = node[i];
-    }
-    
-    node.push(d1[iter.pos]);
-    iter.next();
-  } while (!iter.done())
-
-  console.log(out);
 
   let i: number;
   let j: number;

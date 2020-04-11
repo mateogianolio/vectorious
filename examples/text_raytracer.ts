@@ -2,6 +2,7 @@
 // URL: https://gist.github.com/joshmarinacci/c84d0979e100d107f685
 // URL: http://joshondesign.com/2014/09/17/rustlang
 // tslint:disable: max-classes-per-file
+import { NDArray } from '../src/core';
 import { array } from '../src/core/array';
 import { add } from '../src/core/add';
 import { dot } from '../src/core/dot';
@@ -11,36 +12,36 @@ import { subtract } from '../src/core/subtract';
 const render: (pixel: string) => void = process.stdout.write.bind(process.stdout);
 
 class Ray {
-  public dir;
-  public orig;
+  public dir: NDArray;
+  public orig: NDArray;
 
-  public constructor(orig, dir) {
+  public constructor(orig: NDArray, dir: NDArray) {
     this.orig = orig;
     this.dir = dir;
   }
 }
 
 class Sphere {
-  public center;
-  public color;
+  public center: NDArray;
+  public color: NDArray;
   public radius: number;
 
-  public constructor(center, radius: number, color) {
+  public constructor(center: NDArray, radius: number, color: NDArray) {
     this.center = center;
     this.radius = radius;
     this.color = color;
   }
 
-  public normal(pt) {
+  public normal(pt: NDArray) {
     return subtract(pt, this.center).normalize();
   }
 }
 
 class Light {
-  public color;
-  public position;
+  public color: NDArray;
+  public position: NDArray;
 
-  public constructor(position, color) {
+  public constructor(position: NDArray, color: NDArray) {
     this.position = position;
     this.color = color;
   }
@@ -70,7 +71,7 @@ const clamp:
   return x;
 };
 
-const diffuseShading = (pi, obj: Sphere, light: Light) => {
+const diffuseShading = (pi: NDArray, obj: Sphere, light: Light) => {
   const n = obj.normal(pi);
   const lam1: number = subtract(light.position, pi).normalize().dot(n);
   const lam2: number = clamp(lam1, 0, 1);
@@ -78,7 +79,7 @@ const diffuseShading = (pi, obj: Sphere, light: Light) => {
   return scale(light.color, lam2 * 0.5).add(scale(obj.color, 0.3));
 };
 
-const intersectSphere = (ray: Ray, center, radius: number): number | undefined => {
+const intersectSphere = (ray: Ray, center: NDArray, radius: number): number | undefined => {
   const l = subtract(center, ray.orig);
   const tca: number = l.dot(ray.dir);
   if (tca < 0) {

@@ -1,4 +1,5 @@
 // Logistic regression example based on https://github.com/junku901/dnn
+import { NDArray } from '../src/core';
 import { array } from '../src/core/array';
 import { map } from '../src/core/map';
 import { ones } from '../src/core/ones';
@@ -6,7 +7,7 @@ import { subtract } from '../src/core/subtract';
 import { zeros } from '../src/core/zeros';
 
 // Perform row-wise softmax on matrix
-const softmax = (x) => {
+const softmax = (x: NDArray) => {
   const { data: d1 } = x;
   const [, c] = x.shape;
   const max: number = x.max();
@@ -33,7 +34,7 @@ const softmax = (x) => {
 };
 
 // Get col-wise mean of matrix as vector
-const mean = (x) => {
+const mean = (x: NDArray) => {
   const { data: d1 } = x;
   const [, c] = x.shape;
   const vec = zeros(c);
@@ -50,7 +51,7 @@ const mean = (x) => {
 };
 
 // Row-wise add vector to matrix
-const addMatVec = (x, y) => {
+const addMatVec = (x: NDArray, y: NDArray) => {
   const { data: d1 } = y;
   const [, c] = x.shape;
 
@@ -78,8 +79,8 @@ const addMatVec = (x, y) => {
   // Learning rate
   const alpha: number = 0.01;
 
-  let prob;
-  let delta;
+  let prob: NDArray;
+  let delta: NDArray;
 
   // Train
   let i: number;

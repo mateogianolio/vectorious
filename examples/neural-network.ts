@@ -2,6 +2,7 @@ import { array } from '../src/core/array';
 import { random } from '../src/core/random';
 import { ones } from '../src/core/ones';
 import { subtract } from '../src/core/subtract';
+import { map } from '../src/core/map';
 
 const sigmoid: (ddx: boolean) => (value: number) => number = (ddx: boolean): (value: number) => number =>
   (value: number): number => ddx
@@ -25,18 +26,18 @@ const sigmoid: (ddx: boolean) => (value: number) => number = (ddx: boolean): (va
   const syn1 = random(4, 1).scale(2).subtract(ones(4, 1));
 
   // Layers and deltas
-  let l0 = array(4, 4);
-  let l1 = array(4, 1);
-  let l0_delta = array(4, 4);
-  let l1_delta = array(4, 1);
+  let l0 = random(4, 4);
+  let l1 = random(4, 1);
+  let l0_delta = random(4, 4);
+  let l1_delta = random(4, 1);
 
   let i: number;
   for (i = 0; i < 60000; i += 1) {
-    l0 = x.multiply(syn0).map(sigmoid(false));
-    l1 = l0.multiply(syn1).map(sigmoid(false));
+    l0 = map(x.multiply(syn0), sigmoid(false));
+    l1 = map(l0.multiply(syn1), sigmoid(false));
 
-    l1_delta = subtract(y, l1).product(l1.map(sigmoid(true)));
-    l0_delta = l1_delta.multiply(syn1.T).product(l0.map(sigmoid(true)));
+    l1_delta = subtract(y, l1).product(map(l1, sigmoid(true)));
+    l0_delta = l1_delta.multiply(syn1.T).product(map(l0, sigmoid(true)));
 
     syn1.add(l0.T.multiply(l1_delta));
     syn0.add(x.T.multiply(l0_delta));

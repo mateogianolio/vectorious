@@ -1,4 +1,6 @@
-import { NDArray, array, zeros } from './';
+import { NDArray } from './';
+import { array } from './array';
+import { zeros } from './zeros';
 
 /**
  * @static

@@ -1,6 +1,7 @@
 import { get_strides } from '../util';
 
-import { NDArray, array } from './';
+import { NDArray } from './';
+import { array } from './array';
 
 /**
  * @static

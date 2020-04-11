@@ -1,6 +1,8 @@
 import { get_type } from '../util';
 
-import { NDArray, array, matrix } from './';
+import { NDArray } from './';
+import { array } from './array';
+import { matrix } from './matrix';
 
 let nblas: any;
 try {
@@ -42,6 +44,7 @@ export default function(this: NDArray, x: NDArray): NDArray {
   const [r2, c2] = x.shape;
 
   if (c1 !== r2) {
+    console.log(this, x);
     throw new Error('sizes do not match');
   }
 

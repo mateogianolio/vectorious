@@ -1,6 +1,7 @@
 import { get_type } from '../util';
 
-import { NDArray, array } from './';
+import { NDArray } from './';
+import { array } from './array';
 
 let nlapack: any;
 try {

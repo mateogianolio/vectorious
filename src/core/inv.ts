@@ -1,6 +1,10 @@
 import { get_type } from '../util';
 
-import { NDArray, array, eye, augment, zeros } from './';
+import { NDArray } from './';
+import { array } from './array';
+import { eye } from './eye';
+import { augment } from './augment';
+import { zeros } from './zeros';
 
 let nlapack: any;
 try {

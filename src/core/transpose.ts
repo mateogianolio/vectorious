@@ -1,4 +1,5 @@
-import { NDArray, array } from './';
+import { NDArray } from './';
+import { array } from './array';
 
 /**
  * @static
@@ -25,8 +26,18 @@ export const transpose = (x: NDArray | ArrayLike<any>): NDArray =>
  * array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // => array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
  */
 export default function(this: NDArray): NDArray {
-  this.strides = this.strides.reverse();
-  this.shape = this.shape.reverse();
+  const [r, c] = this.shape;
+  const { data: d1 } = this;
+  const x = this.copy().reshape(c, r);
+  const { data: d2 } = x;
 
-  return this;
+  let i: number;
+  let j: number;
+  for (i = 0; i < r; i += 1) {
+    for (j = 0; j < c; j += 1) {
+      d2[j * r + i] = d1[i * c + j];
+    }
+  }
+
+  return x;
 };
