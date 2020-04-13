@@ -1,2 +1,2 @@
 export * from './core';
-export { NDIter } from './iterator';
+export * from './iterator';
