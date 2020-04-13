@@ -12,6 +12,10 @@ import {
   get_type,
   is_typed_array,
 } from '../util';
+import {
+  NDIter,
+  NDMultiIter,
+} from '../iterator';
 
 import { default as abs } from './abs';
 import { default as acos } from './acos';
@@ -96,8 +100,67 @@ const inspectSymbol: unique symbol = Symbol.for('nodejs.util.inspect.custom');
 
 /**
  * @class NDArray
+ * @description Constructs or copies an NDArray instance.
+ * @param data
+ * @param {Object} [options]
+ * @param {Number[]} [options.shape]
+ * @param {Number} [options.length]
+ * @param {Number[]} [options.strides]
+ * @param {string} [options.dtype]
+ * @example
+ * import { NDArray } from 'vectorious';
+ *
+ * new NDArray() // => array([], dtype=float32)
+ * new NDArray([]) // => array([], dtype=float32)
+ * new NDArray([1, 2, 3]) // => array([1, 2, 3], dtype=float32)
+ * new NDArray([[1, 2], [3, 4]]) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float32)
+ * new NDArray(new Int32Array([1, 2, 3])) // => array([ 1, 2, 3 ], dtype=int32)
+ * new NDArray([1, 2, 3, 4], {
+ *   shape: [2, 2],
+ *   dtype: 'uint32'
+ * }) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=uint32)
  */
 export class NDArray implements INDArray {
+  /**
+   * @name data
+   * @memberof NDArray.prototype
+   * @type TypedArray
+   * @default new Float32Array(0)
+   */
+  public data: TypedArray = new Float32Array(0);
+  
+  /**
+   * @name dtype
+   * @memberof NDArray.prototype
+   * @type String
+   * @default 'float32'
+   */
+  public dtype: DType = 'float32';
+
+  /**
+   * @name length
+   * @memberof NDArray.prototype
+   * @type Number
+   * @default 0
+   */
+  public length: number = 0;
+
+  /**
+   * @name shape
+   * @memberof NDArray.prototype
+   * @type Number[]
+   * @default [0]
+   */
+  public shape: number[] = [0];
+
+  /**
+   * @name strides
+   * @memberof NDArray.prototype
+   * @type Number[]
+   * @default [0]
+   */
+  public strides: number[] = [0];
+
   public [inspectSymbol]: () => string = toString;
   public abs = abs;
   public acos = acos;
@@ -118,11 +181,9 @@ export class NDArray implements INDArray {
   public cos = cos;
   public cosh = cosh;
   public cross = cross;
-  public data: TypedArray = new Float32Array(0);
   public det = det;
   public diagonal = diagonal;
   public dot = dot;
-  public dtype: DType = 'float32';
   public eig = eig;
   public equals = equals;
   public equidimensional = equidimensional;
@@ -136,7 +197,6 @@ export class NDArray implements INDArray {
   public gauss = gauss;
   public get = get;
   public inv = inv;
-  public length: number = 0;
   public log = log;
   public log10 = log10;
   public log1p = log1p;
@@ -163,7 +223,6 @@ export class NDArray implements INDArray {
   public row_add = row_add;
   public scale = scale;
   public set = set;
-  public shape: number[] = [0];
   public sign = sign;
   public sin = sin;
   public sinh = sinh;
@@ -171,7 +230,6 @@ export class NDArray implements INDArray {
   public solve = solve;
   public sqrt = sqrt;
   public square = square;
-  public strides: number[] = [0];
   public subtract = subtract;
   public sum = sum;
   public swap = swap;
@@ -185,82 +243,109 @@ export class NDArray implements INDArray {
 
   public constructor(
     data?: any,
-    options?: any
+    options?: {
+      shape?: number[];
+      length?: number;
+      strides?: number[];
+      dtype?: DType;
+    }
   ) {
-    if (is_typed_array(data)) {
-      this.data = data as TypedArray;
-      this.shape = typeof options === 'object' && options.hasOwnProperty('shape') ? options.shape : [this.data.length];
-      this.length = get_length(this.shape);
-      this.dtype = typeof options === 'object' && options.hasOwnProperty('dtype') ? options.dtype : get_dtype(data);
-      this.strides = typeof options === 'object' && options.hasOwnProperty('strides') ? options.strides : get_strides(this.shape);
-    } else if (data instanceof Array) {
-      this.data = new (get_type(this.dtype))(flatten(data));
-      this.shape = get_shape(data);
-      this.strides = get_strides(this.shape);
-      this.length = get_length(this.shape);
-    } else if (data instanceof NDArray) {
+    if (!data) {
+      return;
+    }
+
+    if (data instanceof NDArray) {
       return data.copy();
     }
+
+    if (data instanceof NDIter || data instanceof NDMultiIter) {
+      if (!options || !options.dtype) {
+        throw new Error('dtype is missing');
+      }
+
+      if (data.shape) {
+        options.shape = data.shape;
+      }
+
+      const length = data.length || [...data].length;
+      data = new (get_type(options.dtype))(length);
+    }
+
+    const {
+      shape = get_shape(data),
+      length = get_length(shape),
+      strides = get_strides(shape),
+      dtype = get_dtype(data),
+    } = options || {};
+
+    this.data = is_typed_array(data) ? data : new (get_type(dtype))(flatten(data));
+    this.shape = shape;
+    this.length = length;
+    this.dtype = dtype;
+    this.strides = strides;
   }
 
   /**
-   * Equivalent to this.get(0)
+   * @name x
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 0
+   * @type Number
    */
   public get x(): number {
     return this.get(0);
   }
 
-  /**
-   * Equivalent to this.set(0, value)
-   */
   public set x(value: number) {
     this.set(0, value);
   }
 
   /**
-   * Equivalent to this.get(1)
+   * @name y
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 1
+   * @type Number
    */
   public get y(): number {
     return this.get(1);
   }
 
-  /**
-   * Equivalent to this.set(1, value)
-   */
   public set y(value: number) {
     this.set(1, value);
   }
 
   /**
-   * Equivalent to this.get(2)
+   * @name z
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 2
+   * @type Number
    */
   public get z(): number {
     return this.get(2);
   }
 
-  /**
-   * Equivalent to this.set(2, value)
-   */
   public set z(value: number) {
     this.set(2, value);
   }
 
   /**
-   * Equivalent to this.get(3)
+   * @name w
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 3
+   * @type Number
    */
   public get w(): number {
     return this.get(3);
   }
 
-  /**
-   * Equivalent to this.set(3, value)
-   */
   public set w(value: number) {
     this.set(3, value);
   }
 
   /**
-   * Transposes current matrix (mirror across the diagonal).
+   * @name T
+   * @memberof NDArray.prototype
+   * @description Short for this.transpose()
+   * @type NDArray
    */
   public get T() {
     return this.transpose();

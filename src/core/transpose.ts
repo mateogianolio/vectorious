@@ -23,7 +23,7 @@ export const transpose = (x: NDArray | ArrayLike<any>): NDArray =>
  * @example
  * import { array } from 'vectorious/core/array';
  * 
- * array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // => array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
+ * array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // <=> array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
  */
 export default function(this: NDArray): NDArray {
   const [r, c] = this.shape;

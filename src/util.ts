@@ -10,10 +10,14 @@ export const flatten: (input: any[]) => number[] = (input: any[]): number[] =>
     []
   );
 
+
+export const is_typed_array: (input: any) => boolean = (input: any): boolean =>
+  !!(input && input.buffer instanceof ArrayBuffer && input.BYTES_PER_ELEMENT);
+
 export const get_length: (input: number[]) => number = (input: number[]): number =>
   input.reduce((a: number, b: number): number => a * b, 1);
 
-export const get_shape: (input: any) => number[] = (input: any): number[] => Array.isArray(input)
+export const get_shape: (input: any) => number[] = (input: any): number[] => Array.isArray(input) || is_typed_array(input)
   ? [input.length].concat(get_shape(input[0]))
   : [];
 
@@ -29,7 +33,13 @@ export const get_strides: (input: number[]) => number[] = (input: number[]): num
 ];
 
 export const get_dtype: (input: TypedArray) => DType = (input: TypedArray): DType => {
-  switch (input.constructor.name) {
+  const {
+    constructor: {
+      name = 'Float32Array',
+    } = {},
+  } = input || {};
+
+  switch (name) {
     case 'Int8Array': return 'int8';
     case 'Uint8Array': return 'uint8';
     case 'Int16Array': return 'int16';
@@ -55,6 +65,3 @@ export const get_type: (input: DType) => TypedArrayConstructor = (input: DType):
     default: return Float32Array;
   }
 };
-
-export const is_typed_array: (input: any) => boolean = (input: any): boolean =>
-  !!(input && input.buffer instanceof ArrayBuffer && input.BYTES_PER_ELEMENT);
