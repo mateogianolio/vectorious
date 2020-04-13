@@ -14,7 +14,6 @@ import {
 } from '../util';
 import {
   NDIter,
-  NDMultiIter,
 } from '../iterator';
 
 import { default as abs } from './abs';
@@ -258,7 +257,7 @@ export class NDArray implements INDArray {
       return data.copy();
     }
 
-    if (data instanceof NDIter || data instanceof NDMultiIter) {
+    if (data instanceof NDIter) {
       if (!options || !options.dtype) {
         throw new Error('dtype is missing');
       }
@@ -267,7 +266,7 @@ export class NDArray implements INDArray {
         options.shape = data.shape;
       }
 
-      const length = data.length || [...data].length;
+      const length = data.length;
       data = new (get_type(options.dtype))(length);
     }
 
