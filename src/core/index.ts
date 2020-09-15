@@ -124,9 +124,9 @@ export class NDArray implements INDArray {
    * @name data
    * @memberof NDArray.prototype
    * @type TypedArray
-   * @default new Float32Array(0)
+   * @default new Float64Array(0)
    */
-  public data: TypedArray = new Float32Array(0);
+  public data: TypedArray = new Float64Array(0);
   
   /**
    * @name dtype

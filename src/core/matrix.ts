@@ -15,6 +15,6 @@ import { NDArray } from './';
  */
 export const matrix = (r: number, c: number): NDArray =>
   new NDArray(
-    new Float32Array(r * c),
+    new Float64Array(r * c),
     { shape: [r, c] }
   );

@@ -14,6 +14,6 @@ import { NDArray } from './';
  */
 export const random = (...shape: number[]): NDArray =>
   new NDArray(
-    new Float32Array(shape.reduce((sum: number, dim: number) => sum * dim, 1)),
+    new Float64Array(shape.reduce((sum: number, dim: number) => sum * dim, 1)),
     { shape }
   ).map(() => Math.random());

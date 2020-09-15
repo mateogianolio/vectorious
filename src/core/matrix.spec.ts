@@ -4,7 +4,7 @@ import { array } from './array';
 
 describe('(v) matrix', () => {
   it('should work as expected', () => {
-    const x = array(new Float32Array([0, 0, 0]), { shape: [3, 1] });
+    const x = array(new Float64Array([0, 0, 0]), { shape: [3, 1] });
 
     equals(x, matrix(3, 1));
   });

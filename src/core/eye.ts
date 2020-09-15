@@ -13,7 +13,7 @@ import { NDArray } from './';
  * eye(2); // => array([[1, 0], [0, 1]])
  */
 export const eye = (n: number): NDArray => {
-  const x = new NDArray(new Float32Array(n * n), { shape: [n, n] });
+  const x = new NDArray(new Float64Array(n * n), { shape: [n, n] });
   const { data: d1 } = x;
 
   let i: number;

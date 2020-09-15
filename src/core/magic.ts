@@ -20,7 +20,7 @@ export const magic = (n: number): NDArray => {
     throw new Error('invalid n');
   }
 
-  const d1: TypedArray = new Float32Array(n * n);
+  const d1: TypedArray = new Float64Array(n * n);
   const magic = new NDArray(d1, { shape: [n, n] });
   const iter = new NDIter(magic);
 
