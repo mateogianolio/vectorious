@@ -14,8 +14,6 @@
 
 Follow the installation instructions in [nlapack](https://github.com/nperf/nlapack) and [nblas](https://github.com/nperf/nblas) to get maximum performance.
 
-#### In node.js
-
 ```bash
 # with C++ bindings
 $ npm install vectorious
@@ -68,29 +66,6 @@ array([
   ]
 ], dtype=float32)
 */
-```
-
-#### In browser
-
-Download `dist/vectorious.min.js` or search for vectorious on [cdnjs](https://cdnjs.com).
-
-```html
-<script src="vectorious.min.js"></script>
-```
-
-```html
-<script>
-  const A = v.array([[1], [2], [3]]);
-  const B = v.array([[1, 3, 5]]);
-  const C = A.multiply(B);
-
-  console.log('C:', C.toArray());
-  /* C: [
-    [1, 3, 5],
-    [2, 6, 10],
-    [3, 9, 15]
-  ] */
-</script>
 ```
 
 ### Examples

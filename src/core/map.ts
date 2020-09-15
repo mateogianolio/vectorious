@@ -39,9 +39,12 @@ export default function(
   const iter = new NDIter(this);
   const map = f.bind(this);
 
+  const copy = this.copy();
+  const { data: d2 } = copy;
+
   for (const i of iter) {
-    map(d1[i!], i!, d1);
+    d2[i!] = map(d1[i!], i!, d1);
   }
 
-  return this;
+  return copy;
 };

@@ -14,12 +14,12 @@ console.log(`a: ${a}`);
 console.log(`b: ${b}`);
 
 // Sum of absolute values
-const sum: number = nblas.sasum(3, a.data, 1);
-console.log(`sasum: ${sum}`);
+const sum: number = nblas.dasum(3, a.data, 1);
+console.log(`dasum: ${sum}`);
 
 // Dot product
-const dot: number = nblas.sdot(3, a.data, 1, b.data, 1);
-console.log(`sdot: ${dot}`);
+const dot: number = nblas.ddot(3, a.data, 1, b.data, 1);
+console.log(`ddot: ${dot}`);
 
 // Memory swap
 nblas.sswap(3, a.data, 1, b.data, 1);
