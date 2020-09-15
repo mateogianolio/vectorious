@@ -26,7 +26,7 @@ describe('(v) multiply', () => {
 
   it('should work as expected', () => {
     const x = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
-    const y = array([[ 30,  36,  42], [ 66,  81,  96], [102, 126, 150]]);
+    const y = array([[30, 36, 42], [66, 81, 96], [102, 126, 150]]);
 
     equals(y, x.multiply(x));
   });

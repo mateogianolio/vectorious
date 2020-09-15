@@ -14,7 +14,7 @@ describe('(v) add', () => {
     equals(array(), x.add(y));
   });
 
-  it ('should throw error if shapes cannot be broadcast together', () => {
+  it('should throw error if shapes cannot be broadcast together', () => {
     const x = array([1, 2, 3]);
     const y = array([10, 11]);
 
@@ -29,7 +29,7 @@ describe('(v) add', () => {
     equals(z, x.add(y));
   });
 
-  it ('should product v([11, 12, 13]) from v([1, 2, 3]) and v([10])', () => {
+  it('should product v([11, 12, 13]) from v([1, 2, 3]) and v([10])', () => {
     const x = array([1, 2, 3]);
     const y = array([10]);
     const z = array([11, 12, 13]);

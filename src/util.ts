@@ -11,7 +11,7 @@ export const flatten: (array: any[]) => number[] = (array: any[]): number[] =>
   );
 
 export const is_typed_array: (array: any) => boolean = (array: any): boolean =>
-  !!(array && array.buffer instanceof ArrayBuffer && array.BYTES_PER_ELEMENT);
+  ArrayBuffer.isView(array) && !(array instanceof DataView);
 
 export const get_length: (shape: number[]) => number = (shape: number[]): number =>
   shape.reduce((a: number, b: number): number => a * b, 1);
@@ -46,8 +46,9 @@ export const get_dtype: (array: TypedArray) => DType = (array: TypedArray): DTyp
     case 'Int32Array': return 'int32';
     case 'Uint32Array': return 'uint32';
     case 'Uint8ClampedArray': return 'uint8c';
+    case 'Float32Array': return 'float32';
     case 'Float64Array': return 'float64';
-    default: return 'float32';
+    default: return 'float64';
   }
 };
 
@@ -60,7 +61,8 @@ export const get_type: (dtype: DType) => TypedArrayConstructor = (dtype: DType):
     case 'int32': return Int32Array;
     case 'uint32': return Uint32Array;
     case 'uint8c': return Uint8ClampedArray;
+    case 'float32': return Float32Array;
     case 'float64': return Float64Array;
-    default: return Float32Array;
+    default: return Float64Array;
   }
 };
