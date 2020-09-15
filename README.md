@@ -1,8 +1,14 @@
-![vectorious](https://github.com/mateogianolio/vectorious/raw/master/logo.gif)
+<p align="center">
+  <img src="https://github.com/mateogianolio/vectorious/raw/master/logo.gif" alt="Vectorious Logo" />
+</p>
 
-![version](https://img.shields.io/npm/v/vectorious.svg) [![CDNJS](https://img.shields.io/cdnjs/v/vectorious.svg)](https://cdnjs.com/libraries/vectorious) ![travis](https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat&label=build) [![maintainability](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/maintainability)](https://codeclimate.com/github/mateogianolio/vectorious/maintainability) [![test coverage](https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/test_coverage)](https://codeclimate.com/github/mateogianolio/vectorious/test_coverage) [![greenkeeper](https://badges.greenkeeper.io/mateogianolio/vectorious.svg)](https://greenkeeper.io/)
+<p align="center">
+  A linear algebra library, written in TypeScript and accelerated with C++ bindings to BLAS and LAPACK.
+</p>
 
-> A linear algebra library, written in TypeScript and accelerated with C++ bindings to [BLAS](http://www.netlib.org/blas/) and [LAPACK](http://www.netlib.org/lapack/).
+<p align="center">
+  <img src="https://img.shields.io/npm/v/vectorious.svg" /> <img src="https://img.shields.io/travis/mateogianolio/vectorious.svg?style=flat&label=build" /> <img src="https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/maintainability" />
+</p>
 
 ### Usage
 
