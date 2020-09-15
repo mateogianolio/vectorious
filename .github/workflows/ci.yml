@@ -32,6 +32,10 @@ jobs:
       run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev libpython-dev
       if: runner.os == 'Linux'
 
+    - name: Install dependencies on mac
+      run: brew install lapack
+      if: runner.os == 'macOS'
+
     - name: Install package dependencies
       run: npm ci
 
