@@ -1,14 +1,15 @@
-import v = require('..');
+import { dot } from './dot';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'dot',
-  (n: number): [v, v] => [v.random(n), v.random(n)],
-  (x: v, y: v): void => {
+  (n: number) => [random(n), random(n)],
+  (x, y): void => {
     x.dot(y);
   },
-  (x: v, y: v): void => {
-    v.dot(x, y);
+  (x, y): void => {
+    dot(x, y);
   }
 );

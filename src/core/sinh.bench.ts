@@ -1,14 +1,15 @@
-import v = require('..');
+import { sinh } from './sinh';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'sinh',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.sinh();
   },
-  (x: v): void => {
-    v.sinh(x);
+  (x): void => {
+    sinh(x);
   }
 );

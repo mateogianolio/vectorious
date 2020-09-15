@@ -1,11 +1,38 @@
 import { TypedArray } from '../types';
 
 import { NDArray } from './';
+import { array } from './array';
 
-NDArray.swap = <T extends NDArray>(x: T | ArrayLike<any>, i: number, j: number): T =>
-  NDArray.array<T>(x).swap(i, j);
+/**
+ * @static
+ * @memberof module:Globals
+ * @function swap
+ * @description Swaps two rows `i` and `j` in `x`.
+ * @param {NDArray} x
+ * @param {Number} i
+ * @param {Number} j
+ * @returns {NDArray}
+ * @example
+ * import { swap } from 'vectorious/core/swap';
+ * 
+ * swap([[1, 2], [3, 4]], 0, 1); // => array([[3, 4], [1, 2]])
+ */
+export const swap = (x: NDArray | ArrayLike<any>, i: number, j: number): NDArray =>
+  array(x).swap(i, j);
 
-NDArray.prototype.swap = function<T extends NDArray>(this: T, i: number, j: number): T {
+/**
+ * @function swap
+ * @memberof NDArray.prototype
+ * @description Swaps two rows `i` and `j` in current matrix
+ * @param {Number} i
+ * @param {Number} j
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 2], [3, 4]]); // <=> array([[3, 4], [1, 2]])
+ */
+export default function(this: NDArray, i: number, j: number): NDArray {
   this.check(i, 0);
   this.check(j, 0);
 

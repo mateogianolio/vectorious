@@ -2,13 +2,14 @@ import {
   strictEqual,
 } from 'assert';
 
-import v = require('..');
+import { max } from './max';
+import { array } from './array';
 
 describe('(v) max', () => {
   it('should find the maximum number in arrays', () => {
-    const x: v = v.array([1, 2, 3]);
-    const y: v = v.array([3, -1, 1]);
-    const z: v = v.array([2, 5, 1]);
+    const x = array([1, 2, 3]);
+    const y = array([3, -1, 1]);
+    const z = array([2, 5, 1]);
 
     strictEqual(3, x.max());
     strictEqual(3, y.max());
@@ -16,12 +17,12 @@ describe('(v) max', () => {
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.array([1, 2, 3]);
-    const y: v = v.array([3, -1, 1]);
-    const z: v = v.array([2, 5, 1]);
+    const x = array([1, 2, 3]);
+    const y = array([3, -1, 1]);
+    const z = array([2, 5, 1]);
 
-    strictEqual(3, v.max(x));
-    strictEqual(3, v.max(y));
-    strictEqual(5, v.max(z));
+    strictEqual(3, max(x));
+    strictEqual(3, max(y));
+    strictEqual(5, max(z));
   });
 });

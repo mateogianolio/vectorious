@@ -1,14 +1,15 @@
-import v = require('..');
+import { fround } from './fround';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'fround',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.fround();
   },
-  (x: v): void => {
-    v.fround(x);
+  (x): void => {
+    fround(x);
   }
 );

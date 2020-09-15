@@ -1,19 +1,17 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
-import v = require('..');
+import { equals } from './equals';
+import { ones } from './ones';
+import { array } from './array';
 
 describe('(v) ones', () => {
   it('should work as expected', () => {
-    const x: v = v.array([1, 1, 1]);
+    const x = array([1, 1, 1]);
 
-    deepStrictEqual(x, v.ones(3));
+    equals(x, ones(3));
   });
 
   it('should work as expected in two dimensions', () => {
-    const x: v = v.array([[1, 1], [1, 1]]);
+    const x = array([[1, 1], [1, 1]]);
 
-    deepStrictEqual(x, v.ones(2, 2));
+    equals(x, ones(2, 2));
   });
 });

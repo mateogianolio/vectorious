@@ -1,19 +1,18 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
-import v = require('..');
+import { equals } from './equals';
+import { cos } from './cos';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) cos', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.cos(value)), x.cos());
+    equals(map(x, (value: number) => Math.cos(value)), x.cos());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.cos(value)), v.cos(x));
+    equals(map(x, (value: number) => Math.cos(value)), cos(x));
   });
 });

@@ -1,36 +1,49 @@
-import { get_type } from '../util';
-
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
+import * as blas from '../blas';
 
-let nblas: any;
-try {
-  nblas = require('nblas');
-} catch (err) {}
+/**
+ * @static
+ * @memberof module:Globals
+ * @function scale
+ * @description
+ * Multiplies all elements of `x` with a specified `scalar`.
+ * Accelerated with BLAS `?scal`.
+ * @param {NDArray} x
+ * @param {Number} scalar
+ * @returns {NDArray}
+ * @example
+ * import { scale } from 'vectorious/core/scale';
+ * 
+ * scale([1, 2, 3], 2); // => array([2, 4, 6])
+ */
+export const scale = (x: NDArray | ArrayLike<any>, scalar: number): NDArray =>
+  array(x).scale(scalar);
 
-NDArray.scale = <T extends NDArray>(x: T | ArrayLike<any>, scalar: number): T =>
-  NDArray.array<T>(x).scale(scalar);
-
-NDArray.prototype.scale = function<T extends NDArray>(this: T, scalar: number): T {
-  const { length: l1 } = this;
+/**
+ * @function scale
+ * @memberof NDArray.prototype
+ * @description
+ * Multiplies all elements of current array with a specified `scalar`.
+ * Accelerated with BLAS `?scal`.
+ * @param {Number} scalar
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).scale(2); // <=> array([2, 4, 6])
+ */
+export default function(this: NDArray, scalar: number): NDArray {
+  const { data: d1, length: l1, dtype } = this;
 
   try {
-    if (!['float32', 'float64'].includes(this.dtype)) {
-      this.dtype = 'float32';
-      this.data = get_type(this.dtype).from(this.data);
-    }
-
-    const { data: d1 } = this;
-    if (this.dtype === 'float64') {
-      nblas.dscal(l1, scalar, d1, 1);
-    } else if (this.dtype === 'float32') {
-      nblas.sscal(l1, scalar, d1, 1);
-    }
+    blas.scal(dtype, l1, scalar, d1, 1);
   } catch (err) {
-    const { data: d1 } = this;
+    const iter = new NDIter(this);
 
-    let i: number;
-    for (i = 0; i < l1; i += 1) {
-      d1[i] *= scalar;
+    for (const i of iter) {
+      d1[i!] *= scalar;
     }
   }
 

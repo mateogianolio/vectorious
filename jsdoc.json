@@ -1,0 +1,37 @@
+{
+  "tags": {
+    "allowUnknownTags": false,
+    "dictionaries": ["jsdoc"]
+  },
+  "source": {
+    "include": ["built", "package.json", "README.md"],
+    "includePattern": "\\.(jsx|js)$",
+    "excludePattern": "(node_modules|benchmarks|coverage|dist|docs|examples)"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true,
+    "default": {
+      "layoutFile": "docs.tmpl"
+    }
+  },
+  "opts": {
+    "destination": "./docs/",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "./node_modules/tidy-jsdoc",
+    "prism-theme": "prism-custom"
+  },
+  "metadata": {
+    "title": "Vectorious"
+  },
+  "styles": {
+    "primary-color": "#0E6EB8",
+    "secondary-color": "#000000",
+    "nav-title-size": "0"
+  }
+}

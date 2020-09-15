@@ -1,14 +1,15 @@
-import v = require('..');
+import { reduce } from './reduce';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'reduce',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.reduce((value: number) => value);
   },
-  (x: v): void => {
-    v.reduce(x, (value: number) => value);
+  (x): void => {
+    reduce(x, (value: number) => value);
   }
 );

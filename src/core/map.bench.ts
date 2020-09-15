@@ -1,14 +1,15 @@
-import v = require('..');
+import { map } from './map';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'map',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.map((value: number) => value);
   },
-  (x: v): void => {
-    v.map(x, (value: number) => value);
+  (x): void => {
+    map(x, (value: number) => value);
   }
 );

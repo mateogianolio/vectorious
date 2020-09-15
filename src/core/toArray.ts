@@ -1,8 +1,31 @@
 import { NDArray } from './';
+import { array } from './array';
 
-NDArray.toArray = <T extends NDArray>(x: T | ArrayLike<any>): number[] => NDArray.array<T>(x).toArray();
+/**
+ * @static
+ * @memberof module:Globals
+ * @function toArray
+ * @description Converts `x` into a JavaScript array.
+ * @param {NDArray} x
+ * @returns {Array}
+ * @example
+ * import { toArray } from 'vectorious/core/toArray';
+ * 
+ * toArray([1, 2, 3]); // => [1, 2, 3]
+ */
+export const toArray = (x: NDArray | ArrayLike<any>): number[] => array(x).toArray();
 
-NDArray.prototype.toArray = function<T extends NDArray>(this: T): number[] {
+/**
+ * @function toArray
+ * @memberof NDArray.prototype
+ * @description Converts current vector into a JavaScript array.
+ * @returns {Array}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).toArray(); // => [1, 2, 3]
+ */
+export default function(this: NDArray): number[] {
   const { length: l1, shape: s1 } = this;
   const { length: ndim } = s1;
 

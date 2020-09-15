@@ -1,17 +1,43 @@
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
 
-NDArray.fill = <T extends NDArray>(
-  x: T | ArrayLike<any>,
+/**
+ * @static
+ * @memberof module:Globals
+ * @function fill
+ * @description Fills `x` with a scalar value
+ * @param {NDArray} x
+ * @param {Number} value
+ * @returns {NDArray}
+ * @example
+ * import { fill } from 'vectorious/core/fill';
+ * 
+ * fill([1, 2, 3], 0); // => array([0, 0, 0])
+ */
+export const fill = (
+  x: NDArray | ArrayLike<any>,
   value: number | ((index: number) => number) = 0
-): T =>
-  NDArray.array<T>(x).fill(value);
+): NDArray =>
+  array(x).fill(value);
 
-NDArray.prototype.fill = function<T extends NDArray>(this: T, value: number | ((index: number) => number) = 0): T {
-  const { data: d1, length: l1 } = this;
+/**
+ * @function fill
+ * @memberof NDArray.prototype
+ * @description Fills the current array with a scalar value
+ * @param {Number} value
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).fill(0); // <=> array([0, 0, 0])
+ */
+export default function(this: NDArray, value: number | ((index: number) => number) = 0): NDArray {
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] = value instanceof Function ? value(i) : value;
+  for (const i of iter) {
+    d1[i!] = value instanceof Function ? value(iter.pos) : value;
   }
 
   return this;

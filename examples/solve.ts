@@ -1,7 +1,7 @@
-import v = require('../src');
+import { random } from '../src/core/random';
 
-const a: v = v.random(3, 3).scale(10);
-const b: v = v.random(3, 1).scale(10);
+const a = random(3, 3).scale(10);
+const b = random(3, 1).scale(10);
 
 console.log(`a: ${a}`);
 console.log(`b: ${b}`);

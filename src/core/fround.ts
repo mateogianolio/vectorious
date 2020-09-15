@@ -1,13 +1,39 @@
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
 
-NDArray.fround = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).fround();
+const { fround: f } = Math;
 
-NDArray.prototype.fround = function<T extends NDArray>(this: T): T {
-  const { data: d1, length: l1 } = this;
+/**
+ * @static
+ * @memberof module:Globals
+ * @function fround
+ * @description Returns the nearest single precision float representation of each element of `x`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { fround } from 'vectorious/core/fround';
+ * 
+ * fround([-5.05, 5.05]); // => array([-5.050000190734863, 5.050000190734863])
+ */
+export const fround = (x: NDArray | ArrayLike<any>): NDArray => array(x).fround();
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] = Math.fround(d1[i]);
+/**
+ * @function fround
+ * @memberof NDArray.prototype
+ * @description Returns the nearest single precision float representation of each element of current array.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([-5.05, 5.05]).fround(); // <=> array([-5.050000190734863, 5.050000190734863])
+ */
+export default function(this: NDArray): NDArray {
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
+
+  for (const i of iter) {
+    d1[i!] = f(d1[i!]);
   }
 
   return this;

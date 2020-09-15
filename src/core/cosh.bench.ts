@@ -1,14 +1,15 @@
-import v = require('..');
+import { cosh } from './cosh';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'cosh',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.cosh();
   },
-  (x: v): void => {
-    v.cosh(x);
+  (x): void => {
+    cosh(x);
   }
 );

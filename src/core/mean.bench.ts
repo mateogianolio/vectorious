@@ -1,14 +1,15 @@
-import v = require('..');
+import { mean } from './mean';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'mean',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.mean();
   },
-  (x: v): void => {
-    v.mean(x);
+  (x): void => {
+    mean(x);
   }
 );

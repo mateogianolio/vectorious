@@ -1,8 +1,31 @@
 import { NDArray } from './';
+import { array } from './array';
 
-NDArray.normalize = <T extends NDArray>(x: T | ArrayLike<any>): T =>
-  NDArray.array<T>(x).normalize();
+/**
+ * @static
+ * @memberof module:Globals
+ * @function normalize
+ * @description Normalizes `x`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { normalize } from 'vectorious/core/normalize';
+ * 
+ * normalize([1, 2, 3]); // => array([0.26726123690605164, 0.5345224738121033, 0.8017836809158325])
+ */
+export const normalize = (x: NDArray | ArrayLike<any>): NDArray =>
+  array(x).normalize();
 
-NDArray.prototype.normalize = function<T extends NDArray>(this: T): NDArray {
+/**
+ * @function normalize
+ * @memberof NDArray.prototype
+ * @description Normalizes current vector.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).normalize(); // => array([0.26726123690605164, 0.5345224738121033, 0.8017836809158325])
+ */
+export default function(this: NDArray): NDArray {
   return this.scale(1 / this.norm());
 };

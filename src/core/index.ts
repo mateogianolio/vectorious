@@ -6,1079 +6,437 @@ import {
 import {
   flatten,
   get_dtype,
+  get_length,
   get_shape,
+  get_strides,
   get_type,
   is_typed_array,
 } from '../util';
+import {
+  NDIter,
+} from '../iterator';
 
-export const inspectSymbol: unique symbol = Symbol.for('nodejs.util.inspect.custom');
+import { default as abs } from './abs';
+import { default as acos } from './acos';
+import { default as acosh } from './acosh';
+import { default as add } from './add';
+import { default as angle } from './angle';
+import { default as asin } from './asin';
+import { default as asinh } from './asinh';
+import { default as atan } from './atan';
+import { default as atanh } from './atanh';
+import { default as augment } from './augment';
+import { default as binOp } from './binOp';
+import { default as cbrt } from './cbrt';
+import { default as ceil } from './ceil';
+import { default as check } from './check';
+import { default as combine } from './combine';
+import { default as copy } from './copy';
+import { default as cos } from './cos';
+import { default as cosh } from './cosh';
+import { default as cross } from './cross';
+import { default as det } from './det';
+import { default as diagonal } from './diagonal';
+import { default as dot } from './dot';
+import { default as eig } from './eig';
+import { default as equals } from './equals';
+import { default as equidimensional } from './equidimensional';
+import { default as equilateral } from './equilateral';
+import { default as exp } from './exp';
+import { default as expm1 } from './expm1';
+import { default as fill } from './fill';
+import { default as floor } from './floor';
+import { default as forEach } from './forEach';
+import { default as fround } from './fround';
+import { default as gauss } from './gauss';
+import { default as get } from './get';
+import { default as inv } from './inv';
+import { default as log } from './log';
+import { default as log10 } from './log10';
+import { default as log1p } from './log1p';
+import { default as log2 } from './log2';
+import { default as lu } from './lu';
+import { default as lu_factor } from './lu_factor';
+import { default as map } from './map';
+import { default as max } from './max';
+import { default as mean } from './mean';
+import { default as min } from './min';
+import { default as multiply } from './multiply';
+import { default as norm } from './norm';
+import { default as normalize } from './normalize';
+import { default as pow } from './pow';
+import { default as prod } from './prod';
+import { default as product } from './product';
+import { default as project } from './project';
+import { default as push } from './push';
+import { default as rank } from './rank';
+import { default as reciprocal } from './reciprocal';
+import { default as reduce } from './reduce';
+import { default as reshape } from './reshape';
+import { default as round } from './round';
+import { default as row_add } from './row_add';
+import { default as scale } from './scale';
+import { default as set } from './set';
+import { default as sign } from './sign';
+import { default as sin } from './sin';
+import { default as sinh } from './sinh';
+import { default as slice } from './slice';
+import { default as solve } from './solve';
+import { default as sqrt } from './sqrt';
+import { default as square } from './square';
+import { default as subtract } from './subtract';
+import { default as sum } from './sum';
+import { default as swap } from './swap';
+import { default as tan } from './tan';
+import { default as tanh } from './tanh';
+import { default as toArray } from './toArray';
+import { default as toString } from './toString';
+import { default as trace } from './trace';
+import { default as transpose } from './transpose';
+import { default as trunc } from './trunc';
 
+const inspectSymbol: unique symbol = Symbol.for('nodejs.util.inspect.custom');
+
+/**
+ * @class NDArray
+ * @description Constructs or copies an NDArray instance.
+ * @param data
+ * @param {Object} [options]
+ * @param {Number[]} [options.shape]
+ * @param {Number} [options.length]
+ * @param {Number[]} [options.strides]
+ * @param {string} [options.dtype]
+ * @example
+ * import { NDArray } from 'vectorious';
+ *
+ * new NDArray() // => array([], dtype=float64)
+ * new NDArray([]) // => array([], dtype=float64)
+ * new NDArray([1, 2, 3]) // => array([1, 2, 3], dtype=float64)
+ * new NDArray([[1, 2], [3, 4]]) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float64)
+ * new NDArray(new Int32Array([1, 2, 3])) // => array([ 1, 2, 3 ], dtype=int32)
+ * new NDArray([1, 2, 3, 4], {
+ *   shape: [2, 2],
+ *   dtype: 'uint32'
+ * }) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=uint32)
+ */
 export class NDArray implements INDArray {
   /**
-   * Returns the absolute value of each element of `x`.
+   * @name data
+   * @memberof NDArray.prototype
+   * @type TypedArray
+   * @default new Float64Array(0)
    */
-  public static abs: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the arccosine of each element of `x`.
-   */
-  public static acos: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the hyperbolic arccosine of each element of `x`.
-   */
-  public static acosh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Adds `y` multiplied by `alpha` to `x`.
-   * Accelerated with BLAS `?axpy`.
-   */
-  public static add: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>, alpha?: number) => T;
-
-  /**
-   * Determines the angle between the `x` and `y`
-   */
-  public static angle: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => number;
-
-  /**
-   * Constructor alias
-   */
-  public static array: <T extends NDArray>(...args: any[]) => T;
-
-  /**
-   * Returns the arcsine of each element of `x`.
-   */
-  public static asin: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the hyperbolic arcsine of each element of `x`.
-   */
-  public static asinh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the arctangent of each element of `x`.
-   */
-  public static atan: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the hyperbolic arctangent of each element of `x`.
-   */
-  public static atanh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Augments `x` and `y`.
-   */
-  public static augment: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Perform binary operation `f` on `y` in `x`.
-   */
-  public static binOp: <T extends NDArray>(
-    x: T | ArrayLike<any>,
-    y: T | ArrayLike<any>,
-    f: (a: number, b: number, index: number) => number
-  ) => T;
-
-  /**
-   * Returns the cube root of each element of `x`.
-   */
-  public static cbrt: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns smallest integer greater than or equal to of each element of `x`.
-   */
-  public static ceil: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Asserts if indices `i, j, ..., n` are within the bounds of `x`
-   */
-  public static check: <T extends NDArray>(x: T | ArrayLike<any>, ...indices: number[]) => void;
-
-  /**
-   * Combines the vector `x` with `y`
-   */
-  public static combine: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Makes a copy of `x`
-   */
-  public static copy: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the cosine of each element of `x`.
-   */
-  public static cos: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the hyperbolic cosine of each element of `x`.
-   */
-  public static cosh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Computes the cross product of the `x` and the vector `y`
-   * This operation can only calculated for vectors with three components.
-   * Otherwise it throws an exception.
-   * The method returns a new (result) vector.
-   */
-  public static cross: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Gets the determinant of `x`.
-   */
-  public static det: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Gets the diagonal of `x`.
-   */
-  public static diagonal: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Performs dot multiplication with `x` and `y`.
-   * Accelerated with BLAS `?dot`.
-   */
-  public static dot: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => number;
-
-  /**
-   * Gets eigenvalues and eigenvectors of `x` using the Jacobi method.
-   * Accelerated with LAPACK `?geev`.
-   */
-  public static eig: <T extends NDArray>(x: T | ArrayLike<any>) => [T, T];
-
-  /**
-   * Checks if `x` and `y` are equal.
-   */
-  public static equals: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => boolean;
-
-  /**
-   * Asserts if `x` and `y` have the same shape
-   */
-  public static equidimensional: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => void;
-
-  /**
-   * Asserts if `x` and `y` have the same length
-   */
-  public static equilateral: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => void;
-
-  /**
-   * Returns e^x of each element of `x`, where x is the argument,
-   * and e is Euler's constant (2.718…), the base of the natural logarithm.
-   */
-  public static exp: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns subtracting 1 from exp(x) of each element of `x`.
-   */
-  public static expm1: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Creates an identity matrix of size `n` and type `type`.
-   */
-  public static eye: <T extends NDArray>(n: number) => T;
-
-  /**
-   * Fills `x` with a scalar value
-   */
-  public static fill: <T extends NDArray>(
-    x: T | ArrayLike<any>,
-    value: number | ((index: number) => number)
-  ) => T;
-
-  /**
-   * Returns the largest integer less than or equal to a number of each element of `x`.
-   */
-  public static floor: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Equivalent to `TypedArray.prototype.forEach`.
-   */
-  public static forEach: <T extends NDArray>(
-    x: T,
-    f: (value: number, i: number, src: TypedArray) => void
-  ) => void;
-
-  /**
-   * Returns the nearest single precision float representation of each element of `x`.
-   */
-  public static fround: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
-   */
-  public static gauss: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Gets the element at `i, j, ..., n` from `x`
-   */
-  public static get: <T extends NDArray>(x: T | ArrayLike<any>, ...indices: number[]) => number;
-
-  /**
-   * Determines the inverse of `x`.
-   * Accelerated with LAPACK `?getri`.
-   */
-  public static inv: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the natural logarithm (log_e, also ln) of each element of `x`.
-   */
-  public static log: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the natural logarithm (log_e, also ln) of 1 + x for each element of `x`.
-   */
-  public static log10: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the base 2 logarithm of each element of `x`.
-   */
-  public static log1p: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the base 10 logarithm of each element of `x`.
-   */
-  public static log2: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Performs full LU decomposition on `x`.
-   * Accelerated with LAPACK `?getrf`.
-   */
-  public static lu: <T extends NDArray>(x: T | ArrayLike<any>) => [T, T, Int32Array];
-
-  /**
-   * Performs LU factorization on `x`.
-   * Accelerated with LAPACK `?getrf`.
-   */
-  public static lu_factor: <T extends NDArray>(x: T | ArrayLike<any>) => [T, Int32Array];
-
-  /**
-   * Creates a magic square matrix of `size`
-   */
-  public static magic: <T extends NDArray>(size: number) => T;
-
-  /**
-   * Equivalent to `TypedArray.prototype.map`.
-   */
-  public static map: <T extends NDArray>(
-    x: T | ArrayLike<any>,
-    f: (value: number, i: number, src: TypedArray) => number
-  ) => T;
-
-  /**
-   * Creates a matrix of `r` rows and `c` columns.
-   */
-  public static matrix: <T extends NDArray>(r: number, c: number) => T;
-
-  /**
-   * Gets the maximum value (largest) element of `x`.
-   * Accelerated with BLAS `i?amax`.
-   */
-  public static max: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Gets the arithmetic mean of `x`.
-   */
-  public static mean: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Gets the minimum value (smallest) element of `x`.
-   */
-  public static min: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Multiplies two matrices `x` and `y` of matching dimensions.
-   * Accelerated with BLAS `?gemm`.
-   */
-  public static multiply: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Calculates the norm of current array (also called L2 norm or Euclidean length).
-   * Accelerated with BLAS `?nrm2`.
-   */
-  public static norm: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Normalizes `x`.
-   */
-  public static normalize: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Creates an array containing ones (`1`) of shape `shape`
-   */
-  public static ones: <T extends NDArray>(...shape: number[]) => T;
-
-  /**
-   * Returns each element of `x` to the exponent power, that is, element^exponent.
-   */
-  public static pow: <T extends NDArray>(x: T | ArrayLike<any>, exponent: number) => T;
-
-  /**
-   * Product of all elements of `x`.
-   */
-  public static prod: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Hadamard product of `x` and `y`
-   */
-  public static product: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Projects the `y` onto `x` using the projection formula `(y * (x * y / y * y))`.
-   */
-  public static project: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Pushes a new `value` into `x`.
-   */
-  public static push: <T extends NDArray>(x: T | ArrayLike<any>, value: number) => T;
-
-  /**
-   * Creates a vector containing random samples from a uniform distribution over `[0, 1)` of shape `shape`
-   */
-  public static random: <T extends NDArray>(...shape: number[]) => T;
-
-  /**
-   * Creates an array containing a range (can be either ascending or descending)
-   * of numbers specified by the arguments provided (e.g. `NDArray.range(0, .5, 2)`
-   * gives an array containing all numbers in the interval `[0, 2)` separated by
-   * steps of `0.5`)
-   */
-  public static range: <T extends NDArray>(...args: number[]) => T;
-
-  /**
-   * Finds the rank of `x` using gaussian elimination.
-   */
-  public static rank: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Gets the element-wise reciprocal of `x`.
-   */
-  public static reciprocal: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Equivalent to `TypedArray.prototype.reduce`.
-   */
-  public static reduce: (
-    x: NDArray,
-    f: (acc: number, value: number, i: number, src: TypedArray) => number,
-    initialValue?: number
-  ) => number;
-
-  /**
-   * Reshapes `x`
-   */
-  public static reshape: <T extends NDArray>(x: T | ArrayLike<any>, ...shape: number[]) => T;
-
-  /**
-   * Returns the value of each element of `x` rounded to the nearest integer.
-   */
-  public static round: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Adds a multiple of one row multiplied by `scalar` to another inside `x`.
-   */
-  public static row_add: <T extends NDArray>(
-    x: T | ArrayLike<any>,
-    dest: number,
-    source: number,
-    scalar?: number
-  ) => T;
-
-  /**
-   * Multiplies all elements of `x` with a specified `scalar`.
-   * Accelerated with BLAS `?scal`.
-   */
-  public static scale: <T extends NDArray>(x: T | ArrayLike<any>, scalar: number) => T;
-
-  /**
-   * Sets the element at `i, j, ..., n` to `value`.
-   */
-  public static set: <T extends NDArray>(x: T, ...args: number[]) => void;
-
-  /**
-   * Returns the sign of each element of `x`, indicating
-   * whether it is positive, negative or zero.
-   */
-  public static sign: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the sine of each element of `x`.
-   */
-  public static sin: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the hyperbolic sine of each element of `x`.
-   */
-  public static sinh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Slices `x` in the corresponding dimension
-   */
-  public static slice: <T extends NDArray>(
-    x: T | ArrayLike<any>,
-    start?: number,
-    step?: number,
-    end?: number
-  ) => T;
-
-  /**
-   * Solves the equation AX = B (where A is `x` and B is `y`).
-   * Accelerated with LAPACK `?gesv`.
-   */
-  public static solve: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the positive square root of each element of `x`.
-   */
-  public static sqrt: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Asserts if `x` is square.
-   */
-  public static square: <T extends NDArray>(x: T | ArrayLike<any>) => void;
-
-  /**
-   * Subtracts `y` from `x`.
-   */
-  public static subtract: <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>) => T;
-
-  /**
-   * Sum of `x`
-   */
-  public static sum: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Swaps two rows `i` and `j` in `x`.
-   */
-  public static swap: <T extends NDArray>(x: T | ArrayLike<any>, i: number, j: number) => T;
-
-  /**
-   * Returns the tangent of each element of `x`.
-   */
-  public static tan: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the hyperbolic tangent of each element of `x`.
-   */
-  public static tanh: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Converts `x` into a JavaScript array.
-   */
-  public static toArray: <T extends NDArray>(x: T | ArrayLike<any>) => number[];
-
-  /**
-   * Converts `x` into a readable formatted string.
-   */
-  public static toString: <T extends NDArray>(x: T | ArrayLike<any>) => string;
-
-  /**
-   * Gets the trace of `x` (the sum of all diagonal elements).
-   */
-  public static trace: <T extends NDArray>(x: T | ArrayLike<any>) => number;
-
-  /**
-   * Transposes `x` (mirror across the diagonal).
-   */
-  public static transpose: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Returns the integer part of each element of `x`,
-   * removing any fractional digits.
-   */
-  public static trunc: <T extends NDArray>(x: T | ArrayLike<any>) => T;
-
-  /**
-   * Creates an array containing zeros (`0`) of shape `shape`
-   */
-  public static zeros: <T extends NDArray>(...shape: number[]) => T;
-
-  public [inspectSymbol]!: () => string;
-
-  /**
-   * Returns the absolute value of each element of current array.
-   */
-  public abs!: () => this;
-
-  /**
-   * Returns the arccosine of each element of current array.
-   */
-  public acos!: () => this;
-
-  /**
-   * Returns the hyperbolic arccosine of each element of current array.
-   */
-  public acosh!: () => this;
-
-  /**
-   * Adds `x` multiplied by `alpha` to the current array.
-   * Accelerated with BLAS `?axpy`.
-   */
-  public add!: <T extends NDArray>(y: T, alpha?: number) => this;
-
+  public data: TypedArray = new Float64Array(0);
+  
   /**
-   * Determines the angle between the current vector and `x`.
+   * @name dtype
+   * @memberof NDArray.prototype
+   * @type String
+   * @default 'float64'
    */
-  public angle!: <T extends NDArray>(x: T) => number;
+  public dtype: DType = 'float64';
 
   /**
-   * Returns the arcsine of each element of current array.
+   * @name length
+   * @memberof NDArray.prototype
+   * @type Number
+   * @default 0
    */
-  public asin!: () => this;
-
-  /**
-   * Returns the hyperbolic arcsine of each element of current array.
-   */
-  public asinh!: () => this;
-
-  /**
-   * Returns the arctangent of each element of current array.
-   */
-  public atan!: () => this;
-
-  /**
-   * Returns the hyperbolic arctangent of each element of current array.
-   */
-  public atanh!: () => this;
-
-  /**
-   * Augments `x` with current matrix.
-   */
-  public augment!: <T extends NDArray>(x: T) => this;
-
-  /**
-   * Perform binary operation `f` on `x` in the current array.
-   */
-  public binOp!: <T extends NDArray>(y: T, f: (a: number, b: number, index: number) => number) => this;
-
-  /**
-   * Returns the cube root of each element of current array.
-   */
-  public cbrt!: () => this;
-
-  /**
-   * Returns smallest integer greater than or equal to of each element of current array.
-   */
-  public ceil!: () => this;
-
-  /**
-   * Asserts if indices `i, j, ..., n` are within the bounds of current array
-   */
-  public check!: (...indices: number[]) => void;
-
-  /**
-   * Combines the current vector with `x`
-   */
-  public combine!: <T extends NDArray>(x: T) => this;
-
-  /**
-   * Makes a copy of the class and underlying data
-   */
-  public copy!: () => this;
-
-  /**
-   * Returns the cosine of each element of current array.
-   */
-  public cos!: () => this;
-
-  /**
-   * Returns the hyperbolic cosine of each element of current array.
-   */
-  public cosh!: () => this;
-
-  /**
-   * Computes the cross product of the current vector and the vector `x`
-   * This operation can only be calculated for vectors with three components.
-   * Otherwise it throws an exception.
-   * The method returns a new (result) vector.
-   */
-  public cross!: <T extends NDArray>(x: T) => this;
-
-  public data: TypedArray = new Float32Array(0);
-
-  /**
-   * Gets the determinant of current matrix using LU factorization.
-   */
-  public det!: () => number;
-
-  /**
-   * Gets the diagonal of current matrix.
-   */
-  public diagonal!: () => this;
-
-  /**
-   * Performs dot multiplication with `x` and current array
-   * Accelerated with BLAS `?dot`.
-   */
-  public dot!: <T extends NDArray>(y: T) => number;
-
-  public dtype: DType = 'float32';
-
-  /**
-   * Gets eigenvalues and eigenvectors of the current matrix using the Jacobi method.
-   * Accelerated with LAPACK `?geev`.
-   */
-  public eig!: <T extends NDArray>() => [T, T];
-
-  /**
-   * Checks if current array and `x` are equal.
-   */
-  public equals!: <T extends NDArray>(y: T) => boolean;
-
-  /**
-   * Asserts if current array and `x` have the same shape
-   */
-  public equidimensional!: <T extends NDArray>(y: T) => void;
-
-  /**
-   * Asserts if current array and `x` have the same length
-   */
-  public equilateral!: <T extends NDArray>(y: T) => void;
-
-  /**
-   * Returns e^x of each element of current array, where x is the argument,
-   * and e is Euler's constant (2.718…), the base of the natural logarithm.
-   */
-  public exp!: () => this;
-
-  /**
-   * Returns subtracting 1 from exp(x) of each element of current array.
-   */
-  public expm1!: () => this;
-
-  /**
-   * Fills the current array with a scalar value
-   */
-  public fill!: (value: number | ((index: number) => number)) => this;
-
-  /**
-   * Returns the largest integer less than or equal to a number of each element of current array.
-   */
-  public floor!: () => this;
-
-  /**
-   * Equivalent to `TypedArray.prototype.forEach`.
-   */
-  public forEach!: (f: (value: number, i: number, src: TypedArray) => void) => void;
-
-  /**
-   * Returns the nearest single precision float representation of each element of current array.
-   */
-  public fround!: () => this;
-
-  /**
-   * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of current matrix.
-   */
-  public gauss!: () => this;
-
-  /**
-   * Gets the element at `i, j, ..., n` from current vector.
-   */
-  public get!: (...indices: number[]) => number;
-
-  /**
-   * Determines the inverse of current matrix using Gaussian elimination.
-   * Accelerated with LAPACK `?getri`.
-   */
-  public inv!: () => this;
-
   public length: number = 0;
 
   /**
-   * Returns the natural logarithm (log_e, also ln) of each element of current array.
+   * @name shape
+   * @memberof NDArray.prototype
+   * @type Number[]
+   * @default [0]
    */
-  public log!: () => this;
-
-  /**
-   * Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
-   */
-  public log10!: () => this;
-
-  /**
-   * Returns the base 2 logarithm of each element of current array.
-   */
-  public log1p!: () => this;
-
-  /**
-   * Returns the base 10 logarithm of each element of current array.
-   */
-  public log2!: () => this;
-
-  /**
-   * Performs full LU decomposition on current matrix.
-   * Accelerated with LAPACK `?getrf`.
-   */
-  public lu!: <T extends NDArray>() => [T, T, Int32Array];
-
-  /**
-   * Performs LU factorization on current matrix.
-   * Accelerated with LAPACK `?getrf`.
-   */
-  public lu_factor!: () => [this, Int32Array];
-
-  /**
-   * Equivalent to `TypedArray.prototype.map`.
-   */
-  public map!: (f: (value: number, i: number, src: TypedArray) => number) => this;
-
-  /**
-   * Gets the maximum value (smallest) element of current array.
-   */
-  public max!: () => number;
-
-  /**
-   * Gets the arithmetic mean of current array.
-   */
-  public mean!: () => number;
-
-  /**
-   * Gets the minimum value (smallest) element of current array.
-   */
-  public min!: () => number;
-
-  /**
-   * Multiplies current matrix with `x`.
-   * Accelerated with BLAS `?gemm`.
-   */
-  public multiply!: <T extends NDArray>(x: T) => this;
-
-  /**
-   * Calculates the norm of current array (also called L2 norm or Euclidean length).
-   * Accelerated with BLAS `?nrm2`.
-   */
-  public norm!: () => number;
-
-  /**
-   * Normalizes current vector.
-   */
-  public normalize!: () => this;
-
-  /**
-   * Returns each element of current array to the exponent power, that is, element^exponent.
-   */
-  public pow!: (exponent: number) => this;
-
-  /**
-   * Product of all elements of current array
-   */
-  public prod!: () => number;
-
-  /**
-   * Hadamard product of current matrix and `x`
-   */
-  public product!: <T extends NDArray>(y: T) => this;
-
-  /**
-   * Projects the current vector onto `x` using the projection formula `(y * (x * y / y * y))`.
-   */
-  public project!: <T extends NDArray>(x: T) => this;
-
-  /**
-   * Pushes a new `value` into current vector.
-   */
-  public push!: (value: number) => this;
-
-  /**
-   * Finds the rank of current matrix using gaussian elimination.
-   */
-  public rank!: () => number;
-
-  /**
-   * Gets the element-wise reciprocal of current array.
-   */
-  public reciprocal!: () => this;
-
-  /**
-   * Equivalent to `TypedArray.prototype.reduce`.
-   */
-  public reduce!: (
-    f: (acc: number, value: number, i: number, src: TypedArray) => number,
-    initialValue?: number
-  ) => number;
-
-  /**
-   * Reshapes current array
-   */
-  public reshape!: (...shape: number[]) => this;
-
-  /**
-   * Returns the value of each element of current array rounded to the nearest integer.
-   */
-  public round!: () => this;
-
-  /**
-   * Adds a multiple of one row multiplied by `scalar` to another inside current matrix.
-   */
-  public row_add!: (dest: number, source: number, scalar?: number) => this;
-
-  /**
-   * Multiplies all elements of current array with a specified `scalar`.
-   * Accelerated with BLAS `?scal`.
-   */
-  public scale!: (scalar: number) => this;
-
-  /**
-   * Sets the element at `i, j, ..., n` to `value`.
-   */
-  public set!: (...args: number[]) => void;
-
   public shape: number[] = [0];
 
   /**
-   * Returns the sign of each element of current array, indicating
-   * whether it is positive, negative or zero.
+   * @name strides
+   * @memberof NDArray.prototype
+   * @type Number[]
+   * @default [0]
    */
-  public sign!: () => this;
+  public strides: number[] = [0];
 
-  /**
-   * Returns the sine of each element of current array.
-   */
-  public sin!: () => this;
-
-  /**
-   * Returns the hyperbolic sine of each element of current array.
-   */
-  public sinh!: () => this;
-
-  /**
-   * Slices the current array in the corresponding dimension
-   */
-  public slice!: (start?: number, step?: number, end?: number) => this;
-
-  /**
-   * Solves the equation AX = B (where A is current matrix and B is `x`).
-   * Accelerated with LAPACK `?gesv`.
-   */
-  public solve!: <T extends NDArray>(x: T) => this;
-
-  /**
-   * Returns the positive square root of each element of current array.
-   */
-  public sqrt!: () => this;
-
-  /**
-   * Asserts if current matrix is square.
-   */
-  public square!: () => void;
-
-  /**
-   * Subtracts `x` from the current array.
-   * Accelerated with BLAS `?axpy`.
-   */
-  public subtract!: <T extends NDArray>(y: T) => this;
-
-  /**
-   * Sum of array elements
-   */
-  public sum!: () => number;
-
-  /**
-   * Swaps two rows `i` and `j` in current matrix
-   */
-  public swap!: (i: number, j: number) => this;
-
-  /**
-   * Returns the tangent of each element of current array.
-   */
-  public tan!: () => this;
-
-  /**
-   * Returns the hyperbolic tangent of each element of current array.
-   */
-  public tanh!: () => this;
-
-  /**
-   * Converts current vector into a JavaScript array.
-   */
-  public toArray!: () => number[];
-
-  /**
-   * Converts current vector into a readable formatted string.
-   */
-  public toString!: () => string;
-
-  /**
-   * Gets the trace of the matrix (the sum of all diagonal elements).
-   */
-  public trace!: () => number;
-
-  /**
-   * Transposes current matrix (mirror across the diagonal).
-   */
-  public transpose!: () => this;
-
-  /**
-   * Returns the integer part of each element of current array,
-   * removing any fractional digits.
-   */
-  public trunc!: () => this;
+  public [inspectSymbol]: () => string = toString;
+  public abs = abs;
+  public acos = acos;
+  public acosh = acosh;
+  public add = add;
+  public angle = angle;
+  public asin = asin;
+  public asinh = asinh;
+  public atan = atan;
+  public atanh = atanh;
+  public augment = augment;
+  public binOp = binOp;
+  public cbrt = cbrt;
+  public ceil = ceil;
+  public check = check;
+  public combine = combine;
+  public copy = copy;
+  public cos = cos;
+  public cosh = cosh;
+  public cross = cross;
+  public det = det;
+  public diagonal = diagonal;
+  public dot = dot;
+  public eig = eig;
+  public equals = equals;
+  public equidimensional = equidimensional;
+  public equilateral = equilateral;
+  public exp = exp;
+  public expm1 = expm1;
+  public fill = fill;
+  public floor = floor;
+  public forEach = forEach;
+  public fround = fround;
+  public gauss = gauss;
+  public get = get;
+  public inv = inv;
+  public log = log;
+  public log10 = log10;
+  public log1p = log1p;
+  public log2 = log2;
+  public lu = lu;
+  public lu_factor = lu_factor;
+  public map = map;
+  public max = max;
+  public mean = mean;
+  public min = min;
+  public multiply = multiply;
+  public norm = norm;
+  public normalize = normalize;
+  public pow = pow;
+  public prod = prod;
+  public product = product;
+  public project = project;
+  public push = push;
+  public rank = rank;
+  public reciprocal = reciprocal;
+  public reduce = reduce;
+  public reshape = reshape;
+  public round = round;
+  public row_add = row_add;
+  public scale = scale;
+  public set = set;
+  public sign = sign;
+  public sin = sin;
+  public sinh = sinh;
+  public slice = slice;
+  public solve = solve;
+  public sqrt = sqrt;
+  public square = square;
+  public subtract = subtract;
+  public sum = sum;
+  public swap = swap;
+  public tan = tan;
+  public tanh = tanh;
+  public toArray = toArray;
+  public toString = toString;
+  public trace = trace;
+  public transpose = transpose;
+  public trunc = trunc;
 
   public constructor(
     data?: any,
-    options?: any
+    options?: {
+      shape?: number[];
+      length?: number;
+      strides?: number[];
+      dtype?: DType;
+    }
   ) {
-    if (is_typed_array(data)) {
-      this.data = data as TypedArray;
-      this.shape = typeof options === 'object' && options.hasOwnProperty('shape') ? options.shape : [this.data.length];
-      this.length = this.data.length;
-      this.dtype = typeof options === 'object' && options.hasOwnProperty('dtype') ? options.dtype : get_dtype(data);
-    } else if (data instanceof Array) {
-      this.data = new (get_type(this.dtype))(flatten(data));
-      this.shape = get_shape(data);
-      this.length = this.data.length;
-    } else if (data instanceof NDArray) {
+    if (!data) {
+      return;
+    }
+
+    if (data instanceof NDArray) {
       return data.copy();
     }
+
+    if (data instanceof NDIter) {
+      if (!options || !options.dtype) {
+        throw new Error('dtype is missing');
+      }
+
+      if (data.shape) {
+        options.shape = data.shape;
+      }
+
+      const length = data.length;
+      data = new (get_type(options.dtype))(length);
+    }
+
+    const {
+      shape = get_shape(data),
+      length = get_length(shape),
+      strides = get_strides(shape),
+      dtype = get_dtype(data),
+    } = options || {};
+
+    this.data = is_typed_array(data) ? data : new (get_type(dtype))(flatten(data));
+    this.shape = shape;
+    this.length = length;
+    this.dtype = dtype;
+    this.strides = strides;
   }
 
   /**
-   * Equivalent to this.get(0)
+   * @name x
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 0
+   * @type Number
    */
   public get x(): number {
     return this.get(0);
   }
 
-  /**
-   * Equivalent to this.set(0, value)
-   */
   public set x(value: number) {
     this.set(0, value);
   }
 
   /**
-   * Equivalent to this.get(1)
+   * @name y
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 1
+   * @type Number
    */
   public get y(): number {
     return this.get(1);
   }
 
-  /**
-   * Equivalent to this.set(1, value)
-   */
   public set y(value: number) {
     this.set(1, value);
   }
 
   /**
-   * Equivalent to this.get(2)
+   * @name z
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 2
+   * @type Number
    */
   public get z(): number {
     return this.get(2);
   }
 
-  /**
-   * Equivalent to this.set(2, value)
-   */
   public set z(value: number) {
     this.set(2, value);
   }
 
   /**
-   * Equivalent to this.get(3)
+   * @name w
+   * @memberof NDArray.prototype
+   * @description Gets or sets the value at index 3
+   * @type Number
    */
   public get w(): number {
     return this.get(3);
   }
 
-  /**
-   * Equivalent to this.set(3, value)
-   */
   public set w(value: number) {
     this.set(3, value);
   }
 
   /**
-   * Transposes current matrix (mirror across the diagonal).
+   * @name T
+   * @memberof NDArray.prototype
+   * @description Short for this.copy().transpose()
+   * @type NDArray
    */
-  public get T(): this {
-    return this.transpose();
+  public get T() {
+    return this.copy().transpose();
   }
 }
 
-import './abs';
-import './acos';
-import './acosh';
-import './add';
-import './angle';
-import './array';
-import './asin';
-import './asinh';
-import './atan';
-import './atanh';
-import './augment';
-import './binOp';
-import './cbrt';
-import './ceil';
-import './check';
-import './combine';
-import './copy';
-import './cos';
-import './cosh';
-import './cross';
-import './det';
-import './diagonal';
-import './dot';
-import './eig';
-import './equals';
-import './equidimensional';
-import './equilateral';
-import './exp';
-import './expm1';
-import './eye';
-import './fill';
-import './floor';
-import './forEach';
-import './fround';
-import './gauss';
-import './get';
-import './inv';
-import './log';
-import './log10';
-import './log1p';
-import './log2';
-import './lu';
-import './lu_factor';
-import './magic';
-import './map';
-import './matrix';
-import './max';
-import './mean';
-import './min';
-import './multiply';
-import './norm';
-import './normalize';
-import './ones';
-import './pow';
-import './prod';
-import './product';
-import './project';
-import './push';
-import './random';
-import './range';
-import './rank';
-import './reciprocal';
-import './reduce';
-import './reshape';
-import './round';
-import './row_add';
-import './scale';
-import './set';
-import './sign';
-import './sin';
-import './sinh';
-import './slice';
-import './solve';
-import './sqrt';
-import './square';
-import './subtract';
-import './sum';
-import './swap';
-import './tan';
-import './tanh';
-import './toArray';
-import './toString';
-import './trace';
-import './transpose';
-import './trunc';
-import './zeros';
+export { abs } from './abs';
+export { acos } from './acos';
+export { acosh } from './acosh';
+export { add } from './add';
+export { angle } from './angle';
+export { array } from './array';
+export { asin } from './asin';
+export { asinh } from './asinh';
+export { atan } from './atan';
+export { atanh } from './atanh';
+export { augment } from './augment';
+export { binOp } from './binOp';
+export { cbrt } from './cbrt';
+export { ceil } from './ceil';
+export { check } from './check';
+export { combine } from './combine';
+export { copy } from './copy';
+export { cos } from './cos';
+export { cosh } from './cosh';
+export { cross } from './cross';
+export { det } from './det';
+export { diagonal } from './diagonal';
+export { dot } from './dot';
+export { eig } from './eig';
+export { equals } from './equals';
+export { equidimensional } from './equidimensional';
+export { equilateral } from './equilateral';
+export { exp } from './exp';
+export { expm1 } from './expm1';
+export { eye } from './eye';
+export { fill } from './fill';
+export { floor } from './floor';
+export { forEach } from './forEach';
+export { fround } from './fround';
+export { gauss } from './gauss';
+export { get } from './get';
+export { inv } from './inv';
+export { log } from './log';
+export { log10 } from './log10';
+export { log1p } from './log1p';
+export { log2 } from './log2';
+export { lu } from './lu';
+export { lu_factor } from './lu_factor';
+export { magic } from './magic';
+export { map } from './map';
+export { matrix } from './matrix';
+export { max } from './max';
+export { mean } from './mean';
+export { min } from './min';
+export { multiply } from './multiply';
+export { norm } from './norm';
+export { normalize } from './normalize';
+export { ones } from './ones';
+export { pow } from './pow';
+export { prod } from './prod';
+export { product } from './product';
+export { project } from './project';
+export { push } from './push';
+export { random } from './random';
+export { range } from './range';
+export { rank } from './rank';
+export { reciprocal } from './reciprocal';
+export { reduce } from './reduce';
+export { reshape } from './reshape';
+export { round } from './round';
+export { row_add } from './row_add';
+export { scale } from './scale';
+export { set } from './set';
+export { sign } from './sign';
+export { sin } from './sin';
+export { sinh } from './sinh';
+export { slice } from './slice';
+export { solve } from './solve';
+export { sqrt } from './sqrt';
+export { square } from './square';
+export { subtract } from './subtract';
+export { sum } from './sum';
+export { swap } from './swap';
+export { tan } from './tan';
+export { tanh } from './tanh';
+export { toArray } from './toArray';
+export { toString } from './toString';
+export { trace } from './trace';
+export { transpose } from './transpose';
+export { trunc } from './trunc';
+export { zeros } from './zeros';
 
 try {
   (window as any).v = NDArray;

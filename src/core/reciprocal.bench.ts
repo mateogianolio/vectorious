@@ -1,14 +1,15 @@
-import v = require('..');
+import { reciprocal } from './reciprocal';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'reciprocal',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.reciprocal();
   },
-  (x: v): void => {
-    v.reciprocal(x);
+  (x): void => {
+    reciprocal(x);
   }
 );

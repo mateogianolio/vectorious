@@ -1,17 +1,15 @@
-import v = require('..');
+import { set } from './set';
+import { random } from './random';
 import { bench } from '../bench';
 
-const { random, floor } = Math;
-const r: (n: number) => v = (n: number): v =>
-  v.array(new Float32Array(n)).fill(random);
 bench(
-  'v',
+  'NDArray',
   'set',
-  (n: number): [v, number, number] => [v.random(n), floor(random() * n),  random()],
-  (x: v, i: number, alpha: number) => {
+  (n: number) => [random(n), Math.floor(Math.random() * n),  Math.random()],
+  (x, i: number, alpha: number) => {
     x.set(i, alpha);
   },
-  (x: v, i: number, alpha: number) => {
-    v.set(x, i, alpha);
+  (x, i: number, alpha: number) => {
+    set(x, i, alpha);
   }
 );

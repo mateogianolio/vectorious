@@ -1,14 +1,15 @@
-import v = require('..');
+import { min } from './min';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'min',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.min();
   },
-  (x: v): void => {
-    v.min(x);
+  (x): void => {
+    min(x);
   }
 );

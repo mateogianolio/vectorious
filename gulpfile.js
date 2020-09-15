@@ -7,24 +7,10 @@
       uglify = require('gulp-uglify'),
       browserify = require('browserify'),
       source = require('vinyl-source-stream'),
-      del = require('del'),
-      typedoc = require('gulp-typedoc');
+      del = require('del');
 
   gulp.task('clean', function () {
     return del(['built', 'dist']);
-  });
-
-  gulp.task('docs', function () {
-    return gulp
-      .src(['src/**/*.ts'])
-      .pipe(typedoc({
-        module: 'commonjs',
-        target: 'es5',
-        mode: 'file',
-        out: 'docs/',
-        name: 'Vectorious',
-        readme: 'none',
-      }))
   });
 
   gulp.task('build', function () {

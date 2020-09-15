@@ -1,14 +1,15 @@
-import v = require('..');
+import { sum } from './sum';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'sum',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.sum();
   },
-  (x: v): void => {
-    v.sum(x);
+  (x): void => {
+    sum(x);
   }
 );

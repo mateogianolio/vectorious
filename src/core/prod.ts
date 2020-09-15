@@ -1,14 +1,38 @@
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
 
-NDArray.prod = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).prod();
+/**
+ * @static
+ * @memberof module:Globals
+ * @function prod
+ * @description Product of all elements of `x`.
+ * @param {NDArray} x
+ * @returns {Number}
+ * @example
+ * import { prod } from 'vectorious/core/prod';
+ * 
+ * prod([1, 2, 3]); // => 6
+ */
+export const prod = (x: NDArray | ArrayLike<any>): number => array(x).prod();
 
-NDArray.prototype.prod = function<T extends NDArray>(this: T): number {
-  const { data: d1, length: l1 } = this;
+/**
+ * @function prod
+ * @memberof NDArray.prototype
+ * @description Product of all elements of current array
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).prod(); // => 6
+ */
+export default function(this: NDArray): number {
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
 
-  let i: number;
   let prod: number = 1;
-  for (i = 0; i < l1; i += 1) {
-    prod *= d1[i];
+  for (const i of iter) {
+    prod *= d1[i!];
   }
 
   return prod;

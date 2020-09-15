@@ -1,13 +1,39 @@
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
 
-NDArray.log2 = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).log2();
+const { log2: f } = Math;
 
-NDArray.prototype.log2 = function<T extends NDArray>(this: T): T {
-  const { data: d1, length: l1 } = this;
+/**
+ * @static
+ * @memberof module:Globals
+ * @function log2
+ * @description Returns the base 2 logarithm of each element of `x`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { log2 } from 'vectorious/core/log2';
+ * 
+ * log2([1, 2, 4]); // => array([0, 1, 2])
+ */
+export const log2 = (x: NDArray | ArrayLike<any>): NDArray => array(x).log2();
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] = Math.log2(d1[i]);
+/**
+ * @function log2
+ * @memberof NDArray.prototype
+ * @description Returns the base 2 logarithm of each element of current array.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 4]).log2(); // => array([0, 1, 2])
+ */
+export default function(this: NDArray): NDArray {
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
+
+  for (const i of iter) {
+    d1[i!] = f(d1[i!]);
   }
 
   return this;

@@ -1,30 +1,47 @@
 import { NDArray } from './';
+import { NDIter } from '../iterator';
+import { array } from './array';
 
 /**
- * Finds the rank of the matrix using gaussian elimination.
+ * @static
+ * @memberof module:Globals
+ * @function rank
+ * @description Finds the rank of `x` using gaussian elimination.
+ * @param {NDArray} x
+ * @param {Number} tolerance
+ * @returns {Number}
+ * @example
+ * import { rank } from 'vectorious/core/rank';
+ * 
+ * rank([[1, 1, 1], [2, 2, 2], [3, 3, 3]]); // => 1
  */
-NDArray.rank = <T extends NDArray>(x: T | ArrayLike<any>): number => NDArray.array<T>(x).rank();
+export const rank = (x: NDArray | ArrayLike<any>, tolerance: number = 1e-6): number => array(x).rank(tolerance);
 
 /**
- * Finds the rank of the matrix using gaussian elimination.
+ * @function rank
+ * @memberof NDArray.prototype
+ * @description Finds the rank of current matrix using gaussian elimination.
+ * @param {Number} tolerance
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 1, 1], [2, 2, 2], [3, 3, 3]]).rank(); // => 1
+ * @todo Switch to SVD algorithm
  */
-NDArray.prototype.rank = function<T extends NDArray>(this: T): number {
-  this.gauss();
+export default function(this: NDArray, tolerance: number = 1e-6): number {
+  const { data: d1 } = this.copy().gauss();
 
-  const [r, c] = this.shape;
-  const { data: d1 } = this;
+  const iter = new NDIter(this);
 
   let rk: number = 0;
-  let i: number;
-  let j: number;
-
-  for (i = 0; i < r; i += 1) {
-    for (j = i; j < c; j += 1) {
-      if (rk <= i && d1[i * c + j] !== 0) {
-        rk += 1;
-        continue;
-      }
+  let [ci, cj] = iter.coords;
+  for (const i of iter) {
+    if (rk <= ci && cj >= ci && d1[i!] > tolerance) {
+      rk += 1;
     }
+
+    [ci, cj] = iter.coords;
   }
 
   return rk;

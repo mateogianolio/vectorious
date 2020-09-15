@@ -1,16 +1,15 @@
-import v = require('..');
+import { push } from './push';
+import { random } from './random';
 import { bench } from '../bench';
 
-const { random } = Math;
-const r: (n: number) => v = (n: number): v => v.random(n);
 bench(
-  'v',
+  'NDArray',
   'push',
-  (n: number): [v, number] => [v.random(n), random()],
-  (x: v, value: number): void => {
+  (n: number) => [random(n), Math.random()],
+  (x, value: number): void => {
     x.push(value);
   },
-  (x: v, value: number): void => {
-    v.push(x, value);
+  (x, value: number): void => {
+    push(x, value);
   }
 );

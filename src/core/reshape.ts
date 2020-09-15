@@ -1,15 +1,43 @@
+import { get_strides } from '../util';
+
 import { NDArray } from './';
+import { array } from './array';
 
-NDArray.reshape = <T extends NDArray>(x: T | ArrayLike<any>, ...shape: number[]): T =>
-  NDArray.array<T>(x).reshape(...shape);
+/**
+ * @static
+ * @memberof module:Globals
+ * @function reshape
+ * @description Reshapes `x`
+ * @param {NDArray} x
+ * @param {Number[]} ...shape
+ * @returns {NDArray}
+ * @example
+ * import { reshape } from 'vectorious/core/reshape';
+ * 
+ * reshape([1, 2, 3, 4], 2, 2); // => array([[1, 2], [3, 4]])
+ */
+export const reshape = (x: NDArray | ArrayLike<any>, ...shape: number[]): NDArray =>
+  array(x).reshape(...shape);
 
-NDArray.prototype.reshape = function<T extends NDArray>(this: T, ...shape: number[]): T {
+/**
+ * @function reshape
+ * @memberof NDArray.prototype
+ * @description Reshapes current array
+ * @param {Number[]} ...shape
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3, 4]).reshape(2, 2); // <=> array([[1, 2], [3, 4]])
+ */
+export default function(this: NDArray, ...shape: number[]): NDArray {
   const { length } = this;
   if (shape.reduce((sum: number, dim: number) => sum * dim, 1) !== length) {
     throw new Error(`shape ${shape} does not match length ${length}`);
   }
 
   this.shape = shape;
+  this.strides = get_strides(shape);
 
   return this;
 };

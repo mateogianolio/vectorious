@@ -1,16 +1,17 @@
-import v = require('..');
+import { inv } from './inv';
+import { random } from './random';
 import { bench } from '../bench';
 
 const { floor, sqrt } = Math;
 
 bench(
-  'v',
+  'NDArray',
   'inv',
-  (n: number): [v] => [v.random(floor(sqrt(n)), floor(sqrt(n)))],
-  (x: v): void => {
+  (n: number) => [random(floor(sqrt(n)), floor(sqrt(n)))],
+  (x): void => {
     x.inv();
   },
-  (x: v): void => {
-    v.inv(x);
+  (x): void => {
+    inv(x);
   }
 );

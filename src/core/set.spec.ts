@@ -2,11 +2,12 @@ import {
   strictEqual,
 } from 'assert';
 
-import v = require('..');
+import { set } from './set';
+import { array } from './array';
 
 describe('(v) set', () => {
   it('should set properties as expected', () => {
-    const x: v = v.array([-1, -1, -1, -1]);
+    const x = array([-1, -1, -1, -1]);
 
     x.set(0, 0);
     x.set(1, 1);
@@ -20,12 +21,12 @@ describe('(v) set', () => {
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.array([-1, -1, -1, -1]);
+    const x = array([-1, -1, -1, -1]);
 
-    v.set(x, 0, 0);
-    v.set(x, 1, 1);
-    v.set(x, 2, 2);
-    v.set(x, 3, 3);
+    set(x, 0, 0);
+    set(x, 1, 1);
+    set(x, 2, 2);
+    set(x, 3, 3);
 
     strictEqual(0, x.data[0]);
     strictEqual(1, x.data[1]);

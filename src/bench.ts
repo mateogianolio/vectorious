@@ -2,12 +2,7 @@ const benchmark: any = require('nodemark');
 const plt: any = require('matplotnode');
 const { execSync } = require('child_process');
 
-export const bench: (
-  group: string,
-  name: string,
-  setup: (n: number) => any[],
-  ...funcs: Array<(...args: any[]) => void>
-) => typeof benchmark = (
+export const bench = (
   group: string,
   name: string,
   setup: (n: number) => any[],
@@ -15,7 +10,7 @@ export const bench: (
 ): typeof benchmark => {
   execSync(`mkdir -p benchmarks/${group}`);
   const filename: string = `benchmarks/${group}/${name}.png`;
-  const xs: number[] = [4, 16, 64, 256, 1024];
+  const xs: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072];
   let ys: number[] = [];
 
   plt.title(name);
@@ -29,7 +24,7 @@ export const bench: (
       const result: typeof benchmark = benchmark(
         (): void => { func(...args); },
         (): void => { args = setup(x); },
-        100
+        250
       );
 
       ys.push(result.milliseconds(3));
@@ -46,7 +41,6 @@ export const bench: (
 
   plt.xlabel('n');
   plt.ylabel('ms');
-  plt.xlim(0, 1024);
 
   plt.grid(true);
   plt.legend();

@@ -38,4 +38,5 @@ export interface INDArray {
   dtype: DType;
   length: number;
   shape: number[];
+  strides: number[];
 }

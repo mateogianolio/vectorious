@@ -1,16 +1,15 @@
-import v = require('..');
+import { swap } from './swap';
+import { random } from './random';
 import { bench } from '../bench';
 
-const { floor, random, sqrt } = Math;
-
 bench(
-  'v',
+  'NDArray',
   'swap',
-  (n: number): [v, number, number] => [v.random(n), floor(random() * sqrt(n)), floor(random() * sqrt(n))],
-  (x: v, i: number, j: number): void => {
+  (n: number) => [random(n), Math.floor(Math.random() * Math.sqrt(n)), Math.floor(Math.random() * Math.sqrt(n))],
+  (x, i: number, j: number): void => {
     x.swap(i, j);
   },
-  (x: v, i: number, j: number): void => {
-    v.swap(x, i, j);
+  (x, i: number, j: number): void => {
+    swap(x, i, j);
   }
 );

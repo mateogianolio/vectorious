@@ -1,19 +1,18 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
-import v = require('..');
+import { equals } from './equals';
+import { log2 } from './log2';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) log2', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.log2(value)), x.log2());
+    equals(map(x, (value: number) => Math.log2(value)), x.log2());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.log2(value)), v.log2(x));
+    equals(map(x, (value: number) => Math.log2(value)), log2(x));
   });
 });

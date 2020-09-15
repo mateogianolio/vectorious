@@ -1,18 +1,40 @@
 import { NDArray } from './';
+import { NDMultiIter } from '../iterator';
+import { array } from './array';
 
-NDArray.product = <T extends NDArray>(x: T | ArrayLike<any>, y: T | ArrayLike<any>): T =>
-  NDArray.array<T>(x).product(NDArray.array<T>(y));
+/**
+ * @static
+ * @memberof module:Globals
+ * @function product
+ * @description Hadamard product of `x` and `y`
+ * @param {NDArray} x
+ * @param {NDArray} y
+ * @returns {NDArray}
+ * @example
+ * import { product } from 'vectorious/core/product';
+ * 
+ * product([1, 2, 3], [4, 5, 6]); // => array([4, 10, 18])
+ */
+export const product = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
+  array(x).product(array(y));
 
-NDArray.prototype.product = function<T extends NDArray>(this: T, x: T): T {
-  this.equilateral(x);
-  this.equidimensional(x);
-
-  const { data: d1, length: l1 } = this;
+/**
+ * @function product
+ * @memberof NDArray.prototype
+ * @description Hadamard product of current matrix and `x`
+ * @returns {NDArray}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).product([4, 5, 6]); // <=> array([4, 10, 18])
+ */
+export default function(this: NDArray, x: NDArray): NDArray {
+  const { data: d1 } = this;
   const { data: d2 } = x;
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] *= d2[i];
+  const iter = new NDMultiIter(this, x);
+  for (const [i, j] of iter) {
+    d1[i!] *= d2[j!];
   }
 
   return this;

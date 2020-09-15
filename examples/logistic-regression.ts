@@ -1,15 +1,20 @@
 // Logistic regression example based on https://github.com/junku901/dnn
-import v = require('../src');
+import { NDArray } from '../src/core';
+import { array } from '../src/core/array';
+import { map } from '../src/core/map';
+import { ones } from '../src/core/ones';
+import { subtract } from '../src/core/subtract';
+import { zeros } from '../src/core/zeros';
 
 // Perform row-wise softmax on matrix
-const softmax: (x: v) => v = (x: v): v => {
+const softmax = (x: NDArray) => {
   const { data: d1 } = x;
   const [, c] = x.shape;
   const max: number = x.max();
   let sum: number;
 
   return x
-    .add(v.ones(...x.shape).scale(-max))
+    .add(ones(...x.shape).scale(-max))
     .exp()
     .map((value: number, index: number) => {
       const i: number = Math.floor(index / c);
@@ -29,10 +34,10 @@ const softmax: (x: v) => v = (x: v): v => {
 };
 
 // Get col-wise mean of matrix as vector
-const mean: (x: v) => v = (x: v): v => {
+const mean = (x: NDArray) => {
   const { data: d1 } = x;
   const [, c] = x.shape;
-  const vec: v = v.zeros(c);
+  const vec = zeros(c);
 
   return vec.map((_: number, index: number): number => {
     let sum: number = 0;
@@ -46,11 +51,11 @@ const mean: (x: v) => v = (x: v): v => {
 };
 
 // Row-wise add vector to matrix
-const addMatVec: (x: v, y: v) => v = (x: v, y: v): v => {
+const addMatVec = (x: NDArray, y: NDArray) => {
   const { data: d1 } = y;
   const [, c] = x.shape;
 
-  return x.map((value: number, index: number): number => {
+  return map(x, (value: number, index: number): number => {
     const j: number = index % c;
 
     return value + d1[j];
@@ -58,37 +63,37 @@ const addMatVec: (x: v, y: v) => v = (x: v, y: v): v => {
 };
 
 ((): void => {
-  const x: v = v.array([
+  const x = array([
     [1, 1, 1, 0, 0],
     [0, 0, 1, 1, 1],
   ]);
 
-  const y: v = v.array([
+  const y = array([
     [1, 0],
     [0, 1],
   ]);
 
-  const w: v = v.zeros(x.shape[1], y.shape[1]);
-  const b: v = v.zeros(y.shape[1]);
+  const w = zeros(x.shape[1], y.shape[1]);
+  const b = zeros(y.shape[1]);
 
   // Learning rate
   const alpha: number = 0.01;
 
-  let prob: v;
-  let delta: v;
+  let prob: NDArray;
+  let delta: NDArray;
 
   // Train
   let i: number;
   for (i = 0; i < 800; i += 1) {
     prob = softmax(addMatVec(x.multiply(w), b));
-    delta = v.subtract(y, prob);
+    delta = subtract(y, prob);
 
     w.add(x.T.multiply(delta).scale(alpha));
     b.add(mean(delta).scale(alpha));
   }
 
   // Predict
-  const z: v = v.array([
+  const z = array([
     [1, 1, 0, 0, 0],
     [0, 0, 0, 1, 1],
     [1, 1, 1, 1, 1],

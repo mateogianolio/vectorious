@@ -1,19 +1,18 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
-import v = require('..');
+import { equals } from './equals';
+import { round } from './round';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) round', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.round(value)), x.round());
+    equals(map(x, (value: number) => Math.round(value)), x.round());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.round(value)), v.round(x));
+    equals(map(x, (value: number) => Math.round(value)), round(x));
   });
 });

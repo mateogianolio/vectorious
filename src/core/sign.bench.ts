@@ -1,14 +1,15 @@
-import v = require('..');
+import { sign } from './sign';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'sign',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.sign();
   },
-  (x: v): void => {
-    v.sign(x);
+  (x): void => {
+    sign(x);
   }
 );

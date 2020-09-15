@@ -1,10 +1,11 @@
-import v = require('..');
+import { ones } from './ones';
 import { bench } from '../bench';
+
 bench(
-  'v',
+  'NDArray',
   'ones',
   (n: number): [number] => [n],
   (n: number): void => {
-    v.ones(n);
+    ones(n);
   }
 );

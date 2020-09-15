@@ -1,5 +1,15 @@
 import { NDArray } from './';
 
-NDArray.array = function<T extends NDArray>(this: new(...args: any[]) => T, ...args: any[]): T {
-  return new this(...args);
-};
+/**
+ * @static
+ * @memberof module:Globals
+ * @function array
+ * @description `array(...args)` is an alias for `new v(...args)`
+ * @param {} ...args
+ * @returns {NDArray}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]); // => array([1, 2, 3])
+ */
+export const array = (...args: any[]): NDArray => new NDArray(...args);

@@ -1,16 +1,17 @@
-import v = require('..');
+import { gauss } from './gauss';
+import { random } from './random';
 import { bench } from '../bench';
 
 const { floor, sqrt } = Math;
 
 bench(
-  'v',
+  'NDArray',
   'gauss',
-  (n: number): [v] => [v.random(floor(sqrt(n)), floor(sqrt(n)))],
-  (x: v): void => {
+  (n: number) => [random(floor(sqrt(n)), floor(sqrt(n)))],
+  (x): void => {
     x.gauss();
   },
-  (x: v): void => {
-    v.gauss(x);
+  (x): void => {
+    gauss(x);
   }
 );

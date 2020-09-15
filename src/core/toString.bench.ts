@@ -1,15 +1,15 @@
-import v = require('..');
+import { toString } from './toString';
+import { random } from './random';
 import { bench } from '../bench';
 
-const r: (n: number) => v = (n: number): v => v.random(n);
 bench(
-  'v',
+  'NDArray',
   'toString',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.toString();
   },
-  (x: v): void => {
-    v.toString(x);
+  (x): void => {
+    toString(x);
   }
 );

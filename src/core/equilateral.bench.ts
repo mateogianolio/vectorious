@@ -1,14 +1,15 @@
-import v = require('..');
+import { equilateral } from './equilateral';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'equilateral',
-  (n: number): [v, v] => [v.random(n), v.random(n)],
-  (x: v, y: v): void => {
+  (n: number) => [random(n), random(n)],
+  (x, y): void => {
     x.equilateral(y);
   },
-  (x: v, y: v): void => {
-    v.equilateral(x, y);
+  (x, y): void => {
+    equilateral(x, y);
   }
 );

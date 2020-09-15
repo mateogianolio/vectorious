@@ -1,13 +1,39 @@
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
 
-NDArray.log1p = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).log1p();
+const { log1p: f } = Math;
 
-NDArray.prototype.log1p = function<T extends NDArray>(this: T): T {
-  const { data: d1, length: l1 } = this;
+/**
+ * @static
+ * @memberof module:Globals
+ * @function log1p
+ * @description Returns the natural logarithm (log_e, also ln) of 1 + x for each element of `x`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { log1p } from 'vectorious/core/log1p';
+ * 
+ * log1p([1, 2, 3]); // => array([0.6931471824645996, 1.0986123085021973, 1.3862943649291992])
+ */
+export const log1p = (x: NDArray | ArrayLike<any>): NDArray => array(x).log1p();
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] = Math.log1p(d1[i]);
+/**
+ * @function log1p
+ * @memberof NDArray.prototype
+ * @description Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]); // <=> array([0.6931471824645996, 1.0986123085021973, 1.3862943649291992])
+ */
+export default function(this: NDArray): NDArray {
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
+
+  for (const i of iter) {
+    d1[i!] = f(d1[i!]);
   }
 
   return this;

@@ -1,14 +1,15 @@
-import v = require('..');
+import { subtract } from './subtract';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'subtract',
-  (n: number): [v, v] => [v.random(n), v.random(n)],
-  (x: v, y: v): void => {
+  (n: number) => [random(n), random(n)],
+  (x, y): void => {
     x.subtract(y);
   },
-  (x: v, y: v): void => {
-    v.subtract(x, y);
+  (x, y): void => {
+    subtract(x, y);
   }
 );

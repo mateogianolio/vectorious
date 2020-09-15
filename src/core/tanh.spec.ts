@@ -1,19 +1,18 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
-import v = require('..');
+import { equals } from './equals';
+import { tanh } from './tanh';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) tanh', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.tanh(value)), x.tanh());
+    equals(map(x, (value: number) => Math.tanh(value)), x.tanh());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.tanh(value)), v.tanh(x));
+    equals(map(x, (value: number) => Math.tanh(value)), tanh(x));
   });
 });

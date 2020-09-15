@@ -1,14 +1,15 @@
-import v = require('..');
+import { log2 } from './log2';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'log2',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.log2();
   },
-  (x: v): void => {
-    v.log2(x);
+  (x): void => {
+    log2(x);
   }
 );

@@ -1,31 +1,21 @@
-import {
-  deepStrictEqual,
-  throws,
-} from 'assert';
-
-import v = require('..');
+import { equals } from './equals';
+import { project } from './project';
+import { array } from './array';
 
 describe('(v) project', () => {
-  it('should throw error if sizes do not match', () => {
-    const x: v = v.array([1]);
-    const y: v = v.array([1, 2]);
-
-    throws(() => { x.project(y); }, Error);
-  });
-
   it('should work as expected', () => {
-    const x: v = v.array([2, 1]);
-    const y: v = v.array([-3, 4]);
-    const z: v = v.array([6 / 25, -8 / 25]);
+    const x = array([2, 1]);
+    const y = array([-3, 4]);
+    const z = array([6 / 25, -8 / 25]);
 
-    deepStrictEqual(z, x.project(y));
+    equals(z, x.project(y));
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.array([2, 1]);
-    const y: v = v.array([-3, 4]);
-    const z: v = v.array([6 / 25, -8 / 25]);
+    const x = array([2, 1]);
+    const y = array([-3, 4]);
+    const z = array([6 / 25, -8 / 25]);
 
-    deepStrictEqual(z, v.project(x, y));
+    equals(z, project(x, y));
   });
 });

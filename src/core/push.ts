@@ -2,11 +2,36 @@ import { TypedArray } from '../types';
 import { get_type } from '../util';
 
 import { NDArray } from './';
+import { array } from './array';
 
-NDArray.push = <T extends NDArray>(x: T | ArrayLike<any>, value: number): T =>
-  NDArray.array<T>(x).push(value);
+/**
+ * @static
+ * @memberof module:Globals
+ * @function push
+ * @description Pushes a new `value` into `x`.
+ * @param {NDArray} x
+ * @param {Number} value
+ * @returns {NDArray}
+ * @example
+ * import { push } from 'vectorious/core/push';
+ * 
+ * push([1, 2, 3], 4); // => array([1, 2, 3, 4])
+ */
+export const push = (x: NDArray | ArrayLike<any>, value: number): NDArray =>
+  array(x).push(value);
 
-NDArray.prototype.push = function<T extends NDArray>(this: T, value: number): T {
+/**
+ * @function push
+ * @memberof NDArray.prototype
+ * @description Pushes a new `value` into current vector.
+ * @param {Number} value
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).push(4); // => array([1, 2, 3, 4])
+ */
+export default function(this: NDArray, value: number): NDArray {
   if (this.shape.length !== 1) {
     throw new Error('push operation not permitted for multidimensional arrays');
   }

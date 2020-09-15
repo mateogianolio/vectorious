@@ -1,14 +1,15 @@
-import v = require('..');
+import { reshape } from './reshape';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'reshape',
-  (n: number): [v, number] => [v.random(n), n],
-  (x: v, n: number): void => {
+  (n: number) => [random(n), n],
+  (x, n: number): void => {
     x.reshape(n);
   },
-  (x: v, n: number): void => {
-    v.reshape(x, n);
+  (x, n: number): void => {
+    reshape(x, n);
   }
 );

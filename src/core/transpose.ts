@@ -1,21 +1,43 @@
 import { NDArray } from './';
+import { array } from './array';
 
-NDArray.transpose = <T extends NDArray>(x: T | ArrayLike<any>): T =>
-  NDArray.array<T>(x).transpose();
+/**
+ * @static
+ * @memberof module:Globals
+ * @function transpose
+ * @description Transposes `x` (mirror across the diagonal).
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { transpose } from 'vectorious/core/transpose';
+ * 
+ * transpose([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // => array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
+ */
+export const transpose = (x: NDArray | ArrayLike<any>): NDArray =>
+  array(x).transpose();
 
-NDArray.prototype.transpose = function<T extends NDArray>(this: T): T {
-  const [r, c] = this.shape;
-  const { data: d1 } = this;
-  const x: T = this.copy().reshape(c, r);
-  const { data: d2 } = x;
-
-  let i: number;
-  let j: number;
-  for (i = 0; i < r; i += 1) {
-    for (j = 0; j < c; j += 1) {
-      d2[j * r + i] = d1[i * c + j];
-    }
+/**
+ * @function transpose
+ * @memberof NDArray.prototype
+ * @description Transposes current matrix (mirror across the diagonal).
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // <=> array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
+ */
+export default function(this: NDArray): NDArray {
+  if (this.shape.length < 2) {
+    return this;
   }
 
-  return x;
+  let tmp = this.shape[0];
+  this.shape[0] = this.shape[1];
+  this.shape[1] = tmp;
+
+  tmp = this.strides[0];
+  this.strides[0] = this.strides[1];
+  this.strides[1] = tmp;
+
+  return this;
 };

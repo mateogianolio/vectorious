@@ -1,36 +1,65 @@
 import { TypedArray } from '../types';
 
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
 
-NDArray.reduce = <T extends NDArray>(
-  x: T,
+/**
+ * @static
+ * @memberof module:Globals
+ * @function reduce
+ * @description Equivalent to `TypedArray.prototype.reduce`.
+ * @param {NDArray} x
+ * @param {Function} f
+ * @param {Number} initialValue
+ * @returns {Number}
+ * @example
+ * import { reduce } from 'vectorious/core/reduce';
+ * 
+ * reduce([1, 2, 3], (a, b) => a + b, 0); // => 6
+ */
+export const reduce = (
+  x: NDArray,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,
   initialValue?: number
-): number => NDArray.array<T>(x).reduce(f, initialValue);
+): number => array(x).reduce(f, initialValue);
 
-NDArray.prototype.reduce = function<T extends NDArray>(
-  this: T,
+/**
+ * @function reduce
+ * @memberof NDArray.prototype
+ * @description Equivalent to `TypedArray.prototype.reduce`.
+ * @param {Function} f
+ * @param {Number} initialValue
+ * @returns {Number}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([1, 2, 3]).reduce((a, b) => a + b, 0); // => 6
+ */
+export default function(
+  this: NDArray,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,
   initialValue?: number
 ): number {
   const { data: d1, length: l1 } = this;
   if (l1 === 0 && typeof initialValue === 'undefined') {
-    throw new Error('Reduce of empty matrix with no initial value.');
+    throw new Error('Reduce of empty array with no initial value.');
   }
 
-  let i: number;
+  const iter = new NDIter(this);
+  const reduce = f.bind(this);
+
   let value: number;
 
   if (typeof initialValue === 'undefined') {
     value = d1[0];
-    i = 1;
+    iter.next();
   } else {
     value = initialValue;
-    i = 0;
   }
 
-  for (; i < l1; i += 1) {
-    value = f.call(this, value, d1[i], i, d1);
+  for (const i of iter) {
+    value = reduce(value, d1[i!], i!, d1);
   }
 
   return value;

@@ -1,14 +1,15 @@
-import v = require('..');
+import { equals } from './equals';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'equals',
-  (n: number): [v, v] => [v.random(n), v.random(n)],
-  (x: v, y: v): void => {
+  (n: number) => [random(n), random(n)],
+  (x, y): void => {
     x.equals(y);
   },
-  (x: v, y: v): void => {
-    v.equals(x, y);
+  (x, y): void => {
+    equals(x, y);
   }
 );

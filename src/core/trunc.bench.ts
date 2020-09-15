@@ -1,14 +1,15 @@
-import v = require('..');
+import { trunc } from './trunc';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'trunc',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.trunc();
   },
-  (x: v): void => {
-    v.trunc(x);
+  (x): void => {
+    trunc(x);
   }
 );

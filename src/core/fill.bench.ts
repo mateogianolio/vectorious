@@ -1,14 +1,15 @@
-import v = require('..');
+import { fill } from './fill';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'fill',
-  (n: number): [v, number] => [v.random(n), Math.random()],
-  (x: v, value: number) => {
+  (n: number) => [random(n), Math.random()],
+  (x, value: number) => {
     x.fill(value);
   },
-  (x: v, value: number) => {
-    v.fill(x, value);
+  (x, value: number) => {
+    fill(x, value);
   }
 );

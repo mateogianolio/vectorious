@@ -1,13 +1,39 @@
 import { NDArray } from './';
+import { array } from './array';
+import { NDIter } from '../iterator';
 
-NDArray.asinh = <T extends NDArray>(x: T | ArrayLike<any>): T => NDArray.array<T>(x).asinh();
+const { asinh: f } = Math;
 
-NDArray.prototype.asinh = function<T extends NDArray>(this: T): T {
-  const { data: d1, length: l1 } = this;
+/**
+ * @static
+ * @memberof module:Globals
+ * @function asinh
+ * @description Returns the hyperbolic arcsine of each element of `x`.
+ * @param {NDArray} x
+ * @returns {NDArray}
+ * @example
+ * import { asinh } from 'vectorious/core/asinh';
+ * 
+ * asinh([0, 1, 2]) // => array([0, 0.8813735842704773, 1.4436354637145996])
+ */
+export const asinh = (x: NDArray | ArrayLike<any>): NDArray => array(x).asinh();
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] = Math.asinh(d1[i]);
+/**
+ * @function asinh
+ * @memberof NDArray.prototype
+ * @description Returns the hyperbolic arcsine of each element of current array.
+ * @returns {this}
+ * @example
+ * import { array } from 'vectorious/core/array';
+ * 
+ * array([0, 1, 2]).asinh() // <=> array([0, 0.8813735842704773, 1.4436354637145996])
+ */
+export default function(this: NDArray): NDArray {
+  const { data: d1 } = this;
+  const iter = new NDIter(this);
+
+  for (const i of iter) {
+    d1[i!] = f(d1[i!]);
   }
 
   return this;

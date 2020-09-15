@@ -1,14 +1,15 @@
-import v = require('..');
+import { atan } from './atan';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'atan',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.atan();
   },
-  (x: v): void => {
-    v.atan(x);
+  (x): void => {
+    atan(x);
   }
 );

@@ -1,19 +1,18 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
-import v = require('..');
+import { equals } from './equals';
+import { atanh } from './atanh';
+import { map } from './map';
+import { random } from './random';
 
 describe('(v) atanh', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.atanh(value)), x.atanh());
+    equals(map(x, (value: number) => Math.atanh(value)), x.atanh());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.map((value: number) => Math.atanh(value)), v.atanh(x));
+    equals(map(x, (value: number) => Math.atanh(value)), atanh(x));
   });
 });

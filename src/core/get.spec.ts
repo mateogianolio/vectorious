@@ -2,11 +2,13 @@ import {
   strictEqual,
 } from 'assert';
 
-import v = require('..');
+import { get } from './get';
+import { array } from './array';
+import { random } from './random';
 
 describe('(v) get', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
     strictEqual(x.data[0], x.get(0));
     strictEqual(x.data[1], x.get(1));
@@ -14,7 +16,7 @@ describe('(v) get', () => {
   });
 
   it('should work as expected', () => {
-    const x: v = v.array([[[-1]], [[-2]], [[3]]]);
+    const x = array([[[-1]], [[-2]], [[3]]]);
 
     strictEqual(x.data[0], x.get(0, 0, 0));
     strictEqual(x.data[1], x.get(1, 0, 0));
@@ -22,10 +24,10 @@ describe('(v) get', () => {
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    strictEqual(x.data[0], v.get(x, 0));
-    strictEqual(x.data[1], v.get(x, 1));
-    strictEqual(x.data[2], v.get(x, 2));
+    strictEqual(x.data[0], get(x, 0));
+    strictEqual(x.data[1], get(x, 1));
+    strictEqual(x.data[2], get(x, 2));
   });
 });

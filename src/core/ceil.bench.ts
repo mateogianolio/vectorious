@@ -1,14 +1,15 @@
-import v = require('..');
+import { ceil } from './ceil';
+import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'ceil',
-  (n: number): [v] => [v.random(n)],
-  (x: v): void => {
+  (n: number) => [random(n)],
+  (x): void => {
     x.ceil();
   },
-  (x: v): void => {
-    v.ceil(x);
+  (x): void => {
+    ceil(x);
   }
 );

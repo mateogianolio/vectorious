@@ -1,19 +1,18 @@
-import {
-  deepStrictEqual,
-} from 'assert';
+import { strictEqual } from 'assert';
 
-import v = require('..');
+import { prod } from './prod';
+import { random } from './random';
 
 describe('(v) prod', () => {
   it('should work as expected', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.reduce((acc: number, value: number) => acc * value, 1), x.prod());
+    strictEqual(x.reduce((acc: number, value: number) => acc * value, 1), x.prod());
   });
 
   it('should work as the static equivalent', () => {
-    const x: v = v.random(3);
+    const x = random(3);
 
-    deepStrictEqual(x.reduce((acc: number, value: number) => acc * value, 1), v.prod(x));
+    strictEqual(x.reduce((acc: number, value: number) => acc * value, 1), prod(x));
   });
 });

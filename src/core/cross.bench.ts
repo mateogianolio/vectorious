@@ -1,15 +1,15 @@
-import v = require('..');
+import { cross } from './cross';
+import { random } from './random';
 import { bench } from '../bench';
 
-const r: (n: number) => v = (n: number): v => v.random(n);
 bench(
-  'v',
+  'NDArray',
   'cross',
-  (): [v, v] => [v.random(3), v.random(3)],
-  (x: v, y: v): void => {
+  () => [random(3), random(3)],
+  (x, y): void => {
     x.cross(y);
   },
-  (x: v, y: v): void => {
-    v.cross(x, y);
+  (x, y): void => {
+    cross(x, y);
   }
 );
