@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node_version: [14.x]
+        os: [ubuntu-latest, macOS-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Setup C++ environment on linux
+      uses: kurocha/setup-cpp@v1
+      if: runner.os == 'Linux'
+
+    - name: Install dependencies on linux
+      run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev libpython-dev
+      if: runner.os == 'Linux'
+
+    - name: Install package dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Test & publish code coverage
+      uses: paambaati/codeclimate-action@v2.6.0
+      env:
+        CC_TEST_REPORTER_ID: 7bc2ff765ac0619975d32fe57959db6374d14a96780a1438ec68ea14036748e1
+      with:
+        coverageCommand: npm test
+        debug: true
