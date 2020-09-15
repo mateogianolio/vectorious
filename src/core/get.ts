@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function get
  * @description Gets the element at `i, j, ..., n` from `x`
  * @param {NDArray} x

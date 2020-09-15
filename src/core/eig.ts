@@ -11,6 +11,7 @@ try {
 } catch (err) {}
 
 /**
+ * @ignore
  *  ┌   ┐    ┌     ┐┌   ┐
  *  │Skl│    │c  −s││Skl│
  *  │   │ := │     ││   │
@@ -31,6 +32,7 @@ const rotate:
 
 /**
  * @static
+ * @memberof module:Globals
  * @function eig
  * @description
  * Gets eigenvalues and eigenvectors of `x` using the Jacobi method.

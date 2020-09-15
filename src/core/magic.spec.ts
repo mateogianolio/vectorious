@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { magic } from './magic';
 import { array } from './array';
 
@@ -12,6 +12,6 @@ describe('(v) magic', () => {
   });
 
   it('should work as expected', () => {
-    deepStrictEqual(array([[8, 1, 6], [3, 5, 7], [4, 9, 2]]), magic(3));
+    equals(array([[8, 1, 6], [3, 5, 7], [4, 9, 2]]), magic(3));
   });
 });

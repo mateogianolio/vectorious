@@ -4,40 +4,39 @@ import {
   TypedArrayConstructor,
 } from './types';
 
-export const flatten: (input: any[]) => number[] = (input: any[]): number[] =>
-  input.reduce(
+export const flatten: (array: any[]) => number[] = (array: any[]): number[] =>
+  array.reduce(
     (acc: any[], next: any): any[] => acc.concat(Array.isArray(next) ? flatten(next) : next),
     []
   );
 
+export const is_typed_array: (array: any) => boolean = (array: any): boolean =>
+  !!(array && array.buffer instanceof ArrayBuffer && array.BYTES_PER_ELEMENT);
 
-export const is_typed_array: (input: any) => boolean = (input: any): boolean =>
-  !!(input && input.buffer instanceof ArrayBuffer && input.BYTES_PER_ELEMENT);
+export const get_length: (shape: number[]) => number = (shape: number[]): number =>
+  shape.reduce((a: number, b: number): number => a * b, 1);
 
-export const get_length: (input: number[]) => number = (input: number[]): number =>
-  input.reduce((a: number, b: number): number => a * b, 1);
-
-export const get_shape: (input: any) => number[] = (input: any): number[] => Array.isArray(input) || is_typed_array(input)
-  ? [input.length].concat(get_shape(input[0]))
+export const get_shape: (array: any) => number[] = (array: any): number[] => Array.isArray(array) || is_typed_array(array)
+  ? [array.length].concat(get_shape(array[0]))
   : [];
 
-export const get_strides: (input: number[]) => number[] = (input: number[]): number[] =>
+export const get_strides: (shape: number[]) => number[] = (shape: number[]): number[] =>
   [
-    ...input
+    ...shape
       .slice(1)
-      .map((_: number, i: number): number => input
+      .map((_: number, i: number): number => shape
         .slice(i + 1)
         .reduce((a: number, b: number): number => a * b, 1)
       ),
     1,
 ];
 
-export const get_dtype: (input: TypedArray) => DType = (input: TypedArray): DType => {
+export const get_dtype: (array: TypedArray) => DType = (array: TypedArray): DType => {
   const {
     constructor: {
       name = 'Float32Array',
     } = {},
-  } = input || {};
+  } = array || {};
 
   switch (name) {
     case 'Int8Array': return 'int8';
@@ -52,8 +51,8 @@ export const get_dtype: (input: TypedArray) => DType = (input: TypedArray): DTyp
   }
 };
 
-export const get_type: (input: DType) => TypedArrayConstructor = (input: DType): TypedArrayConstructor => {
-  switch (input) {
+export const get_type: (dtype: DType) => TypedArrayConstructor = (dtype: DType): TypedArrayConstructor => {
+  switch (dtype) {
     case 'int8': return Int8Array;
     case 'uint8': return Uint8Array;
     case 'int16': return Int16Array;

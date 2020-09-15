@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { inv } from './inv';
 import { array } from './array';
 
@@ -26,7 +26,7 @@ describe('(v) inv', () => {
     ]);
 
     // Need to round result to avoid floating point rounding errors, e.g. 0.99999999994
-    deepStrictEqual(y, x.inv().map((value: number) => Number(value.toFixed(2))));
+    equals(y, x.inv());
   });
 
   it('should work as the static equivalent', () => {
@@ -36,6 +36,6 @@ describe('(v) inv', () => {
       [0, -1, 2],
     ]);
 
-    deepStrictEqual(x.copy().inv(), inv(x));
+    equals(x.copy().inv(), inv(x));
   });
 });

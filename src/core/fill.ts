@@ -4,6 +4,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function fill
  * @description Fills `x` with a scalar value
  * @param {NDArray} x
@@ -35,11 +36,9 @@ export default function(this: NDArray, value: number | ((index: number) => numbe
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
-  do {
-    d1[iter.pos] = value instanceof Function ? value(iter.pos) : value;
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    d1[i!] = value instanceof Function ? value(iter.pos) : value;
+  }
 
   return this;
 };

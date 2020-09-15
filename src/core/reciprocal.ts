@@ -4,6 +4,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function reciprocal
  * @description Gets the element-wise reciprocal of `x`.
  * @param {NDArray} x
@@ -30,11 +31,9 @@ export default function(this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
-  do {
-    d1[iter.pos] = 1 / d1[iter.pos];
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    d1[i!] = 1 / d1[i!];
+  }
 
   return this;
 };

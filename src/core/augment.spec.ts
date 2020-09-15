@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { augment } from './augment';
 import { array } from './array';
 
@@ -10,7 +10,7 @@ describe('(v) augment', () => {
   it('should return current matrix when combined with empty matrix', () => {
     const x = array([[1, 2], [3, 4]]);
 
-    deepStrictEqual(x, x.augment(array()));
+    equals(x, x.augment(array()));
   });
 
   it('should work as expected', () => {
@@ -18,7 +18,7 @@ describe('(v) augment', () => {
     const y = array([[5, 6], [7, 8]]);
     const z = array([[1, 2, 5, 6], [3, 4, 7, 8]]);
 
-    deepStrictEqual(z, x.augment(y));
+    equals(z, x.augment(y));
   });
 
   it('should throw error when rows do not match', () => {
@@ -31,6 +31,6 @@ describe('(v) augment', () => {
     const x = array([[1, 1, 1]]);
     const y = array([[1, 2, 3]]);
 
-    deepStrictEqual(x.copy().augment(y), augment(x, y));
+    equals(x.copy().augment(y), augment(x, y));
   });
 });

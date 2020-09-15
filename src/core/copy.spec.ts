@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   notStrictEqual,
 } from 'assert';
 
+import { equals } from './equals';
 import { copy } from './copy';
 import { array } from './array';
 
@@ -14,7 +14,7 @@ describe('(v) copy', () => {
 
     notStrictEqual(original, cp);
     notStrictEqual(original.data, cp.data);
-    deepStrictEqual(original, cp);
+    equals(original, cp);
   });
 
   it('should work as the static equivalent', () => {
@@ -24,6 +24,6 @@ describe('(v) copy', () => {
 
     notStrictEqual(original, cp);
     notStrictEqual(original.data, cp.data);
-    deepStrictEqual(original, cp);
+    equals(original, cp);
   });
 });

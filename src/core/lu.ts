@@ -1,8 +1,10 @@
 import { NDArray } from './';
+import { NDIter } from '../iterator';
 import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function lu
  * @description
  * Performs full LU decomposition on `x`.
@@ -30,25 +32,23 @@ export const lu = (x: NDArray | ArrayLike<any>): [NDArray, NDArray, Int32Array] 
  * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).lu(); // => [array([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]), array([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]), Int32Array([2, 2, 3])]
  */
 export default function (this: NDArray): [NDArray, NDArray, Int32Array] {
-  const [r, c] = this.shape;
   const [LU, ipiv] = this.copy().lu_factor();
   const L = LU.copy();
   const U = LU.copy();
   const { data: d1 } = L;
   const { data: d2 } = U;
 
-  let i: number;
-  let j: number;
-  for (i = 0; i < r; i += 1) {
-    for (j = i; j < c; j += 1) {
-      d1[i * c + j] = i === j ? 1 : 0;
-    }
-  }
+  const iter = new NDIter(LU);
 
-  for (i = 0; i < r; i += 1) {
-    for (j = 0; j < i && j < c; j += 1) {
-      d2[i * c + j] = 0;
+  let [ci, cj] = iter.coords;
+  for (const i of iter) {
+    if (cj < ci) {
+      d2[i!] = 0;
+    } else {
+      d1[i!] = ci === cj ? 1 : 0;
     }
+
+    [ci, cj] = iter.coords;
   }
 
   return [L, U, ipiv];

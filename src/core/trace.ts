@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function trace
  * @description Gets the trace of `x` (the sum of all diagonal elements).
  * @param {NDArray} x

@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function subtract
  * @description
  * Subtracts `y` from `x`.

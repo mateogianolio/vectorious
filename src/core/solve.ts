@@ -1,15 +1,10 @@
-import { get_type } from '../util';
-
 import { NDArray } from './';
 import { array } from './array';
-
-let nlapack: any;
-try {
-  nlapack = require('nlapack');
-} catch (err) {}
+import * as lapack from '../lapack';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function solve
  * @description
  * Solves the equation AX = B (where A is `x` and B is `y`).
@@ -39,22 +34,12 @@ export const solve = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>):
  * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).solve([[1], [3], [5]]); // => array([[3.25], [1.75], [-1.5]])
  */
 export default function(this: NDArray, x: NDArray): NDArray {
-  const [n, nrhs] = x.shape;
+  const { data: d1, dtype } = this;
+  const { data: d2, shape: [n, nrhs] } = x;
 
   try {
-    if (!['float32', 'float64'].includes(this.dtype)) {
-      this.dtype = 'float32';
-      this.data = get_type(this.dtype).from(this.data);
-    }
-
-    const { data: d1 } = this;
-    const { data: d2 } = x;
     const ipiv: Int32Array = new Int32Array(n);
-    if (this.dtype === 'float64') {
-      nlapack.dgesv(n, nrhs, d1, n, ipiv, d2, nrhs);
-    } else if (this.dtype === 'float32') {
-      nlapack.sgesv(n, nrhs, d1, n, ipiv, d2, nrhs);
-    }
+    lapack.gesv(dtype, n, nrhs, d1, n, ipiv, d2, nrhs);
   } catch (err) {
     const [LU, ipiv] = this.lu_factor();
     const { data: d1 } = LU;

@@ -1,11 +1,10 @@
-import { TypedArray } from '../types';
-import { get_type } from '../util';
-
+import { get_strides } from '../util';
 import { NDArray } from './';
 import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function slice
  * @description Slices `x` in the corresponding dimension
  * @param {NDArray} x
@@ -45,11 +44,11 @@ export default function(
   end: number = this.shape[0],
   step: number = 1
 ): NDArray {
-  const { data: d1, shape: s1 } = this;
-  const { length: ndim } = s1;
+  const { shape: s1 } = this;
+  const nd = s1.length;
 
   if (begin < 0 || end < 0) {
-    return this.slice(begin < 0 ? ndim + begin : begin, end < 0 ? ndim + end : end);
+    return this.slice(begin < 0 ? nd + begin : begin, end < 0 ? nd + end : end);
   }
 
   if (step === 0) {
@@ -58,16 +57,11 @@ export default function(
 
   const s2: number[] = [Math.ceil((end - begin) / step), ...s1.slice(1)];
   const l2: number = s2.reduce((sum: number, dim: number) => sum * dim, 1);
-  const d2: TypedArray = new (get_type(this.dtype))(l2);
+  const st2: number[] = get_strides(s2);
 
-  let i: number;
-  for (i = 0; i < l2; i += 1) {
-    d2[i] = d1[begin + i * step];
-  }
-
+  this.shape = s2;
   this.length = l2;
-  this.data = d2;
-  this.reshape(...s2);
+  this.strides = st2;
 
   return this;
 };

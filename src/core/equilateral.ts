@@ -2,7 +2,9 @@ import { NDArray } from './';
 import { array } from './array';
 
 /**
+ * @deprecated
  * @static
+ * @memberof module:Globals
  * @function equilateral
  * @description Asserts if `x` and `y` have the same length
  * @param {NDArray} x
@@ -18,6 +20,7 @@ export const equilateral = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<
 };
 
 /**
+ * @deprecated
  * @function equilateral
  * @memberof NDArray.prototype
  * @description Asserts if current array and `x` have the same length

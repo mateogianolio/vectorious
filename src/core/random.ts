@@ -2,6 +2,7 @@ import { NDArray } from './';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function random
  * @description Creates a vector containing random samples from a uniform distribution over `[0, 1)` of shape `shape`
  * @param {Number[]} ...shape

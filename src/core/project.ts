@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function project
  * @description Projects the `y` onto `x` using the projection formula `(y * (x * y / y * y))`.
  * @param {NDArray} x

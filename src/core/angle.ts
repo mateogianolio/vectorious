@@ -5,6 +5,7 @@ const { acos: f } = Math;
 
 /**
  * @static
+ * @memberof module:Globals
  * @function angle
  * @description Determines the angle between the `x` and `y`
  * @param {NDArray} x

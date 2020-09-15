@@ -1,7 +1,4 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
+import { equals } from './equals';
 import { lu_factor } from './lu_factor';
 import { array } from './array';
 
@@ -12,13 +9,13 @@ describe('(v) lu_factor', () => {
     const ipiv: Int32Array = new Int32Array([2, 2, 3]);
 
     const [LU, piv] = x.lu_factor();
-    deepStrictEqual(ipiv, piv);
-    deepStrictEqual(y, LU);
+    equals(ipiv, piv);
+    equals(y, LU);
   });
 
   it('should work as the static equivalent', () => {
     const x = array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
 
-    deepStrictEqual(x.copy().lu_factor(), lu_factor(x));
+    equals(x.copy().lu_factor(), lu_factor(x));
   });
 });

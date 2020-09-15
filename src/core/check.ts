@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function check
  * @description Asserts if indices `i, j, ..., n` are within the bounds of `x`
  * @param {NDArray} x

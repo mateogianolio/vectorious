@@ -109,10 +109,10 @@ const inspectSymbol: unique symbol = Symbol.for('nodejs.util.inspect.custom');
  * @example
  * import { NDArray } from 'vectorious';
  *
- * new NDArray() // => array([], dtype=float32)
- * new NDArray([]) // => array([], dtype=float32)
- * new NDArray([1, 2, 3]) // => array([1, 2, 3], dtype=float32)
- * new NDArray([[1, 2], [3, 4]]) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float32)
+ * new NDArray() // => array([], dtype=float64)
+ * new NDArray([]) // => array([], dtype=float64)
+ * new NDArray([1, 2, 3]) // => array([1, 2, 3], dtype=float64)
+ * new NDArray([[1, 2], [3, 4]]) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float64)
  * new NDArray(new Int32Array([1, 2, 3])) // => array([ 1, 2, 3 ], dtype=int32)
  * new NDArray([1, 2, 3, 4], {
  *   shape: [2, 2],
@@ -132,9 +132,9 @@ export class NDArray implements INDArray {
    * @name dtype
    * @memberof NDArray.prototype
    * @type String
-   * @default 'float32'
+   * @default 'float64'
    */
-  public dtype: DType = 'float32';
+  public dtype: DType = 'float64';
 
   /**
    * @name length
@@ -343,11 +343,11 @@ export class NDArray implements INDArray {
   /**
    * @name T
    * @memberof NDArray.prototype
-   * @description Short for this.transpose()
+   * @description Short for this.copy().transpose()
    * @type NDArray
    */
   public get T() {
-    return this.transpose();
+    return this.copy().transpose();
   }
 }
 

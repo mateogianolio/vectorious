@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function normalize
  * @description Normalizes `x`.
  * @param {NDArray} x

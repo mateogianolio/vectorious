@@ -5,6 +5,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function swap
  * @description Swaps two rows `i` and `j` in `x`.
  * @param {NDArray} x

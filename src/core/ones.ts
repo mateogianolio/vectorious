@@ -2,6 +2,7 @@ import { NDArray } from './';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function ones
  * @description Creates an array containing ones (`1`) of shape `shape`
  * @param {Number[]} ...shape

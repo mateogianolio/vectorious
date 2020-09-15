@@ -1,5 +1,4 @@
 import {
-  deepStrictEqual,
   strictEqual,
 } from 'assert';
 
@@ -20,6 +19,6 @@ describe('(v) rank', () => {
   it('should work as the static equivalent', () => {
     const x = array([[1, 1, 1]]);
 
-    deepStrictEqual(x.copy().rank(), rank(x));
+    strictEqual(x.copy().rank(), rank(x));
   });
 });

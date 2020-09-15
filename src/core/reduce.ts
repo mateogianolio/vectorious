@@ -6,6 +6,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function reduce
  * @description Equivalent to `TypedArray.prototype.reduce`.
  * @param {NDArray} x
@@ -57,11 +58,9 @@ export default function(
     value = initialValue;
   }
 
-  do {
-    value = reduce(value, d1[iter.pos], iter.pos, d1);
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    value = reduce(value, d1[i!], i!, d1);
+  }
 
   return value;
 };

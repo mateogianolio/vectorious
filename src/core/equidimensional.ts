@@ -2,7 +2,9 @@ import { NDArray } from './';
 import { array } from './array';
 
 /**
+ * @deprecated
  * @static
+ * @memberof module:Globals
  * @function equidimensional
  * @description Asserts if `x` and `y` have the same shape
  * @param {NDArray} x
@@ -18,6 +20,7 @@ export const equidimensional = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayL
 };
 
 /**
+ * @deprecated
  * @function equidimensional
  * @memberof NDArray.prototype
  * @description Asserts if current array and `x` have the same shape

@@ -1,7 +1,4 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
+import { equals } from './equals';
 import { lu } from './lu';
 import { array } from './array';
 
@@ -13,7 +10,7 @@ describe('(v) lu', () => {
       array([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]),
     ];
 
-    deepStrictEqual(ys, x.lu().slice(0, 2));
+    equals(ys, x.lu().slice(0, 2));
   });
 
   it('should work as expected', () => {
@@ -24,13 +21,13 @@ describe('(v) lu', () => {
     ];
 
     const [lower, upper] = x.lu();
-    deepStrictEqual(ys[0], lower.map((value: number) => Number(value.toFixed(5))));
-    deepStrictEqual(ys[1], upper.map((value: number) => Number(value.toFixed(5))));
+    equals(ys[0], lower.map((value: number) => Number(value.toFixed(5))));
+    equals(ys[1], upper.map((value: number) => Number(value.toFixed(5))));
   });
 
   it('should work as the static equivalent', () => {
     const x = array([[1, 1, 1]]);
 
-    deepStrictEqual(x.copy().lu(), lu(x));
+    equals(x.copy().lu(), lu(x));
   });
 });

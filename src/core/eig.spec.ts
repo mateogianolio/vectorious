@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { eig } from './eig';
 import { array } from './array';
 
@@ -28,8 +28,8 @@ describe('(v) eig', () => {
 
     const [e, E] = x.eig();
 
-    deepStrictEqual(y, e);
-    deepStrictEqual(z, E);
+    equals(y, e);
+    equals(z, E);
   });
 
   it('should work as the static equivalent', () => {
@@ -39,6 +39,6 @@ describe('(v) eig', () => {
       [0, 0, 3],
     ]);
 
-    deepStrictEqual(x.copy().eig(), eig(x));
+    equals(x.copy().eig(), eig(x));
   });
 });

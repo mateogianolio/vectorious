@@ -6,6 +6,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function push
  * @description Pushes a new `value` into `x`.
  * @param {NDArray} x

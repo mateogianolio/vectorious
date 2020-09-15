@@ -15,7 +15,10 @@
     "cleverLinks": false,
     "monospaceLinks": true,
     "default": {
-      "layoutFile": "docs.tmpl"
+      "layoutFile": "docs.tmpl",
+      "staticFiles": {
+        "paths": ["benchmarks/"]
+      }
     }
   },
   "opts": {

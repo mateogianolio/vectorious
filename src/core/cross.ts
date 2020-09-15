@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function cross
  * @description
  * Computes the cross product of the `x` and the vector `y`

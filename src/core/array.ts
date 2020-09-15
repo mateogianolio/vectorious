@@ -2,6 +2,7 @@ import { NDArray } from './';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function array
  * @description `array(...args)` is an alias for `new v(...args)`
  * @param {} ...args

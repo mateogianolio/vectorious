@@ -2,7 +2,7 @@ import { eye } from './eye';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'eye',
   (n: number): [number] => [n],
   (n: number): void => {

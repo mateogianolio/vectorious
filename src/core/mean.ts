@@ -4,6 +4,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function mean
  * @description Gets the arithmetic mean of `x`.
  * @param {NDArray} x
@@ -30,11 +31,9 @@ export default function(this: NDArray): number {
   const iter = new NDIter(this);
 
   let mean: number = 0;
-  do {
-    mean += d1[iter.pos];
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    mean += d1[i!];
+  }
 
   return mean / l1;
 };

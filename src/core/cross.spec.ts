@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { cross } from './cross';
 import { array } from './array';
 
@@ -11,7 +11,7 @@ describe('(v) cross', () => {
     const x = array([1, 2, 3]);
     const y = array([2, 3, 4]);
 
-    deepStrictEqual(array([-1, 2, -1]), x.cross(y));
+    equals(array([-1, 2, -1]), x.cross(y));
   });
 
   it('should throw an exception when lengths do not match', () => {
@@ -25,6 +25,6 @@ describe('(v) cross', () => {
     const x = array([1, 2, 3]);
     const y = array([2, 3, 4]);
 
-    deepStrictEqual(array([-1, 2, -1]), cross(x, y));
+    equals(array([-1, 2, -1]), cross(x, y));
   });
 });

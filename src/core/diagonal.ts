@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function diagonal
  * @description Gets the diagonal of `x`.
  * @param {NDArray} x

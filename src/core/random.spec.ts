@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   strictEqual,
 } from 'assert';
 
+import { equals } from './equals';
 import { random } from './random';
 
 describe('(v) random', () => {
@@ -10,13 +10,13 @@ describe('(v) random', () => {
     const x = random(3);
 
     strictEqual(3, x.length);
-    deepStrictEqual([3], x.shape);
+    equals([3], x.shape);
   });
 
   it('should work as expected', () => {
     const x = random(3, 3);
 
     strictEqual(9, x.length);
-    deepStrictEqual([3, 3], x.shape);
+    equals([3, 3], x.shape);
   });
 });

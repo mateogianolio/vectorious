@@ -4,6 +4,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function sum
  * @description Sum of `x`
  * @param {NDArray} x
@@ -30,11 +31,9 @@ export default function(this: NDArray): number {
   const iter = new NDIter(this);
 
   let sum: number = 0;
-  do {
-    sum += d1[iter.pos];
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    sum += d1[i!];
+  }
 
   return sum;
 };

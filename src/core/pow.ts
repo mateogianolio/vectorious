@@ -6,6 +6,7 @@ const { pow: f } = Math;
 
 /**
  * @static
+ * @memberof module:Globals
  * @function pow
  * @description Returns each element of `x` to the exponent power, that is, element^exponent.
  * @param {NDArray} x
@@ -34,11 +35,9 @@ export default function(this: NDArray, exponent: number): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
-  do {
-    d1[iter.pos] = f(d1[iter.pos], exponent);
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    d1[i!] = f(d1[i!], exponent);
+  }
 
   return this;
 };

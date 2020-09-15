@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function square
  * @description Asserts if `x` is square.
  * @param {NDArray} x

@@ -3,7 +3,7 @@ import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'scale',
   (n: number) => [random(n), Math.random()],
   (x, alpha: number) => {

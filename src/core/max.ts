@@ -1,16 +1,11 @@
-import { get_type } from '../util';
-
 import { NDArray } from './';
 import { array } from './array';
 import { NDIter } from '../iterator';
-
-let nblas: any;
-try {
-  nblas = require('nblas');
-} catch (err) {}
+import * as blas from '../blas';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function max
  * @description
  * Gets the maximum value (largest) element of `x`.
@@ -37,35 +32,20 @@ export const max = (x: NDArray | ArrayLike<any>): number => array(x).max();
  * array([1, 2, 3]).max(); // => 3
  */
 export default function(this: NDArray): number {
-  const { length: l1 } = this;
+  const { data: d1, length: l1, dtype } = this;
   let max: number = Number.NEGATIVE_INFINITY;
 
   try {
-    if (!['float32', 'float64'].includes(this.dtype)) {
-      this.dtype = 'float32';
-      this.data = get_type(this.dtype).from(this.data);
-    }
-
-    const { data: d1 } = this;
-    if (this.dtype === 'float64') {
-      max = d1[nblas.idamax(l1, d1, 1)];
-    }
-
-    if (this.dtype === 'float32') {
-      max = d1[nblas.isamax(l1, d1, 1)];
-    }
+    max = d1[blas.iamax(dtype, l1, d1, 1)];
   } catch (err) {
-    const { data: d1 } = this;
     const iter = new NDIter(this);
 
-    do {
-      const value = d1[iter.pos];
+    for (const i of iter) {
+      const value = d1[i!];
       if (max < value) {
         max = value;
       }
-
-      iter.next();
-    } while (!iter.done());
+    }
   }
 
   return max;

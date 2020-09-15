@@ -1,19 +1,11 @@
 import {
   strictEqual,
-  throws,
 } from 'assert';
 
 import { dot } from './dot';
 import { array } from './array';
 
 describe('(v) dot', () => {
-  it('should throw error if sizes do not match', () => {
-    const x = array([1]);
-    const y = array([1, 2]);
-
-    throws(() => { x.dot(y); }, Error);
-  });
-
   it('should work as expected', () => {
     const x = array([1, 2, 3]);
     const y = array([4, 5, 6]);

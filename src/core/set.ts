@@ -2,6 +2,7 @@ import { NDArray } from './';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function set
  * @description Sets the element at `i, j, ..., n` to `value`.
  * @param {NDArray} x

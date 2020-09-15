@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function det
  * @description Gets the determinant of `x`.
  * @param {NDArray} x

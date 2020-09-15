@@ -1,7 +1,4 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
+import { equals } from './equals';
 import { sqrt } from './sqrt';
 import { map } from './map';
 import { random } from './random';
@@ -10,12 +7,12 @@ describe('(v) sqrt', () => {
   it('should work as expected', () => {
     const x = random(3);
 
-    deepStrictEqual(map(x, (value: number) => Math.sqrt(value)), x.sqrt());
+    equals(map(x, (value: number) => Math.sqrt(value)), x.sqrt());
   });
 
   it('should work as the static equivalent', () => {
     const x = random(3);
 
-    deepStrictEqual(map(x, (value: number) => Math.sqrt(value)), sqrt(x));
+    equals(map(x, (value: number) => Math.sqrt(value)), sqrt(x));
   });
 });

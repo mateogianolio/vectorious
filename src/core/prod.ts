@@ -4,6 +4,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function prod
  * @description Product of all elements of `x`.
  * @param {NDArray} x
@@ -30,11 +31,9 @@ export default function(this: NDArray): number {
   const iter = new NDIter(this);
 
   let prod: number = 1;
-  do {
-    prod *= d1[iter.pos];
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    prod *= d1[i!];
+  }
 
   return prod;
 };

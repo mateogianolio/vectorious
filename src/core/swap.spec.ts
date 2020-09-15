@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { swap } from './swap';
 import { array } from './array';
 
@@ -20,14 +20,14 @@ describe('(v) swap', () => {
     const x = array([[1, 2], [3, 4], [5, 6]]);
 
     x.swap(0, 1);
-    deepStrictEqual(array([[3, 4], [1, 2], [5, 6]]), x);
+    equals(array([[3, 4], [1, 2], [5, 6]]), x);
     x.swap(1, 2);
-    deepStrictEqual(array([[3, 4], [5, 6], [1, 2]]), x);
+    equals(array([[3, 4], [5, 6], [1, 2]]), x);
   });
 
   it('should work as the static equivalent', () => {
     const x = array([[1, 2], [3, 4], [5, 6]]);
 
-    deepStrictEqual(array([[3, 4], [1, 2], [5, 6]]), swap(x, 0, 1));
+    equals(array([[3, 4], [1, 2], [5, 6]]), swap(x, 0, 1));
   });
 });

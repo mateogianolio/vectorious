@@ -6,6 +6,7 @@ const { cosh: f } = Math;
 
 /**
  * @static
+ * @memberof module:Globals
  * @function cosh
  * @description Returns the hyperbolic cosine of each element of `x`.
  * @param {NDArray} x
@@ -19,6 +20,7 @@ export const cosh = (x: NDArray | ArrayLike<any>): NDArray => array(x).cosh();
 
 /**
  * @function cosh
+ * @memberof NDArray.prototype
  * @description Returns the hyperbolic cosine of each element of current array.
  * @returns {this}
  * @example
@@ -30,11 +32,9 @@ export default function(this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
-  do {
-    d1[iter.pos] = f(d1[iter.pos]);
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    d1[i!] = f(d1[i!]);
+  }
 
   return this;
 };

@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { add } from './add';
 import { array } from './array';
 
@@ -11,12 +11,12 @@ describe('(v) add', () => {
     const x = array();
     const y = array();
 
-    deepStrictEqual(array(), x.add(y));
+    equals(array(), x.add(y));
   });
 
-  it('should throw error if sizes do not match', () => {
-    const x = array([1]);
-    const y = array([1, 2]);
+  it ('should throw error if shapes cannot be broadcast together', () => {
+    const x = array([1, 2, 3]);
+    const y = array([10, 11]);
 
     throws(() => { x.add(y); }, Error);
   });
@@ -26,7 +26,15 @@ describe('(v) add', () => {
     const y = array([4, 5, 6]);
     const z = array([5, 7, 9]);
 
-    deepStrictEqual(z, x.add(y));
+    equals(z, x.add(y));
+  });
+
+  it ('should product v([11, 12, 13]) from v([1, 2, 3]) and v([10])', () => {
+    const x = array([1, 2, 3]);
+    const y = array([10]);
+    const z = array([11, 12, 13]);
+
+    equals(z, x.add(y))
   });
 
   it('should work as the static equivalent', () => {
@@ -34,6 +42,6 @@ describe('(v) add', () => {
     const y = array([4, 5, 6]);
     const z = array([5, 7, 9]);
 
-    deepStrictEqual(z, add(x, y));
+    equals(z, add(x, y));
   });
 });

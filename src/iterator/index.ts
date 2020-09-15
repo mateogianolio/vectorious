@@ -107,7 +107,7 @@ export class NDIter {
    */
   public contiguous: boolean;
 
-  constructor(x: NDArray) {
+  constructor(x: NDArray | ArrayLike<any>) {
     const {
       shape,
       strides,
@@ -378,7 +378,7 @@ export class NDMultiIter {
    */
   public pos: number[];
 
-  constructor(...args: NDArray[]) {
+  constructor(...args: (NDArray | ArrayLike<any>)[]) {
     this.iters = args.map(arg => new NDIter(arg));
     this.numiter = args.length;
 
@@ -389,7 +389,7 @@ export class NDMultiIter {
     }
 
     this.nd = nd;
-    this.shape = Array(nd);
+    this.shape = Array(nd).fill(0);
 
     let it;
     let j;
@@ -398,7 +398,7 @@ export class NDMultiIter {
     for (i = 0; i < nd; i += 1) {
       this.shape[i] = 1;
       for (j = 0; j < this.numiter; j += 1) {
-        it = this.iters[i];
+        it = this.iters[j];
         k = i + it.x.shape.length - nd;
         if (k >= 0) {
           tmp = it.x.shape[k];
@@ -407,6 +407,7 @@ export class NDMultiIter {
           }
           if (this.shape[i] == 1) {
             this.shape[i] = tmp;
+
           } else if (this.shape[i] !== tmp) {
             throw new Error('shape mismatch');
           }
@@ -530,5 +531,9 @@ export class NDMultiIter {
     }
 
     return current;
+  }
+
+  [Symbol.iterator]() {
+    return this;
   }
 }

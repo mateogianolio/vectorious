@@ -6,6 +6,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function combine
  * @description Combines the vector `x` with `y`
  * @param {NDArray} x

@@ -1,16 +1,11 @@
-import { get_type } from '../util';
-
 import { NDArray } from './';
 import { array } from './array';
 import { NDIter } from '../iterator';
-
-let nblas: any;
-try {
-  nblas = require('nblas');
-} catch (err) {}
+import * as blas from '../blas';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function scale
  * @description
  * Multiplies all elements of `x` with a specified `scalar`.
@@ -40,29 +35,16 @@ export const scale = (x: NDArray | ArrayLike<any>, scalar: number): NDArray =>
  * array([1, 2, 3]).scale(2); // <=> array([2, 4, 6])
  */
 export default function(this: NDArray, scalar: number): NDArray {
-  const { length: l1 } = this;
+  const { data: d1, length: l1, dtype } = this;
 
   try {
-    if (!['float32', 'float64'].includes(this.dtype)) {
-      this.dtype = 'float32';
-      this.data = get_type(this.dtype).from(this.data);
-    }
-
-    const { data: d1 } = this;
-    if (this.dtype === 'float64') {
-      nblas.dscal(l1, scalar, d1, 1);
-    } else if (this.dtype === 'float32') {
-      nblas.sscal(l1, scalar, d1, 1);
-    }
+    blas.scal(dtype, l1, scalar, d1, 1);
   } catch (err) {
-    const { data: d1 } = this;
     const iter = new NDIter(this);
 
-    do {
-      d1[iter.pos] *= scalar;
-
-      iter.next();
-    } while (!iter.done());
+    for (const i of iter) {
+      d1[i!] *= scalar;
+    }
   }
 
   return this;

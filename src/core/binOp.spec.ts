@@ -1,8 +1,8 @@
 import {
-  deepStrictEqual,
   throws,
 } from 'assert';
 
+import { equals } from './equals';
 import { binOp } from './binOp';
 import { array } from './array';
 
@@ -13,7 +13,7 @@ describe('(v) binOp', () => {
     const z = array([2, 3, 4]);
     const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-    deepStrictEqual(x.binOp(y, sum), z);
+    equals(x.binOp(y, sum), z);
   });
 
   it('should throw error when sizes do not match', () => {
@@ -29,6 +29,6 @@ describe('(v) binOp', () => {
     const y = array([1, 2, 3]);
     const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
 
-    deepStrictEqual(x.copy().binOp(y, sum), binOp(x, y, sum));
+    equals(x.copy().binOp(y, sum), binOp(x, y, sum));
   });
 });

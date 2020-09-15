@@ -1,5 +1,4 @@
 import {
-  deepStrictEqual,
   strictEqual,
   throws,
 } from 'assert';
@@ -26,6 +25,6 @@ describe('(v) det', () => {
   it('should work as the static equivalent', () => {
     const x = array([[1, 2], [3, 4]]);
 
-    deepStrictEqual(x.copy().det(), det(x));
+    strictEqual(x.copy().det(), det(x));
   });
 });

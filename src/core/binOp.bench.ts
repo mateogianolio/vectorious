@@ -3,7 +3,7 @@ import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'v',
+  'NDArray',
   'binOp',
   (n: number) => [random(n), random(n), (a: number, b: number): number => a + b],
   (x, y, op: (a: number, b: number) => number): void => {

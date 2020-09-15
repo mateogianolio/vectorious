@@ -4,6 +4,7 @@ import { zeros } from './zeros';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function augment
  * @description Augments `x` and `y`.
  * @param {NDArray} x

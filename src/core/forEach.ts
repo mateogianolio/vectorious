@@ -5,6 +5,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function forEach
  * @description Equivalent to `TypedArray.prototype.forEach`.
  * @param {NDArray} x
@@ -44,9 +45,7 @@ export default function(
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
-  do {
-    f.call(this, d1[iter.pos], iter.pos, d1);
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    f.call(this, d1[i!], i!, d1);
+  }
 };

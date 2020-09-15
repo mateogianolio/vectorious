@@ -1,8 +1,11 @@
+
 import { NDArray } from './';
+import { NDMultiIter } from '../iterator';
 import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function binOp
  * @description Perform binary operation `f` on `y` in `x`.
  * @param {NDArray} x
@@ -43,15 +46,12 @@ export default function(
     index: number
   ) => number
 ): NDArray {
-  this.equilateral(array(x));
-  this.equidimensional(array(x));
-
-  const { data: d1, length: l1 } = this;
+  const { data: d1 } = this;
   const { data: d2 } = array(x);
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] = f(d1[i], d2[i], i);
+  const iter = new NDMultiIter(this, x);
+  for (const [i, j] of iter) {
+    d1[i] = f(d1[i], d2[j], i);
   }
 
   return this;

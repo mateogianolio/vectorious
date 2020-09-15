@@ -3,6 +3,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function toArray
  * @description Converts `x` into a JavaScript array.
  * @param {NDArray} x

@@ -6,6 +6,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function map
  * @description Equivalent to `TypedArray.prototype.map`.
  * @param {NDArray} x
@@ -38,11 +39,9 @@ export default function(
   const iter = new NDIter(this);
   const map = f.bind(this);
 
-  do {
-    d1[iter.pos] = map(d1[iter.pos], iter.pos, d1);
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    map(d1[i!], i!, d1);
+  }
 
   return this;
 };

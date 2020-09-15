@@ -1,8 +1,10 @@
 import { NDArray } from './';
+import { NDMultiIter } from '../iterator';
 import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function product
  * @description Hadamard product of `x` and `y`
  * @param {NDArray} x
@@ -27,15 +29,12 @@ export const product = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>
  * array([1, 2, 3]).product([4, 5, 6]); // <=> array([4, 10, 18])
  */
 export default function(this: NDArray, x: NDArray): NDArray {
-  this.equilateral(x);
-  this.equidimensional(x);
-
-  const { data: d1, length: l1 } = this;
+  const { data: d1 } = this;
   const { data: d2 } = x;
 
-  let i: number;
-  for (i = 0; i < l1; i += 1) {
-    d1[i] *= d2[i];
+  const iter = new NDMultiIter(this, x);
+  for (const [i, j] of iter) {
+    d1[i!] *= d2[j!];
   }
 
   return this;

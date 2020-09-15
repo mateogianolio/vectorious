@@ -5,6 +5,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function reshape
  * @description Reshapes `x`
  * @param {NDArray} x

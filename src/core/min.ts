@@ -4,6 +4,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function min
  * @description Gets the minimum value (smallest) element of `x`.
  * @param {NDArray} x
@@ -31,14 +32,12 @@ export default function(this: NDArray): number {
   const iter = new NDIter(this);
 
   let min: number = Number.POSITIVE_INFINITY;
-  do {
-    const value = d1[iter.pos];
+  for (const i of iter) {
+    const value = d1[i!];
     if (min > value) {
       min = value;
     }
-
-    iter.next();
-  } while (!iter.done());
+  }
 
   return min;
 };

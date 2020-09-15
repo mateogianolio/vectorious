@@ -1,15 +1,10 @@
-import { get_type } from '../util';
-
 import { NDArray } from './';
 import { array } from './array';
-
-let nlapack: any;
-try {
-  nlapack = require('nlapack');
-} catch (err) {}
+import * as lapack from '../lapack';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function lu_factor
  * @description
  * Performs LU factorization on `x`.
@@ -37,24 +32,12 @@ export const lu_factor = (x: NDArray | ArrayLike<any>): [NDArray, Int32Array] =>
  * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).lu_factor(); // <=> [array([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]), Int32Array([2, 2, 3])]
  */
 export default function(this: NDArray): [NDArray, Int32Array] {
-  const [n] = this.shape;
+  const { data: d1, shape: [n], dtype } = this;
   const ipiv: Int32Array = new Int32Array(n);
 
   try {
-    if (!['float32', 'float64'].includes(this.dtype)) {
-      this.dtype = 'float32';
-      this.data = get_type(this.dtype).from(this.data);
-    }
-
-    const { data: d1 } = this;
-    if (this.dtype === 'float64') {
-      nlapack.dgetrf(n, n, d1, n, ipiv);
-    } else if (this.dtype === 'float32') {
-      nlapack.sgetrf(n, n, d1, n, ipiv);
-    }
+    lapack.getrf(dtype, n, n, d1, n, ipiv);
   } catch (err) {
-    const { data: d1 } = this;
-
     let max: number;
     let abs: number;
     let diag: number;

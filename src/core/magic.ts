@@ -5,6 +5,7 @@ import { NDIter } from '../iterator';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function magic
  * @description Creates a magic square matrix of size `n`
  * @param {Number} n
@@ -23,15 +24,14 @@ export const magic = (n: number): NDArray => {
   const magic = new NDArray(d1, { shape: [n, n] });
   const iter = new NDIter(magic);
 
-  do {
-    const [y, x] = iter.coords;
-    const i = n - y - 1;
-    const j = n - x - 1;
+  let [ci, cj] = iter.coords;
+  for (const i of iter) {
+    const a = n - ci - 1;
+    const b = n - cj - 1;
 
-    d1[iter.pos] = ((x + i * 2 + 1) % n) * n + ((j + i * 2 + 1) % n) + 1;
-
-    iter.next();
-  } while (!iter.done());
+    d1[i!] = ((cj + a * 2 + 1) % n) * n + ((b + a * 2 + 1) % n) + 1;
+    [ci, cj] = iter.coords;
+  }
 
   return magic;
 };

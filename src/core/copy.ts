@@ -1,10 +1,9 @@
-import { get_type } from '../util';
-
 import { NDArray } from './';
 import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function copy
  * @description Makes a copy of `x`
  * @param {NDArray} x
@@ -30,9 +29,9 @@ export const copy = (x: NDArray | ArrayLike<any>): NDArray => array(x).copy();
 export default function(this: NDArray): NDArray {
   const copy: NDArray = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
 
-  copy.data = new (get_type(this.dtype))(this.data);
-  copy.shape = this.shape;
-  copy.strides = this.strides;
+  copy.data = this.data.slice();
+  copy.shape = this.shape.slice();
+  copy.strides = this.strides.slice();
   copy.length = this.length;
   copy.dtype = this.dtype;
 

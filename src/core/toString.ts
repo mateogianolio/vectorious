@@ -5,6 +5,7 @@ import { array } from './array';
 
 /**
  * @static
+ * @memberof module:Globals
  * @function toString
  * @description Converts `x` into a readable formatted string.
  * @param {NDArray} x

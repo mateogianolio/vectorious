@@ -1,7 +1,4 @@
-import {
-  deepStrictEqual,
-} from 'assert';
-
+import { equals } from './equals';
 import { forEach } from './forEach';
 import { array } from './array';
 import { TypedArray } from '../types';
@@ -13,7 +10,7 @@ describe('(v) forEach', () => {
       src[index] = value * 2;
     });
 
-    deepStrictEqual(array([2, 4, 6]), x);
+    equals(array([2, 4, 6]), x);
   });
 
   it('should work as the static equivalent', () => {
@@ -22,6 +19,6 @@ describe('(v) forEach', () => {
       src[index] = value * 2;
     });
 
-    deepStrictEqual(array([2, 4, 6]), x);
+    equals(array([2, 4, 6]), x);
   });
 });

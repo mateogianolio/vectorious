@@ -6,6 +6,7 @@ const { cos: f } = Math;
 
 /**
  * @static
+ * @memberof module:Globals
  * @function cos
  * @description Returns the cosine of each element of `x`.
  * @param {NDArray} x
@@ -31,11 +32,9 @@ export default function(this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
-  do {
-    d1[iter.pos] = f(d1[iter.pos]);
-
-    iter.next();
-  } while (!iter.done());
+  for (const i of iter) {
+    d1[i!] = f(d1[i!]);
+  }
 
   return this;
 };
