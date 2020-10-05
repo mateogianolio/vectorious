@@ -36,7 +36,7 @@ array([
     0.4068726599216461,
     0.4589384198188782
   ]
-], dtype=float32)
+], dtype=float64)
 */
 
 const y = v.range(0, 9).reshape(3, 3);
@@ -45,12 +45,12 @@ array([
   [ 0, 1, 2 ],
   [ 3, 4, 5 ],
   [ 6, 7, 8 ]
-], dtype=float32)
+], dtype=float64)
 */
 
 const z = v.array([[1, 2], [3, 4]]);
 /*
-array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float32)
+array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float64)
 */
 
 x.add(z);
@@ -64,7 +64,7 @@ array([
     3.4068727493286133,
     4.4589385986328125
   ]
-], dtype=float32)
+], dtype=float64)
 */
 ```
 

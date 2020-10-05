@@ -8,7 +8,7 @@ export const V_MAXDIMS = 32;
  * @description Constructs an NDIter instance.
  * @param {NDArray} x
  */
-export class NDIter {
+export class NDIter implements Iterator<number[]> {
   /**
    * @name x
    * @memberof NDIter.prototype
@@ -190,7 +190,7 @@ export class NDIter {
    * const iter = new NDIter(array([1, 2, 3]));
    * iter.current(); // { value: 1, done: false }
    */
-  current() {
+  current(): IteratorResult<number[] | any> {
     const done = this.done();
     return {
       value: done ? undefined : this.pos,
@@ -321,7 +321,7 @@ export class NDIter {
  * @description Constructs an NDMultiIter instance.
  * @param {NDArray[]} ...args
  */
-export class NDMultiIter {
+export class NDMultiIter implements Iterator<number[]> {
   /**
    * @name iters
    * @memberof NDMultiIter.prototype
@@ -486,7 +486,7 @@ export class NDMultiIter {
    * const iter = new NDMultiIter(array([1, 2, 3]), array([4, 5, 6]));
    * iter.current(); // { value: [0, 0], done: false }
    */
-  current() {
+  current(): IteratorResult<number[] | any> {
     const done = this.done();
     return {
       value: done ? undefined : this.pos,
