@@ -4,7 +4,7 @@
   "description": "A high performance linear algebra library.",
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
-  "types": "built/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node $file; done",
