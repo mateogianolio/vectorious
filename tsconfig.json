@@ -14,8 +14,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "types": [
-      "mocha",
-      "node"
+      "node",
+      "jest"
     ]
   },
   "include": [
