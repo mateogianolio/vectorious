@@ -71,16 +71,16 @@ array([
 ### Examples
 
 **Basic**
-* [**Solving linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/solve.js)
-* [**Using low-level BLAS routines**](https://github.com/mateogianolio/vectorious/tree/master/examples/blas.js)
+* [**Solving linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/solve.ts)
+* [**Using low-level BLAS routines**](https://github.com/mateogianolio/vectorious/tree/master/examples/blas.ts)
 
 **Machine learning**
-* [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.js) (by [@lucidrains](https://github.com/lucidrains))
-* [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.js)
+* [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.ts) (by [@lucidrains](https://github.com/lucidrains))
+* [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.ts)
 
 ### Documentation
 
-* [**API Documentation**](https://mateogianolio.github.io/vectorious)
+* [**API Documentation**](https://openbase.com/js/vectorious/documentation)
 * [**Usage guides**](https://github.com/mateogianolio/vectorious/wiki)
 
 ### Benchmarks
