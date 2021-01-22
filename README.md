@@ -80,7 +80,7 @@ array([
 
 ### Documentation
 
-* [**API Documentation**](https://openbase.com/js/vectorious/documentation)
+* [**API Documentation**](https://docs.vectorious.org/vectorious/6.0.2/)
 * [**Usage guides**](https://github.com/mateogianolio/vectorious/wiki)
 
 ### Benchmarks
