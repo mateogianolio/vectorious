@@ -1,3 +1,4 @@
+import { NDIter } from '../iterator';
 import { NDArray } from './';
 import { array } from './array';
 
@@ -26,17 +27,16 @@ export const toArray = (x: NDArray | ArrayLike<any>): number[] => array(x).toArr
  * array([1, 2, 3]).toArray(); // => [1, 2, 3]
  */
 export default function(this: NDArray): number[] {
-  const { length: l1, shape: s1 } = this;
+  const { shape: s1 } = this;
   const { length: ndim } = s1;
+  const iter = new NDIter(this);
 
-  let i: number;
+  let res: any = [];
   let j: number;
   let k: number;
-  const res: any = [];
 
-  for (i = 0; i < l1; i += 1) {
+  for (const i of iter) {
     const indices: number[] = [];
-
     for (j = 0; j < ndim; j += 1) {
       let p: number = 1;
       for (k = j + 1; k < ndim; k += 1) {
