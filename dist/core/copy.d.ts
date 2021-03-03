@@ -21,6 +21,5 @@ export declare const copy: (x: NDArray | ArrayLike<any>) => NDArray;
  * import { array } from 'vectorious/core/array';
  *
  * array([1, 2, 3]).copy(); // => array([1, 2, 3])
- * @todo Should make new array C-contiguous in addition to just copying
  */
 export default function (this: NDArray): NDArray;
