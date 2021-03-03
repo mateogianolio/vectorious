@@ -206,11 +206,10 @@ export class NDIter implements Iterator<number[]> {
   next1d() {
     const {
       strides,
-      coords,
     } = this;
 
     this.pos += strides[0];
-    coords[0] += 1;
+    this.coords[0] += 1;
   }
 
   /**
@@ -229,18 +228,17 @@ export class NDIter implements Iterator<number[]> {
    */
   next2d() {
     const {
-      coords,
       strides,
       shapem1,
       backstrides,
     } = this;
 
-    if (coords[1] < shapem1[1]) {
-      coords[1] += 1;
+    if (this.coords[1] < shapem1[1]) {
+      this.coords[1] += 1;
       this.pos += strides[1];
     } else {
-      coords[1] = 0;
-      coords[0] += 1;
+      this.coords[1] = 0;
+      this.coords[0] += 1;
       this.pos += strides[0] - backstrides[1];
     }
   }
@@ -254,19 +252,18 @@ export class NDIter implements Iterator<number[]> {
     const {
       ndm1,
       shapem1,
-      coords,
       strides,
       backstrides,
     } = this;
 
     let i;
     for (i = ndm1; i >= 0; i -= 1) {
-      if (coords[i] < shapem1[i]) {
-        coords[i] += 1;
+      if (this.coords[i] < shapem1[i]) {
+        this.coords[i] += 1;
         this.pos += strides[i];
         break;
       } else {
-        coords[i] = 0;
+        this.coords[i] = 0;
         this.pos -= backstrides[i];
       }
     }
