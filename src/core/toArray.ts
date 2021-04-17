@@ -13,57 +13,41 @@ import { array } from './array';
  * 
  * toArray([1, 2, 3]); // => [1, 2, 3]
  */
-export const toArray = (x: NDArray | ArrayLike<any>): number[] => array(x).toArray();
+export const toArray = (x: NDArray | ArrayLike<any>): any => array(x).toArray();
 
 /**
  * @function toArray
  * @memberof NDArray.prototype
  * @description Converts current vector into a JavaScript array.
+ * @param {Number} index
+ * @param {Number} dim
  * @returns {Array}
  * @example
  * import { array } from 'vectorious/core/array';
  * 
  * array([1, 2, 3]).toArray(); // => [1, 2, 3]
  */
-export default function(this: NDArray): number[] {
-  const { length: l1, shape: s1 } = this;
+export default function(this: NDArray, index: number = 0, dim = 0): any {
+  const { data: d1, shape: s1, strides: st1 } = this;
   const { length: ndim } = s1;
 
-  let i: number;
-  let j: number;
-  let k: number;
-  const res: any = [];
-
-  for (i = 0; i < l1; i += 1) {
-    const indices: number[] = [];
-
-    for (j = 0; j < ndim; j += 1) {
-      let p: number = 1;
-      for (k = j + 1; k < ndim; k += 1) {
-        p *= s1[k];
-      }
-
-      let index: number = Math.floor(i / p);
-      if (j > 0) {
-        index %= s1[j];
-      }
-
-      indices.push(index);
-    }
-
-    let node: any = res;
-    for (j = 0; j < ndim; j += 1) {
-      const index: number = indices[j];
-      if (j < ndim - 1) {
-        if (!node[index]) {
-          node[index] = [];
-        }
-        node = node[index];
-      } else {
-        node[index] = this.get(...indices);
-      }
-    }
+  if (dim >= ndim) {
+    return d1[index];
   }
 
-  return res;
+  const n = s1[dim];
+  const stride = st1[dim];
+  const list = [];
+
+  for (let i = 0; i < n; i++) {
+    const item = this.toArray(index, dim + 1);
+    if (item === null) {
+      return null;
+    }
+
+    list[i] = item;
+    index += stride;
+  }
+
+  return list;
 };

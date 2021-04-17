@@ -254,7 +254,7 @@ export class NDArray implements INDArray {
     }
 
     if (data instanceof NDArray) {
-      return data.copy();
+      return data;
     }
 
     if (data instanceof NDIter) {
@@ -347,7 +347,7 @@ export class NDArray implements INDArray {
    * @type NDArray
    */
   public get T() {
-    return this.copy().transpose();
+    return this.transpose();
   }
 }
 

@@ -1,5 +1,7 @@
 import { NDArray } from './';
 import { array } from './array';
+import { zeros } from './zeros';
+import { NDMultiIter } from '../iterator';
 
 /**
  * @static
@@ -24,16 +26,17 @@ export const copy = (x: NDArray | ArrayLike<any>): NDArray => array(x).copy();
  * import { array } from 'vectorious/core/array';
  * 
  * array([1, 2, 3]).copy(); // => array([1, 2, 3])
- * @todo Should make new array C-contiguous in addition to just copying
  */
 export default function(this: NDArray): NDArray {
-  const copy: NDArray = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
+  const x = zeros(...this.shape);
 
-  copy.data = this.data.slice();
-  copy.shape = this.shape.slice();
-  copy.strides = this.strides.slice();
-  copy.length = this.length;
-  copy.dtype = this.dtype;
+  const { data: d1 } = this;
+  const { data: d2 } = x;
 
-  return copy;
+  const iter = new NDMultiIter(this, x);
+  for (const [i, j] of iter) {
+    d2[j] = d1[i];
+  }
+
+  return x;
 };

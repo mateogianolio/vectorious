@@ -8,8 +8,8 @@ try {
   nblas = require('nblas');
 } catch (err) {}
 
-export const NoTrans = nblas.NoTrans;
-export const Trans = nblas.Trans;
+export const NoTrans = nblas && nblas.NoTrans;
+export const Trans = nblas && nblas.Trans;
 
 export function axpy(dtype: DType, n: number, alpha: number, x: TypedArray, inc_x: number, y: TypedArray, inc_y: number) {
   if (x.length / inc_x !== n || y.length / inc_y !== n) {

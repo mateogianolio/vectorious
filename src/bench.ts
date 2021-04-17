@@ -10,7 +10,7 @@ export const bench = (
 ): typeof benchmark => {
   execSync(`mkdir -p benchmarks/${group}`);
   const filename: string = `benchmarks/${group}/${name}.png`;
-  const xs: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072];
+  const xs: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
   let ys: number[] = [];
 
   plt.title(name);

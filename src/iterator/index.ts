@@ -8,7 +8,7 @@ export const V_MAXDIMS = 32;
  * @description Constructs an NDIter instance.
  * @param {NDArray} x
  */
-export class NDIter {
+export class NDIter implements Iterator<number[]> {
   /**
    * @name x
    * @memberof NDIter.prototype
@@ -108,13 +108,13 @@ export class NDIter {
   public contiguous: boolean;
 
   constructor(x: NDArray | ArrayLike<any>) {
+    this.x = array(x);
     const {
       shape,
       strides,
       length,
-    } = array(x);
+    } = this.x;
 
-    this.x = array(x);
     this.length = length;
     this.lengthm1 = length - 1;
     this.nd = shape.length;
@@ -143,16 +143,16 @@ export class NDIter {
       this.coords[i] = 0;
 
       // Check if C-contiguous
-      if (shape[this.nd - i - 1] !== 1) {
+      if (shape[this.ndm1 - i] !== 1) {
         if (strides[i] !== stride) {
           this.contiguous = false;
         }
 
-        stride *= shape[this.nd - i - 1];
+        stride *= shape[this.ndm1 - i];
       }
 
       if (i > 0) {
-        this.factors[this.nd - i - 1] = this.factors[this.nd - i] * shape[this.nd - i];
+        this.factors[this.ndm1 - i] = this.factors[this.nd - i] * shape[this.nd - i];
       }
     }
 
@@ -190,7 +190,7 @@ export class NDIter {
    * const iter = new NDIter(array([1, 2, 3]));
    * iter.current(); // { value: 1, done: false }
    */
-  current() {
+  current(): IteratorResult<number[] | any> {
     const done = this.done();
     return {
       value: done ? undefined : this.pos,
@@ -206,11 +206,10 @@ export class NDIter {
   next1d() {
     const {
       strides,
-      coords,
     } = this;
 
     this.pos += strides[0];
-    coords[0] += 1;
+    this.coords[0] += 1;
   }
 
   /**
@@ -229,18 +228,17 @@ export class NDIter {
    */
   next2d() {
     const {
-      coords,
       strides,
       shapem1,
       backstrides,
     } = this;
 
-    if (coords[1] < shapem1[1]) {
-      coords[1] += 1;
+    if (this.coords[1] < shapem1[1]) {
+      this.coords[1] += 1;
       this.pos += strides[1];
     } else {
-      coords[1] = 0;
-      coords[0] += 1;
+      this.coords[1] = 0;
+      this.coords[0] += 1;
       this.pos += strides[0] - backstrides[1];
     }
   }
@@ -254,21 +252,20 @@ export class NDIter {
     const {
       ndm1,
       shapem1,
-      coords,
       strides,
       backstrides,
     } = this;
 
     let i;
     for (i = ndm1; i >= 0; i -= 1) {
-      if (coords[i] < shapem1[i]) {
-        coords[i] += 1;
+      if (this.coords[i] < shapem1[i]) {
+        this.coords[i] += 1;
         this.pos += strides[i];
         break;
-      } else {
-        coords[i] = 0;
-        this.pos -= backstrides[i];
       }
+
+      this.coords[i] = 0;
+      this.pos -= backstrides[i];
     }
   }
 
@@ -321,7 +318,7 @@ export class NDIter {
  * @description Constructs an NDMultiIter instance.
  * @param {NDArray[]} ...args
  */
-export class NDMultiIter {
+export class NDMultiIter implements Iterator<number[]> {
   /**
    * @name iters
    * @memberof NDMultiIter.prototype
@@ -486,7 +483,7 @@ export class NDMultiIter {
    * const iter = new NDMultiIter(array([1, 2, 3]), array([4, 5, 6]));
    * iter.current(); // { value: [0, 0], done: false }
    */
-  current() {
+  current(): IteratorResult<number[] | any> {
     const done = this.done();
     return {
       value: done ? undefined : this.pos,

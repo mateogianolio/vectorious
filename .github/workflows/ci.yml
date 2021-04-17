@@ -29,7 +29,7 @@ jobs:
       if: runner.os == 'Linux'
 
     - name: Install dependencies on linux
-      run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev libpython-dev
+      run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev python-dev
       if: runner.os == 'Linux'
 
     - name: Install dependencies on mac
@@ -44,3 +44,10 @@ jobs:
 
     - name: Test
       run: npm test
+
+    - name: Publish coverage to CodeClimate
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+      with:
+        coverageLocations: ${{github.workspace}}/coverage/lcov.info:lcov
