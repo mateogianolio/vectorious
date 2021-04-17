@@ -68,6 +68,11 @@ array([
 */
 ```
 
+### Documentation
+
+* [**API Documentation**](https://docs.vectorious.org/vectorious/6.0.2/)
+* [**Usage guides**](https://github.com/mateogianolio/vectorious/wiki)
+
 ### Examples
 
 **Basic**
@@ -77,11 +82,6 @@ array([
 **Machine learning**
 * [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.ts) (by [@lucidrains](https://github.com/lucidrains))
 * [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.ts)
-
-### Documentation
-
-* [**API Documentation**](https://docs.vectorious.org/vectorious/6.0.2/)
-* [**Usage guides**](https://github.com/mateogianolio/vectorious/wiki)
 
 ### Benchmarks
 
