@@ -3,6 +3,7 @@
 node_modules
 coverage
 .DS_Store
+built
 src
 examples
 docs

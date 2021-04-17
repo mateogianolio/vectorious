@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title><?js= env.conf.metadata.title ?>: <?js= title ?></title>
+    <script src="scripts/prism.dev.js"></script>
     <?js if (env.conf.opts.hasOwnProperty('prism-theme')) { ?>
       <link type="text/css" rel="stylesheet" href="styles/vendor/<?js= env.conf.opts['prism-theme'] ?>.css">
     <?js } else { ?>
@@ -62,8 +63,5 @@
   </div>
 </footer>
 
-
-
-<script src="scripts/prism.dev.js"></script>
 </body>
 </html>

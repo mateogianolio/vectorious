@@ -8,7 +8,7 @@
   "scripts": {
     "test": "jest",
     "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node $file; done",
-    "docs": "jsdoc --configure jsdoc.json",
+    "docs": "tsc --outDir built && jsdoc --configure jsdoc.json && rm -rf built",
     "build:node": "esbuild --bundle src/index.ts --minify --sourcemap --platform=node --outfile=dist/index.js --external:nblas --external:nlapack",
     "build:browser": "esbuild --bundle src/index.ts --minify --sourcemap --platform=browser --global-name=v --outfile=dist/index.browser.js --external:nblas --external:nlapack",
     "build": "tsc -emitDeclarationOnly && npm run build:node && npm run build:browser",
