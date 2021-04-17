@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/npm/v/vectorious.svg" /> <img src="https://github.com/mateogianolio/vectorious/workflows/CI/badge.svg" /> <img src="https://api.codeclimate.com/v1/badges/0b4035b94b0e84c5ac55/maintainability" />
+  <img src="https://img.shields.io/npm/v/vectorious.svg" /> <img src="https://img.shields.io/npm/dm/vectorious" /> <img src="https://img.shields.io/github/workflow/status/mateogianolio/vectorious/CI/master" /> <img src="https://img.shields.io/codeclimate/maintainability/mateogianolio/vectorious" /> <img src="https://img.shields.io/codeclimate/coverage/mateogianolio/vectorious" />
 </p>
 
 ### Usage
