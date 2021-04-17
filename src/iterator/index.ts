@@ -108,13 +108,13 @@ export class NDIter implements Iterator<number[]> {
   public contiguous: boolean;
 
   constructor(x: NDArray | ArrayLike<any>) {
+    this.x = array(x);
     const {
       shape,
       strides,
       length,
-    } = array(x);
+    } = this.x;
 
-    this.x = array(x);
     this.length = length;
     this.lengthm1 = length - 1;
     this.nd = shape.length;
@@ -143,16 +143,16 @@ export class NDIter implements Iterator<number[]> {
       this.coords[i] = 0;
 
       // Check if C-contiguous
-      if (shape[this.nd - i - 1] !== 1) {
+      if (shape[this.ndm1 - i] !== 1) {
         if (strides[i] !== stride) {
           this.contiguous = false;
         }
 
-        stride *= shape[this.nd - i - 1];
+        stride *= shape[this.ndm1 - i];
       }
 
       if (i > 0) {
-        this.factors[this.nd - i - 1] = this.factors[this.nd - i] * shape[this.nd - i];
+        this.factors[this.ndm1 - i] = this.factors[this.nd - i] * shape[this.nd - i];
       }
     }
 
@@ -262,10 +262,10 @@ export class NDIter implements Iterator<number[]> {
         this.coords[i] += 1;
         this.pos += strides[i];
         break;
-      } else {
-        this.coords[i] = 0;
-        this.pos -= backstrides[i];
       }
+
+      this.coords[i] = 0;
+      this.pos -= backstrides[i];
     }
   }
 

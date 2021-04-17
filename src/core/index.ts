@@ -347,7 +347,7 @@ export class NDArray implements INDArray {
    * @type NDArray
    */
   public get T() {
-    return this.copy().transpose();
+    return this.transpose();
   }
 }
 
