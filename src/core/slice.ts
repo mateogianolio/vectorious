@@ -1,4 +1,5 @@
-import { get_strides } from '../util';
+import { TypedArray } from '../types';
+import { get_length, get_strides } from '../util';
 import { NDArray } from './';
 import { array } from './array';
 
@@ -28,7 +29,7 @@ export const slice = (
 /**
  * @function slice
  * @memberof NDArray.prototype
- * @description Slices the current array in the corresponding dimension
+ * @description Slices the current array along the leading dimension
  * @param {Number} begin
  * @param {Number} end
  * @param {Number} step
@@ -44,24 +45,33 @@ export default function(
   end: number = this.shape[0],
   step: number = 1
 ): NDArray {
-  const { shape: s1 } = this;
+  const { data: d1, shape: s1 } = this;
   const nd = s1.length;
 
   if (begin < 0 || end < 0) {
-    return this.slice(begin < 0 ? nd + begin : begin, end < 0 ? nd + end : end);
+    return this.slice(begin < 0 ? s1[s1.length - 1] + begin : begin, end < 0 ? s1[s1.length - 1] + end : end);
   }
 
-  if (step === 0) {
-    throw new Error('step argument cannot be 0');
+  if (begin > end) {
+    return this.slice(end, begin, step);
   }
 
-  const s2: number[] = [Math.ceil((end - begin) / step), ...s1.slice(1)];
-  const l2: number = s2.reduce((sum: number, dim: number) => sum * dim, 1);
+  if (step <= 0) {
+    throw new Error('step argument has to be a positive integer');
+  }
+
+  const s2: number[] = [Math.ceil((end - begin) / Math.abs(step)), ...s1.slice(1)];
+  const l2: number = get_length(s2);
   const st2: number[] = get_strides(s2);
+  const d2: TypedArray = nd > 1
+    ? d1.subarray(begin * s2[s2.length - 1], end * s2[s2.length - 1])
+    : d1.subarray(begin, end);
 
-  this.shape = s2;
-  this.length = l2;
-  this.strides = st2;
+  st2[0] *= step;
 
-  return this;
+  return new NDArray(d2, {
+    shape: s2,
+    length: l2,
+    strides: st2,
+  });
 };
