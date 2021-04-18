@@ -4,7 +4,7 @@ import { bench } from '../bench';
 
 bench(
   'NDArray',
-  'copy',
+  'slice',
   (n: number) => [random(n), 0, Math.floor(Math.random() * n), n],
   (x, start: number, step: number, end: number): void => {
     x.slice(start, step, end);
