@@ -18,7 +18,7 @@ export declare const slice: (x: NDArray | ArrayLike<any>, begin?: number | undef
 /**
  * @function slice
  * @memberof NDArray.prototype
- * @description Slices the current array in the corresponding dimension
+ * @description Slices the current array along the leading dimension
  * @param {Number} begin
  * @param {Number} end
  * @param {Number} step
