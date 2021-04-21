@@ -32,11 +32,13 @@ export const max = (x: NDArray | ArrayLike<any>): number => array(x).max();
  * array([1, 2, 3]).max(); // => 3
  */
 export default function(this: NDArray): number {
-  const { data: d1, length: l1, dtype } = this;
+  const { data: d1, length: l1, strides: st1, dtype } = this;
   let max: number = Number.NEGATIVE_INFINITY;
 
   try {
-    max = d1[blas.iamax(dtype, l1, d1, 1)];
+    const inc_x = st1[st1.length - 1];
+
+    max = d1[blas.iamax(dtype, l1, d1, inc_x)];
   } catch (err) {
     const iter = new NDIter(this);
 
