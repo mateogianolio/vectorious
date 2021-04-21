@@ -131,7 +131,7 @@ export class NDIter implements Iterator<number[]> {
       this.factors[this.nd - 1] = 1;
     }
 
-    this.contiguous = true;
+    this.contiguous = false;
 
     let stride = 1;
     let i;
@@ -145,7 +145,7 @@ export class NDIter implements Iterator<number[]> {
       // Check if C-contiguous
       if (shape[this.ndm1 - i] !== 1) {
         if (strides[i] !== stride) {
-          this.contiguous = false;
+          this.contiguous = true;
         }
 
         stride *= shape[this.ndm1 - i];
