@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install package dependencies
+        run: npm ci --no-optional
+
+      - name: Build dist/
+        run: npm run build
+
+      - name: Generate docs/
+        run: npm run docs
+
+      - name: Publish dist/
+        run: |
+          git config --global user.name 'Mateo Gianolio'
+          git config --global user.email 'mateogianolio@users.noreply.github.com'
+          git add dist
+          git commit -m "Generate dist"
+          git push
+
+      - name: Publish docs/
+        run: |
+          git config --global user.name 'Mateo Gianolio'
+          git config --global user.email 'mateogianolio@users.noreply.github.com'
+          git add docs
+          git commit -m "Generate docs"
+          git push
+
+      - name: Publish package to npm
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
