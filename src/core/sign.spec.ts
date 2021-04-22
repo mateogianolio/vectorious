@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import { equals } from './equals';
 import { sign } from './sign';
 import { map } from './map';
@@ -7,12 +8,12 @@ describe('(v) sign', () => {
   it('should work as expected', () => {
     const x = random(3);
 
-    equals(map(x, (value: number) => Math.sign(value)), x.sign());
+    ok(equals(map(x, (value: number) => Math.sign(value)), x.sign()));
   });
 
   it('should work as the static equivalent', () => {
     const x = random(3);
 
-    equals(map(x, (value: number) => Math.sign(value)), sign(x));
+    ok(equals(map(x, (value: number) => Math.sign(value)), sign(x)));
   });
 });

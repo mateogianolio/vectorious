@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import { equals } from './equals';
 import { array } from './array';
 import { random } from './random';
@@ -8,28 +9,28 @@ describe('(v) transpose', () => {
     const x = array([[1, 2, 3]]);
     const y = array([[1], [2], [3]]);
 
-    equals(x, y.copy().T);
-    equals(y, x.copy().T);
+    ok(equals(x, y.copy().T));
+    ok(equals(y, x.copy().T));
   });
 
   it('should work as expected', () => {
     const x = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
     const y = array([[1, 4, 7], [2, 5, 8], [3, 6, 9]]);
 
-    equals(x, y.copy().T);
-    equals(y, x.copy().T);
+    ok(equals(x, y.copy().T));
+    ok(equals(y, x.copy().T));
   });
 
   it('should work as expected', () => {
     const x = random(2, 2);
     const y = x.copy().T.T;
 
-    equals(x, y);
+    ok(equals(x, y));
   });
 
   it('should work as the static equivalent', () => {
     const x = array([[1, 1, 1]]);
 
-    equals(x.copy().T, transpose(x));
+    ok(equals(x.copy().T, transpose(x)));
   });
 });

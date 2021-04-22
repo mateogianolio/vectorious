@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -26,7 +27,7 @@ describe('(v) inv', () => {
     ]);
 
     // Need to round result to avoid floating point rounding errors, e.g. 0.99999999994
-    equals(y, x.inv());
+    ok(equals(y, x.inv()));
   });
 
   it('should work as the static equivalent', () => {
@@ -36,6 +37,6 @@ describe('(v) inv', () => {
       [0, -1, 2],
     ]);
 
-    equals(x.copy().inv(), inv(x));
+    ok(equals(x.copy().inv(), inv(x)));
   });
 });

@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -12,6 +13,6 @@ describe('(v) magic', () => {
   });
 
   it('should work as expected', () => {
-    equals(array([[8, 1, 6], [3, 5, 7], [4, 9, 2]]), magic(3));
+    ok(equals(array([[8, 1, 6], [3, 5, 7], [4, 9, 2]]), magic(3)));
   });
 });

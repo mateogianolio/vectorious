@@ -1,4 +1,5 @@
 import {
+  ok,
   notStrictEqual,
 } from 'assert';
 
@@ -13,7 +14,7 @@ describe('(v) copy', () => {
 
     notStrictEqual(original, cp);
     notStrictEqual(original.data, cp.data);
-    equals(original, cp);
+    ok(equals(original, cp));
   });
 
   it('should move data into c-contiguous order', () => {
@@ -30,6 +31,6 @@ describe('(v) copy', () => {
 
     notStrictEqual(original, cp);
     notStrictEqual(original.data, cp.data);
-    equals(original, cp);
+    ok(equals(original, cp));
   });
 });
