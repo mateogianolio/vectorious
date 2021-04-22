@@ -19,7 +19,7 @@
     "build:node": "esbuild --bundle src/index.ts --minify --sourcemap --platform=node --outfile=dist/index.js --external:nblas --external:nlapack",
     "build:browser": "esbuild --bundle src/index.ts --minify --sourcemap --platform=browser --global-name=v --outfile=dist/index.browser.js --external:nblas --external:nlapack",
     "build:esm": "esbuild --bundle src/index.ts --minify --sourcemap --format=esm --outfile=dist/index.esm.js --external:nblas --external:nlapack",
-    "build": "tsc -emitDeclarationOnly && npm run build:node && npm run build:browser && npm run build:esm",
+    "build": "rm -rf dist && tsc -emitDeclarationOnly && npm run build:node && npm run build:browser && npm run build:esm",
     "prepublishOnly": "npm run build"
   },
   "repository": {
