@@ -37,7 +37,7 @@ export default function(this: NDArray, tolerance: number = 1e-6): number {
   let rk: number = 0;
   let [ci, cj] = iter.coords;
   for (const i of iter) {
-    if (rk <= ci && cj >= ci && d1[i!] > tolerance) {
+    if (rk <= ci && cj >= ci && Math.abs(d1[i]) > tolerance) {
       rk += 1;
     }
 
