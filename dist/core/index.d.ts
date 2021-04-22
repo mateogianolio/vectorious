@@ -256,7 +256,7 @@ export declare class NDArray implements INDArray {
     /**
      * @name T
      * @memberof NDArray.prototype
-     * @description Short for `this.transpose()`
+     * @description Short for `this.copy().transpose()`
      * @type NDArray
      */
     get T(): NDArray;

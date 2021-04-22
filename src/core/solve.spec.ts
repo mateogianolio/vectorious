@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import { equals } from './equals';
 import { solve } from './solve';
 import { array } from './array';
@@ -8,7 +9,7 @@ describe('(v) solve', () => {
     const y = array([[1], [3], [5]]);
     const z = array([[3.25], [1.75], [-1.5]]);
 
-    equals(z, x.solve(y));
+    ok(equals(z, x.solve(y)));
   });
 
   it('should work as the static equivalent', () => {
@@ -16,6 +17,6 @@ describe('(v) solve', () => {
     const y = array([[1], [3], [5]]);
     const z = array([[3.25], [1.75], [-1.5]]);
 
-    equals(z, solve(x, y));
+    ok(equals(z, solve(x, y)));
   });
 });

@@ -1,17 +1,25 @@
 {
   "name": "vectorious",
-  "version": "6.0.4",
+  "version": "6.1.0",
   "description": "A high performance linear algebra library.",
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.esm.js"
+    }
+  },
   "scripts": {
     "test": "jest",
     "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node $file; done",
     "docs": "tsc --outDir built && jsdoc --configure jsdoc.json && rm -rf built",
     "build:node": "esbuild --bundle src/index.ts --minify --sourcemap --platform=node --outfile=dist/index.js --external:nblas --external:nlapack",
     "build:browser": "esbuild --bundle src/index.ts --minify --sourcemap --platform=browser --global-name=v --outfile=dist/index.browser.js --external:nblas --external:nlapack",
-    "build": "tsc -emitDeclarationOnly && npm run build:node && npm run build:browser",
+    "build:esm": "esbuild --bundle src/index.ts --minify --sourcemap --format=esm --outfile=dist/index.esm.js --external:nblas --external:nlapack",
+    "build": "rm -rf dist && tsc -emitDeclarationOnly && npm run build:node && npm run build:browser && npm run build:esm",
     "prepublishOnly": "npm run build"
   },
   "repository": {

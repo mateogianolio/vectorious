@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import { equals } from './equals';
 import { forEach } from './forEach';
 import { array } from './array';
@@ -10,7 +11,7 @@ describe('(v) forEach', () => {
       src[index] = value * 2;
     });
 
-    equals(array([2, 4, 6]), x);
+    ok(equals(array([2, 4, 6]), x));
   });
 
   it('should work as the static equivalent', () => {
@@ -19,6 +20,6 @@ describe('(v) forEach', () => {
       src[index] = value * 2;
     });
 
-    equals(array([2, 4, 6]), x);
+    ok(equals(array([2, 4, 6]), x));
   });
 });

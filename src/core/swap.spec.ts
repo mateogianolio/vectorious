@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -20,14 +21,14 @@ describe('(v) swap', () => {
     const x = array([[1, 2], [3, 4], [5, 6]]);
 
     x.swap(0, 1);
-    equals(array([[3, 4], [1, 2], [5, 6]]), x);
+    ok(equals(array([[3, 4], [1, 2], [5, 6]]), x));
     x.swap(1, 2);
-    equals(array([[3, 4], [5, 6], [1, 2]]), x);
+    ok(equals(array([[3, 4], [5, 6], [1, 2]]), x));
   });
 
   it('should work as the static equivalent', () => {
     const x = array([[1, 2], [3, 4], [5, 6]]);
 
-    equals(array([[3, 4], [1, 2], [5, 6]]), swap(x, 0, 1));
+    ok(equals(array([[3, 4], [1, 2], [5, 6]]), swap(x, 0, 1)));
   });
 });

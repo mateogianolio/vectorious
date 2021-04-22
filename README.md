@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/npm/v/vectorious.svg" /> <img src="https://img.shields.io/npm/dm/vectorious" /> <img src="https://img.shields.io/github/workflow/status/mateogianolio/vectorious/CI/master" /> <img src="https://img.shields.io/codeclimate/maintainability/mateogianolio/vectorious" /> <img src="https://img.shields.io/codeclimate/coverage/mateogianolio/vectorious" />
 </p>
 
-### Usage
+### Installation
 
 Follow the installation instructions in [nlapack](https://github.com/nperf/nlapack) and [nblas](https://github.com/nperf/nblas) to get maximum performance.
 
@@ -22,10 +22,49 @@ $ npm install vectorious
 $ npm install vectorious --no-optional
 ```
 
-```javascript
-import v = require('vectorious');
+There are three output bundles exposed in this package.
 
-const x = v.random(2, 2);
+#### CommonJS
+
+A node.js bundle, can be found in `dist/index.js` and imported with the `require()` syntax:
+
+```typescript
+const v = require('vectorious');
+```
+
+#### Browser
+
+A browser bundle, can be found in `dist/index.browser.js` and imported with the `<script>` tag:
+
+```html
+<script src="dist/index.browser.js" />
+```
+
+It exposes a global variable named `v` in the `window` object and can be accessed like this:
+
+```html
+<script>
+  const x = v.array([1, 2, 3]);
+</script>
+```
+
+#### ES module
+
+Added in version 6.1.0, vectorious exposes an ES module bundle at `dist/index.esm.js` which can be imported using the `import` syntax:
+
+```typescript
+import { array } from 'vectorious';
+
+const x = array([1, 2, 3]);
+```
+
+### Usage
+
+```javascript
+import { array, random, range } from 'vectorious';
+
+// Create a random 2x2 matrix
+const x = random(2, 2);
 /*
 array([
   [
@@ -39,6 +78,8 @@ array([
 ], dtype=float64)
 */
 
+// Create a one-dimensional vector with values from
+// 0 through 8 and reshape it into a 3x3 matrix
 const y = v.range(0, 9).reshape(3, 3);
 /*
 array([
@@ -48,29 +89,39 @@ array([
 ], dtype=float64)
 */
 
-const z = v.array([[1, 2], [3, 4]]);
-/*
-array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float64)
-*/
-
-x.add(z);
+// Add the second row of x to the first row of x
+y.slice(0, 1).add(y.slice(1, 2))
 /*
 array([
-  [
-    1.26472008228302,
-    2.410257577896118
-  ],
-  [
-    3.4068727493286133,
-    4.4589385986328125
-  ]
+  [ 3, 5, 7 ],
+  [ 3, 4, 5 ],
+  [ 6, 7, 8 ]
+], dtype=float64)
+*/
+
+// Swap the first and second rows of x
+y.swap(0, 1);
+/*
+array([
+  [ 3, 4, 5 ],
+  [ 3, 5, 7 ],
+  [ 6, 7, 8 ]
+], dtype=float64)
+*/
+
+// Create a 2x2x1 tensor
+const z = v.array([[[1], [2]], [[3], [4]]]);
+/*
+array([
+  [ [ 1 ], [ 2 ] ],
+  [ [ 3 ], [ 4 ] ]
 ], dtype=float64)
 */
 ```
 
 ### Documentation
 
-* [**API Documentation**](https://docs.vectorious.org/vectorious/6.0.4/)
+* [**API Documentation**](https://docs.vectorious.org/vectorious/6.1.0/)
 
 ### Examples
 
@@ -82,10 +133,28 @@ array([
 * [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.ts) (by [@lucidrains](https://github.com/lucidrains))
 * [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.ts)
 
+### Testing
+
+All functions are accompanied with a `.spec.ts` file.
+
+The Jest testing framework is used for testing and the whole test suite can be run using a single command:
+
+```sh
+$ npm test
+```
+
 ### Benchmarks
 
-Run benchmarks with
+All functions are accompanied with a `.bench.ts` file.
+
+Run all benchmarks with:
 
 ```bash
 $ npm run benchmark
+```
+
+Or for a single function with:
+
+```
+$ npx ts-node src/core/abs.bench.ts
 ```

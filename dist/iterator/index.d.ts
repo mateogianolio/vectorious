@@ -84,12 +84,6 @@ export declare class NDIter implements Iterator<number[]> {
      * @type Number[]
      */
     factors: number[];
-    /**
-     * @name contiguous
-     * @memberof NDIter.prototype
-     * @type Boolean
-     */
-    contiguous: boolean;
     constructor(x: NDArray | ArrayLike<any>);
     /**
      * @function done
@@ -125,12 +119,6 @@ export declare class NDIter implements Iterator<number[]> {
      * @description Steps to the next position in the iterator, assuming it is 1 dimensional.
      */
     next1d(): void;
-    /**
-     * @function nextcontiguous
-     * @memberof NDIter.prototype
-     * @description Steps to the next position in the iterator, assuming its data is contiguous.
-     */
-    nextcontiguous(): void;
     /**
      * @function next2d
      * @memberof NDIter.prototype

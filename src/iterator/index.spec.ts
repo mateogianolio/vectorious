@@ -55,6 +55,52 @@ describe('(NDIter) constructor', () => {
     });
   });
 
+  it('should work as expected with inverted strides', () => {
+    const x = array([[0, 1, 2], [3, 4, 5], [6, 7, 8]]).T;
+    const iter = new NDIter(x);
+
+    deepStrictEqual(iter.next(), {
+      value: 0,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 3,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 6,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 1,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 4,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 7,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 2,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 5,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 8,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: undefined,
+      done: true,
+    });
+  })
+
   it('should work in for...of loops', () => {
     const x = array([[0, 1], [2, 3]]);
     const iter = new NDIter(x);
@@ -103,6 +149,62 @@ describe('(NDMultiIter) constructor', () => {
       value: undefined,
       done: true,
     });
+  });
+
+  it('should work as expected in two dimensions', () => {
+    const x = array([[0, 1], [2, 3]]);
+    const y = array([[4, 5], [6, 7]]);
+
+    const iter = new NDMultiIter(x, y);
+
+    deepStrictEqual(iter.next(), {
+      value: [0, 0],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: [1, 1],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: [2, 2],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: [3, 3],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: undefined,
+      done: true,
+    });
+  });
+
+
+  it('should work in for...of loops', () => {
+    const x = array([[0, 1], [2, 3]]);
+    const y = array([[4, 5], [6, 7]]);
+
+    const iter = new NDMultiIter(x, y);
+
+    let i = 0;
+    for (const [xi, yi] of iter) {
+      strictEqual(xi, i);
+      strictEqual(yi, i++);
+    }
+  });
+
+  it('should work in do...while loops', () => {
+    const x = array([[0, 1], [2, 3]]);
+    const y = array([[4, 5], [6, 7]]);
+
+    const iter = new NDMultiIter(x, y);
+
+    let i = 0;
+    do {
+      const next = iter.next();
+      strictEqual(next.value[0], i);
+      strictEqual(next.value[1], i++);
+    } while (!iter.done());
   });
 
   it('should work with mixed input', () => {

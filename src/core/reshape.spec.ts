@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -18,16 +19,16 @@ describe('(v) reshape', () => {
     const f64 = new Float64Array([1, 2, 3, 4]);
     const x = array(f64, { shape: [1, 4] });
 
-    equals(x.shape, [1, 4]);
+    ok(equals(x.shape, [1, 4]));
     x.reshape(4, 1);
-    equals(x.shape, [4, 1]);
+    ok(equals(x.shape, [4, 1]));
   });
 
   it('should work as the static equivalent', () => {
     const f64 = new Float64Array([1, 2, 3, 4]);
     const x = array(f64, { shape: [1, 4] });
 
-    equals(x.shape, [1, 4]);
-    equals(reshape(x, 4, 1).shape, [4, 1]);
+    ok(equals(x.shape, [1, 4]));
+    ok(equals(reshape(x, 4, 1).shape, [4, 1]));
   });
 });

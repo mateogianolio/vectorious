@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -20,15 +21,15 @@ describe('(v) multiply', () => {
     const z = array([[5]]);
     const u = array([[1, 2], [2, 4]]);
 
-    equals(z, x.copy().multiply(y));
-    equals(u, y.copy().multiply(x));
+    ok(equals(z, x.copy().multiply(y)));
+    ok(equals(u, y.copy().multiply(x)));
   });
 
   it('should work as expected', () => {
     const x = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
     const y = array([[30, 36, 42], [66, 81, 96], [102, 126, 150]]);
 
-    equals(y, x.multiply(x));
+    ok(equals(y, x.multiply(x)));
   });
 
   it('should work as expected', () => {
@@ -36,13 +37,13 @@ describe('(v) multiply', () => {
     const y = array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]);
     const z = array([[2, 4, 7], [1, 3, 5], [1, 1, 0]]);
 
-    equals(z, x.multiply(y));
+    ok(equals(z, x.multiply(y)));
   });
 
   it('should work as the static equivalent', () => {
     const x = array([[1], [2], [3]]);
     const y = array([[1, 1, 1]]);
 
-    equals(x.copy().multiply(y), multiply(x, y));
+    ok(equals(x.copy().multiply(y), multiply(x, y)));
   });
 });

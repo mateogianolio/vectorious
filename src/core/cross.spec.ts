@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -11,7 +12,7 @@ describe('(v) cross', () => {
     const x = array([1, 2, 3]);
     const y = array([2, 3, 4]);
 
-    equals(array([-1, 2, -1]), x.cross(y));
+    ok(equals(array([-1, 2, -1]), x.cross(y)));
   });
 
   it('should throw an exception when lengths do not match', () => {
@@ -25,6 +26,6 @@ describe('(v) cross', () => {
     const x = array([1, 2, 3]);
     const y = array([2, 3, 4]);
 
-    equals(array([-1, 2, -1]), cross(x, y));
+    ok(equals(array([-1, 2, -1]), cross(x, y)));
   });
 });

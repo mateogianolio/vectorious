@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -11,7 +12,7 @@ describe('(v) add', () => {
     const x = array();
     const y = array();
 
-    equals(array(), x.add(y));
+    ok(equals(array(), x.add(y)));
   });
 
   it('should throw error if shapes cannot be broadcast together', () => {
@@ -26,7 +27,7 @@ describe('(v) add', () => {
     const y = array([4, 5, 6]);
     const z = array([5, 7, 9]);
 
-    equals(z, x.add(y));
+    ok(equals(z, x.add(y)));
   });
 
   it('should product v([11, 12, 13]) from v([1, 2, 3]) and v([10])', () => {
@@ -34,7 +35,7 @@ describe('(v) add', () => {
     const y = array([10]);
     const z = array([11, 12, 13]);
 
-    equals(z, x.add(y))
+    ok(equals(z, x.add(y)))
   });
 
   it('should work as the static equivalent', () => {
@@ -42,6 +43,6 @@ describe('(v) add', () => {
     const y = array([4, 5, 6]);
     const z = array([5, 7, 9]);
 
-    equals(z, add(x, y));
+    ok(equals(z, add(x, y)));
   });
 });

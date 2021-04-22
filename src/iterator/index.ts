@@ -100,13 +100,6 @@ export class NDIter implements Iterator<number[]> {
    */
   public factors: number[];
 
-  /**
-   * @name contiguous
-   * @memberof NDIter.prototype
-   * @type Boolean
-   */
-  public contiguous: boolean;
-
   constructor(x: NDArray | ArrayLike<any>) {
     this.x = array(x);
     const {
@@ -131,9 +124,6 @@ export class NDIter implements Iterator<number[]> {
       this.factors[this.nd - 1] = 1;
     }
 
-    this.contiguous = true;
-
-    let stride = 1;
     let i;
     for (i = 0; i < this.nd; i += 1) {
       this.shape[i] = shape[i];
@@ -141,15 +131,6 @@ export class NDIter implements Iterator<number[]> {
       this.strides[i] = strides[i];
       this.backstrides[i] = strides[i] * this.shapem1[i];
       this.coords[i] = 0;
-
-      // Check if C-contiguous
-      if (shape[this.ndm1 - i] !== 1) {
-        if (strides[i] !== stride) {
-          this.contiguous = false;
-        }
-
-        stride *= shape[this.ndm1 - i];
-      }
 
       if (i > 0) {
         this.factors[this.ndm1 - i] = this.factors[this.nd - i] * shape[this.nd - i];
@@ -210,15 +191,6 @@ export class NDIter implements Iterator<number[]> {
 
     this.pos += strides[0];
     this.coords[0] += 1;
-  }
-
-  /**
-   * @function nextcontiguous
-   * @memberof NDIter.prototype
-   * @description Steps to the next position in the iterator, assuming its data is contiguous.
-   */
-  nextcontiguous() {
-    this.pos += 1;
   }
 
   /**
@@ -292,13 +264,10 @@ export class NDIter implements Iterator<number[]> {
 
     const {
       ndm1,
-      contiguous,
     } = this;
 
     if (ndm1 === 0) {
       this.next1d();
-    } else if (contiguous) {
-      this.nextcontiguous();
     } else if (ndm1 === 1) {
       this.next2d();
     } else {
@@ -435,7 +404,6 @@ export class NDMultiIter implements Iterator<number[]> {
         k = j + nd - this.nd;
 
         if ((k < 0) || it.x.shape[k] !== this.shape[j]) {
-          it.contiguous = false;
           it.strides[j] = 0;
         } else {
           it.strides[j] = it.x.strides[k];

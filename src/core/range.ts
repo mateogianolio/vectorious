@@ -21,7 +21,7 @@ import { NDArray } from './';
  * range(1, 2, 9); // => array([1, 3, 5, 7])
  */
 export const range = (...args: number[]): NDArray => {
-  const type: TypedArrayConstructor = Float32Array;
+  const type: TypedArrayConstructor = Float64Array;
   let backwards: boolean = false;
   let start: number;
   let step: number;

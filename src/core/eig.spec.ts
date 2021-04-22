@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -28,8 +29,8 @@ describe('(v) eig', () => {
 
     const [e, E] = x.eig();
 
-    equals(y, e);
-    equals(z, E);
+    ok(equals(y, e));
+    ok(equals(z, E));
   });
 
   it('should work as the static equivalent', () => {
@@ -39,6 +40,6 @@ describe('(v) eig', () => {
       [0, 0, 3],
     ]);
 
-    equals(x.copy().eig(), eig(x));
+    ok(equals(x.copy().eig(), eig(x)));
   });
 });

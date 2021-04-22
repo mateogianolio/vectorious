@@ -1,3 +1,4 @@
+import { ok } from 'assert';
 import { equals } from './equals';
 import { lu } from './lu';
 import { array } from './array';
@@ -10,7 +11,7 @@ describe('(v) lu', () => {
       array([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]),
     ];
 
-    equals(ys, x.lu().slice(0, 2));
+    ok(equals(ys, x.lu().slice(0, 2)));
   });
 
   it('should work as expected', () => {
@@ -21,13 +22,13 @@ describe('(v) lu', () => {
     ];
 
     const [lower, upper] = x.lu();
-    equals(ys[0], lower.map((value: number) => Number(value.toFixed(5))));
-    equals(ys[1], upper.map((value: number) => Number(value.toFixed(5))));
+    ok(equals(ys[0], lower.map((value: number) => Number(value.toFixed(5)))));
+    ok(equals(ys[1], upper.map((value: number) => Number(value.toFixed(5)))));
   });
 
   it('should work as the static equivalent', () => {
     const x = array([[1, 1, 1]]);
 
-    equals(x.copy().lu(), lu(x));
+    ok(equals(x.copy().lu(), lu(x)));
   });
 });

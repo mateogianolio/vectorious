@@ -2,9 +2,12 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - "*"
+      - "!master"
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   test:
@@ -17,37 +20,37 @@ jobs:
         os: [ubuntu-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Setup C++ environment on linux
-      uses: kurocha/setup-cpp@v1
-      if: runner.os == 'Linux'
+      - name: Setup C++ environment on linux
+        uses: kurocha/setup-cpp@v1
+        if: runner.os == 'Linux'
 
-    - name: Install dependencies on linux
-      run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev python-dev
-      if: runner.os == 'Linux'
+      - name: Install dependencies on linux
+        run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev python-dev
+        if: runner.os == 'Linux'
 
-    - name: Install dependencies on mac
-      run: brew install lapack
-      if: runner.os == 'macOS'
+      - name: Install dependencies on mac
+        run: brew install lapack
+        if: runner.os == 'macOS'
 
-    - name: Install package dependencies
-      run: npm ci
+      - name: Install package dependencies
+        run: npm ci
 
-    - name: Build
-      run: npm run build
+      - name: Build
+        run: npm run build
 
-    - name: Test
-      run: npm test
+      - name: Test
+        run: npm test
 
-    - name: Publish coverage to CodeClimate
-      uses: paambaati/codeclimate-action@v2.7.5
-      env:
-        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-      with:
-        coverageLocations: ${{github.workspace}}/coverage/lcov.info:lcov
+      - name: Publish coverage to CodeClimate
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        with:
+          coverageLocations: ${{github.workspace}}/coverage/lcov.info:lcov

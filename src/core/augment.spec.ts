@@ -1,4 +1,5 @@
 import {
+  ok,
   throws,
 } from 'assert';
 
@@ -10,7 +11,7 @@ describe('(v) augment', () => {
   it('should return current matrix when combined with empty matrix', () => {
     const x = array([[1, 2], [3, 4]]);
 
-    equals(x, x.augment(array()));
+    ok(equals(x, x.augment(array())));
   });
 
   it('should work as expected', () => {
@@ -18,7 +19,7 @@ describe('(v) augment', () => {
     const y = array([[5, 6], [7, 8]]);
     const z = array([[1, 2, 5, 6], [3, 4, 7, 8]]);
 
-    equals(z, x.augment(y));
+    ok(equals(z, x.augment(y)));
   });
 
   it('should throw error when rows do not match', () => {
@@ -31,6 +32,6 @@ describe('(v) augment', () => {
     const x = array([[1, 1, 1]]);
     const y = array([[1, 2, 3]]);
 
-    equals(x.copy().augment(y), augment(x, y));
+    ok(equals(x.copy().augment(y), augment(x, y)));
   });
 });
