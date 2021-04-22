@@ -13,6 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: |
+          git config --global user.name 'Mateo Gianolio'
+          git config --global user.email 'mateogianolio@users.noreply.github.com'
+
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
@@ -43,20 +47,10 @@ jobs:
         with:
           coverageLocations: ${{github.workspace}}/coverage/lcov.info:lcov
 
-      - name: Publish dist/
+      - name: Publish dist/ and docs/
         run: |
-          git config --global user.name 'Mateo Gianolio'
-          git config --global user.email 'mateogianolio@users.noreply.github.com'
-          git add dist
-          git commit -m "Generate dist"
-          git push origin master
-
-      - name: Publish docs/
-        run: |
-          git config --global user.name 'Mateo Gianolio'
-          git config --global user.email 'mateogianolio@users.noreply.github.com'
-          git add docs
-          git commit -m "Generate docs"
+          git add dist docs
+          git commit -m "Publish dist and docs"
           git push origin master
 
       - id: publish
