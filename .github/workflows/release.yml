@@ -33,7 +33,7 @@ jobs:
           git config --global user.email 'mateogianolio@users.noreply.github.com'
           git add dist
           git commit -m "Generate dist"
-          git push
+          git push origin master
 
       - name: Publish docs/
         run: |
@@ -41,9 +41,15 @@ jobs:
           git config --global user.email 'mateogianolio@users.noreply.github.com'
           git add docs
           git commit -m "Generate docs"
-          git push
+          git push origin master
 
-      - name: Publish package to npm
+      - id: publish
+        name: Publish package to npm
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+      
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          git tag ${{ steps.publish.outputs.version }}
+          git push origin ${{ steps.publish.outputs.version }}
