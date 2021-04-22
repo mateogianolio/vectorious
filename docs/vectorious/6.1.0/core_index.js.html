@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vectorious: core/index.js</title>
+    <script src="scripts/prism.dev.js"></script>
+    
+      <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
+    
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
+    
+    
+    <style>
+      :root {
+      
+      
+        --base-font-size: 16px;
+      
+      
+        --base-line-height: 1.5;
+      
+      
+        --body-font: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+      
+      
+        --body-font-size: 16px;
+      
+      
+        --body-line-height: 1.5;
+      
+      
+        --text-color: rgb(36, 41, 46);
+      
+      
+        --code-font: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+      
+      
+        --primary-color: #0E6EB8;
+      
+      
+        --secondary-color: #000000;
+      
+      
+        --nav-title-size: 0;
+      
+      
+        --nav-width: 240px;
+      
+      
+        --max-content-width: auto;
+      
+      }
+    </style>
+    
+    <style>
+      .container {
+        margin: 0;
+      }
+    </style>
+</head>
+<body>
+
+<header class="layout-header">
+  
+    <a href="./">
+      <img
+        src="https://github.com/mateogianolio/vectorious/raw/master/logo.gif"
+        alt="Vectorious"
+      >
+    </a>
+  
+  <h1>
+    <a href="./index.html">
+      Vectorious
+    </a>
+  </h1>
+  <nav class="layout-nav">
+    <ul><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="NDArray.html">NDArray</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#data">data</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#dtype">dtype</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#length">length</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#shape">shape</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#strides">strides</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#T">T</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#w">w</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#x">x</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#y">y</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="NDArray.html#z">z</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#abs">abs</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#acos">acos</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#acosh">acosh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#add">add</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#angle">angle</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#asin">asin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#asinh">asinh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#atan">atan</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#atanh">atanh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#augment">augment</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#binOp">binOp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#cbrt">cbrt</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#ceil">ceil</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#check">check</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#combine">combine</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#copy">copy</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#cos">cos</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#cosh">cosh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#cross">cross</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#det">det</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#diagonal">diagonal</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#dot">dot</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#eig">eig</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#equals">equals</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#equidimensional">equidimensional</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#equilateral">equilateral</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#exp">exp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#expm1">expm1</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#fill">fill</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#floor">floor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#forEach">forEach</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#fround">fround</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#gauss">gauss</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#inv">inv</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#log1p">log1p</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#log2">log2</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#log10">log10</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#lu">lu</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#lu_factor">lu_factor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#map">map</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#max">max</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#mean">mean</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#min">min</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#multiply">multiply</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#norm">norm</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#normalize">normalize</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#pow">pow</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#prod">prod</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#product">product</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#project">project</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#push">push</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#rank">rank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#reciprocal">reciprocal</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#reduce">reduce</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#reshape">reshape</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#round">round</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#row_add">row_add</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#scale">scale</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#set">set</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#sign">sign</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#sin">sin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#sinh">sinh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#slice">slice</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#solve">solve</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#sqrt">sqrt</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#square">square</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#subtract">subtract</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#sum">sum</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#swap">swap</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#tan">tan</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#tanh">tanh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#toArray">toArray</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#toString">toString</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#trace">trace</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#transpose">transpose</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDArray.html#trunc">trunc</a></span></li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="NDIter.html">NDIter</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDIter.html#current">current</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDIter.html#done">done</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDIter.html#next">next</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDIter.html#next1d">next1d</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDIter.html#next2d">next2d</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDIter.html#next2d">next2d</a></span></li><li class="nav-heading"><span class="nav-item-type type-class" title="class">C</span><span class="nav-item-name is-class"><a href="NDMultiIter.html">NDMultiIter</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDMultiIter.html#.current">current</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDMultiIter.html#.done">done</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="NDMultiIter.html#.next">next</a></span></li></ul><ul><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module" title="module">M</span><span class="nav-item-name is-module"><a href="module-Globals.html">Globals</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.abs">abs</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.acos">acos</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.acosh">acosh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.add">add</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.angle">angle</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.array">array</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.asin">asin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.asinh">asinh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.atan">atan</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.atanh">atanh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.augment">augment</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.binOp">binOp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.cbrt">cbrt</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.ceil">ceil</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.check">check</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.combine">combine</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.copy">copy</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.cos">cos</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.cosh">cosh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.cross">cross</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.det">det</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.diagonal">diagonal</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.dot">dot</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.eig">eig</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.equals">equals</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.equidimensional">equidimensional</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.equilateral">equilateral</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.exp">exp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.expm1">expm1</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.eye">eye</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.fill">fill</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.floor">floor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.forEach">forEach</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.fround">fround</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.gauss">gauss</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.get">get</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.inv">inv</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.log">log</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.log1p">log1p</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.log2">log2</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.log10">log10</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.lu">lu</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.lu_factor">lu_factor</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.magic">magic</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.map">map</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.matrix">matrix</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.max">max</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.mean">mean</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.min">min</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.multiply">multiply</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.norm">norm</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.normalize">normalize</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.ones">ones</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.pow">pow</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.prod">prod</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.product">product</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.project">project</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.push">push</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.random">random</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.range">range</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.rank">rank</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.reciprocal">reciprocal</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.reduce">reduce</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.reshape">reshape</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.round">round</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.row_add">row_add</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.scale">scale</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.set">set</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.sign">sign</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.sin">sin</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.sinh">sinh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.slice">slice</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.solve">solve</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.sqrt">sqrt</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.square">square</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.subtract">subtract</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.sum">sum</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.swap">swap</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.tan">tan</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.tanh">tanh</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.toArray">toArray</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.toString">toString</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.trace">trace</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.transpose">transpose</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.trunc">trunc</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-Globals.html#.zeros">zeros</a></span></li></ul>
+  </nav>
+</header>
+
+
+<main class="layout-main  layout-content--source">
+  <div class="container">
+    <p class="page-kind">source</p>
+    <h1 class="page-title">core/index.js</h1>
+    
+
+
+
+    
+
+<section>
+    <article>
+        <pre id="source" class="source-page line-numbers"><code class="language-js">"use strict";
+var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
+    return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.min = exports.mean = exports.max = exports.matrix = exports.map = exports.magic = exports.lu_factor = exports.lu = exports.log2 = exports.log1p = exports.log10 = exports.log = exports.inv = exports.get = exports.gauss = exports.fround = exports.forEach = exports.floor = exports.fill = exports.eye = exports.expm1 = exports.exp = exports.equilateral = exports.equidimensional = exports.equals = exports.eig = exports.dot = exports.diagonal = exports.det = exports.cross = exports.cosh = exports.cos = exports.copy = exports.combine = exports.check = exports.ceil = exports.cbrt = exports.binOp = exports.augment = exports.atanh = exports.atan = exports.asinh = exports.asin = exports.array = exports.angle = exports.add = exports.acosh = exports.acos = exports.abs = exports.NDArray = void 0;
+exports.zeros = exports.trunc = exports.transpose = exports.trace = exports.toString = exports.toArray = exports.tanh = exports.tan = exports.swap = exports.sum = exports.subtract = exports.square = exports.sqrt = exports.solve = exports.slice = exports.sinh = exports.sin = exports.sign = exports.set = exports.scale = exports.row_add = exports.round = exports.reshape = exports.reduce = exports.reciprocal = exports.rank = exports.range = exports.random = exports.push = exports.project = exports.product = exports.prod = exports.pow = exports.ones = exports.normalize = exports.norm = exports.multiply = void 0;
+const util_1 = require("../util");
+const iterator_1 = require("../iterator");
+const abs_1 = __importDefault(require("./abs"));
+const acos_1 = __importDefault(require("./acos"));
+const acosh_1 = __importDefault(require("./acosh"));
+const add_1 = __importDefault(require("./add"));
+const angle_1 = __importDefault(require("./angle"));
+const asin_1 = __importDefault(require("./asin"));
+const asinh_1 = __importDefault(require("./asinh"));
+const atan_1 = __importDefault(require("./atan"));
+const atanh_1 = __importDefault(require("./atanh"));
+const augment_1 = __importDefault(require("./augment"));
+const binOp_1 = __importDefault(require("./binOp"));
+const cbrt_1 = __importDefault(require("./cbrt"));
+const ceil_1 = __importDefault(require("./ceil"));
+const check_1 = __importDefault(require("./check"));
+const combine_1 = __importDefault(require("./combine"));
+const copy_1 = __importDefault(require("./copy"));
+const cos_1 = __importDefault(require("./cos"));
+const cosh_1 = __importDefault(require("./cosh"));
+const cross_1 = __importDefault(require("./cross"));
+const det_1 = __importDefault(require("./det"));
+const diagonal_1 = __importDefault(require("./diagonal"));
+const dot_1 = __importDefault(require("./dot"));
+const eig_1 = __importDefault(require("./eig"));
+const equals_1 = __importDefault(require("./equals"));
+const equidimensional_1 = __importDefault(require("./equidimensional"));
+const equilateral_1 = __importDefault(require("./equilateral"));
+const exp_1 = __importDefault(require("./exp"));
+const expm1_1 = __importDefault(require("./expm1"));
+const fill_1 = __importDefault(require("./fill"));
+const floor_1 = __importDefault(require("./floor"));
+const forEach_1 = __importDefault(require("./forEach"));
+const fround_1 = __importDefault(require("./fround"));
+const gauss_1 = __importDefault(require("./gauss"));
+const get_1 = __importDefault(require("./get"));
+const inv_1 = __importDefault(require("./inv"));
+const log_1 = __importDefault(require("./log"));
+const log10_1 = __importDefault(require("./log10"));
+const log1p_1 = __importDefault(require("./log1p"));
+const log2_1 = __importDefault(require("./log2"));
+const lu_1 = __importDefault(require("./lu"));
+const lu_factor_1 = __importDefault(require("./lu_factor"));
+const map_1 = __importDefault(require("./map"));
+const max_1 = __importDefault(require("./max"));
+const mean_1 = __importDefault(require("./mean"));
+const min_1 = __importDefault(require("./min"));
+const multiply_1 = __importDefault(require("./multiply"));
+const norm_1 = __importDefault(require("./norm"));
+const normalize_1 = __importDefault(require("./normalize"));
+const pow_1 = __importDefault(require("./pow"));
+const prod_1 = __importDefault(require("./prod"));
+const product_1 = __importDefault(require("./product"));
+const project_1 = __importDefault(require("./project"));
+const push_1 = __importDefault(require("./push"));
+const rank_1 = __importDefault(require("./rank"));
+const reciprocal_1 = __importDefault(require("./reciprocal"));
+const reduce_1 = __importDefault(require("./reduce"));
+const reshape_1 = __importDefault(require("./reshape"));
+const round_1 = __importDefault(require("./round"));
+const row_add_1 = __importDefault(require("./row_add"));
+const scale_1 = __importDefault(require("./scale"));
+const set_1 = __importDefault(require("./set"));
+const sign_1 = __importDefault(require("./sign"));
+const sin_1 = __importDefault(require("./sin"));
+const sinh_1 = __importDefault(require("./sinh"));
+const slice_1 = __importDefault(require("./slice"));
+const solve_1 = __importDefault(require("./solve"));
+const sqrt_1 = __importDefault(require("./sqrt"));
+const square_1 = __importDefault(require("./square"));
+const subtract_1 = __importDefault(require("./subtract"));
+const sum_1 = __importDefault(require("./sum"));
+const swap_1 = __importDefault(require("./swap"));
+const tan_1 = __importDefault(require("./tan"));
+const tanh_1 = __importDefault(require("./tanh"));
+const toArray_1 = __importDefault(require("./toArray"));
+const toString_1 = __importDefault(require("./toString"));
+const trace_1 = __importDefault(require("./trace"));
+const transpose_1 = __importDefault(require("./transpose"));
+const trunc_1 = __importDefault(require("./trunc"));
+const inspectSymbol = Symbol.for('nodejs.util.inspect.custom');
+/**
+ * @class NDArray
+ * @description Constructs or copies an NDArray instance.
+ * @param data
+ * @param {Object} [options]
+ * @param {Number[]} [options.shape]
+ * @param {Number} [options.length]
+ * @param {Number[]} [options.strides]
+ * @param {string} [options.dtype]
+ * @example
+ * import { NDArray } from 'vectorious';
+ *
+ * new NDArray() // => array([], dtype=float64)
+ * new NDArray([]) // => array([], dtype=float64)
+ * new NDArray([1, 2, 3]) // => array([1, 2, 3], dtype=float64)
+ * new NDArray([[1, 2], [3, 4]]) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=float64)
+ * new NDArray(new Int32Array([1, 2, 3])) // => array([ 1, 2, 3 ], dtype=int32)
+ * new NDArray([1, 2, 3, 4], {
+ *   shape: [2, 2],
+ *   dtype: 'uint32'
+ * }) // => array([ [ 1, 2 ], [ 3, 4 ] ], dtype=uint32)
+ */
+class NDArray {
+    constructor(data, options) {
+        /**
+         * @name data
+         * @memberof NDArray.prototype
+         * @type TypedArray
+         * @default new Float64Array(0)
+         */
+        this.data = new Float64Array(0);
+        /**
+         * @name dtype
+         * @memberof NDArray.prototype
+         * @type String
+         * @default 'float64'
+         */
+        this.dtype = 'float64';
+        /**
+         * @name length
+         * @memberof NDArray.prototype
+         * @type Number
+         * @default 0
+         */
+        this.length = 0;
+        /**
+         * @name shape
+         * @memberof NDArray.prototype
+         * @type Number[]
+         * @default [0]
+         */
+        this.shape = [0];
+        /**
+         * @name strides
+         * @memberof NDArray.prototype
+         * @type Number[]
+         * @default [0]
+         */
+        this.strides = [0];
+        this[_a] = toString_1.default;
+        this.abs = abs_1.default;
+        this.acos = acos_1.default;
+        this.acosh = acosh_1.default;
+        this.add = add_1.default;
+        this.angle = angle_1.default;
+        this.asin = asin_1.default;
+        this.asinh = asinh_1.default;
+        this.atan = atan_1.default;
+        this.atanh = atanh_1.default;
+        this.augment = augment_1.default;
+        this.binOp = binOp_1.default;
+        this.cbrt = cbrt_1.default;
+        this.ceil = ceil_1.default;
+        this.check = check_1.default;
+        this.combine = combine_1.default;
+        this.copy = copy_1.default;
+        this.cos = cos_1.default;
+        this.cosh = cosh_1.default;
+        this.cross = cross_1.default;
+        this.det = det_1.default;
+        this.diagonal = diagonal_1.default;
+        this.dot = dot_1.default;
+        this.eig = eig_1.default;
+        this.equals = equals_1.default;
+        this.equidimensional = equidimensional_1.default;
+        this.equilateral = equilateral_1.default;
+        this.exp = exp_1.default;
+        this.expm1 = expm1_1.default;
+        this.fill = fill_1.default;
+        this.floor = floor_1.default;
+        this.forEach = forEach_1.default;
+        this.fround = fround_1.default;
+        this.gauss = gauss_1.default;
+        this.get = get_1.default;
+        this.inv = inv_1.default;
+        this.log = log_1.default;
+        this.log10 = log10_1.default;
+        this.log1p = log1p_1.default;
+        this.log2 = log2_1.default;
+        this.lu = lu_1.default;
+        this.lu_factor = lu_factor_1.default;
+        this.map = map_1.default;
+        this.max = max_1.default;
+        this.mean = mean_1.default;
+        this.min = min_1.default;
+        this.multiply = multiply_1.default;
+        this.norm = norm_1.default;
+        this.normalize = normalize_1.default;
+        this.pow = pow_1.default;
+        this.prod = prod_1.default;
+        this.product = product_1.default;
+        this.project = project_1.default;
+        this.push = push_1.default;
+        this.rank = rank_1.default;
+        this.reciprocal = reciprocal_1.default;
+        this.reduce = reduce_1.default;
+        this.reshape = reshape_1.default;
+        this.round = round_1.default;
+        this.row_add = row_add_1.default;
+        this.scale = scale_1.default;
+        this.set = set_1.default;
+        this.sign = sign_1.default;
+        this.sin = sin_1.default;
+        this.sinh = sinh_1.default;
+        this.slice = slice_1.default;
+        this.solve = solve_1.default;
+        this.sqrt = sqrt_1.default;
+        this.square = square_1.default;
+        this.subtract = subtract_1.default;
+        this.sum = sum_1.default;
+        this.swap = swap_1.default;
+        this.tan = tan_1.default;
+        this.tanh = tanh_1.default;
+        this.toArray = toArray_1.default;
+        this.toString = toString_1.default;
+        this.trace = trace_1.default;
+        this.transpose = transpose_1.default;
+        this.trunc = trunc_1.default;
+        if (!data) {
+            return;
+        }
+        if (data instanceof NDArray) {
+            return data;
+        }
+        if (data instanceof iterator_1.NDIter) {
+            if (!options || !options.dtype) {
+                throw new Error('dtype is missing');
+            }
+            if (data.shape) {
+                options.shape = data.shape;
+            }
+            const length = data.length;
+            data = new (util_1.get_type(options.dtype))(length);
+        }
+        const { shape = util_1.get_shape(data), length = util_1.get_length(shape), strides = util_1.get_strides(shape), dtype = util_1.get_dtype(data), } = options || {};
+        this.data = util_1.is_typed_array(data) ? data : new (util_1.get_type(dtype))(util_1.flatten(data));
+        this.shape = shape;
+        this.length = length;
+        this.dtype = dtype;
+        this.strides = strides;
+    }
+    /**
+     * @name x
+     * @memberof NDArray.prototype
+     * @description Gets or sets the value at index 0
+     * @type Number
+     */
+    get x() {
+        return this.get(0);
+    }
+    set x(value) {
+        this.set(0, value);
+    }
+    /**
+     * @name y
+     * @memberof NDArray.prototype
+     * @description Gets or sets the value at index 1
+     * @type Number
+     */
+    get y() {
+        return this.get(1);
+    }
+    set y(value) {
+        this.set(1, value);
+    }
+    /**
+     * @name z
+     * @memberof NDArray.prototype
+     * @description Gets or sets the value at index 2
+     * @type Number
+     */
+    get z() {
+        return this.get(2);
+    }
+    set z(value) {
+        this.set(2, value);
+    }
+    /**
+     * @name w
+     * @memberof NDArray.prototype
+     * @description Gets or sets the value at index 3
+     * @type Number
+     */
+    get w() {
+        return this.get(3);
+    }
+    set w(value) {
+        this.set(3, value);
+    }
+    /**
+     * @name T
+     * @memberof NDArray.prototype
+     * @description Short for `this.copy().transpose()`
+     * @type NDArray
+     */
+    get T() {
+        return this.copy().transpose();
+    }
+}
+exports.NDArray = NDArray;
+_a = inspectSymbol;
+var abs_2 = require("./abs");
+Object.defineProperty(exports, "abs", { enumerable: true, get: function () { return abs_2.abs; } });
+var acos_2 = require("./acos");
+Object.defineProperty(exports, "acos", { enumerable: true, get: function () { return acos_2.acos; } });
+var acosh_2 = require("./acosh");
+Object.defineProperty(exports, "acosh", { enumerable: true, get: function () { return acosh_2.acosh; } });
+var add_2 = require("./add");
+Object.defineProperty(exports, "add", { enumerable: true, get: function () { return add_2.add; } });
+var angle_2 = require("./angle");
+Object.defineProperty(exports, "angle", { enumerable: true, get: function () { return angle_2.angle; } });
+var array_1 = require("./array");
+Object.defineProperty(exports, "array", { enumerable: true, get: function () { return array_1.array; } });
+var asin_2 = require("./asin");
+Object.defineProperty(exports, "asin", { enumerable: true, get: function () { return asin_2.asin; } });
+var asinh_2 = require("./asinh");
+Object.defineProperty(exports, "asinh", { enumerable: true, get: function () { return asinh_2.asinh; } });
+var atan_2 = require("./atan");
+Object.defineProperty(exports, "atan", { enumerable: true, get: function () { return atan_2.atan; } });
+var atanh_2 = require("./atanh");
+Object.defineProperty(exports, "atanh", { enumerable: true, get: function () { return atanh_2.atanh; } });
+var augment_2 = require("./augment");
+Object.defineProperty(exports, "augment", { enumerable: true, get: function () { return augment_2.augment; } });
+var binOp_2 = require("./binOp");
+Object.defineProperty(exports, "binOp", { enumerable: true, get: function () { return binOp_2.binOp; } });
+var cbrt_2 = require("./cbrt");
+Object.defineProperty(exports, "cbrt", { enumerable: true, get: function () { return cbrt_2.cbrt; } });
+var ceil_2 = require("./ceil");
+Object.defineProperty(exports, "ceil", { enumerable: true, get: function () { return ceil_2.ceil; } });
+var check_2 = require("./check");
+Object.defineProperty(exports, "check", { enumerable: true, get: function () { return check_2.check; } });
+var combine_2 = require("./combine");
+Object.defineProperty(exports, "combine", { enumerable: true, get: function () { return combine_2.combine; } });
+var copy_2 = require("./copy");
+Object.defineProperty(exports, "copy", { enumerable: true, get: function () { return copy_2.copy; } });
+var cos_2 = require("./cos");
+Object.defineProperty(exports, "cos", { enumerable: true, get: function () { return cos_2.cos; } });
+var cosh_2 = require("./cosh");
+Object.defineProperty(exports, "cosh", { enumerable: true, get: function () { return cosh_2.cosh; } });
+var cross_2 = require("./cross");
+Object.defineProperty(exports, "cross", { enumerable: true, get: function () { return cross_2.cross; } });
+var det_2 = require("./det");
+Object.defineProperty(exports, "det", { enumerable: true, get: function () { return det_2.det; } });
+var diagonal_2 = require("./diagonal");
+Object.defineProperty(exports, "diagonal", { enumerable: true, get: function () { return diagonal_2.diagonal; } });
+var dot_2 = require("./dot");
+Object.defineProperty(exports, "dot", { enumerable: true, get: function () { return dot_2.dot; } });
+var eig_2 = require("./eig");
+Object.defineProperty(exports, "eig", { enumerable: true, get: function () { return eig_2.eig; } });
+var equals_2 = require("./equals");
+Object.defineProperty(exports, "equals", { enumerable: true, get: function () { return equals_2.equals; } });
+var equidimensional_2 = require("./equidimensional");
+Object.defineProperty(exports, "equidimensional", { enumerable: true, get: function () { return equidimensional_2.equidimensional; } });
+var equilateral_2 = require("./equilateral");
+Object.defineProperty(exports, "equilateral", { enumerable: true, get: function () { return equilateral_2.equilateral; } });
+var exp_2 = require("./exp");
+Object.defineProperty(exports, "exp", { enumerable: true, get: function () { return exp_2.exp; } });
+var expm1_2 = require("./expm1");
+Object.defineProperty(exports, "expm1", { enumerable: true, get: function () { return expm1_2.expm1; } });
+var eye_1 = require("./eye");
+Object.defineProperty(exports, "eye", { enumerable: true, get: function () { return eye_1.eye; } });
+var fill_2 = require("./fill");
+Object.defineProperty(exports, "fill", { enumerable: true, get: function () { return fill_2.fill; } });
+var floor_2 = require("./floor");
+Object.defineProperty(exports, "floor", { enumerable: true, get: function () { return floor_2.floor; } });
+var forEach_2 = require("./forEach");
+Object.defineProperty(exports, "forEach", { enumerable: true, get: function () { return forEach_2.forEach; } });
+var fround_2 = require("./fround");
+Object.defineProperty(exports, "fround", { enumerable: true, get: function () { return fround_2.fround; } });
+var gauss_2 = require("./gauss");
+Object.defineProperty(exports, "gauss", { enumerable: true, get: function () { return gauss_2.gauss; } });
+var get_2 = require("./get");
+Object.defineProperty(exports, "get", { enumerable: true, get: function () { return get_2.get; } });
+var inv_2 = require("./inv");
+Object.defineProperty(exports, "inv", { enumerable: true, get: function () { return inv_2.inv; } });
+var log_2 = require("./log");
+Object.defineProperty(exports, "log", { enumerable: true, get: function () { return log_2.log; } });
+var log10_2 = require("./log10");
+Object.defineProperty(exports, "log10", { enumerable: true, get: function () { return log10_2.log10; } });
+var log1p_2 = require("./log1p");
+Object.defineProperty(exports, "log1p", { enumerable: true, get: function () { return log1p_2.log1p; } });
+var log2_2 = require("./log2");
+Object.defineProperty(exports, "log2", { enumerable: true, get: function () { return log2_2.log2; } });
+var lu_2 = require("./lu");
+Object.defineProperty(exports, "lu", { enumerable: true, get: function () { return lu_2.lu; } });
+var lu_factor_2 = require("./lu_factor");
+Object.defineProperty(exports, "lu_factor", { enumerable: true, get: function () { return lu_factor_2.lu_factor; } });
+var magic_1 = require("./magic");
+Object.defineProperty(exports, "magic", { enumerable: true, get: function () { return magic_1.magic; } });
+var map_2 = require("./map");
+Object.defineProperty(exports, "map", { enumerable: true, get: function () { return map_2.map; } });
+var matrix_1 = require("./matrix");
+Object.defineProperty(exports, "matrix", { enumerable: true, get: function () { return matrix_1.matrix; } });
+var max_2 = require("./max");
+Object.defineProperty(exports, "max", { enumerable: true, get: function () { return max_2.max; } });
+var mean_2 = require("./mean");
+Object.defineProperty(exports, "mean", { enumerable: true, get: function () { return mean_2.mean; } });
+var min_2 = require("./min");
+Object.defineProperty(exports, "min", { enumerable: true, get: function () { return min_2.min; } });
+var multiply_2 = require("./multiply");
+Object.defineProperty(exports, "multiply", { enumerable: true, get: function () { return multiply_2.multiply; } });
+var norm_2 = require("./norm");
+Object.defineProperty(exports, "norm", { enumerable: true, get: function () { return norm_2.norm; } });
+var normalize_2 = require("./normalize");
+Object.defineProperty(exports, "normalize", { enumerable: true, get: function () { return normalize_2.normalize; } });
+var ones_1 = require("./ones");
+Object.defineProperty(exports, "ones", { enumerable: true, get: function () { return ones_1.ones; } });
+var pow_2 = require("./pow");
+Object.defineProperty(exports, "pow", { enumerable: true, get: function () { return pow_2.pow; } });
+var prod_2 = require("./prod");
+Object.defineProperty(exports, "prod", { enumerable: true, get: function () { return prod_2.prod; } });
+var product_2 = require("./product");
+Object.defineProperty(exports, "product", { enumerable: true, get: function () { return product_2.product; } });
+var project_2 = require("./project");
+Object.defineProperty(exports, "project", { enumerable: true, get: function () { return project_2.project; } });
+var push_2 = require("./push");
+Object.defineProperty(exports, "push", { enumerable: true, get: function () { return push_2.push; } });
+var random_1 = require("./random");
+Object.defineProperty(exports, "random", { enumerable: true, get: function () { return random_1.random; } });
+var range_1 = require("./range");
+Object.defineProperty(exports, "range", { enumerable: true, get: function () { return range_1.range; } });
+var rank_2 = require("./rank");
+Object.defineProperty(exports, "rank", { enumerable: true, get: function () { return rank_2.rank; } });
+var reciprocal_2 = require("./reciprocal");
+Object.defineProperty(exports, "reciprocal", { enumerable: true, get: function () { return reciprocal_2.reciprocal; } });
+var reduce_2 = require("./reduce");
+Object.defineProperty(exports, "reduce", { enumerable: true, get: function () { return reduce_2.reduce; } });
+var reshape_2 = require("./reshape");
+Object.defineProperty(exports, "reshape", { enumerable: true, get: function () { return reshape_2.reshape; } });
+var round_2 = require("./round");
+Object.defineProperty(exports, "round", { enumerable: true, get: function () { return round_2.round; } });
+var row_add_2 = require("./row_add");
+Object.defineProperty(exports, "row_add", { enumerable: true, get: function () { return row_add_2.row_add; } });
+var scale_2 = require("./scale");
+Object.defineProperty(exports, "scale", { enumerable: true, get: function () { return scale_2.scale; } });
+var set_2 = require("./set");
+Object.defineProperty(exports, "set", { enumerable: true, get: function () { return set_2.set; } });
+var sign_2 = require("./sign");
+Object.defineProperty(exports, "sign", { enumerable: true, get: function () { return sign_2.sign; } });
+var sin_2 = require("./sin");
+Object.defineProperty(exports, "sin", { enumerable: true, get: function () { return sin_2.sin; } });
+var sinh_2 = require("./sinh");
+Object.defineProperty(exports, "sinh", { enumerable: true, get: function () { return sinh_2.sinh; } });
+var slice_2 = require("./slice");
+Object.defineProperty(exports, "slice", { enumerable: true, get: function () { return slice_2.slice; } });
+var solve_2 = require("./solve");
+Object.defineProperty(exports, "solve", { enumerable: true, get: function () { return solve_2.solve; } });
+var sqrt_2 = require("./sqrt");
+Object.defineProperty(exports, "sqrt", { enumerable: true, get: function () { return sqrt_2.sqrt; } });
+var square_2 = require("./square");
+Object.defineProperty(exports, "square", { enumerable: true, get: function () { return square_2.square; } });
+var subtract_2 = require("./subtract");
+Object.defineProperty(exports, "subtract", { enumerable: true, get: function () { return subtract_2.subtract; } });
+var sum_2 = require("./sum");
+Object.defineProperty(exports, "sum", { enumerable: true, get: function () { return sum_2.sum; } });
+var swap_2 = require("./swap");
+Object.defineProperty(exports, "swap", { enumerable: true, get: function () { return swap_2.swap; } });
+var tan_2 = require("./tan");
+Object.defineProperty(exports, "tan", { enumerable: true, get: function () { return tan_2.tan; } });
+var tanh_2 = require("./tanh");
+Object.defineProperty(exports, "tanh", { enumerable: true, get: function () { return tanh_2.tanh; } });
+var toArray_2 = require("./toArray");
+Object.defineProperty(exports, "toArray", { enumerable: true, get: function () { return toArray_2.toArray; } });
+var toString_2 = require("./toString");
+Object.defineProperty(exports, "toString", { enumerable: true, get: function () { return toString_2.toString; } });
+var trace_2 = require("./trace");
+Object.defineProperty(exports, "trace", { enumerable: true, get: function () { return trace_2.trace; } });
+var transpose_2 = require("./transpose");
+Object.defineProperty(exports, "transpose", { enumerable: true, get: function () { return transpose_2.transpose; } });
+var trunc_2 = require("./trunc");
+Object.defineProperty(exports, "trunc", { enumerable: true, get: function () { return trunc_2.trunc; } });
+var zeros_1 = require("./zeros");
+Object.defineProperty(exports, "zeros", { enumerable: true, get: function () { return zeros_1.zeros; } });
+try {
+    window.v = NDArray;
+}
+catch (error) { }
+</code></pre>
+    </article>
+</section>
+
+
+
+
+  </div>
+</main>
+
+<footer class="layout-footer">
+  <div class="container">
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Thu Apr 22 2021 11:43:01 GMT+0000 (Coordinated Universal Time)
+  </div>
+</footer>
+
+</body>
+</html>
