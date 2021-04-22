@@ -5,7 +5,6 @@ import { NDArray } from './';
  * @function gauss
  * @description
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
- * Accelerated with LAPACK `?getrf`.
  * @param {NDArray} x
  * @returns {NDArray}
  * @example
@@ -19,7 +18,6 @@ export declare const gauss: (x: NDArray | ArrayLike<any>) => NDArray;
  * @memberof NDArray.prototype
  * @description
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.
- * Accelerated with LAPACK `?getrf`.
  * @returns {NDArray}
  * @example
  * import { array } from 'vectorious/core/array';
