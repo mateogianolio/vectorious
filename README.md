@@ -60,6 +60,8 @@ const x = array([1, 2, 3]);
 
 ### Usage
 
+Unless stated otherwise, all operations are in-place, meaning that the result of the operation overwrites data in the current (or in the static case leftmost) array. To avoid this, an explicit `copy` call is needed before the operation (`copy(x)` or `x.copy()`).
+
 ```javascript
 import { array, random, range } from 'vectorious';
 
@@ -80,7 +82,7 @@ array([
 
 // Create a one-dimensional vector with values from
 // 0 through 8 and reshape it into a 3x3 matrix
-const y = v.range(0, 9).reshape(3, 3);
+const y = range(0, 9).reshape(3, 3);
 /*
 array([
   [ 0, 1, 2 ],
@@ -110,7 +112,7 @@ array([
 */
 
 // Create a 2x2x1 tensor
-const z = v.array([[[1], [2]], [[3], [4]]]);
+const z = array([[[1], [2]], [[3], [4]]]);
 /*
 array([
   [ [ 1 ], [ 2 ] ],
