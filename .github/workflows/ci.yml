@@ -16,16 +16,17 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [14.x]
+        node_version: [16]
         os: [ubuntu-latest, macOS-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: Setup C++ environment on linux
         uses: kurocha/setup-cpp@v1
@@ -49,7 +50,7 @@ jobs:
         run: npm test
 
       - name: Publish coverage to CodeClimate
-        uses: paambaati/codeclimate-action@v2.7.5
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
         with:
