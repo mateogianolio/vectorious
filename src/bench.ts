@@ -1,6 +1,6 @@
 const benchmark: any = require('nodemark');
-const plt: any = require('matplotnode');
 const { execSync } = require('child_process');
+const fs = require('fs');
 
 export const bench = (
   group: string,
@@ -9,14 +9,12 @@ export const bench = (
   ...funcs: Array<(...args: any[]) => void>
 ): typeof benchmark => {
   execSync(`mkdir -p benchmarks/${group}`);
-  const filename: string = `benchmarks/${group}/${name}.png`;
+  const filename: string = `benchmarks/${group}/${name}.txt`;
+  const stream = fs.createWriteStream(filename);
+
   const xs: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
-  let ys: number[] = [];
 
-  plt.title(name);
-
-  // tslint:disable-next-line: no-console
-  console.log(`${group} > ${name}`);
+  stream.write(`${group} > ${name}`);
 
   funcs.forEach((func: (...args: any[]) => void, i: number) => {
     xs.forEach((x: number) => {
@@ -27,27 +25,7 @@ export const bench = (
         250
       );
 
-      ys.push(result.milliseconds(3));
-
-      // tslint:disable-next-line: no-console
-      console.log(`n=${x} ${result}`);
+      stream.write(`${i === 0 ? '[prototype]' : '[static'} n=${x} ${result}\n`);
     });
-
-    const label: string = i === 0 ? `${name} [prototype]` : `${name} [static]`;
-
-    plt.plot(xs, ys, `label=${label}`);
-    ys = [];
   });
-
-  plt.xlabel('n');
-  plt.ylabel('ms');
-
-  plt.grid(true);
-  plt.legend();
-
-  plt.save(filename);
-  plt.clf();
-
-  // tslint:disable-next-line: no-console
-  console.log(`${filename}`);
 };
