@@ -14,7 +14,7 @@ import { NDArray } from './';
  *
  * reduce([1, 2, 3], (a, b) => a + b, 0); // => 6
  */
-export declare const reduce: (x: NDArray, f: (acc: number, value: number, i: number, src: TypedArray) => number, initialValue?: number | undefined) => number;
+export declare const reduce: (x: NDArray, f: (acc: number, value: number, i: number, src: TypedArray) => number, initialValue?: number) => number;
 /**
  * @function reduce
  * @memberof NDArray.prototype

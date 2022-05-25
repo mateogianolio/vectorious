@@ -14,7 +14,7 @@ import { NDArray } from './';
  *
  * slice([1, 2, 3, 4], 0, 4, 2); // => array([1, 3])
  */
-export declare const slice: (x: NDArray | ArrayLike<any>, begin?: number | undefined, end?: number | undefined, step?: number | undefined) => NDArray;
+export declare const slice: (x: NDArray | ArrayLike<any>, begin?: number, end?: number, step?: number) => NDArray;
 /**
  * @function slice
  * @memberof NDArray.prototype
