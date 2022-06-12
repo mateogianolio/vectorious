@@ -1,7 +1,6 @@
 import { array } from '../src/core/array';
 import { random } from '../src/core/random';
 import { ones } from '../src/core/ones';
-import { subtract } from '../src/core/subtract';
 import { map } from '../src/core/map';
 
 const sigmoid: (ddx: boolean) => (value: number) => number = (ddx: boolean): (value: number) => number =>
@@ -32,11 +31,13 @@ const sigmoid: (ddx: boolean) => (value: number) => number = (ddx: boolean): (va
   let l1_delta = random(4, 1);
 
   let i: number;
-  for (i = 0; i < 60000; i += 1) {
+  for (i = 0; i < 10000; i += 1) {
+    console.log(`${(100 * i / 10000).toFixed(2)} %`);
+
     l0 = map(x.multiply(syn0), sigmoid(false));
     l1 = map(l0.multiply(syn1), sigmoid(false));
 
-    l1_delta = subtract(y, l1).product(map(l1, sigmoid(true)));
+    l1_delta = y.copy().subtract(l1).product(map(l1, sigmoid(true)));
     l0_delta = l1_delta.multiply(syn1.T).product(map(l0, sigmoid(true)));
 
     syn1.add(l0.T.multiply(l1_delta));

@@ -3,7 +3,6 @@ import { NDArray } from '../src/core';
 import { array } from '../src/core/array';
 import { map } from '../src/core/map';
 import { ones } from '../src/core/ones';
-import { subtract } from '../src/core/subtract';
 import { zeros } from '../src/core/zeros';
 
 // Perform row-wise softmax on matrix
@@ -86,7 +85,7 @@ const addMatVec = (x: NDArray, y: NDArray) => {
   let i: number;
   for (i = 0; i < 800; i += 1) {
     prob = softmax(addMatVec(x.multiply(w), b));
-    delta = subtract(y, prob);
+    delta = y.copy().subtract(prob);
 
     w.add(x.T.multiply(delta).scale(alpha));
     b.add(mean(delta).scale(alpha));

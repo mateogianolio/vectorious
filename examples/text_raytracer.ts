@@ -4,10 +4,6 @@
 // tslint:disable: max-classes-per-file
 import { NDArray } from '../src/core';
 import { array } from '../src/core/array';
-import { add } from '../src/core/add';
-import { dot } from '../src/core/dot';
-import { scale } from '../src/core/scale';
-import { subtract } from '../src/core/subtract';
 
 const render: (pixel: string) => void = process.stdout.write.bind(process.stdout);
 
@@ -33,7 +29,7 @@ class Sphere {
   }
 
   public normal(pt: NDArray) {
-    return subtract(pt, this.center).normalize();
+    return pt.copy().subtract(this.center).normalize();
   }
 }
 
@@ -73,20 +69,20 @@ const clamp:
 
 const diffuseShading = (pi: NDArray, obj: Sphere, light: Light) => {
   const n = obj.normal(pi);
-  const lam1: number = subtract(light.position, pi).normalize().dot(n);
+  const lam1: number = light.position.copy().subtract(pi).normalize().dot(n);
   const lam2: number = clamp(lam1, 0, 1);
 
-  return scale(light.color, lam2 * 0.5).add(scale(obj.color, 0.3));
+  return light.color.copy().scale(lam2 * 0.5).add(obj.color.copy().scale(0.3));
 };
 
 const intersectSphere = (ray: Ray, center: NDArray, radius: number): number | undefined => {
-  const l = subtract(center, ray.orig);
+  const l = center.copy().subtract(ray.orig);
   const tca: number = l.dot(ray.dir);
   if (tca < 0) {
     return undefined;
   }
 
-  const d2: number = dot(l, l) - tca * tca;
+  const d2: number = l.dot(l) - tca * tca;
   const r2: number = radius * radius;
   if (d2 > r2) {
     return undefined;
@@ -118,7 +114,7 @@ const BLUE  = array([0, 0, 1]);
 const LIGHT1: Light = new Light(array([0.7, -1, 1.7]), WHITE);
 
 const shadePixel = (ray: Ray, obj: Sphere, tval: number): number => {
-  const pi = add(ray.orig, scale(ray.dir, tval));
+  const pi = ray.orig.copy().add(ray.dir.copy().scale(tval));
   const color = diffuseShading(pi, obj, LIGHT1);
   const col: number = (color.data[0] + color.data[1] + color.data[2]) / 3;
 
