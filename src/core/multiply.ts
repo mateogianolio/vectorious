@@ -36,8 +36,9 @@ export const multiply = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any
  * array([[1, 2]]).multiply([[1], [2]]); // <=> array([[5]])
  */
 export default function(this: NDArray, x: NDArray): NDArray {
-  const { shape: [r1, c1], data: d1, dtype } = this;
-  const { shape: [r2, c2], data: d2 } = x;
+  // TODO: compare strides instead of blind copy
+  const { shape: [r1, c1], data: d1, dtype } = this.copy();
+  const { shape: [r2, c2], data: d2 } = x.copy();
 
   if (c1 !== r2) {
     throw new Error('sizes do not match');
