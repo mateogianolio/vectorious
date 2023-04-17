@@ -12,6 +12,7 @@ import * as blas from '../blas';
  * Accelerated with BLAS `?axpy`.
  * @param {NDArray} x
  * @param {NDArray} y
+ * @param {Number} [1] alpha
  * @returns {NDArray}
  * @example
  * import { add } from 'vectorious/core/add';
@@ -28,6 +29,7 @@ export const add = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, al
  * Adds `x` multiplied by `alpha` to the current array.
  * Accelerated with BLAS `?axpy`.
  * @param {NDArray} x
+ * @param {Number} [1] alpha
  * @returns {NDArray}
  * @example
  * import { array } from 'vectorious/core/array';
