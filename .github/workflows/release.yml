@@ -27,7 +27,7 @@ jobs:
         uses: kurocha/setup-cpp@v1
 
       - name: Install dependencies on linux
-        run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev python-dev
+        run: sudo apt-get install -yq libblas-dev liblapack-dev liblapacke-dev
 
       - name: Install package dependencies
         run: npm ci
