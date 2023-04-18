@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/npm/v/vectorious.svg" /> <img src="https://img.shields.io/npm/dm/vectorious" /> <img src="https://img.shields.io/github/workflow/status/mateogianolio/vectorious/CI/master" /> <img src="https://img.shields.io/codeclimate/maintainability/mateogianolio/vectorious" /> <img src="https://img.shields.io/codeclimate/coverage/mateogianolio/vectorious" />
+  <img src="https://img.shields.io/npm/v/vectorious.svg" /> <img src="https://img.shields.io/npm/dm/vectorious" /> <img src="https://img.shields.io/github/actions/workflow/status/mateogianolio/vectorious/release.yml?branch=master" /> <img src="https://img.shields.io/codeclimate/maintainability/mateogianolio/vectorious" /> <img src="https://img.shields.io/codeclimate/coverage/mateogianolio/vectorious" />
 </p>
 
 ### Installation
