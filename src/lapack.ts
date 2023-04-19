@@ -1,14 +1,18 @@
-import {
-  TypedArray,
-  DType,
-} from './types';
+import { TypedArray, DType } from './types';
 
 let nlapack: any;
 try {
   nlapack = require('nlapack');
 } catch (err) {}
 
-export function getrf(dtype: DType, m: number, n: number, x: TypedArray, ldx: number, ipiv: Int32Array) {
+export function getrf(
+  dtype: DType,
+  m: number,
+  n: number,
+  x: TypedArray,
+  ldx: number,
+  ipiv: Int32Array
+) {
   if (x.length !== m * n) {
     throw new Error('lengths do not match');
   }
@@ -38,7 +42,16 @@ export function getri(dtype: DType, n: number, x: TypedArray, ldx: number, ipiv:
   }
 }
 
-export function gesv(dtype: DType, n: number, nrhs: number, x: TypedArray, ldx: number, ipiv: Int32Array, y: TypedArray, ldy: number) {
+export function gesv(
+  dtype: DType,
+  n: number,
+  nrhs: number,
+  x: TypedArray,
+  ldx: number,
+  ipiv: Int32Array,
+  y: TypedArray,
+  ldy: number
+) {
   if (x.length !== ldx * n || y.length !== ldy * nrhs) {
     throw new Error('lengths do not match');
   }

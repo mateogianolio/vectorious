@@ -11,7 +11,7 @@ import { array } from './array';
  * @returns {Number}
  * @example
  * import { get } from 'vectorious/core/get';
- * 
+ *
  * get([1, 2, 3], 2); // 3
  */
 export const get = (x: NDArray | ArrayLike<any>, ...indices: number[]): number =>
@@ -25,10 +25,10 @@ export const get = (x: NDArray | ArrayLike<any>, ...indices: number[]): number =
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).get(2); // 3
  */
-export default function(this: NDArray, ...indices: number[]): number {
+export default function (this: NDArray, ...indices: number[]): number {
   this.check(...indices);
 
   const { data: d1, shape: s1 } = this;
@@ -47,4 +47,4 @@ export default function(this: NDArray, ...indices: number[]): number {
   }
 
   return d1[index];
-};
+}

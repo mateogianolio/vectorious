@@ -15,7 +15,7 @@ const { sqrt: f } = Math;
  * @returns {Number}
  * @example
  * import { norm } from 'vectorious/core/norm';
- * 
+ *
  * norm([1, 2, 3]); // => 3.7416574954986572
  */
 export const norm = (x: NDArray | ArrayLike<any>): number => array(x).norm();
@@ -29,10 +29,10 @@ export const norm = (x: NDArray | ArrayLike<any>): number => array(x).norm();
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).norm(); // => 3.7416574954986572
  */
-export default function(this: NDArray): number {
+export default function (this: NDArray): number {
   const { data: d1, length: l1, strides: st1, dtype } = this;
   let result: number = 0;
 
@@ -45,4 +45,4 @@ export default function(this: NDArray): number {
   }
 
   return result;
-};
+}

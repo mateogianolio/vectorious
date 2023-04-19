@@ -13,7 +13,7 @@ import * as lapack from '../lapack';
  * @returns {Array<NDArray|Int32Array>}
  * @example
  * import { lu_factor } from 'vectorious/core/lu_factor';
- * 
+ *
  * lu_factor([[1, 3, 5], [2, 4, 7], [1, 1, 0]]); // => [array([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]), Int32Array([2, 2, 3])]
  */
 export const lu_factor = (x: NDArray | ArrayLike<any>): [NDArray, Int32Array] =>
@@ -28,11 +28,15 @@ export const lu_factor = (x: NDArray | ArrayLike<any>): [NDArray, Int32Array] =>
  * @returns {Array<NDArray|Int32Array>}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).lu_factor(); // <=> [array([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]), Int32Array([2, 2, 3])]
  */
-export default function(this: NDArray): [NDArray, Int32Array] {
-  const { data: d1, shape: [n], dtype } = this;
+export default function (this: NDArray): [NDArray, Int32Array] {
+  const {
+    data: d1,
+    shape: [n],
+    dtype,
+  } = this;
   const ipiv: Int32Array = new Int32Array(n);
 
   try {
@@ -82,4 +86,4 @@ export default function(this: NDArray): [NDArray, Int32Array] {
   }
 
   return [this, ipiv];
-};
+}

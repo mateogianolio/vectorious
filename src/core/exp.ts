@@ -15,7 +15,7 @@ const { exp: f } = Math;
  * @returns {NDArray}
  * @example
  * import { exp } from 'vectorious/core/exp';
- * 
+ *
  * exp([1, 2, 3]); // => array([2.7182817459106445, 7.389056205749512, 20.08553695678711])
  */
 export const exp = (x: NDArray | ArrayLike<any>): NDArray => array(x).exp();
@@ -29,10 +29,10 @@ export const exp = (x: NDArray | ArrayLike<any>): NDArray => array(x).exp();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).exp(); // <=> array([2.7182817459106445, 7.389056205749512, 20.08553695678711])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -41,4 +41,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

@@ -8,12 +8,22 @@ describe('(v) cbrt', () => {
   it('should work as expected', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.cbrt(value)), x.cbrt()));
+    ok(
+      equals(
+        map(x, (value: number) => Math.cbrt(value)),
+        x.cbrt()
+      )
+    );
   });
 
   it('should work as the static equivalent', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.cbrt(value)), cbrt(x)));
+    ok(
+      equals(
+        map(x, (value: number) => Math.cbrt(value)),
+        cbrt(x)
+      )
+    );
   });
 });

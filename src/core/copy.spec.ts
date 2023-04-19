@@ -1,7 +1,4 @@
-import {
-  ok,
-  notStrictEqual,
-} from 'assert';
+import { ok, notStrictEqual } from 'assert';
 
 import { equals } from './equals';
 import { copy } from './copy';
@@ -18,7 +15,11 @@ describe('(v) copy', () => {
   });
 
   it('should move data into c-contiguous order', () => {
-    const original = array([[0, 1, 2], [3, 4, 5], [6, 7, 8]]).T;
+    const original = array([
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+    ]).T;
     const cp = original.copy();
 
     notStrictEqual(original, cp);

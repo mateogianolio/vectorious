@@ -102,11 +102,7 @@ export class NDIter implements Iterator<number[]> {
 
   constructor(x: NDArray | ArrayLike<any>) {
     this.x = array(x);
-    const {
-      shape,
-      strides,
-      length,
-    } = this.x;
+    const { shape, strides, length } = this.x;
 
     this.length = length;
     this.lengthm1 = length - 1;
@@ -149,7 +145,7 @@ export class NDIter implements Iterator<number[]> {
    * @example
    * import { array } from 'vectorious/core/array';
    * import { NDIter } from 'vectorious/iterator';
-   * 
+   *
    * const iter = new NDIter(array([1, 2, 3]));
    * iter.done(); // false
    */
@@ -167,7 +163,7 @@ export class NDIter implements Iterator<number[]> {
    * @example
    * import { array } from 'vectorious/core/array';
    * import { NDIter } from 'vectorious/iterator';
-   * 
+   *
    * const iter = new NDIter(array([1, 2, 3]));
    * iter.current(); // { value: 1, done: false }
    */
@@ -176,7 +172,7 @@ export class NDIter implements Iterator<number[]> {
     return {
       value: done ? undefined : this.pos,
       done,
-    }
+    };
   }
 
   /**
@@ -185,9 +181,7 @@ export class NDIter implements Iterator<number[]> {
    * @description Steps to the next position in the iterator, assuming it is 1 dimensional.
    */
   next1d() {
-    const {
-      strides,
-    } = this;
+    const { strides } = this;
 
     this.pos += strides[0];
     this.coords[0] += 1;
@@ -199,11 +193,7 @@ export class NDIter implements Iterator<number[]> {
    * @description Steps to the next position in the iterator, assuming it is 2 dimensional.
    */
   next2d() {
-    const {
-      strides,
-      shapem1,
-      backstrides,
-    } = this;
+    const { strides, shapem1, backstrides } = this;
 
     if (this.coords[1] < shapem1[1]) {
       this.coords[1] += 1;
@@ -221,12 +211,7 @@ export class NDIter implements Iterator<number[]> {
    * @description Steps to the next position in the iterator
    */
   nextnd() {
-    const {
-      ndm1,
-      shapem1,
-      strides,
-      backstrides,
-    } = this;
+    const { ndm1, shapem1, strides, backstrides } = this;
 
     let i;
     for (i = ndm1; i >= 0; i -= 1) {
@@ -251,7 +236,7 @@ export class NDIter implements Iterator<number[]> {
    * @example
    * import { array } from 'vectorious/core/array';
    * import { NDIter } from 'vectorious/iterator';
-   * 
+   *
    * const iter = new NDIter(array([1, 2, 3]));
    * iter.next(); // { value: 2, done: false }
    * iter.next(); // { value: 3, done: false }
@@ -262,9 +247,7 @@ export class NDIter implements Iterator<number[]> {
 
     this.index += 1;
 
-    const {
-      ndm1,
-    } = this;
+    const { ndm1 } = this;
 
     if (ndm1 === 0) {
       this.next1d();
@@ -345,7 +328,7 @@ export class NDMultiIter implements Iterator<number[]> {
   public pos: number[];
 
   constructor(...args: (NDArray | ArrayLike<any>)[]) {
-    this.iters = args.map(arg => new NDIter(arg));
+    this.iters = args.map((arg) => new NDIter(arg));
     this.numiter = args.length;
 
     let i;
@@ -373,7 +356,6 @@ export class NDMultiIter implements Iterator<number[]> {
           }
           if (this.shape[i] == 1) {
             this.shape[i] = tmp;
-
           } else if (this.shape[i] !== tmp) {
             throw new Error('shape mismatch');
           }
@@ -403,7 +385,7 @@ export class NDMultiIter implements Iterator<number[]> {
         it.shapem1[j] = this.shape[j] - 1;
         k = j + nd - this.nd;
 
-        if ((k < 0) || it.x.shape[k] !== this.shape[j]) {
+        if (k < 0 || it.x.shape[k] !== this.shape[j]) {
           it.strides[j] = 0;
         } else {
           it.strides[j] = it.x.strides[k];
@@ -412,7 +394,7 @@ export class NDMultiIter implements Iterator<number[]> {
         it.backstrides[j] = it.strides[j] * it.shapem1[j];
 
         if (j > 0) {
-          it.factors[this.nd - j - 1] = it.factors[this.nd - j] * this.shape[this.nd - j]
+          it.factors[this.nd - j - 1] = it.factors[this.nd - j] * this.shape[this.nd - j];
         }
       }
     }
@@ -429,7 +411,7 @@ export class NDMultiIter implements Iterator<number[]> {
    * @example
    * import { array } from 'vectorious/core/array';
    * import { NDMultiIter } from 'vectorious/iterator';
-   * 
+   *
    * const iter = new NDMultiIter(array([1, 2, 3]), array([4, 5, 6]));
    * iter.done(); // false
    */
@@ -447,7 +429,7 @@ export class NDMultiIter implements Iterator<number[]> {
    * @example
    * import { array } from 'vectorious/core/array';
    * import { NDMultiIter } from 'vectorious/iterator';
-   * 
+   *
    * const iter = new NDMultiIter(array([1, 2, 3]), array([4, 5, 6]));
    * iter.current(); // { value: [0, 0], done: false }
    */
@@ -456,7 +438,7 @@ export class NDMultiIter implements Iterator<number[]> {
     return {
       value: done ? undefined : this.pos,
       done,
-    }
+    };
   }
 
   /**
@@ -471,7 +453,7 @@ export class NDMultiIter implements Iterator<number[]> {
    * @example
    * import { array } from 'vectorious/core/array';
    * import { NDMultiIter } from 'vectorious/iterator';
-   * 
+   *
    * const iter = new NDMultiIter(array([1, 2, 3]), array([4, 5, 6]));
    * iter.next(); // { value: [0, 0], done: false }
    * iter.next(); // { value: [1, 1], done: false }
@@ -483,9 +465,7 @@ export class NDMultiIter implements Iterator<number[]> {
 
     this.index += 1;
 
-    const {
-      numiter,
-    } = this;
+    const { numiter } = this;
 
     let it;
     let i;

@@ -8,9 +8,7 @@
     "includePattern": "\\.(jsx|js)$",
     "excludePattern": "(node_modules|benchmarks|coverage|dist|docs|examples)"
   },
-  "plugins": [
-    "plugins/markdown"
-  ],
+  "plugins": ["plugins/markdown"],
   "templates": {
     "cleverLinks": false,
     "monospaceLinks": true,

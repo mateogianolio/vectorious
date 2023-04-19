@@ -5,7 +5,11 @@ import { bench } from '../bench';
 bench(
   'NDArray',
   'swap',
-  (n: number) => [random(n), Math.floor(Math.random() * Math.sqrt(n)), Math.floor(Math.random() * Math.sqrt(n))],
+  (n: number) => [
+    random(n),
+    Math.floor(Math.random() * Math.sqrt(n)),
+    Math.floor(Math.random() * Math.sqrt(n)),
+  ],
   (x, i: number, j: number): void => {
     x.swap(i, j);
   },

@@ -13,7 +13,7 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { row_add } from 'vectorious/core/row_add';
- * 
+ *
  * row_add([[1, 2], [3, 4]], 1, 0, 2); // => array([[1, 2], [5, 8]])
  */
 export const row_add = (
@@ -21,8 +21,7 @@ export const row_add = (
   dest: number,
   source: number,
   scalar: number = 1
-): NDArray =>
-  array(x).row_add(dest, source, scalar);
+): NDArray => array(x).row_add(dest, source, scalar);
 
 /**
  * @function row_add
@@ -34,10 +33,10 @@ export const row_add = (
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[1, 2], [3, 4]]).row_add(1, 0, 2); // <=> array([[1, 2], [5, 8]])
  */
-export default function(this: NDArray, dest: number, source: number, scalar: number = 1): NDArray {
+export default function (this: NDArray, dest: number, source: number, scalar: number = 1): NDArray {
   this.check(dest, 0);
   this.check(source, 0);
 
@@ -50,4 +49,4 @@ export default function(this: NDArray, dest: number, source: number, scalar: num
   }
 
   return this;
-};
+}

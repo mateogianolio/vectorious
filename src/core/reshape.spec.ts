@@ -1,7 +1,4 @@
-import {
-  ok,
-  throws,
-} from 'assert';
+import { ok, throws } from 'assert';
 
 import { equals } from './equals';
 import { reshape } from './reshape';
@@ -12,7 +9,9 @@ describe('(v) reshape', () => {
     const f64 = new Float64Array([1, 2, 3, 4]);
     const x = array(f64);
 
-    throws(() => { x.reshape(1, 2); }, Error);
+    throws(() => {
+      x.reshape(1, 2);
+    }, Error);
   });
 
   it('should be able to create row vector of column vector', () => {

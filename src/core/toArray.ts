@@ -10,7 +10,7 @@ import { array } from './array';
  * @returns {Array}
  * @example
  * import { toArray } from 'vectorious/core/toArray';
- * 
+ *
  * toArray([1, 2, 3]); // => [1, 2, 3]
  */
 export const toArray = (x: NDArray | ArrayLike<any>): any => array(x).toArray();
@@ -24,10 +24,10 @@ export const toArray = (x: NDArray | ArrayLike<any>): any => array(x).toArray();
  * @returns {Array}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).toArray(); // => [1, 2, 3]
  */
-export default function(this: NDArray, index: number = 0, dim = 0): any {
+export default function (this: NDArray, index: number = 0, dim = 0): any {
   const { data: d1, shape: s1, strides: st1 } = this;
   const { length: ndim } = s1;
 
@@ -50,4 +50,4 @@ export default function(this: NDArray, index: number = 0, dim = 0): any {
   }
 
   return list;
-};
+}

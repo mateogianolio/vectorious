@@ -11,7 +11,7 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { gauss } from 'vectorious/core/gauss';
- * 
+ *
  * gauss([[1, 2, 3], [4, 5, 6]]); // => array([[1, 0, -1], [-0, 1, 2]])
  */
 export const gauss = (x: NDArray | ArrayLike<any>): NDArray => array(x).gauss();
@@ -24,11 +24,14 @@ export const gauss = (x: NDArray | ArrayLike<any>): NDArray => array(x).gauss();
  * @returns {NDArray}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[1, 2, 3], [4, 5, 6]]).gauss(); // <=> array([[1, 0, -1], [-0, 1, 2]])
  */
-export default function(this: NDArray): NDArray {
-  const { shape: [r, c], data: d1 } = this;
+export default function (this: NDArray): NDArray {
+  const {
+    shape: [r, c],
+    data: d1,
+  } = this;
 
   let lead: number = 0;
   let leadValue: number;
@@ -94,4 +97,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

@@ -5,7 +5,11 @@ import { array } from './array';
 
 describe('(v) eye', () => {
   it('should work as expected', () => {
-    const x = array([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
+    const x = array([
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1],
+    ]);
 
     ok(equals(x, eye(3)));
   });

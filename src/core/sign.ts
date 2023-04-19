@@ -15,7 +15,7 @@ const { sign: f } = Math;
  * @returns {NDArray}
  * @example
  * import { sign } from 'vectorious/core/sign';
- * 
+ *
  * sign([1, 2, 3]); // => array([1, 1, 1])
  */
 export const sign = (x: NDArray | ArrayLike<any>): NDArray => array(x).sign();
@@ -29,10 +29,10 @@ export const sign = (x: NDArray | ArrayLike<any>): NDArray => array(x).sign();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).sign(); // <=> array([1, 1, 1])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -41,4 +41,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

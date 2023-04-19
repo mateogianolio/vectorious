@@ -14,7 +14,7 @@ import * as lapack from '../lapack';
  * @returns {NDArray}
  * @example
  * import { solve } from 'vectorious/core/solve';
- * 
+ *
  * solve([[1, 3, 5], [2, 4, 7], [1, 1, 0]], [[1], [3], [5]]); // => array([[3.25], [1.75], [-1.5]])
  */
 export const solve = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
@@ -30,12 +30,15 @@ export const solve = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>):
  * @returns {NDArray}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).solve([[1], [3], [5]]); // => array([[3.25], [1.75], [-1.5]])
  */
-export default function(this: NDArray, x: NDArray): NDArray {
+export default function (this: NDArray, x: NDArray): NDArray {
   const { data: d1, dtype } = this;
-  const { data: d2, shape: [n, nrhs] } = x;
+  const {
+    data: d2,
+    shape: [n, nrhs],
+  } = x;
 
   try {
     const ipiv: Int32Array = new Int32Array(n);
@@ -64,7 +67,7 @@ export default function(this: NDArray, x: NDArray): NDArray {
 
       for (i = n - 1; i >= 0; i -= 1) {
         for (j = i + 1; j < n; j += 1) {
-         d2[i * nrhs + k] -= d1[i * n + j] * d2[j * nrhs + k];
+          d2[i * nrhs + k] -= d1[i * n + j] * d2[j * nrhs + k];
         }
 
         d2[i * nrhs + k] /= d1[i * n + i];
@@ -73,4 +76,4 @@ export default function(this: NDArray, x: NDArray): NDArray {
   }
 
   return x;
-};
+}

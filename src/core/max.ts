@@ -14,7 +14,7 @@ import * as blas from '../blas';
  * @returns {Number}
  * @example
  * import { max } from 'vectorious/core/max';
- * 
+ *
  * max([1, 2, 3]); // => 3
  */
 export const max = (x: NDArray | ArrayLike<any>): number => array(x).max();
@@ -28,10 +28,10 @@ export const max = (x: NDArray | ArrayLike<any>): number => array(x).max();
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).max(); // => 3
  */
-export default function(this: NDArray): number {
+export default function (this: NDArray): number {
   const { data: d1, length: l1, strides: st1, dtype } = this;
   let max: number = Number.NEGATIVE_INFINITY;
 
@@ -51,4 +51,4 @@ export default function(this: NDArray): number {
   }
 
   return max;
-};
+}

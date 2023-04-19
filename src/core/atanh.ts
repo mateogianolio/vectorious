@@ -13,7 +13,7 @@ const { atanh: f } = Math;
  * @returns {NDArray}
  * @example
  * import { atanh } from 'vectorious/core/atanh';
- * 
+ *
  * atanh([0, -0.5]); // => array([0, -0.5493061542510986])
  */
 export const atanh = (x: NDArray | ArrayLike<any>): NDArray => array(x).atanh();
@@ -25,10 +25,10 @@ export const atanh = (x: NDArray | ArrayLike<any>): NDArray => array(x).atanh();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([0, -0.5]).atanh(); // <=> array([0, -0.5493061542510986])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

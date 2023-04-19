@@ -17,7 +17,7 @@ import { NDArray } from './';
  * @returns {NDArray}
  * @example
  * import { range } from 'vectorious/core/range';
- * 
+ *
  * range(1, 2, 9); // => array([1, 3, 5, 7])
  */
 export const range = (...args: number[]): NDArray => {

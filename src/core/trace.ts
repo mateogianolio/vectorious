@@ -10,7 +10,7 @@ import { array } from './array';
  * @returns {Number}
  * @example
  * import { trace } from 'vectorious/core/trace';
- * 
+ *
  * trace([[1, 2], [3, 4]]); // => 5
  */
 export const trace = (x: NDArray | ArrayLike<any>): number => array(x).trace();
@@ -22,10 +22,10 @@ export const trace = (x: NDArray | ArrayLike<any>): number => array(x).trace();
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).trace(); // => 5
  */
-export default function(this: NDArray): number {
+export default function (this: NDArray): number {
   const [r, c] = this.shape;
   const { data: d1 } = this;
   const n: number = Math.min(r, c);
@@ -38,4 +38,4 @@ export default function(this: NDArray): number {
   }
 
   return result;
-};
+}

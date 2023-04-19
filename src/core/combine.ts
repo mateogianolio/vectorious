@@ -14,7 +14,7 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { combine } from 'vectorious/core/combine';
- * 
+ *
  * combine([1, 2, 3], [4, 5, 6]); // => array([1, 2, 3, 4, 5, 6])
  */
 export const combine = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
@@ -28,10 +28,10 @@ export const combine = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).combine([4, 5, 6]); // => array([1, 2, 3, 4, 5, 6])
  */
-export default function(this: NDArray, x: NDArray): NDArray {
+export default function (this: NDArray, x: NDArray): NDArray {
   if (this.shape.length !== 1 && x.shape.length !== 1) {
     throw new Error('combine operation not permitted for multidimensional arrays');
   }
@@ -62,4 +62,4 @@ export default function(this: NDArray, x: NDArray): NDArray {
   this.shape = [l3];
 
   return this;
-};
+}

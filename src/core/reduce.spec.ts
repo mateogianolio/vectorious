@@ -1,7 +1,4 @@
-import {
-  strictEqual,
-  throws,
-} from 'assert';
+import { strictEqual, throws } from 'assert';
 
 import { reduce } from './reduce';
 import { array } from './array';
@@ -19,7 +16,9 @@ describe('(v) reduce', () => {
   it('should throw error if empty vector with no initial value', () => {
     const x = array();
     const sum: (a: number, b: number) => number = (a: number, b: number): number => a + b;
-    throws(() => { x.reduce(sum); }, Error);
+    throws(() => {
+      x.reduce(sum);
+    }, Error);
   });
 
   it('should work as the static equivalent', () => {

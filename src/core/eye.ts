@@ -9,7 +9,7 @@ import { NDArray } from './';
  * @returns {NDArray}
  * @example
  * import { eye } from 'vectorious/core/eye';
- * 
+ *
  * eye(2); // => array([[1, 0], [0, 1]])
  */
 export const eye = (n: number): NDArray => {

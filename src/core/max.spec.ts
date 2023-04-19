@@ -1,6 +1,4 @@
-import {
-  strictEqual,
-} from 'assert';
+import { strictEqual } from 'assert';
 
 import { max } from './max';
 import { array } from './array';

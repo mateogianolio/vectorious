@@ -12,7 +12,7 @@ import { NDIter } from '../iterator';
  * @returns {NDArray}
  * @example
  * import { magic } from 'vectorious/core/magic';
- * 
+ *
  * magic(3); // => array([[8, 1, 6], [3, 5, 7], [4, 9, 2]])
  */
 export const magic = (n: number): NDArray => {

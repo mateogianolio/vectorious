@@ -1,15 +1,6 @@
-import {
-  deepStrictEqual,
-  strictEqual,
-} from 'assert';
+import { deepStrictEqual, strictEqual } from 'assert';
 
-import {
-  flatten,
-  get_dtype,
-  get_shape,
-  get_type,
-  is_typed_array,
-} from './util';
+import { flatten, get_dtype, get_shape, get_type, is_typed_array } from './util';
 
 describe('(util) flatten', () => {
   it('should work as expected', () => {

@@ -12,7 +12,7 @@ import { NDIter } from '../iterator';
  * @param {Function} f
  * @example
  * import { forEach } from 'vectorious/core/forEach';
- * 
+ *
  * forEach([1, 2, 3], console.log);
  * // 1 0 [ 1, 2, 3 ]
  * // 2 1 [ 1, 2, 3 ]
@@ -32,13 +32,13 @@ export const forEach = (
  * @param {Function} f
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).forEach(console.log);
  * // 1 0 [ 1, 2, 3 ]
  * // 2 1 [ 1, 2, 3 ]
  * // 3 2 [ 1, 2, 3 ]
  */
-export default function(
+export default function (
   this: NDArray,
   f: (value: number, i: number, src: TypedArray) => void
 ): void {
@@ -48,4 +48,4 @@ export default function(
   for (const i of iter) {
     f.call(this, d1[i!], i!, d1);
   }
-};
+}

@@ -13,7 +13,7 @@ const { asinh: f } = Math;
  * @returns {NDArray}
  * @example
  * import { asinh } from 'vectorious/core/asinh';
- * 
+ *
  * asinh([0, 1, 2]) // => array([0, 0.8813735842704773, 1.4436354637145996])
  */
 export const asinh = (x: NDArray | ArrayLike<any>): NDArray => array(x).asinh();
@@ -25,10 +25,10 @@ export const asinh = (x: NDArray | ArrayLike<any>): NDArray => array(x).asinh();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([0, 1, 2]).asinh() // <=> array([0, 0.8813735842704773, 1.4436354637145996])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

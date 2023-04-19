@@ -1,7 +1,4 @@
-import {
-  TypedArray,
-  DType,
-} from './types';
+import { TypedArray, DType } from './types';
 
 let nblas: any;
 try {
@@ -11,7 +8,15 @@ try {
 export const NoTrans = nblas && nblas.NoTrans;
 export const Trans = nblas && nblas.Trans;
 
-export function axpy(dtype: DType, n: number, alpha: number, x: TypedArray, inc_x: number, y: TypedArray, inc_y: number) {
+export function axpy(
+  dtype: DType,
+  n: number,
+  alpha: number,
+  x: TypedArray,
+  inc_x: number,
+  y: TypedArray,
+  inc_y: number
+) {
   if (x.length / inc_x !== n || y.length / inc_y !== n) {
     throw new Error('lengths do not match');
   }
@@ -26,7 +31,14 @@ export function axpy(dtype: DType, n: number, alpha: number, x: TypedArray, inc_
   }
 }
 
-export function dot(dtype: DType, n: number, x: TypedArray, inc_x: number, y: TypedArray, inc_y: number) {
+export function dot(
+  dtype: DType,
+  n: number,
+  x: TypedArray,
+  inc_x: number,
+  y: TypedArray,
+  inc_y: number
+) {
   if (x.length / inc_x !== n || y.length / inc_y !== n) {
     throw new Error('lengths do not match');
   }
@@ -56,7 +68,22 @@ export function iamax(dtype: DType, n: number, x: TypedArray, inc_x: number) {
   }
 }
 
-export function gemm(dtype: DType, transx: number, transy: number, m: number, n: number, k: number, alpha: number, x: TypedArray, ldx: number, y: TypedArray, ldy: number, beta: number, z: TypedArray, ldz: number) {
+export function gemm(
+  dtype: DType,
+  transx: number,
+  transy: number,
+  m: number,
+  n: number,
+  k: number,
+  alpha: number,
+  x: TypedArray,
+  ldx: number,
+  y: TypedArray,
+  ldy: number,
+  beta: number,
+  z: TypedArray,
+  ldz: number
+) {
   const { length: l1 } = x;
   const { length: l2 } = y;
   const { length: l3 } = z;

@@ -12,14 +12,13 @@ import { NDIter } from '../iterator';
  * @returns {NDArray}
  * @example
  * import { fill } from 'vectorious/core/fill';
- * 
+ *
  * fill([1, 2, 3], 0); // => array([0, 0, 0])
  */
 export const fill = (
   x: NDArray | ArrayLike<any>,
   value: number | ((index: number) => number) = 0
-): NDArray =>
-  array(x).fill(value);
+): NDArray => array(x).fill(value);
 
 /**
  * @function fill
@@ -29,10 +28,10 @@ export const fill = (
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).fill(0); // <=> array([0, 0, 0])
  */
-export default function(this: NDArray, value: number | ((index: number) => number) = 0): NDArray {
+export default function (this: NDArray, value: number | ((index: number) => number) = 0): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -41,4 +40,4 @@ export default function(this: NDArray, value: number | ((index: number) => numbe
   }
 
   return this;
-};
+}

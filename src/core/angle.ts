@@ -13,7 +13,7 @@ const { acos: f } = Math;
  * @returns {number}
  * @example
  * import { angle } from 'vectorious/core/angle';
- * 
+ *
  * angle([1, 2, 3], [4, 5, 6]); // => 0.22572622788897287
  */
 export const angle = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): number =>
@@ -27,9 +27,9 @@ export const angle = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>):
  * @returns {number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).angle([4, 5, 6]); // <=> 0.22572622788897287
  */
-export default function(this: NDArray, x: NDArray | ArrayLike<any>): number {
+export default function (this: NDArray, x: NDArray | ArrayLike<any>): number {
   return f(this.dot(array(x)) / this.norm() / array(x).norm());
-};
+}

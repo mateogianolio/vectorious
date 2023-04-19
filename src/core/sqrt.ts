@@ -13,7 +13,7 @@ const { sqrt: f } = Math;
  * @returns {NDArray}
  * @example
  * import { sqrt } from 'vectorious/core/sqrt';
- * 
+ *
  * sqrt([1, 4, 9]); // => array([1, 2, 3])
  */
 export const sqrt = (x: NDArray | ArrayLike<any>): NDArray => array(x).sqrt();
@@ -25,10 +25,10 @@ export const sqrt = (x: NDArray | ArrayLike<any>): NDArray => array(x).sqrt();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 4, 9]); // <=> array([1, 2, 3])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

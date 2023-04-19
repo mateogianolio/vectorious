@@ -11,7 +11,10 @@ describe('(v) ones', () => {
   });
 
   it('should work as expected in two dimensions', () => {
-    const x = array([[1, 1], [1, 1]]);
+    const x = array([
+      [1, 1],
+      [1, 1],
+    ]);
 
     ok(equals(x, ones(2, 2)));
   });

@@ -6,11 +6,11 @@ plugins:
     config: tsconfig.json
     enabled: true
 exclude_patterns:
-  - "gulpfile.js"
-  - "src/bench.ts"
-  - "src/*.spec.ts"
-  - "src/*.bench.ts"
-  - "dist/"
-  - "examples/"
-  - "benchmarks/"
-  - "docs/"
+  - 'gulpfile.js'
+  - 'src/bench.ts'
+  - 'src/*.spec.ts'
+  - 'src/*.bench.ts'
+  - 'dist/'
+  - 'examples/'
+  - 'benchmarks/'
+  - 'docs/'

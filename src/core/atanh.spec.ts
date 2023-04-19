@@ -8,12 +8,22 @@ describe('(v) atanh', () => {
   it('should work as expected', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.atanh(value)), x.atanh()));
+    ok(
+      equals(
+        map(x, (value: number) => Math.atanh(value)),
+        x.atanh()
+      )
+    );
   });
 
   it('should work as the static equivalent', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.atanh(value)), atanh(x)));
+    ok(
+      equals(
+        map(x, (value: number) => Math.atanh(value)),
+        atanh(x)
+      )
+    );
   });
 });

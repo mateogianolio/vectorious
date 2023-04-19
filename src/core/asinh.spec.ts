@@ -8,12 +8,22 @@ describe('(v) asinh', () => {
   it('should work as expected', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.asinh(value)), x.asinh()));
+    ok(
+      equals(
+        map(x, (value: number) => Math.asinh(value)),
+        x.asinh()
+      )
+    );
   });
 
   it('should work as the static equivalent', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.asinh(value)), asinh(x)));
+    ok(
+      equals(
+        map(x, (value: number) => Math.asinh(value)),
+        asinh(x)
+      )
+    );
   });
 });

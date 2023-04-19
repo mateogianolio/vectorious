@@ -7,12 +7,18 @@ describe('(v) sum', () => {
   it('should work as expected', () => {
     const x = random(3);
 
-    strictEqual(x.reduce((acc: number, value: number) => acc + value, 0), x.sum());
+    strictEqual(
+      x.reduce((acc: number, value: number) => acc + value, 0),
+      x.sum()
+    );
   });
 
   it('should work as the static equivalent', () => {
     const x = random(3);
 
-    strictEqual(x.reduce((acc: number, value: number) => acc + value, 0), sum(x));
+    strictEqual(
+      x.reduce((acc: number, value: number) => acc + value, 0),
+      sum(x)
+    );
   });
 });

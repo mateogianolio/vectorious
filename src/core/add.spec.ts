@@ -1,7 +1,4 @@
-import {
-  ok,
-  throws,
-} from 'assert';
+import { ok, throws } from 'assert';
 
 import { equals } from './equals';
 import { add } from './add';
@@ -19,7 +16,9 @@ describe('(v) add', () => {
     const x = array([1, 2, 3]);
     const y = array([10, 11]);
 
-    throws(() => { x.add(y); }, Error);
+    throws(() => {
+      x.add(y);
+    }, Error);
   });
 
   it('should produce v([5, 7, 9]) from v([1, 2, 3]) and v([4, 5, 6])', () => {
@@ -35,7 +34,7 @@ describe('(v) add', () => {
     const y = array([10]);
     const z = array([11, 12, 13]);
 
-    ok(equals(z, x.add(y)))
+    ok(equals(z, x.add(y)));
   });
 
   it('should work as the static equivalent', () => {

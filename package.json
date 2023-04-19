@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "6.1.6",
+  "version": "6.1.7",
   "description": "A high performance linear algebra library.",
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
@@ -56,6 +56,7 @@
     "jsdoc": "^4.0.2",
     "mocha": "^10.2.0",
     "nodemark": "^0.3.0",
+    "prettier": "^2.8.7",
     "tidy-jsdoc": "^1.4.1",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",

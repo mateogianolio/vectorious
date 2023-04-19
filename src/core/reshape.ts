@@ -13,7 +13,7 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { reshape } from 'vectorious/core/reshape';
- * 
+ *
  * reshape([1, 2, 3, 4], 2, 2); // => array([[1, 2], [3, 4]])
  */
 export const reshape = (x: NDArray | ArrayLike<any>, ...shape: number[]): NDArray =>
@@ -27,10 +27,10 @@ export const reshape = (x: NDArray | ArrayLike<any>, ...shape: number[]): NDArra
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3, 4]).reshape(2, 2); // <=> array([[1, 2], [3, 4]])
  */
-export default function(this: NDArray, ...shape: number[]): NDArray {
+export default function (this: NDArray, ...shape: number[]): NDArray {
   const { length } = this;
   if (shape.reduce((sum: number, dim: number) => sum * dim, 1) !== length) {
     throw new Error(`shape ${shape} does not match length ${length}`);
@@ -40,4 +40,4 @@ export default function(this: NDArray, ...shape: number[]): NDArray {
   this.strides = get_strides(shape);
 
   return this;
-};
+}
