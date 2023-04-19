@@ -10,11 +10,8 @@ import { NDArray } from './';
  * @returns {NDArray}
  * @example
  * import { matrix } from 'vectorious/core/matrix';
- * 
+ *
  * matrix(2, 2); // => array([[0, 0], [0, 0]])
  */
 export const matrix = (r: number, c: number): NDArray =>
-  new NDArray(
-    new Float64Array(r * c),
-    { shape: [r, c] }
-  );
+  new NDArray(new Float64Array(r * c), { shape: [r, c] });

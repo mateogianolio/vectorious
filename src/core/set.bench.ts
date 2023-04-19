@@ -5,7 +5,7 @@ import { bench } from '../bench';
 bench(
   'NDArray',
   'set',
-  (n: number) => [random(n), Math.floor(Math.random() * n),  Math.random()],
+  (n: number) => [random(n), Math.floor(Math.random() * n), Math.random()],
   (x, i: number, alpha: number) => {
     x.set(i, alpha);
   },

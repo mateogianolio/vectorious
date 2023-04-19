@@ -1,6 +1,4 @@
-import {
-  throws,
-} from 'assert';
+import { throws } from 'assert';
 
 import { equidimensional } from './equidimensional';
 import { array } from './array';
@@ -21,7 +19,9 @@ describe('(v) equidimensional', () => {
     const x = array(f64x);
     const y = array(f64y, { shape: [2, 2] });
 
-    throws(() => { x.equidimensional(y); }, Error);
+    throws(() => {
+      x.equidimensional(y);
+    }, Error);
   });
 
   it('should work as the static equivalent', () => {

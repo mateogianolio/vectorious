@@ -1,7 +1,4 @@
-import {
-  ok,
-  strictEqual,
-} from 'assert';
+import { ok, strictEqual } from 'assert';
 
 import { equals } from './equals';
 import { random } from './random';

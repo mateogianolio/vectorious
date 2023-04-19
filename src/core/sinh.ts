@@ -13,7 +13,7 @@ const { sinh: f } = Math;
  * @returns {NDArray}
  * @example
  * import { sinh } from 'vectorious/core/sinh';
- * 
+ *
  * sinh([1, 2, 3]); // => array([1.175201177597046, 3.6268603801727295, 10.017874717712402])
  */
 export const sinh = (x: NDArray | ArrayLike<any>): NDArray => array(x).sinh();
@@ -25,10 +25,10 @@ export const sinh = (x: NDArray | ArrayLike<any>): NDArray => array(x).sinh();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).sinh(); // <=> array([1.175201177597046, 3.6268603801727295, 10.017874717712402])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

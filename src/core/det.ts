@@ -10,7 +10,7 @@ import { array } from './array';
  * @returns {Number}
  * @example
  * import { det } from 'vectorious/core/det';
- * 
+ *
  * det([[0, 1], [2, 3]]); // => -2
  */
 export const det = (x: NDArray | ArrayLike<any>): number => array(x).det();
@@ -22,10 +22,10 @@ export const det = (x: NDArray | ArrayLike<any>): number => array(x).det();
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[0, 1], [2, 3]]).det(); // => -2
  */
-export default function(this: NDArray): number {
+export default function (this: NDArray): number {
   this.square();
 
   const [n] = this.shape;
@@ -44,4 +44,4 @@ export default function(this: NDArray): number {
   }
 
   return sign * product;
-};
+}

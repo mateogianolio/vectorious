@@ -17,7 +17,7 @@ import * as lapack from '../lapack';
  * @returns {NDArray}
  * @example
  * import { inv } from 'vectorious/core/inv';
- * 
+ *
  * inv([[2, -1, 0], [-1, 2, -1], [0, -1, 2]]); // => array([[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]])
  */
 export const inv = (x: NDArray | ArrayLike<any>): NDArray => array(x).inv();
@@ -31,13 +31,16 @@ export const inv = (x: NDArray | ArrayLike<any>): NDArray => array(x).inv();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]]).inv(); // <=> array([[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   this.square();
 
-  const { shape: [n], dtype } = this;
+  const {
+    shape: [n],
+    dtype,
+  } = this;
 
   try {
     const { data: d1 } = this;
@@ -75,4 +78,4 @@ export default function(this: NDArray): NDArray {
 
     return right;
   }
-};
+}

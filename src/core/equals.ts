@@ -13,11 +13,14 @@ import { array } from './array';
  * @returns {Boolean}
  * @example
  * import { equals } from 'vectorious/core/equals';
- * 
+ *
  * equals([1, 2, 3], [1, 2, 3]); // => true
  */
-export const equals = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, tolerance: number = 1e-6): boolean =>
-  array(x).equals(array(y), tolerance);
+export const equals = (
+  x: NDArray | ArrayLike<any>,
+  y: NDArray | ArrayLike<any>,
+  tolerance: number = 1e-6
+): boolean => array(x).equals(array(y), tolerance);
 
 /**
  * @function equals
@@ -28,10 +31,10 @@ export const equals = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>,
  * @returns {Boolean}
  * @example
  * import { equals } from 'vectorious/core/equals';
- * 
+ *
  * array([1, 2, 3]).equals([1, 2, 3]); // => true
  */
-export default function(this: NDArray, x: NDArray, tolerance: number = 1e-6): boolean {
+export default function (this: NDArray, x: NDArray, tolerance: number = 1e-6): boolean {
   const { data: d1 } = this;
   const { data: d2 } = x;
 
@@ -44,4 +47,4 @@ export default function(this: NDArray, x: NDArray, tolerance: number = 1e-6): bo
   }
 
   return true;
-};
+}

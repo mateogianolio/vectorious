@@ -15,7 +15,12 @@ describe('(v) fill', () => {
     const x = array([0, 1, 2]);
     const y = array([0, 0, 0]);
 
-    ok(equals(x, y.fill((index: number) => index)));
+    ok(
+      equals(
+        x,
+        y.fill((index: number) => index)
+      )
+    );
   });
 
   it('should work as the static equivalent', () => {

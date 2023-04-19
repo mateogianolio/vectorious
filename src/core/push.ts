@@ -14,11 +14,10 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { push } from 'vectorious/core/push';
- * 
+ *
  * push([1, 2, 3], 4); // => array([1, 2, 3, 4])
  */
-export const push = (x: NDArray | ArrayLike<any>, value: number): NDArray =>
-  array(x).push(value);
+export const push = (x: NDArray | ArrayLike<any>, value: number): NDArray => array(x).push(value);
 
 /**
  * @function push
@@ -28,10 +27,10 @@ export const push = (x: NDArray | ArrayLike<any>, value: number): NDArray =>
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).push(4); // => array([1, 2, 3, 4])
  */
-export default function(this: NDArray, value: number): NDArray {
+export default function (this: NDArray, value: number): NDArray {
   if (this.shape.length !== 1) {
     throw new Error('push operation not permitted for multidimensional arrays');
   }
@@ -48,4 +47,4 @@ export default function(this: NDArray, value: number): NDArray {
   this.shape = [l2];
 
   return this;
-};
+}

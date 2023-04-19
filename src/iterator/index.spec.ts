@@ -1,6 +1,4 @@
-import {
-  deepStrictEqual, strictEqual,
-} from 'assert';
+import { deepStrictEqual, strictEqual } from 'assert';
 
 import { array } from '../core/array';
 import { NDIter } from '.';
@@ -30,7 +28,10 @@ describe('(NDIter) constructor', () => {
   });
 
   it('should work as expected in two dimensions', () => {
-    const x = array([[0, 1], [2, 3]]);
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
     const iter = new NDIter(x);
 
     deepStrictEqual(iter.next(), {
@@ -56,7 +57,11 @@ describe('(NDIter) constructor', () => {
   });
 
   it('should work as expected with inverted strides', () => {
-    const x = array([[0, 1, 2], [3, 4, 5], [6, 7, 8]]).T;
+    const x = array([
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+    ]).T;
     const iter = new NDIter(x);
 
     deepStrictEqual(iter.next(), {
@@ -99,10 +104,13 @@ describe('(NDIter) constructor', () => {
       value: undefined,
       done: true,
     });
-  })
+  });
 
   it('should work in for...of loops', () => {
-    const x = array([[0, 1], [2, 3]]);
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
     const iter = new NDIter(x);
 
     let i = 0;
@@ -112,7 +120,10 @@ describe('(NDIter) constructor', () => {
   });
 
   it('should work in do...while loops', () => {
-    const x = array([[0, 1], [2, 3]]);
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
     const iter = new NDIter(x);
 
     let i = 0;
@@ -152,8 +163,14 @@ describe('(NDMultiIter) constructor', () => {
   });
 
   it('should work as expected in two dimensions', () => {
-    const x = array([[0, 1], [2, 3]]);
-    const y = array([[4, 5], [6, 7]]);
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
+    const y = array([
+      [4, 5],
+      [6, 7],
+    ]);
 
     const iter = new NDMultiIter(x, y);
 
@@ -179,10 +196,15 @@ describe('(NDMultiIter) constructor', () => {
     });
   });
 
-
   it('should work in for...of loops', () => {
-    const x = array([[0, 1], [2, 3]]);
-    const y = array([[4, 5], [6, 7]]);
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
+    const y = array([
+      [4, 5],
+      [6, 7],
+    ]);
 
     const iter = new NDMultiIter(x, y);
 
@@ -194,8 +216,14 @@ describe('(NDMultiIter) constructor', () => {
   });
 
   it('should work in do...while loops', () => {
-    const x = array([[0, 1], [2, 3]]);
-    const y = array([[4, 5], [6, 7]]);
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
+    const y = array([
+      [4, 5],
+      [6, 7],
+    ]);
 
     const iter = new NDMultiIter(x, y);
 
@@ -208,9 +236,15 @@ describe('(NDMultiIter) constructor', () => {
   });
 
   it('should work with mixed input', () => {
-    const x = array([[0, 1], [2, 3]]);
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
     const y = array([1, 2]);
-    const z = array([[1, 3], [3, 5]]);
+    const z = array([
+      [1, 3],
+      [3, 5],
+    ]);
 
     const iter = new NDMultiIter(x, y);
 

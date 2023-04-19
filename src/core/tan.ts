@@ -13,7 +13,7 @@ const { tan: f } = Math;
  * @returns {NDArray}
  * @example
  * import { tan } from 'vectorious/core/tan';
- * 
+ *
  * tan([1, 2, 3]); // => array([1.5574077367782593, -2.185039758682251, -0.14254654943943024])
  */
 export const tan = (x: NDArray | ArrayLike<any>): NDArray => array(x).tan();
@@ -25,10 +25,10 @@ export const tan = (x: NDArray | ArrayLike<any>): NDArray => array(x).tan();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).tan(); // <=> array([1.5574077367782593, -2.185039758682251, -0.14254654943943024])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

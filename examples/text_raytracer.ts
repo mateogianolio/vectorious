@@ -53,9 +53,11 @@ class Hit {
   }
 }
 
-const clamp:
-(x: number, a: number, b: number) => number =
-(x: number, a: number, b: number): number => {
+const clamp: (x: number, a: number, b: number) => number = (
+  x: number,
+  a: number,
+  b: number
+): number => {
   if (x < a) {
     return a;
   }
@@ -72,7 +74,10 @@ const diffuseShading = (pi: NDArray, obj: Sphere, light: Light) => {
   const lam1: number = light.position.copy().subtract(pi).normalize().dot(n);
   const lam2: number = clamp(lam1, 0, 1);
 
-  return light.color.copy().scale(lam2 * 0.5).add(obj.color.copy().scale(0.3));
+  return light.color
+    .copy()
+    .scale(lam2 * 0.5)
+    .add(obj.color.copy().scale(0.3));
 };
 
 const intersectSphere = (ray: Ray, center: NDArray, radius: number): number | undefined => {
@@ -108,7 +113,7 @@ const range = (lo: number, hi: number, cb: (value: number) => void): void => {
 const WHITE = array([1, 1, 1]);
 const RED = array([1, 0, 0]);
 const GREEN = array([0, 1, 0]);
-const BLUE  = array([0, 0, 1]);
+const BLUE = array([0, 0, 1]);
 
 // Declare lighting
 const LIGHT1: Light = new Light(array([0.7, -1, 1.7]), WHITE);
@@ -161,9 +166,7 @@ range(0, h, (j: number): void => {
       }
     }
 
-    pixel = typeof hit !== 'undefined'
-      ? lut[shadePixel(ray, hit.obj, hit.value)]
-      : ' ';
+    pixel = typeof hit !== 'undefined' ? lut[shadePixel(ray, hit.obj, hit.value)] : ' ';
 
     render(pixel);
   });

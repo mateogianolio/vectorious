@@ -11,7 +11,7 @@ import { NDArray } from './';
  * @returns {NDArray}
  * @example
  * import { set } from 'vectorious/core/set';
- * 
+ *
  * set([1, 2, 3], 1, 0); // => array([1, 0, 3])
  */
 export const set = (x: NDArray, ...args: number[]): void => {
@@ -27,10 +27,10 @@ export const set = (x: NDArray, ...args: number[]): void => {
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).set(1, 0); // <=> array([1, 0, 3])
  */
-export default function(this: NDArray, ...args: number[]): void {
+export default function (this: NDArray, ...args: number[]): void {
   const indices: number[] = args.slice(0, -1);
   const value: number = args[args.length - 1];
 
@@ -45,4 +45,4 @@ export default function(this: NDArray, ...args: number[]): void {
   }
 
   this.data[index] = value;
-};
+}

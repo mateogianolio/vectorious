@@ -12,7 +12,7 @@ import { zeros } from './zeros';
  * @returns {NDArray}
  * @example
  * import { augment } from 'vectorious/core/augment';
- * 
+ *
  * augment([[1, 2], [3, 4]], [[1], [2]]); // => array([[1, 2, 1], [3, 4, 2]])
  */
 export const augment = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
@@ -26,10 +26,10 @@ export const augment = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[1, 2], [3, 4]]).augment(array([[1], [2]])); // <=> array([[1, 2, 1], [3, 4, 2]])
  */
-export default function(this: NDArray, x: NDArray | ArrayLike<any>): NDArray {
+export default function (this: NDArray, x: NDArray | ArrayLike<any>): NDArray {
   const [r1, c1] = this.shape;
   const [r2, c2] = array(x).shape;
   const { data: d1 } = this;
@@ -61,4 +61,4 @@ export default function(this: NDArray, x: NDArray | ArrayLike<any>): NDArray {
   }
 
   return y;
-};
+}

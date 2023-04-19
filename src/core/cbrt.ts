@@ -13,7 +13,7 @@ const { cbrt: f } = Math;
  * @returns {NDArray}
  * @example
  * import { cbrt } from 'vectorious/core/cbrt';
- * 
+ *
  * cbrt([1, 8, 27]); // => array([1, 2, 3])
  */
 export const cbrt = (x: NDArray | ArrayLike<any>): NDArray => array(x).cbrt();
@@ -25,10 +25,10 @@ export const cbrt = (x: NDArray | ArrayLike<any>): NDArray => array(x).cbrt();
  * @returns {this}
  * @example
  * import { cbrt } from 'vectorious/core/cbrt';
- * 
+ *
  * cbrt([1, 8, 27]); // => array([1, 2, 3])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

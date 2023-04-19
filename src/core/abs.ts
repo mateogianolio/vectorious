@@ -13,7 +13,7 @@ const { abs: f } = Math;
  * @returns {NDArray}
  * @example
  * import { abs } from 'vectorious/core/abs';
- * 
+ *
  * abs([-1, -2, -3]) // => array([1, 2, 3])
  */
 export const abs = (x: NDArray | ArrayLike<any>): NDArray => array(x).abs();
@@ -25,7 +25,7 @@ export const abs = (x: NDArray | ArrayLike<any>): NDArray => array(x).abs();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([-1, -2, -3]).abs() // <=> array([1, 2, 3])
  */
 export default function (this: NDArray): NDArray {
@@ -37,4 +37,4 @@ export default function (this: NDArray): NDArray {
   }
 
   return this;
-};
+}

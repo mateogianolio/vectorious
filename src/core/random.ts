@@ -9,11 +9,10 @@ import { NDArray } from './';
  * @returns {NDArray}
  * @example
  * import { random } from 'vectorious/core/random';
- * 
+ *
  * random(3); // => array([0.27496153116226196, 0.7581521272659302, 0.3682245910167694])
  */
 export const random = (...shape: number[]): NDArray =>
-  new NDArray(
-    new Float64Array(shape.reduce((sum: number, dim: number) => sum * dim, 1)),
-    { shape }
-  ).map(() => Math.random());
+  new NDArray(new Float64Array(shape.reduce((sum: number, dim: number) => sum * dim, 1)), {
+    shape,
+  }).map(() => Math.random());

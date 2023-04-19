@@ -1,7 +1,4 @@
-import {
-  ok,
-  throws,
-} from 'assert';
+import { ok, throws } from 'assert';
 
 import { equals } from './equals';
 import { inv } from './inv';
@@ -11,7 +8,9 @@ describe('(v) inv', () => {
   it('should throw error if matrix is not square', () => {
     const x = array([[1, 2]]);
 
-    throws(() => { x.inv(); }, Error);
+    throws(() => {
+      x.inv();
+    }, Error);
   });
 
   it('should work as expected', () => {

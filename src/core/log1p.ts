@@ -13,7 +13,7 @@ const { log1p: f } = Math;
  * @returns {NDArray}
  * @example
  * import { log1p } from 'vectorious/core/log1p';
- * 
+ *
  * log1p([1, 2, 3]); // => array([0.6931471824645996, 1.0986123085021973, 1.3862943649291992])
  */
 export const log1p = (x: NDArray | ArrayLike<any>): NDArray => array(x).log1p();
@@ -25,10 +25,10 @@ export const log1p = (x: NDArray | ArrayLike<any>): NDArray => array(x).log1p();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]); // <=> array([0.6931471824645996, 1.0986123085021973, 1.3862943649291992])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

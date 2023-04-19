@@ -15,7 +15,7 @@ import * as blas from '../blas';
  * @returns {Number}
  * @example
  * import { dot } from 'vectorious/core/dot';
- * 
+ *
  * dot([1, 2, 3], [4, 5, 6]); // => 32
  */
 export const dot = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): number =>
@@ -31,10 +31,10 @@ export const dot = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): n
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).dot([4, 5, 6]); // => 32
  */
-export default function(this: NDArray, x: NDArray): number {
+export default function (this: NDArray, x: NDArray): number {
   const { data: d1, length: l1, strides: st1, dtype } = this;
   const { data: d2, strides: st2 } = x;
 
@@ -57,4 +57,4 @@ export default function(this: NDArray, x: NDArray): number {
   }
 
   return result;
-};
+}

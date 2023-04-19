@@ -13,7 +13,7 @@ const { floor: f } = Math;
  * @returns {NDArray}
  * @example
  * import { floor } from 'vectorious/core/floor';
- * 
+ *
  * floor([1.5, 2.5, 3.5]); // => array([1, 2, 3])
  */
 export const floor = (x: NDArray | ArrayLike<any>): NDArray => array(x).floor();
@@ -25,10 +25,10 @@ export const floor = (x: NDArray | ArrayLike<any>): NDArray => array(x).floor();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1.5, 2.5, 3.5]).floor(); // <=> array([1, 2, 3])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

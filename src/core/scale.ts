@@ -15,7 +15,7 @@ import * as blas from '../blas';
  * @returns {NDArray}
  * @example
  * import { scale } from 'vectorious/core/scale';
- * 
+ *
  * scale([1, 2, 3], 2); // => array([2, 4, 6])
  */
 export const scale = (x: NDArray | ArrayLike<any>, scalar: number): NDArray =>
@@ -31,10 +31,10 @@ export const scale = (x: NDArray | ArrayLike<any>, scalar: number): NDArray =>
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).scale(2); // <=> array([2, 4, 6])
  */
-export default function(this: NDArray, scalar: number): NDArray {
+export default function (this: NDArray, scalar: number): NDArray {
   const { data: d1, length: l1, strides: st1, dtype } = this;
 
   try {
@@ -50,4 +50,4 @@ export default function(this: NDArray, scalar: number): NDArray {
   }
 
   return this;
-};
+}

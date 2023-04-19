@@ -11,7 +11,7 @@ import { NDIter } from '../iterator';
  * @returns {Number}
  * @example
  * import { sum } from 'vectorious/core/sum';
- * 
+ *
  * sum([1, 2, 3]); // => 6
  */
 export const sum = (x: NDArray | ArrayLike<any>): number => array(x).sum();
@@ -23,10 +23,10 @@ export const sum = (x: NDArray | ArrayLike<any>): number => array(x).sum();
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).sum(); // => 6
  */
-export default function(this: NDArray): number {
+export default function (this: NDArray): number {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -36,4 +36,4 @@ export default function(this: NDArray): number {
   }
 
   return sum;
-};
+}

@@ -16,11 +16,14 @@ import * as blas from '../blas';
  * @returns {NDArray}
  * @example
  * import { add } from 'vectorious/core/add';
- * 
+ *
  * add([1, 2, 3], [4, 5, 6]); // => array([5, 7, 9])
  */
-export const add = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, alpha: number = 1): NDArray =>
-  array(x).add(array(y), alpha);
+export const add = (
+  x: NDArray | ArrayLike<any>,
+  y: NDArray | ArrayLike<any>,
+  alpha: number = 1
+): NDArray => array(x).add(array(y), alpha);
 
 /**
  * @function add
@@ -33,7 +36,7 @@ export const add = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, al
  * @returns {NDArray}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).add([4, 5, 6]); // <=> array([5, 7, 9])
  */
 export default function (this: NDArray, x: NDArray | ArrayLike<any>, alpha: number = 1): NDArray {
@@ -58,4 +61,4 @@ export default function (this: NDArray, x: NDArray | ArrayLike<any>, alpha: numb
   }
 
   return this;
-};
+}

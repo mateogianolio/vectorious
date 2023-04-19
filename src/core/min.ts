@@ -11,7 +11,7 @@ import { NDIter } from '../iterator';
  * @returns {Number}
  * @example
  * import { min } from 'vectorious/core/min';
- * 
+ *
  * min([1, 2, 3]); // => 1
  */
 export const min = (x: NDArray | ArrayLike<any>): number => array(x).min();
@@ -23,10 +23,10 @@ export const min = (x: NDArray | ArrayLike<any>): number => array(x).min();
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).min(); // 1
  */
-export default function(this: NDArray): number {
+export default function (this: NDArray): number {
   const { data: d1 } = this;
 
   const iter = new NDIter(this);
@@ -40,4 +40,4 @@ export default function(this: NDArray): number {
   }
 
   return min;
-};
+}

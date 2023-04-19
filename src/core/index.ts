@@ -1,8 +1,4 @@
-import {
-  DType,
-  INDArray,
-  TypedArray,
-} from '../types';
+import { DType, INDArray, TypedArray } from '../types';
 import {
   flatten,
   get_dtype,
@@ -12,9 +8,7 @@ import {
   get_type,
   is_typed_array,
 } from '../util';
-import {
-  NDIter,
-} from '../iterator';
+import { NDIter } from '../iterator';
 
 import { default as abs } from './abs';
 import { default as acos } from './acos';
@@ -127,7 +121,7 @@ export class NDArray implements INDArray {
    * @default new Float64Array(0)
    */
   public data: TypedArray = new Float64Array(0);
-  
+
   /**
    * @name dtype
    * @memberof NDArray.prototype

@@ -13,7 +13,7 @@ const { cos: f } = Math;
  * @returns {NDArray}
  * @example
  * import { cos } from 'vectorious/core/cos';
- * 
+ *
  * cos([0, Math.PI / 2, Math.PI]); // => array([1, 0, -1])
  */
 export const cos = (x: NDArray | ArrayLike<any>): NDArray => array(x).cos();
@@ -25,10 +25,10 @@ export const cos = (x: NDArray | ArrayLike<any>): NDArray => array(x).cos();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([0, Math.PI / 2, Math.PI]).cos(); // => array([1, 0, -1])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -37,4 +37,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

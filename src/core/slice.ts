@@ -15,7 +15,7 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { slice } from 'vectorious/core/slice';
- * 
+ *
  * slice([1, 2, 3, 4], 0, 4, 2); // => array([1, 3])
  */
 export const slice = (
@@ -23,8 +23,7 @@ export const slice = (
   begin?: number,
   end?: number,
   step?: number
-): NDArray =>
-  array(x).slice(begin, end, step);
+): NDArray => array(x).slice(begin, end, step);
 
 /**
  * @function slice
@@ -36,10 +35,10 @@ export const slice = (
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3, 4]).slice(0, 4, 2); // => array([1, 3])
  */
-export default function(
+export default function (
   this: NDArray,
   begin: number = 0,
   end: number = this.shape[0],
@@ -49,7 +48,10 @@ export default function(
   const nd = s1.length;
 
   if (begin < 0 || end < 0) {
-    return this.slice(begin < 0 ? s1[s1.length - 1] + begin : begin, end < 0 ? s1[s1.length - 1] + end : end);
+    return this.slice(
+      begin < 0 ? s1[s1.length - 1] + begin : begin,
+      end < 0 ? s1[s1.length - 1] + end : end
+    );
   }
 
   if (begin > end) {
@@ -63,9 +65,10 @@ export default function(
   const s2: number[] = [Math.ceil((end - begin) / Math.abs(step)), ...s1.slice(1)];
   const l2: number = get_length(s2);
   const st2: number[] = get_strides(s2);
-  const d2: TypedArray = nd > 1
-    ? d1.subarray(begin * s2[s2.length - 1], end * s2[s2.length - 1])
-    : d1.subarray(begin, end);
+  const d2: TypedArray =
+    nd > 1
+      ? d1.subarray(begin * s2[s2.length - 1], end * s2[s2.length - 1])
+      : d1.subarray(begin, end);
 
   st2[0] *= step;
 
@@ -74,4 +77,4 @@ export default function(
     length: l2,
     strides: st2,
   });
-};
+}

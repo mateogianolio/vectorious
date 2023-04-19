@@ -20,8 +20,12 @@ export const bench = (
     xs.forEach((x: number) => {
       let args: any[] = [];
       const result: typeof benchmark = benchmark(
-        (): void => { func(...args); },
-        (): void => { args = setup(x); },
+        (): void => {
+          func(...args);
+        },
+        (): void => {
+          args = setup(x);
+        },
         250
       );
 

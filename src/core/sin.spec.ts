@@ -8,12 +8,22 @@ describe('(v) sin', () => {
   it('should work as expected', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.sin(value)), x.sin()));
+    ok(
+      equals(
+        map(x, (value: number) => Math.sin(value)),
+        x.sin()
+      )
+    );
   });
 
   it('should work as the static equivalent', () => {
     const x = random(3);
 
-    ok(equals(map(x, (value: number) => Math.sin(value)), sin(x)));
+    ok(
+      equals(
+        map(x, (value: number) => Math.sin(value)),
+        sin(x)
+      )
+    );
   });
 });

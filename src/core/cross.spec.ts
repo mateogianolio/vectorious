@@ -1,7 +1,4 @@
-import {
-  ok,
-  throws,
-} from 'assert';
+import { ok, throws } from 'assert';
 
 import { equals } from './equals';
 import { cross } from './cross';
@@ -19,7 +16,9 @@ describe('(v) cross', () => {
     const x = array([1, 2, 3, 4]);
     const y = array([5, 6, 7]);
 
-    throws(() => { x.cross(y); }, Error);
+    throws(() => {
+      x.cross(y);
+    }, Error);
   });
 
   it('should work as the static equivalent', () => {

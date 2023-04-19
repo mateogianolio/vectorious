@@ -11,7 +11,10 @@ describe('(v) matrix', () => {
   });
 
   it('should work as expected in two dimensions', () => {
-    const x = array([[0, 0], [0, 0]]);
+    const x = array([
+      [0, 0],
+      [0, 0],
+    ]);
 
     ok(equals(x, matrix(2, 2)));
   });

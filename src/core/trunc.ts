@@ -15,7 +15,7 @@ const { trunc: f } = Math;
  * @returns {NDArray}
  * @example
  * import { trunc } from 'vectorious/core/trunc';
- * 
+ *
  * trunc([1.2, 2.8, 3.5]); // => array([1, 2, 3])
  */
 export const trunc = (x: NDArray | ArrayLike<any>): NDArray => array(x).trunc();
@@ -29,10 +29,10 @@ export const trunc = (x: NDArray | ArrayLike<any>): NDArray => array(x).trunc();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1.2, 2.8, 3.5]).trunc(); // => array([1, 2, 3])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -41,4 +41,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

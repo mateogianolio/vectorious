@@ -1,6 +1,4 @@
-import {
-  strictEqual,
-} from 'assert';
+import { strictEqual } from 'assert';
 
 import { norm } from './norm';
 import { array } from './array';

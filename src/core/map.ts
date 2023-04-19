@@ -13,7 +13,7 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { map } from 'vectorious/core/map';
- * 
+ *
  * map([1, 2, 3], value => -value); // => array([-1, -2, -3])
  */
 export const map = (
@@ -28,10 +28,10 @@ export const map = (
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).map(value => -value); // => array([-1, -2, -3])
  */
-export default function(
+export default function (
   this: NDArray,
   f: (value: number, i: number, src: TypedArray) => number
 ): NDArray {
@@ -47,4 +47,4 @@ export default function(
   }
 
   return copy;
-};
+}

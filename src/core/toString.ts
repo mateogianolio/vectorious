@@ -12,7 +12,7 @@ import { array } from './array';
  * @returns {String}
  * @example
  * import { toString } from 'vectorious/core/toString';
- * 
+ *
  * toString([1, 2, 3]); // => '1,2,3'
  */
 export const toString = (x: NDArray | ArrayLike<any>): string => array(x).toString();
@@ -24,9 +24,9 @@ export const toString = (x: NDArray | ArrayLike<any>): string => array(x).toStri
  * @returns {String}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).toString(); // => '1,2,3'
  */
 export default function (this: NDArray): string {
   return `array(${inspect(this.toArray(), { depth: 10, breakLength: 40 })}, dtype=${this.dtype})`;
-};
+}

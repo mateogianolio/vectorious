@@ -43,10 +43,42 @@ describe('(v) slice', () => {
       [7, 8],
     ]);
 
-    ok(equals(array([[1, 2], [5, 6]]), x.slice(0, 4, 2)));
-    ok(equals(array([[3, 4], [7, 8]]), x.slice(1, 4, 2)));
-    ok(equals(array([[1, 2], [3, 4]]), x.slice(0, 2)));
-    ok(equals(array([[3, 4], [5, 6]]), x.slice(1, 3)));
+    ok(
+      equals(
+        array([
+          [1, 2],
+          [5, 6],
+        ]),
+        x.slice(0, 4, 2)
+      )
+    );
+    ok(
+      equals(
+        array([
+          [3, 4],
+          [7, 8],
+        ]),
+        x.slice(1, 4, 2)
+      )
+    );
+    ok(
+      equals(
+        array([
+          [1, 2],
+          [3, 4],
+        ]),
+        x.slice(0, 2)
+      )
+    );
+    ok(
+      equals(
+        array([
+          [3, 4],
+          [5, 6],
+        ]),
+        x.slice(1, 3)
+      )
+    );
   });
 
   it('should work as the static equivalent', () => {

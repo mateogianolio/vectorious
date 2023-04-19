@@ -18,17 +18,31 @@ try {
  *  │Sij│    │s   c││Sij│
  *  └   ┘    └     ┘└   ┘
  */
-const rotate:
-  (x: NDArray, c: number, s: number, k: number, l: number, i: number, j: number) => void =
-  (x: NDArray, c: number, s: number, k: number, l: number, i: number, j: number): void => {
-    const [n] = x.shape;
-    const { data: d1 } = x;
-    const temp: number = d1[k * n + l];
-    const tau: number = 1 / (c + s);
+const rotate: (
+  x: NDArray,
+  c: number,
+  s: number,
+  k: number,
+  l: number,
+  i: number,
+  j: number
+) => void = (
+  x: NDArray,
+  c: number,
+  s: number,
+  k: number,
+  l: number,
+  i: number,
+  j: number
+): void => {
+  const [n] = x.shape;
+  const { data: d1 } = x;
+  const temp: number = d1[k * n + l];
+  const tau: number = 1 / (c + s);
 
-    d1[k * n + l] = temp - s * (d1[i * n + j] + tau * temp);
-    d1[i * n + j] += s * (temp - tau * d1[i * n + j]);
-  };
+  d1[k * n + l] = temp - s * (d1[i * n + j] + tau * temp);
+  d1[i * n + j] += s * (temp - tau * d1[i * n + j]);
+};
 
 /**
  * @static
@@ -41,7 +55,7 @@ const rotate:
  * @returns {Array<NDArray>}
  * @example
  * import { eig } from 'vectorious/core/eig';
- * 
+ *
  * eig([[1, 0, 0], [0, 2, 0], [0, 0, 3]]); // => [array([1, 2, 3]), array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])]
  */
 export const eig = (x: NDArray | ArrayLike<any>): [NDArray, NDArray] => array(x).eig();
@@ -55,10 +69,10 @@ export const eig = (x: NDArray | ArrayLike<any>): [NDArray, NDArray] => array(x)
  * @returns {Array<NDArray>}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[1, 0, 0], [0, 2, 0], [0, 0, 3]]).eig(); // => [array([1, 2, 3]), array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])]
  */
-export default function(this: NDArray): [NDArray, NDArray] {
+export default function (this: NDArray): [NDArray, NDArray] {
   this.square();
 
   const [n] = this.shape;
@@ -119,7 +133,7 @@ export default function(this: NDArray): [NDArray, NDArray] {
       if (Math.abs(d1[k * n + l]) < Math.abs(d1[l * n + l]) * 1e-36) {
         t = d1[k * n + l] / d1[l * n + l];
       } else {
-        const phi = d1[l * n + l] / 2 * d1[k * n + l];
+        const phi = (d1[l * n + l] / 2) * d1[k * n + l];
         t = 1 / (Math.abs(phi) + Math.sqrt(phi * phi + 1));
       }
 
@@ -152,4 +166,4 @@ export default function(this: NDArray): [NDArray, NDArray] {
 
     return [this.diagonal(), p];
   }
-};
+}

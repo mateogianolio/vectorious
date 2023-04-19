@@ -1,6 +1,4 @@
-import {
-  strictEqual,
-} from 'assert';
+import { strictEqual } from 'assert';
 
 import { toString } from './toString';
 import { array } from './array';
@@ -14,11 +12,27 @@ describe('(v) toString', () => {
     );
     strictEqual(
       'array([[0,1,2,3],[4,5,6,7]],dtype=float64)',
-      array([[0, 1, 2, 3], [4, 5, 6, 7]]).toString().replace(/\s/g, '')
+      array([
+        [0, 1, 2, 3],
+        [4, 5, 6, 7],
+      ])
+        .toString()
+        .replace(/\s/g, '')
     );
     strictEqual(
       'array([[[0,1],[2,3]],[[4,5],[6,7]]],dtype=float64)',
-      array([[[0, 1], [2, 3]], [[4, 5], [6, 7]]]).toString().replace(/\s/g, '')
+      array([
+        [
+          [0, 1],
+          [2, 3],
+        ],
+        [
+          [4, 5],
+          [6, 7],
+        ],
+      ])
+        .toString()
+        .replace(/\s/g, '')
     );
   });
 
@@ -30,11 +44,27 @@ describe('(v) toString', () => {
     );
     strictEqual(
       'array([[0,1,2,3],[4,5,6,7]],dtype=float64)',
-      toString(array([[0, 1, 2, 3], [4, 5, 6, 7]])).replace(/\s/g, '')
+      toString(
+        array([
+          [0, 1, 2, 3],
+          [4, 5, 6, 7],
+        ])
+      ).replace(/\s/g, '')
     );
     strictEqual(
       'array([[[0,1],[2,3]],[[4,5],[6,7]]],dtype=float64)',
-      toString(array([[[0, 1], [2, 3]], [[4, 5], [6, 7]]])).replace(/\s/g, '')
+      toString(
+        array([
+          [
+            [0, 1],
+            [2, 3],
+          ],
+          [
+            [4, 5],
+            [6, 7],
+          ],
+        ])
+      ).replace(/\s/g, '')
     );
   });
 });

@@ -1,6 +1,4 @@
-import {
-  throws,
-} from 'assert';
+import { throws } from 'assert';
 
 import { equilateral } from './equilateral';
 import { array } from './array';
@@ -21,7 +19,9 @@ describe('(v) equilateral', () => {
     const x = array(f64x);
     const y = array(f64y);
 
-    throws(() => { x.equilateral(y); }, Error);
+    throws(() => {
+      x.equilateral(y);
+    }, Error);
   });
 
   it('should work as the static equivalent', () => {

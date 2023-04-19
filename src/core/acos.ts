@@ -13,7 +13,7 @@ const { acos: f } = Math;
  * @returns {NDArray}
  * @example
  * import { acos } from 'vectorious/core/acos';
- * 
+ *
  * acos([-1, 0, 1]); // => array([3.141592653589793, 1.5707963267948966, 0])
  */
 export const acos = (x: NDArray | ArrayLike<any>): NDArray => array(x).acos();
@@ -25,7 +25,7 @@ export const acos = (x: NDArray | ArrayLike<any>): NDArray => array(x).acos();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([-1, 0, 1]).acos(); // <=> array([3.141592653589793, 1.5707963267948966, 0])
  */
 export default function (this: NDArray): NDArray {
@@ -37,4 +37,4 @@ export default function (this: NDArray): NDArray {
   }
 
   return this;
-};
+}

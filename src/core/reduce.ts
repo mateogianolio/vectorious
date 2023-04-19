@@ -15,7 +15,7 @@ import { NDIter } from '../iterator';
  * @returns {Number}
  * @example
  * import { reduce } from 'vectorious/core/reduce';
- * 
+ *
  * reduce([1, 2, 3], (a, b) => a + b, 0); // => 6
  */
 export const reduce = (
@@ -33,10 +33,10 @@ export const reduce = (
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).reduce((a, b) => a + b, 0); // => 6
  */
-export default function(
+export default function (
   this: NDArray,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,
   initialValue?: number
@@ -63,4 +63,4 @@ export default function(
   }
 
   return value;
-};
+}

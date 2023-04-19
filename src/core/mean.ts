@@ -11,7 +11,7 @@ import { NDIter } from '../iterator';
  * @returns {Number}
  * @example
  * import { mean } from 'vectorious/core/mean';
- * 
+ *
  * mean([1, 2, 3]); // => 2
  */
 export const mean = (x: NDArray | ArrayLike<any>): number => array(x).mean();
@@ -23,10 +23,10 @@ export const mean = (x: NDArray | ArrayLike<any>): number => array(x).mean();
  * @returns {Number}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).mean(); // => 2
  */
-export default function(this: NDArray): number {
+export default function (this: NDArray): number {
   const { data: d1, length: l1 } = this;
   const iter = new NDIter(this);
 
@@ -36,4 +36,4 @@ export default function(this: NDArray): number {
   }
 
   return mean / l1;
-};
+}

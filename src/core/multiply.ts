@@ -16,7 +16,7 @@ import * as blas from '../blas';
  * @returns {NDArray}
  * @example
  * import { multiply } from 'vectorious/core/multiply';
- * 
+ *
  * multiply([[1, 2]], [[1], [2]]); // => array([[5]])
  */
 export const multiply = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
@@ -32,13 +32,20 @@ export const multiply = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any
  * @returns {NDArray}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([[1, 2]]).multiply([[1], [2]]); // <=> array([[5]])
  */
-export default function(this: NDArray, x: NDArray): NDArray {
+export default function (this: NDArray, x: NDArray): NDArray {
   // TODO: compare strides instead of blind copy
-  const { shape: [r1, c1], data: d1, dtype } = this.copy();
-  const { shape: [r2, c2], data: d2 } = x.copy();
+  const {
+    shape: [r1, c1],
+    data: d1,
+    dtype,
+  } = this.copy();
+  const {
+    shape: [r2, c2],
+    data: d2,
+  } = x.copy();
 
   if (c1 !== r2) {
     throw new Error('sizes do not match');
@@ -66,4 +73,4 @@ export default function(this: NDArray, x: NDArray): NDArray {
   }
 
   return y;
-};
+}

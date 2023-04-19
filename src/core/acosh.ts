@@ -13,7 +13,7 @@ const { acosh: f } = Math;
  * @returns {NDArray}
  * @example
  * import { acosh } from 'vectorious/core/acosh';
- * 
+ *
  * acosh([1, 2, 3]); // => array([0, 1.316957950592041, 1.7627471685409546])
  */
 export const acosh = (x: NDArray | ArrayLike<any>): NDArray => array(x).acosh();
@@ -26,10 +26,10 @@ export const acosh = (x: NDArray | ArrayLike<any>): NDArray => array(x).acosh();
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).acosh(); // <=> array([0, 1.316957950592041, 1.7627471685409546])
  */
-export default function(this: NDArray): NDArray {
+export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -38,4 +38,4 @@ export default function(this: NDArray): NDArray {
   }
 
   return this;
-};
+}

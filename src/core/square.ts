@@ -10,7 +10,7 @@ import { array } from './array';
  * @throws {Error} matrix is not square
  * @example
  * import { square } from 'vectorious/core/square';
- * 
+ *
  * square([1, 2, 3]); // Error: matrix is not square
  */
 export const square = (x: NDArray | ArrayLike<any>): void => {
@@ -24,14 +24,14 @@ export const square = (x: NDArray | ArrayLike<any>): void => {
  * @throws {Error} matrix is not square
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).square(); // Error: matrix is not square
  */
-export default function(this: NDArray): void {
+export default function (this: NDArray): void {
   const { length } = this.shape;
   const [r, c] = this.shape;
 
   if (length !== 2 || r !== c) {
     throw new Error('matrix is not square');
   }
-};
+}

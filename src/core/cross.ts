@@ -14,7 +14,7 @@ import { array } from './array';
  * @returns {NDArray}
  * @example
  * import { cross } from 'vectorious/core/cross';
- * 
+ *
  * cross([1, 2, 3], [4, 5, 6]); // => array([-3, 6, -3])
  */
 export const cross = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
@@ -31,10 +31,10 @@ export const cross = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>):
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).cross([4, 5, 6]); // <=> array([-3, 6, -3])
  */
-export default function(this: NDArray, x: NDArray): NDArray {
+export default function (this: NDArray, x: NDArray): NDArray {
   const { length: l1 } = this;
   const { length: l2 } = x;
 
@@ -51,4 +51,4 @@ export default function(this: NDArray, x: NDArray): NDArray {
   this.z = c3;
 
   return this;
-};
+}

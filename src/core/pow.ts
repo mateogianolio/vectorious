@@ -14,7 +14,7 @@ const { pow: f } = Math;
  * @returns {NDArray}
  * @example
  * import { pow } from 'vectorious/core/pow';
- * 
+ *
  * pow([1, 2, 3], 2); // => array([1, 4, 9])
  */
 export const pow = (x: NDArray | ArrayLike<any>, exponent: number): NDArray =>
@@ -28,10 +28,10 @@ export const pow = (x: NDArray | ArrayLike<any>, exponent: number): NDArray =>
  * @returns {this}
  * @example
  * import { array } from 'vectorious/core/array';
- * 
+ *
  * array([1, 2, 3]).pow(2); // <=> array([1, 4, 9])
  */
-export default function(this: NDArray, exponent: number): NDArray {
+export default function (this: NDArray, exponent: number): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);
 
@@ -40,4 +40,4 @@ export default function(this: NDArray, exponent: number): NDArray {
   }
 
   return this;
-};
+}

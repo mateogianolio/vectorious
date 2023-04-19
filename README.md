@@ -92,7 +92,7 @@ array([
 */
 
 // Add the second row of x to the first row of x
-y.slice(0, 1).add(y.slice(1, 2))
+y.slice(0, 1).add(y.slice(1, 2));
 /*
 array([
   [ 3, 5, 7 ],
@@ -112,7 +112,10 @@ array([
 */
 
 // Create a 2x2x1 tensor
-const z = array([[[1], [2]], [[3], [4]]]);
+const z = array([
+  [[1], [2]],
+  [[3], [4]],
+]);
 /*
 array([
   [ [ 1 ], [ 2 ] ],
@@ -123,17 +126,19 @@ array([
 
 ### Documentation
 
-* [**API Documentation**](https://docs.vectorious.org/vectorious/6.1.0/)
+- [**API Documentation**](https://docs.vectorious.org/vectorious/6.1.0/)
 
 ### Examples
 
 **Basic**
-* [**Solving linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/solve.ts)
-* [**Using low-level BLAS routines**](https://github.com/mateogianolio/vectorious/tree/master/examples/blas.ts)
+
+- [**Solving linear systems of equations**](https://github.com/mateogianolio/vectorious/tree/master/examples/solve.ts)
+- [**Using low-level BLAS routines**](https://github.com/mateogianolio/vectorious/tree/master/examples/blas.ts)
 
 **Machine learning**
-* [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.ts) (by [@lucidrains](https://github.com/lucidrains))
-* [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.ts)
+
+- [**Neural network**](https://github.com/mateogianolio/vectorious/tree/master/examples/neural-network.ts) (by [@lucidrains](https://github.com/lucidrains))
+- [**Logistic regression**](https://github.com/mateogianolio/vectorious/tree/master/examples/logistic-regression.ts)
 
 ### Testing
 
