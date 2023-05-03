@@ -59,7 +59,7 @@ export default function (
   }
 
   for (const i of iter) {
-    value = reduce(value, d1[i!], i!, d1);
+    value = reduce(value, d1[i], i, d1);
   }
 
   return value;

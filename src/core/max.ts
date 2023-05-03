@@ -43,7 +43,7 @@ export default function (this: NDArray): number {
     const iter = new NDIter(this);
 
     for (const i of iter) {
-      const value = d1[i!];
+      const value = d1[i];
       if (max < value) {
         max = value;
       }

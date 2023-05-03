@@ -64,9 +64,9 @@ export default function (this: NDArray): NDArray {
     let [ci, cj] = iter.coords;
     for (const i of iter) {
       if (cj < n) {
-        d2[ci * n + cj] = d1[i!];
+        d2[ci * n + cj] = d1[i];
       } else {
-        d3[ci * n + (cj - n)] = d1[i!];
+        d3[ci * n + (cj - n)] = d1[i];
       }
 
       [ci, cj] = iter.coords;

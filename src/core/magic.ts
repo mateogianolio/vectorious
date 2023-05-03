@@ -29,7 +29,7 @@ export const magic = (n: number): NDArray => {
     const a = n - ci - 1;
     const b = n - cj - 1;
 
-    d1[i!] = ((cj + a * 2 + 1) % n) * n + ((b + a * 2 + 1) % n) + 1;
+    d1[i] = ((cj + a * 2 + 1) % n) * n + ((b + a * 2 + 1) % n) + 1;
     [ci, cj] = iter.coords;
   }
 

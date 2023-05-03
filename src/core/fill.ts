@@ -36,7 +36,7 @@ export default function (this: NDArray, value: number | ((index: number) => numb
   const iter = new NDIter(this);
 
   for (const i of iter) {
-    d1[i!] = value instanceof Function ? value(i) : value;
+    d1[i] = value instanceof Function ? value(i) : value;
   }
 
   return this;

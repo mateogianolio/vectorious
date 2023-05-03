@@ -67,7 +67,7 @@ export default function (this: NDArray, x: NDArray): NDArray {
         sum += d1[ci * c1 + k] * d2[k * c2 + cj];
       }
 
-      d3[i!] = sum;
+      d3[i] = sum;
       [ci, cj] = iter.coords;
     }
   }

@@ -32,7 +32,7 @@ export default function (this: NDArray): number {
 
   let prod: number = 1;
   for (const i of iter) {
-    prod *= d1[i!];
+    prod *= d1[i];
   }
 
   return prod;

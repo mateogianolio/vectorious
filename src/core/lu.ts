@@ -42,9 +42,9 @@ export default function (this: NDArray): [NDArray, NDArray, Int32Array] {
   let [ci, cj] = iter.coords;
   for (const i of iter) {
     if (cj < ci) {
-      d2[i!] = 0;
+      d2[i] = 0;
     } else {
-      d1[i!] = ci === cj ? 1 : 0;
+      d1[i] = ci === cj ? 1 : 0;
     }
 
     [ci, cj] = iter.coords;

@@ -32,7 +32,7 @@ export default function (this: NDArray): number {
 
   let sum: number = 0;
   for (const i of iter) {
-    sum += d1[i!];
+    sum += d1[i];
   }
 
   return sum;

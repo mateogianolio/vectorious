@@ -46,6 +46,6 @@ export default function (
   const iter = new NDIter(this);
 
   for (const i of iter) {
-    f.call(this, d1[i!], i!, d1);
+    f.call(this, d1[i], i, d1);
   }
 }
