@@ -45,7 +45,7 @@ export default function (this: NDArray, scalar: number): NDArray {
     const iter = new NDIter(this);
 
     for (const i of iter) {
-      d1[i!] *= scalar;
+      d1[i] *= scalar;
     }
   }
 

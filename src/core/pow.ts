@@ -36,7 +36,7 @@ export default function (this: NDArray, exponent: number): NDArray {
   const iter = new NDIter(this);
 
   for (const i of iter) {
-    d1[i!] = f(d1[i!], exponent);
+    d1[i] = f(d1[i], exponent);
   }
 
   return this;

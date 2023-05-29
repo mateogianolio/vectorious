@@ -34,7 +34,7 @@ export default function (this: NDArray, x: NDArray): NDArray {
 
   const iter = new NDMultiIter(this, x);
   for (const [i, j] of iter) {
-    d1[i!] *= d2[j!];
+    d1[i] *= d2[j!];
   }
 
   return this;

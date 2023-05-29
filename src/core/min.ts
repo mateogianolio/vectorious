@@ -33,7 +33,7 @@ export default function (this: NDArray): number {
 
   let min: number = Number.POSITIVE_INFINITY;
   for (const i of iter) {
-    const value = d1[i!];
+    const value = d1[i];
     if (min > value) {
       min = value;
     }

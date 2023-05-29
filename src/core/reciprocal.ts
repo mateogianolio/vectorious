@@ -31,7 +31,7 @@ export default function (this: NDArray): NDArray {
   const iter = new NDIter(this);
 
   for (const i of iter) {
-    d1[i!] = 1 / d1[i!];
+    d1[i] = 1 / d1[i];
   }
 
   return this;

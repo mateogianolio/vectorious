@@ -32,7 +32,7 @@ export default function (this: NDArray): number {
 
   let mean: number = 0;
   for (const i of iter) {
-    mean += d1[i!];
+    mean += d1[i];
   }
 
   return mean / l1;

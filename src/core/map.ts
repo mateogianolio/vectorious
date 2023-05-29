@@ -43,7 +43,7 @@ export default function (
   const { data: d2 } = copy;
 
   for (const i of iter) {
-    d2[i!] = map(d1[i!], i!, d1);
+    d2[i] = map(d1[i], i, d1);
   }
 
   return copy;
