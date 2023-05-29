@@ -2,7 +2,7 @@ import { TypedArray } from '../types';
 
 import { NDArray } from './';
 import { array } from './array';
-import { NDIter } from '../iterator';
+import { NDIter } from '../iterators';
 
 /**
  * @static

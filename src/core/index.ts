@@ -8,7 +8,7 @@ import {
   get_type,
   is_typed_array,
 } from '../util';
-import { NDIter } from '../iterator';
+import { NDIter } from '../iterators';
 
 import { default as abs } from './abs';
 import { default as acos } from './acos';

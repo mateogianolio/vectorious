@@ -1,7 +1,7 @@
 import { NDArray } from './';
 import { array } from './array';
 import { zeros } from './zeros';
-import { NDMultiIter } from '../iterator';
+import { NDMultiIter } from '../iterators';
 
 /**
  * @static
