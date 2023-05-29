@@ -1,5 +1,5 @@
 import { NDArray } from './';
-import { NDMultiIter } from '../iterator';
+import { NDMultiIter } from '../iterators';
 import { array } from './array';
 import * as blas from '../blas';
 

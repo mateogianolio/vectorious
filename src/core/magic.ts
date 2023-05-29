@@ -1,7 +1,7 @@
 import { TypedArray } from '../types';
 
 import { NDArray } from './';
-import { NDIter } from '../iterator';
+import { NDIter } from '../iterators';
 
 /**
  * @static

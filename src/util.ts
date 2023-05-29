@@ -1,5 +1,7 @@
 import { DType, TypedArray, TypedArrayConstructor } from './types';
 
+export const V_MAXDIMS = 32;
+
 export const flatten: (array: any[]) => number[] = (array: any[]): number[] =>
   array.reduce(
     (acc: any[], next: any): any[] => acc.concat(Array.isArray(next) ? flatten(next) : next),

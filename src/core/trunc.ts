@@ -1,6 +1,6 @@
 import { NDArray } from './';
 import { array } from './array';
-import { NDIter } from '../iterator';
+import { NDIter } from '../iterators';
 
 const { trunc: f } = Math;
 
