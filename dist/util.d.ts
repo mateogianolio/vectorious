@@ -1,4 +1,5 @@
 import { DType, TypedArray, TypedArrayConstructor } from './types';
+export declare const V_MAXDIMS = 32;
 export declare const flatten: (array: any[]) => number[];
 export declare const is_typed_array: (array: any) => boolean;
 export declare const get_length: (shape: number[]) => number;
