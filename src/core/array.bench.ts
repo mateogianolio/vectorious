@@ -2,7 +2,7 @@ import { array } from './array';
 import { bench } from '../bench';
 
 bench(
-  'NDArray',
+  'core',
   'array',
   (n: number): [number] => [n],
   (n: number): void => {

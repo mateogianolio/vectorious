@@ -3,7 +3,7 @@ import { random } from './random';
 import { bench } from '../bench';
 
 bench(
-  'NDArray',
+  'core',
   'sinh',
   (n: number) => [random(n)],
   (x): void => {
