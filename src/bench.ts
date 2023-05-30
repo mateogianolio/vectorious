@@ -14,7 +14,8 @@ export const bench = (
 
   const xs: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
 
-  stream.write(`${group} > ${name}`);
+  stream.write(`${group} > ${name}\n`);
+  console.info(`${group} > ${name}`);
 
   funcs.forEach((func: (...args: any[]) => void, i: number) => {
     xs.forEach((x: number) => {
@@ -29,7 +30,9 @@ export const bench = (
         250
       );
 
-      stream.write(`${i === 0 ? '[prototype]' : '[static'} n=${x} ${result}\n`);
+      const name = func.name || i;
+      stream.write(`[${name}] n=${x} ${result}\n`);
+      console.info(`[${name}] n=${x} ${result}`);
     });
   });
 };

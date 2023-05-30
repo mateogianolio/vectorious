@@ -5,7 +5,7 @@ import { bench } from '../bench';
 const { floor, sqrt } = Math;
 
 bench(
-  'NDArray',
+  'core',
   'augment',
   (n: number) => [random(floor(sqrt(n)), floor(sqrt(n))), random(floor(sqrt(n)), floor(sqrt(n)))],
   (x, y): void => {

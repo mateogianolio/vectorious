@@ -2,7 +2,7 @@ import { magic } from './magic';
 import { bench } from '../bench';
 
 bench(
-  'NDArray',
+  'core',
   'magic',
   (n: number): [number] => [n],
   (n: number): void => {
