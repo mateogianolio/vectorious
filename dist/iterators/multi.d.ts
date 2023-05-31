@@ -102,6 +102,6 @@ export declare class NDMultiIter implements Iterator<number[]> {
      * iter.next(); // { value: [2, 2], done: false },
      * iter.next(); // { value: undefined, done: true },
      */
-    next(): IteratorResult<any, any>;
+    next(): IteratorReturnResult<any> | IteratorYieldResult<any>;
     [Symbol.iterator](): this;
 }

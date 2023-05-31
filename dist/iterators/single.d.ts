@@ -113,24 +113,6 @@ export declare class NDIter implements Iterator<number[]> {
      */
     current(): IteratorResult<number[] | any>;
     /**
-     * @function next1d
-     * @memberof NDIter.prototype
-     * @description Steps to the next position in the iterator, assuming it is 1 dimensional.
-     */
-    next1d(): void;
-    /**
-     * @function next2d
-     * @memberof NDIter.prototype
-     * @description Steps to the next position in the iterator, assuming it is 2 dimensional.
-     */
-    next2d(): void;
-    /**
-     * @function next2d
-     * @memberof NDIter.prototype
-     * @description Steps to the next position in the iterator
-     */
-    nextnd(): void;
-    /**
      * @function next
      * @memberof NDIter.prototype
      * @description
@@ -146,6 +128,6 @@ export declare class NDIter implements Iterator<number[]> {
      * iter.next(); // { value: 3, done: false }
      * iter.next(); // { done: true }
      */
-    next(): IteratorResult<any, any>;
+    next(): IteratorReturnResult<any> | IteratorYieldResult<any>;
     [Symbol.iterator](): this;
 }
