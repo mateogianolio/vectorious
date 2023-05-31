@@ -198,6 +198,9 @@ export class NDMultiIter implements Iterator<number[]> {
    */
   next() {
     const current = this.current();
+    if (current.done) {
+      return current;
+    }
 
     this.index += 1;
 
