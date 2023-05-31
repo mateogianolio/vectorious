@@ -175,57 +175,6 @@ export class NDIter implements Iterator<number[]> {
   }
 
   /**
-   * @function next1d
-   * @memberof NDIter.prototype
-   * @description Steps to the next position in the iterator, assuming it is 1 dimensional.
-   */
-  next1d() {
-    const { strides } = this;
-
-    this.pos += strides[0];
-    this.coords[0] += 1;
-  }
-
-  /**
-   * @function next2d
-   * @memberof NDIter.prototype
-   * @description Steps to the next position in the iterator, assuming it is 2 dimensional.
-   */
-  next2d() {
-    const { strides, shapem1, backstrides } = this;
-
-    if (this.coords[1] < shapem1[1]) {
-      this.coords[1] += 1;
-      this.pos += strides[1];
-    } else {
-      this.coords[1] = 0;
-      this.coords[0] += 1;
-      this.pos += strides[0] - backstrides[1];
-    }
-  }
-
-  /**
-   * @function next2d
-   * @memberof NDIter.prototype
-   * @description Steps to the next position in the iterator
-   */
-  nextnd() {
-    const { ndm1, shapem1, strides, backstrides } = this;
-
-    let i;
-    for (i = ndm1; i >= 0; i -= 1) {
-      if (this.coords[i] < shapem1[i]) {
-        this.coords[i] += 1;
-        this.pos += strides[i];
-        break;
-      }
-
-      this.coords[i] = 0;
-      this.pos -= backstrides[i];
-    }
-  }
-
-  /**
    * @function next
    * @memberof NDIter.prototype
    * @description
@@ -243,19 +192,25 @@ export class NDIter implements Iterator<number[]> {
    */
   next() {
     const current = this.current();
-
-    this.index += 1;
-
-    const { ndm1 } = this;
-
-    if (ndm1 === 0) {
-      this.next1d();
-    } else if (ndm1 === 1) {
-      this.next2d();
-    } else {
-      this.nextnd();
+    if (current.done) {
+      return current;
     }
 
+    const { ndm1, shapem1, strides, backstrides } = this;
+
+    let i;
+    for (i = ndm1; i >= 0; i -= 1) {
+      if (this.coords[i] < shapem1[i]) {
+        this.coords[i] += 1;
+        this.pos += strides[i];
+        break;
+      }
+
+      this.coords[i] = 0;
+      this.pos -= backstrides[i];
+    }
+
+    this.index += 1;
     return current;
   }
 

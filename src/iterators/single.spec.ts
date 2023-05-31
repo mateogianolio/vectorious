@@ -105,6 +105,54 @@ describe('(NDIter) constructor', () => {
     });
   });
 
+  it('should work as expected with custom shape and strides', () => {
+    /*
+    array([
+      [ 0, 2 ],
+      [ 3, 5 ],
+      [ 6, 8 ]
+    ], dtype=float64)
+     */
+    const x = array([
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+    ], {
+      shape: [3, 2],
+      strides: [3, 2],
+    });
+    const iter = new NDIter(x);
+
+    deepStrictEqual(iter.next(), {
+      value: 0,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 2,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 3,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 5,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 6,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: 8,
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: undefined,
+      done: true,
+    });
+  });
+
   it('should work in for...of loops', () => {
     const x = array([
       [0, 1],
