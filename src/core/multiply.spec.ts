@@ -17,7 +17,7 @@ describe('(v) multiply', () => {
     }, Error);
   });
 
-  it('should work as expected', () => {
+  it('should multiply row and column matrices correctly', () => {
     const x = array([[1, 2]]);
     const y = array([[1], [2]]);
     const z = array([[5]]);
@@ -26,11 +26,32 @@ describe('(v) multiply', () => {
       [2, 4],
     ]);
 
-    ok(equals(z, x.copy().multiply(y)));
-    ok(equals(u, y.copy().multiply(x)));
+    ok(equals(z, x.multiply(y)));
+    ok(equals(u, y.multiply(x)));
   });
 
-  it('should work as expected', () => {
+  it('should rectangular matrices correctly', () => {
+    const x = array([
+      [1, 2],
+      [3, 4],
+      [5, 6],
+    ]);
+    const y = array([[1, 2, 3], [4, 5, 6]]);
+    const z = array([
+      [9, 12, 15],
+      [19, 26, 33],
+      [29, 40, 51]
+    ]);
+    const u = array([
+      [22, 28],
+      [49, 64],
+    ]);
+
+    ok(equals(z, x.multiply(y)));
+    ok(equals(u, y.multiply(x)));
+  });
+
+  it('should multiply a square matrix by itself as expected', () => {
     const x = array([
       [1, 2, 3],
       [4, 5, 6],
@@ -45,7 +66,7 @@ describe('(v) multiply', () => {
     ok(equals(y, x.multiply(x)));
   });
 
-  it('should work as expected', () => {
+  it('should multiply square matrices correctly', () => {
     const x = array([
       [0, 1, 0],
       [1, 0, 0],
@@ -69,6 +90,6 @@ describe('(v) multiply', () => {
     const x = array([[1], [2], [3]]);
     const y = array([[1, 1, 1]]);
 
-    ok(equals(x.copy().multiply(y), multiply(x, y)));
+    ok(equals(x.multiply(y), multiply(x, y)));
   });
 });
