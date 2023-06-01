@@ -66,6 +66,35 @@ describe('(NDMultiIter) constructor', () => {
     });
   });
 
+  it('should perform broadcasting correctly', () => {
+    const x = array([
+      [0, 1],
+      [2, 3],
+    ]);
+    const y = array([0]);
+    const iter = new NDMultiIter(x, y);
+    deepStrictEqual(iter.next(), {
+      value: [0, 0],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: [1, 0],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: [2, 0],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: [3, 0],
+      done: false,
+    });
+    deepStrictEqual(iter.next(), {
+      value: undefined,
+      done: true,
+    });
+  });
+
   it('should work in for...of loops', () => {
     const x = array([
       [0, 1],
