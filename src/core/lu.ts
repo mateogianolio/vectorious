@@ -34,20 +34,23 @@ export default function (this: NDArray): [NDArray, NDArray, Int32Array] {
   const [LU, ipiv] = this.copy().lu_factor();
   const L = LU.copy();
   const U = LU.copy();
+  const {
+    shape: [, c],
+  } = LU;
   const { data: d1 } = L;
   const { data: d2 } = U;
 
   const iter = new NDIter(LU);
 
-  let [ci, cj] = iter.coords;
   for (const i of iter) {
+    const ci = Math.floor(i / c);
+    const cj = i % c;
+
     if (cj < ci) {
       d2[i] = 0;
     } else {
       d1[i] = ci === cj ? 1 : 0;
     }
-
-    [ci, cj] = iter.coords;
   }
 
   return [L, U, ipiv];

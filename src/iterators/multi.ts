@@ -123,6 +123,7 @@ export class NDMultiIter implements Iterator<number[]> {
 
         if (k < 0 || it.x.shape[k] !== this.shape[j]) {
           it.strides[j] = 0;
+          it.contiguous = false;
         } else {
           it.strides[j] = it.x.strides[k];
         }

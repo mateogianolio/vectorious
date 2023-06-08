@@ -1,6 +1,6 @@
 import { NDArray } from '..';
 import { array } from '../core/array';
-import { V_MAXDIMS } from '../util';
+import { V_MAXDIMS, get_strides } from '../util';
 
 /**
  * @class NDIter
@@ -99,12 +99,15 @@ export class NDIter implements Iterator<number[]> {
    */
   public factors: number[];
 
+  public contiguous: boolean;
+
   constructor(x: NDArray | ArrayLike<any>) {
     this.x = array(x);
     const { shape, strides, length } = this.x;
 
     this.length = length;
     this.lengthm1 = length - 1;
+
     this.nd = shape.length;
     this.ndm1 = this.nd - 1;
 
@@ -117,6 +120,15 @@ export class NDIter implements Iterator<number[]> {
 
     if (this.nd !== 0) {
       this.factors[this.nd - 1] = 1;
+    }
+
+    this.contiguous = true;
+    const truestrides = get_strides(shape);
+    for (let i = 0; i < this.nd; i++) {
+      if (strides[i] !== truestrides[i]) {
+        this.contiguous = false;
+        break;
+      }
     }
 
     let i;
@@ -196,6 +208,13 @@ export class NDIter implements Iterator<number[]> {
       return current;
     }
 
+    if (this.contiguous) {
+      this.index += 1;
+      this.pos += 1;
+
+      return current;
+    }
+
     const { ndm1, shapem1, strides, backstrides } = this;
 
     let i;
@@ -211,6 +230,7 @@ export class NDIter implements Iterator<number[]> {
     }
 
     this.index += 1;
+
     return current;
   }
 

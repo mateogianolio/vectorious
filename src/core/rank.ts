@@ -31,18 +31,20 @@ export const rank = (x: NDArray | ArrayLike<any>, tolerance: number = 1e-6): num
  * @todo Switch to SVD algorithm
  */
 export default function (this: NDArray, tolerance: number = 1e-6): number {
-  const { data: d1 } = this.copy().gauss();
+  const {
+    data: d1,
+    shape: [, c],
+  } = this.copy().gauss();
 
   const iter = new NDIter(this);
 
   let rk: number = 0;
-  let [ci, cj] = iter.coords;
   for (const i of iter) {
+    const ci = Math.floor(i / c);
+    const cj = i % c;
     if (rk <= ci && cj >= ci && Math.abs(d1[i]) > tolerance) {
       rk += 1;
     }
-
-    [ci, cj] = iter.coords;
   }
 
   return rk;
