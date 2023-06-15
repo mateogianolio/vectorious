@@ -1,45 +1,10 @@
 {
   "tags": {
-    "allowUnknownTags": false,
     "dictionaries": ["jsdoc"]
   },
-  "source": {
-    "include": ["built", "package.json", "README.md"],
-    "includePattern": "\\.(jsx|js)$",
-    "excludePattern": "(node_modules|benchmarks|coverage|dist|docs|examples)"
-  },
-  "plugins": ["plugins/markdown"],
-  "templates": {
-    "cleverLinks": false,
-    "monospaceLinks": true,
-    "default": {
-      "layoutFile": "docs.tmpl"
-    }
-  },
   "opts": {
-    "destination": "./docs/",
     "encoding": "utf8",
     "private": true,
-    "recurse": true,
-    "template": "./node_modules/tidy-jsdoc",
-    "prism-theme": "prism-custom"
-  },
-  "metadata": {
-    "title": "Vectorious",
-    "logo": "https://github.com/mateogianolio/vectorious/raw/master/logo.gif"
-  },
-  "styles": {
-    "base-font-size": "16px",
-    "base-line-height": "1.5",
-    "body-font": "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji",
-    "body-font-size": "16px",
-    "body-line-height": "1.5",
-    "text-color": "rgb(36, 41, 46)",
-    "code-font": "SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace",
-    "primary-color": "#0E6EB8",
-    "secondary-color": "#000000",
-    "nav-title-size": "0",
-    "nav-width": "240px",
-    "max-content-width": "auto"
+    "recurse": true
   }
 }

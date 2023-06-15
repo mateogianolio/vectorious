@@ -155,7 +155,15 @@ export class NDArray implements INDArray {
   public strides: number[] = [0];
 
   public [inspectSymbol]: () => string = toString;
+
+  /**
+   * @function abs
+   * @memberof NDArray.prototype
+   * @param {NDArray} x
+   * @returns {NDArray}
+   */
   public abs = abs;
+
   public acos = acos;
   public acosh = acosh;
   public add = add;

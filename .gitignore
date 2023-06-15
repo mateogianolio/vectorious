@@ -4,3 +4,5 @@ coverage
 .DS_Store
 built
 benchmarks
+docs/_build
+docs/code
