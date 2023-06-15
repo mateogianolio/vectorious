@@ -35,9 +35,6 @@ jobs:
       - name: Build dist/
         run: npm run build
 
-      - name: Generate docs/
-        run: npm run docs
-
       - name: Test
         run: npm test
 
@@ -48,19 +45,27 @@ jobs:
         with:
           coverageLocations: ${{github.workspace}}/coverage/lcov.info:lcov
 
-      - name: Publish dist/ and docs/
-        run: |
-          git add dist docs
-          git commit -m "Publish dist and docs"
-          git push origin master
+      - name: Build docs/
+        run: npm run docs
 
-      - id: publish
-        name: Publish package to npm
+      - name: Publish dist
+        run: |
+          git add dist
+          git commit --amend --no-edit
+          git push --force origin master
+
+      - name: Publish docs/_build to gh-pages
+        run: |
+          git subtree push --prefix docs/_build origin gh-pages
+
+      - name: Publish package to npm
+        id: publish
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
 
-      - if: steps.publish.outputs.type != 'none'
+      - name: Publish git tag
+        if: steps.publish.outputs.type != 'none'
         run: |
           git tag ${{ steps.publish.outputs.version }}
           git push origin ${{ steps.publish.outputs.version }}
