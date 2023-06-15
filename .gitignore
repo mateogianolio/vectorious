@@ -4,5 +4,6 @@ coverage
 .DS_Store
 built
 benchmarks
-docs/_build/**/*
 docs/code
+docs/_build/**/*
+!docs/_build/CNAME
