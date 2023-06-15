@@ -45,18 +45,16 @@ jobs:
         with:
           coverageLocations: ${{github.workspace}}/coverage/lcov.info:lcov
 
-      - name: Build docs/
-        run: npm run docs
+      - name: Build and deploy docs
+        run: |
+          npm run docs
+          ./docs/deploy.sh
 
       - name: Publish dist
         run: |
           git add dist
           git commit --amend --no-edit
           git push --force origin master
-
-      - name: Publish docs/_build to gh-pages
-        run: |
-          git subtree push --prefix docs/_build origin gh-pages
 
       - name: Publish package to npm
         id: publish
