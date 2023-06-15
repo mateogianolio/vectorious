@@ -6,7 +6,7 @@ html {
   /* Header height will impact the top offset for many sections */
   /* Article header is 66% of Header */
   --pst-header-height: 5rem;
-  --pst-header-article-height: .5rem;
+  --pst-header-article-height: 2rem;
   --pst-sidebar-secondary: 17rem;
 
   /*****************************************************************************
@@ -98,6 +98,7 @@ html {
 
 .bd-sidebar-primary {
   width: 25%;
+  max-width: 15rem;
   padding-top: 1rem;
   overflow-x: hidden;
   display: block;

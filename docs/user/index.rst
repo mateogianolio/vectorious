@@ -1,11 +1,11 @@
 .. user
 
-User Guide
+User guide
 ======================================
 
 .. toctree::
   :maxdepth: 2
-  :caption: Getting started
+  :caption: User guide
   :hidden:
 
   installation
