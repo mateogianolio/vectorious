@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function zeros
  * @description Creates an array containing zeros (`0`) of shape `shape`
  * @param {Number[]} ...shape

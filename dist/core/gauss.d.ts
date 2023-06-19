@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function gauss
  * @description
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const gauss: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function gauss
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.
  * @returns {NDArray}

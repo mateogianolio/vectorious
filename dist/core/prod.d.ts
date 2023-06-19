@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function prod
  * @description Product of all elements of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const prod: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function prod
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Product of all elements of current array
  * @returns {Number}
  * @example

@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function round
  * @description Returns the value of each element of `x` rounded to the nearest integer.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const round: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function round
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns the value of each element of current array rounded to the nearest integer.
  * @returns {this}
  * @example

@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function trace
  * @description Gets the trace of `x` (the sum of all diagonal elements).
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const trace: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function trace
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Gets the trace of the matrix (the sum of all diagonal elements).
  * @returns {Number}
  * @example

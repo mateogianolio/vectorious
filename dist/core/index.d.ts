@@ -103,35 +103,40 @@ declare const inspectSymbol: unique symbol;
 export declare class NDArray implements INDArray {
     /**
      * @name data
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @type TypedArray
      * @default new Float64Array(0)
      */
     data: TypedArray;
     /**
      * @name dtype
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @type String
      * @default 'float64'
      */
     dtype: DType;
     /**
      * @name length
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @type Number
      * @default 0
      */
     length: number;
     /**
      * @name shape
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @type Number[]
      * @default [0]
      */
     shape: number[];
     /**
      * @name strides
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @type Number[]
      * @default [0]
      */
@@ -223,7 +228,8 @@ export declare class NDArray implements INDArray {
     });
     /**
      * @name x
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @description Gets or sets the value at index 0
      * @type Number
      */
@@ -231,7 +237,8 @@ export declare class NDArray implements INDArray {
     set x(value: number);
     /**
      * @name y
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @description Gets or sets the value at index 1
      * @type Number
      */
@@ -239,7 +246,8 @@ export declare class NDArray implements INDArray {
     set y(value: number);
     /**
      * @name z
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @description Gets or sets the value at index 2
      * @type Number
      */
@@ -247,7 +255,8 @@ export declare class NDArray implements INDArray {
     set z(value: number);
     /**
      * @name w
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @description Gets or sets the value at index 3
      * @type Number
      */
@@ -255,7 +264,8 @@ export declare class NDArray implements INDArray {
     set w(value: number);
     /**
      * @name T
-     * @memberof NDArray.prototype
+     * @memberof NDArray
+ * @instance
      * @description Short for `this.copy().transpose()`
      * @type NDArray
      */

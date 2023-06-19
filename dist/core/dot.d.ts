@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function dot
  * @description
  * Performs dot multiplication with `x` and `y`.
@@ -17,7 +17,8 @@ import { NDArray } from './';
 export declare const dot: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => number;
 /**
  * @function dot
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Performs dot multiplication with `x` and current array
  * Accelerated with BLAS `?dot`.

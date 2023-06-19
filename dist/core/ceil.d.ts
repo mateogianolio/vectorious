@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function ceil
  * @description Returns smallest integer greater than or equal to of each element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const ceil: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function ceil
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns smallest integer greater than or equal to of each element of current array.
  * @returns {NDArray}
  * @example

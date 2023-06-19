@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function rank
  * @description Finds the rank of `x` using gaussian elimination.
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const rank: (x: NDArray | ArrayLike<any>, tolerance?: number) => number;
 /**
  * @function rank
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Finds the rank of current matrix using gaussian elimination.
  * @param {Number} tolerance
  * @returns {Number}

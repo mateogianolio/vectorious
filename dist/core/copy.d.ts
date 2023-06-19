@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function copy
  * @description Makes a copy of `x`
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const copy: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function copy
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Makes a copy of the class and underlying data
  * @returns {NDArray}
  * @example

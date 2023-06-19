@@ -18,7 +18,7 @@
   "scripts": {
     "test": "jest",
     "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node $file; done",
-    "docs": "npx tsc --outDir docs/code && make -C docs html",
+    "docs": "rm -rf docs/code && npx tsc --outDir docs/code && make -C docs livehtml",
     "build:node": "esbuild --bundle src/index.ts --minify --sourcemap --platform=node --outfile=dist/index.js --external:nblas --external:nlapack",
     "build:browser": "esbuild --bundle src/index.ts --minify --sourcemap --platform=browser --global-name=v --outfile=dist/index.browser.js --external:nblas --external:nlapack",
     "build:esm": "esbuild --bundle src/index.ts --minify --sourcemap --format=esm --outfile=dist/index.esm.js --external:nblas --external:nlapack",

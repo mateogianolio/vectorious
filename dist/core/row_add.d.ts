@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function row_add
  * @description Adds a multiple of one row multiplied by `scalar` to another inside `x`.
  * @param {NDArray} x
@@ -17,7 +17,8 @@ import { NDArray } from './';
 export declare const row_add: (x: NDArray | ArrayLike<any>, dest: number, source: number, scalar?: number) => NDArray;
 /**
  * @function row_add
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Adds a multiple of one row multiplied by `scalar` to another inside current matrix.
  * @param {Number} dest
  * @param {Number} source

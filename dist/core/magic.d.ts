@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function magic
  * @description Creates a magic square matrix of size `n`
  * @param {Number} n
