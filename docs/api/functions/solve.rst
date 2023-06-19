@@ -3,4 +3,4 @@
 solve
 ======================================
 
-.. autofunction:: module:Globals.solve
+.. autofunction:: vectorious.solve

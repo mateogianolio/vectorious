@@ -3,4 +3,4 @@
 fround
 ======================================
 
-.. autofunction:: module:Globals.fround
+.. autofunction:: vectorious.fround

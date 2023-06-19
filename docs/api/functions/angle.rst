@@ -3,4 +3,4 @@
 angle
 ======================================
 
-.. autofunction:: module:Globals.angle
+.. autofunction:: vectorious.angle

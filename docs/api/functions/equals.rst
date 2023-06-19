@@ -3,4 +3,4 @@
 equals
 ======================================
 
-.. autofunction:: module:Globals.equals
+.. autofunction:: vectorious.equals

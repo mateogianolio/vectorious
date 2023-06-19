@@ -3,4 +3,4 @@
 floor
 ======================================
 
-.. autofunction:: module:Globals.floor
+.. autofunction:: vectorious.floor

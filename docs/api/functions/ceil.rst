@@ -3,4 +3,4 @@
 ceil
 ======================================
 
-.. autofunction:: module:Globals.ceil
+.. autofunction:: vectorious.ceil

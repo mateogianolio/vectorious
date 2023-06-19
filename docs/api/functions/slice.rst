@@ -3,4 +3,4 @@
 slice
 ======================================
 
-.. autofunction:: module:Globals.slice
+.. autofunction:: vectorious.slice

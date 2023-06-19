@@ -3,4 +3,4 @@
 dot
 ======================================
 
-.. autofunction:: module:Globals.dot
+.. autofunction:: vectorious.dot

@@ -3,4 +3,4 @@
 check
 ======================================
 
-.. autofunction:: module:Globals.check
+.. autofunction:: vectorious.check

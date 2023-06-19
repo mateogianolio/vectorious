@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function transpose
  * @description Transposes `x` (mirror across the diagonal).
  * @param {NDArray} x
@@ -15,16 +15,6 @@ import { array } from './array';
  */
 export const transpose = (x: NDArray | ArrayLike<any>): NDArray => array(x).transpose();
 
-/**
- * @function transpose
- * @memberof NDArray.prototype
- * @description Transposes current matrix (mirror across the diagonal).
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // <=> array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
- */
 export default function (this: NDArray): NDArray {
   if (this.shape.length < 2) {
     return this;

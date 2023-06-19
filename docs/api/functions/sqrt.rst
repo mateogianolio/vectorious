@@ -3,4 +3,4 @@
 sqrt
 ======================================
 
-.. autofunction:: module:Globals.sqrt
+.. autofunction:: vectorious.sqrt

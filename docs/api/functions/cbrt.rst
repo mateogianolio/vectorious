@@ -3,4 +3,4 @@
 cbrt
 ======================================
 
-.. autofunction:: module:Globals.cbrt
+.. autofunction:: vectorious.cbrt

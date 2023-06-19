@@ -3,4 +3,4 @@
 log
 ======================================
 
-.. autofunction:: module:Globals.log
+.. autofunction:: vectorious.log

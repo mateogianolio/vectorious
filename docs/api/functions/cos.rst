@@ -3,4 +3,4 @@
 cos
 ======================================
 
-.. autofunction:: module:Globals.cos
+.. autofunction:: vectorious.cos

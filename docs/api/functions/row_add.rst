@@ -3,4 +3,4 @@
 row_add
 ======================================
 
-.. autofunction:: module:Globals.row_add
+.. autofunction:: vectorious.row_add

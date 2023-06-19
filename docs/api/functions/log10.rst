@@ -3,4 +3,4 @@
 log10
 ======================================
 
-.. autofunction:: module:Globals.log10
+.. autofunction:: vectorious.log10

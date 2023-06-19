@@ -6,7 +6,7 @@ const { sqrt: f } = Math;
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function norm
  * @description
  * Calculates the norm of current array (also called L2 norm or Euclidean length).
@@ -20,18 +20,6 @@ const { sqrt: f } = Math;
  */
 export const norm = (x: NDArray | ArrayLike<any>): number => array(x).norm();
 
-/**
- * @function norm
- * @memberof NDArray.prototype
- * @description
- * Calculates the norm of current array (also called L2 norm or Euclidean length).
- * Accelerated with BLAS `?nrm2`.
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).norm(); // => 3.7416574954986572
- */
 export default function (this: NDArray): number {
   const { data: d1, length: l1, strides: st1, dtype } = this;
   let result: number = 0;

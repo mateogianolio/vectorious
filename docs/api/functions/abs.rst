@@ -3,4 +3,4 @@
 abs
 ======================================
 
-.. autofunction:: module:Globals.abs
+.. autofunction:: vectorious.abs

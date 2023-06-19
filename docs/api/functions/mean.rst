@@ -3,4 +3,4 @@
 mean
 ======================================
 
-.. autofunction:: module:Globals.mean
+.. autofunction:: vectorious.mean

@@ -3,4 +3,4 @@
 augment
 ======================================
 
-.. autofunction:: module:Globals.augment
+.. autofunction:: vectorious.augment

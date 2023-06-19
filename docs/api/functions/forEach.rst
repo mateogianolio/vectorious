@@ -3,4 +3,4 @@
 forEach
 ======================================
 
-.. autofunction:: module:Globals.forEach
+.. autofunction:: vectorious.forEach

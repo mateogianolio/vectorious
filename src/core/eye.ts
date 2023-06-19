@@ -2,7 +2,7 @@ import { NDArray } from './';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function eye
  * @description Creates an identity matrix of size `n` and type `type`.
  * @param {Number} n

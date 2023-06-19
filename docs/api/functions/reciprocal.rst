@@ -3,4 +3,4 @@
 reciprocal
 ======================================
 
-.. autofunction:: module:Globals.reciprocal
+.. autofunction:: vectorious.reciprocal

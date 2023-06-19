@@ -3,4 +3,4 @@
 get
 ======================================
 
-.. autofunction:: module:Globals.get
+.. autofunction:: vectorious.get

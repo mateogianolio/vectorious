@@ -3,4 +3,4 @@
 subtract
 ======================================
 
-.. autofunction:: module:Globals.subtract
+.. autofunction:: vectorious.subtract

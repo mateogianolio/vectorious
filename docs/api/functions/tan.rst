@@ -3,4 +3,4 @@
 tan
 ======================================
 
-.. autofunction:: module:Globals.tan
+.. autofunction:: vectorious.tan

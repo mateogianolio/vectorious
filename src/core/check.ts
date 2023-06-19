@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function check
  * @description Asserts if indices `i, j, ..., n` are within the bounds of `x`
  * @param {NDArray} x
@@ -18,17 +18,6 @@ export const check = (x: NDArray | ArrayLike<any>, ...indices: number[]): void =
   array(x).check(...indices);
 };
 
-/**
- * @function check
- * @memberof NDArray.prototype
- * @description Asserts if indices `i, j, ..., n` are within the bounds of current array
- * @param {Number[]} ...indices
- * @throws {Error} index out of bounds
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([0.5, 1.5, 2.5]).check(3); // Error: index out of bounds
- */
 export default function (this: NDArray, ...indices: number[]): void {
   const { shape: s1, length: l1 } = this;
 

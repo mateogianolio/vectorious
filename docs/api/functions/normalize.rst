@@ -3,4 +3,4 @@
 normalize
 ======================================
 
-.. autofunction:: module:Globals.normalize
+.. autofunction:: vectorious.normalize

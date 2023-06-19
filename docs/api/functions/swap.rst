@@ -3,4 +3,4 @@
 swap
 ======================================
 
-.. autofunction:: module:Globals.swap
+.. autofunction:: vectorious.swap

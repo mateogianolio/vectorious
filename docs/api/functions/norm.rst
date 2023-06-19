@@ -3,4 +3,4 @@
 norm
 ======================================
 
-.. autofunction:: module:Globals.norm
+.. autofunction:: vectorious.norm

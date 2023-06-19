@@ -3,4 +3,4 @@
 combine
 ======================================
 
-.. autofunction:: module:Globals.combine
+.. autofunction:: vectorious.combine

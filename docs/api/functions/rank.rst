@@ -3,4 +3,4 @@
 rank
 ======================================
 
-.. autofunction:: module:Globals.rank
+.. autofunction:: vectorious.rank

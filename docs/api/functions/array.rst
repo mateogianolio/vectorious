@@ -3,4 +3,4 @@
 array
 ======================================
 
-.. autofunction:: module:Globals.array
+.. autofunction:: vectorious.array

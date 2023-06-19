@@ -3,4 +3,4 @@
 toArray
 ======================================
 
-.. autofunction:: module:Globals.toArray
+.. autofunction:: vectorious.toArray

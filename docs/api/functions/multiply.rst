@@ -3,4 +3,4 @@
 multiply
 ======================================
 
-.. autofunction:: module:Globals.multiply
+.. autofunction:: vectorious.multiply

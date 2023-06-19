@@ -3,4 +3,4 @@
 cross
 ======================================
 
-.. autofunction:: module:Globals.cross
+.. autofunction:: vectorious.cross

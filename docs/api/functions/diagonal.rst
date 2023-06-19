@@ -3,4 +3,4 @@
 diagonal
 ======================================
 
-.. autofunction:: module:Globals.diagonal
+.. autofunction:: vectorious.diagonal

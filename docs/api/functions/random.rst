@@ -3,4 +3,4 @@
 random
 ======================================
 
-.. autofunction:: module:Globals.random
+.. autofunction:: vectorious.random

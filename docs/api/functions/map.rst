@@ -3,4 +3,4 @@
 map
 ======================================
 
-.. autofunction:: module:Globals.map
+.. autofunction:: vectorious.map

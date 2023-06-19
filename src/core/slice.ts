@@ -5,7 +5,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function slice
  * @description Slices `x` in the corresponding dimension
  * @param {NDArray} x
@@ -25,19 +25,6 @@ export const slice = (
   step?: number
 ): NDArray => array(x).slice(begin, end, step);
 
-/**
- * @function slice
- * @memberof NDArray.prototype
- * @description Slices the current array along the leading dimension
- * @param {Number} begin
- * @param {Number} end
- * @param {Number} step
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3, 4]).slice(0, 4, 2); // => array([1, 3])
- */
 export default function (
   this: NDArray,
   begin: number = 0,

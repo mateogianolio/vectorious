@@ -3,4 +3,4 @@
 matrix
 ======================================
 
-.. autofunction:: module:Globals.matrix
+.. autofunction:: vectorious.matrix

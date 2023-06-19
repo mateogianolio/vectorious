@@ -6,7 +6,7 @@ const { trunc: f } = Math;
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function trunc
  * @description
  * Returns the integer part of each element of `x`,
@@ -20,18 +20,6 @@ const { trunc: f } = Math;
  */
 export const trunc = (x: NDArray | ArrayLike<any>): NDArray => array(x).trunc();
 
-/**
- * @function trunc
- * @memberof NDArray.prototype
- * @description
- * Returns the integer part of each element of current array,
- * removing any fractional digits.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1.2, 2.8, 3.5]).trunc(); // => array([1, 2, 3])
- */
 export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);

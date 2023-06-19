@@ -3,4 +3,4 @@
 lu
 ======================================
 
-.. autofunction:: module:Globals.lu
+.. autofunction:: vectorious.lu

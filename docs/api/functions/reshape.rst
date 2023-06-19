@@ -3,4 +3,4 @@
 reshape
 ======================================
 
-.. autofunction:: module:Globals.reshape
+.. autofunction:: vectorious.reshape

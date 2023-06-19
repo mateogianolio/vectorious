@@ -3,4 +3,4 @@
 asinh
 ======================================
 
-.. autofunction:: module:Globals.asinh
+.. autofunction:: vectorious.asinh

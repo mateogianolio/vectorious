@@ -3,4 +3,4 @@
 det
 ======================================
 
-.. autofunction:: module:Globals.det
+.. autofunction:: vectorious.det

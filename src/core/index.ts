@@ -116,7 +116,8 @@ const inspectSymbol: unique symbol = Symbol.for('nodejs.util.inspect.custom');
 export class NDArray implements INDArray {
   /**
    * @name data
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @type TypedArray
    * @default new Float64Array(0)
    */
@@ -124,7 +125,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name dtype
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @type String
    * @default 'float64'
    */
@@ -132,7 +134,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name length
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @type Number
    * @default 0
    */
@@ -140,7 +143,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name shape
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @type Number[]
    * @default [0]
    */
@@ -148,7 +152,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name strides
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @type Number[]
    * @default [0]
    */
@@ -158,88 +163,1092 @@ export class NDArray implements INDArray {
 
   /**
    * @function abs
-   * @memberof NDArray.prototype
-   * @param {NDArray} x
-   * @returns {NDArray}
+   * @memberof NDArray
+   * @instance
+   * @description Returns the absolute value of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([-1, -2, -3]).abs() // <=> array([1, 2, 3])
    */
   public abs = abs;
 
+  /**
+   * @function acos
+   * @memberof NDArray
+   * @instance
+   * @description Returns the arccosine of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([-1, 0, 1]).acos(); // <=> array([3.141592653589793, 1.5707963267948966, 0])
+   */
   public acos = acos;
+
+  /**
+   * @function acosh
+   * @memberof NDArray
+   * @instance
+   * @description Returns the hyperbolic arccosine of each element of current array.
+   * @param {NDArray} x
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).acosh(); // <=> array([0, 1.316957950592041, 1.7627471685409546])
+   */
   public acosh = acosh;
+
+  /**
+   * @function add
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Adds `x` multiplied by `alpha` to the current array.
+   * Accelerated with BLAS `?axpy`.
+   * @param {NDArray} x
+   * @param {Number} [1] alpha
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).add([4, 5, 6]); // <=> array([5, 7, 9])
+   */
   public add = add;
+
+  /**
+   * @function angle
+   * @memberof NDArray
+   * @instance
+   * @description Determines the angle between the current vector and `x`.
+   * @param {NDArray} x
+   * @returns {number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).angle([4, 5, 6]); // <=> 0.22572622788897287
+   */
   public angle = angle;
+
+  /**
+   * @function asin
+   * @memberof NDArray
+   * @instance
+   * @description Returns the arcsine of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([-1, 0, 1]).asin() // <=> array([-1.5707963705062866, 0, 1.5707963705062866])
+   */
   public asin = asin;
+
+  /**
+   * @function asinh
+   * @memberof NDArray
+   * @instance
+   * @description Returns the hyperbolic arcsine of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([0, 1, 2]).asinh() // <=> array([0, 0.8813735842704773, 1.4436354637145996])
+   */
   public asinh = asinh;
+
+  /**
+   * @function atan
+   * @memberof NDArray
+   * @instance
+   * @description Returns the arctangent of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).atan() // <=> array([0.7853981852531433, 1.1071487665176392, 1.249045729637146])
+   */
   public atan = atan;
+
+  /**
+   * @function atanh
+   * @memberof NDArray
+   * @instance
+   * @description Returns the hyperbolic arctangent of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([0, -0.5]).atanh(); // <=> array([0, -0.5493061542510986])
+   */
   public atanh = atanh;
+
+  /**
+   * @function augment
+   * @memberof NDArray
+   * @instance
+   * @description Augments `x` with current matrix.
+   * @param {NDArray} x
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 2], [3, 4]]).augment(array([[1], [2]])); // <=> array([[1, 2, 1], [3, 4, 2]])
+   */
   public augment = augment;
+
+  /**
+   * @function binOp
+   * @memberof NDArray
+   * @instance
+   * @description Perform binary operation `f` on `x` in the current array.
+   * @param {NDArray} x
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).binOp([4, 5, 6], (a, b) => a + b); // => array([[5, 7, 9])
+   */
   public binOp = binOp;
+
+  /**
+   * @function cbrt
+   * @memberof NDArray
+   * @instance
+   * @description Returns the cube root of each element of current array.
+   * @returns {this}
+   * @example
+   * import { cbrt } from 'vectorious';
+   *
+   * cbrt([1, 8, 27]); // => array([1, 2, 3])
+   */
   public cbrt = cbrt;
+
+  /**
+   * @function ceil
+   * @memberof NDArray
+   * @instance
+   * @description Returns smallest integer greater than or equal to of each element of current array.
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([0.5, 1.5, 2.5]).ceil(); // <=> array([1, 2, 3])
+   */
   public ceil = ceil;
+
+  /**
+   * @function check
+   * @memberof NDArray
+   * @instance
+   * @description Asserts if indices `i, j, ..., n` are within the bounds of current array
+   * @param {Number[]} ...indices
+   * @throws {Error} index out of bounds
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([0.5, 1.5, 2.5]).check(3); // Error: index out of bounds
+   */
   public check = check;
+
+  /**
+   * @function combine
+   * @memberof NDArray
+   * @instance
+   * @description Combines the current vector with `x`
+   * @param {NDArray} x
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).combine([4, 5, 6]); // => array([1, 2, 3, 4, 5, 6])
+   */
   public combine = combine;
+
+  /**
+   * @function copy
+   * @memberof NDArray
+   * @instance
+   * @description Makes a copy of the class and underlying data
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).copy(); // => array([1, 2, 3])
+   */
   public copy = copy;
+
+  /**
+   * @function cos
+   * @memberof NDArray
+   * @instance
+   * @description Returns the cosine of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([0, Math.PI / 2, Math.PI]).cos(); // => array([1, 0, -1])
+   */
   public cos = cos;
+
+  /**
+   * @function cosh
+   * @memberof NDArray
+   * @instance
+   * @description Returns the hyperbolic cosine of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([0, 1, 2]).cosh(); // => array([1, 1.5430806875228882, 3.762195587158203])
+   */
   public cosh = cosh;
+
+  /**
+   * @function cross
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Computes the cross product of the current vector and the vector `x`
+   * This operation can only calculated for vectors with three components.
+   * Otherwise it throws an exception.
+   * @param {NDArray} x
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).cross([4, 5, 6]); // <=> array([-3, 6, -3])
+   */
   public cross = cross;
+
+  /**
+   * @function det
+   * @memberof NDArray
+   * @instance
+   * @description Gets the determinant of current matrix using LU factorization.
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[0, 1], [2, 3]]).det(); // => -2
+   */
   public det = det;
+
+  /**
+   * @function diagonal
+   * @memberof NDArray
+   * @instance
+   * @description Gets the diagonal of current matrix.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).diagonal(); // => array([1, 4])
+   */
   public diagonal = diagonal;
+
+  /**
+   * @function dot
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Performs dot multiplication with `x` and current array
+   * Accelerated with BLAS `?dot`.
+   * @param {NDArray} x
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).dot([4, 5, 6]); // => 32
+   */
   public dot = dot;
+
+  /**
+   * @function eig
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Gets eigenvalues and eigenvectors of the current matrix using the Jacobi method.
+   * Accelerated with LAPACK `?geev`.
+   * @returns {Array<NDArray>}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 0, 0], [0, 2, 0], [0, 0, 3]]).eig(); // => [array([1, 2, 3]), array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])]
+   */
   public eig = eig;
+
+  /**
+   * @function equals
+   * @memberof NDArray
+   * @instance
+   * @description Checks if current array and `x` are equal.
+   * @param {NDArray} x
+   * @param {Number} tolerance
+   * @returns {Boolean}
+   * @example
+   * import { equals } from 'vectorious';
+   *
+   * array([1, 2, 3]).equals([1, 2, 3]); // => true
+   */
   public equals = equals;
+
+  /**
+   * @deprecated
+   * @function equidimensional
+   * @memberof NDArray
+   * @instance
+   * @description Asserts if current array and `x` have the same shape
+   * @param {NDArray} x
+   * @throws {Error} shapes x and y do not match
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).equidimensional([1, 2]); // Error: shapes 3 and 2 do not match
+   */
   public equidimensional = equidimensional;
+
+  /**
+   * @deprecated
+   * @function equilateral
+   * @memberof NDArray
+   * @instance
+   * @description Asserts if current array and `x` have the same length
+   * @param {NDArray} x
+   * @throws {Error} lengths x and y do not match
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).equilateral([1, 2]); // Error: lengths 3 and 2 do not match
+   */
   public equilateral = equilateral;
+
+  /**
+   * @function exp
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Returns e^x of each element of current array, where x is the argument,
+   * and e is Euler's constant (2.718…), the base of the natural logarithm.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).exp(); // <=> array([2.7182817459106445, 7.389056205749512, 20.08553695678711])
+   */
   public exp = exp;
+
+  /**
+   * @function expm1
+   * @memberof NDArray
+   * @instance
+   * @description Returns subtracting 1 from exp(x) of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).expm1(); // <=> array([1.7182817459106445, 6.389056205749512, 19.08553695678711])
+   */
   public expm1 = expm1;
+
+  /**
+   * @function fill
+   * @memberof NDArray
+   * @instance
+   * @description Fills the current array with a scalar value
+   * @param {Number} value
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).fill(0); // <=> array([0, 0, 0])
+   */
   public fill = fill;
+
+  /**
+   * @function floor
+   * @memberof NDArray
+   * @instance
+   * @description Returns the largest integer less than or equal to a number of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1.5, 2.5, 3.5]).floor(); // <=> array([1, 2, 3])
+   */
   public floor = floor;
+
+  /**
+   * @function forEach
+   * @memberof NDArray
+   * @instance
+   * @description Equivalent to `TypedArray.prototype.forEach`.
+   * @param {Function} f
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).forEach(console.log);
+   * // 1 0 [ 1, 2, 3 ]
+   * // 2 1 [ 1, 2, 3 ]
+   * // 3 2 [ 1, 2, 3 ]
+   */
   public forEach = forEach;
+
+  /**
+   * @function fround
+   * @memberof NDArray
+   * @instance
+   * @description Returns the nearest single precision float representation of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([-5.05, 5.05]).fround(); // <=> array([-5.050000190734863, 5.050000190734863])
+   */
   public fround = fround;
+
+  /**
+   * @function gauss
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 2, 3], [4, 5, 6]]).gauss(); // <=> array([[1, 0, -1], [-0, 1, 2]])
+   */
   public gauss = gauss;
+
+  /**
+   * @function get
+   * @memberof NDArray
+   * @instance
+   * @description Gets the element at `i, j, ..., n` from current vector.
+   * @param {Number[]} ...indices
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).get(2); // 3
+   */
   public get = get;
+
+  /**
+   * @function inv
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Determines the inverse of current matrix using Gaussian elimination.
+   * Accelerated with LAPACK `?getri`.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]]).inv(); // <=> array([[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]])
+   */
   public inv = inv;
+
+  /**
+   * @function log
+   * @memberof NDArray
+   * @instance
+   * @description Returns the natural logarithm (log_e, also ln) of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).log(); // <=> array([0, 0.6931471824645996, 1.0986123085021973])
+   */
   public log = log;
-  public log10 = log10;
+
+  /**
+   * @function log1p
+   * @memberof NDArray
+   * @instance
+   * @description Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]); // <=> array([0.6931471824645996, 1.0986123085021973, 1.3862943649291992])
+   */
   public log1p = log1p;
+
+  /**
+   * @function log10
+   * @memberof NDArray
+   * @instance
+   * @description Returns the base 10 logarithm of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([10, 100, 1000]).log10(); // <=> array([1, 2, 3])
+   */
+  public log10 = log10;
+
+  /**
+   * @function log2
+   * @memberof NDArray
+   * @instance
+   * @description Returns the base 2 logarithm of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 4]).log2(); // => array([0, 1, 2])
+   */
   public log2 = log2;
-  public lu = lu;
+
+  /**
+   * @function lu_factor
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Performs LU factorization on current matrix.
+   * Accelerated with LAPACK `?getrf`.
+   * @returns {Array<NDArray|Int32Array>}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).lu_factor(); // <=> [array([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]), Int32Array([2, 2, 3])]
+   */
   public lu_factor = lu_factor;
+
+  /**
+   * @function lu
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Performs full LU decomposition on current matrix.
+   * Accelerated with LAPACK `?getrf`.
+   * @returns {Array<NDArray|Int32Array>}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).lu(); // => [array([[1, 0, 0], [0.5, 1, 0], [0.5, -1, 1]]), array([[2, 4, 7], [0, 1, 1.5], [0, 0, -2]]), Int32Array([2, 2, 3])]
+   */
+  public lu = lu;
+
+  /**
+   * @function map
+   * @memberof NDArray
+   * @instance
+   * @description Equivalent to `TypedArray.prototype.map`.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).map(value => -value); // => array([-1, -2, -3])
+   */
   public map = map;
+
+  /**
+   * @function max
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Gets the maximum value (smallest) element of current array.
+   * Accelerated with BLAS `i?amax`.
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).max(); // => 3
+   */
   public max = max;
+
+  /**
+   * @function mean
+   * @memberof NDArray
+   * @instance
+   * @description Gets the arithmetic mean of current array.
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).mean(); // => 2
+   */
   public mean = mean;
+
+  /**
+   * @function min
+   * @memberof NDArray
+   * @instance
+   * @description Gets the minimum value (smallest) element of current array.
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).min(); // 1
+   */
   public min = min;
+
+  /**
+   * @function multiply
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Multiplies current matrix with `x`.
+   * Accelerated with BLAS `?gemm`.
+   * @param {NDArray} x
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 2]]).multiply([[1], [2]]); // <=> array([[5]])
+   */
   public multiply = multiply;
+
+  /**
+   * @function norm
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Calculates the norm of current array (also called L2 norm or Euclidean length).
+   * Accelerated with BLAS `?nrm2`.
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).norm(); // => 3.7416574954986572
+   */
   public norm = norm;
+
+  /**
+   * @function normalize
+   * @memberof NDArray
+   * @instance
+   * @description Normalizes current vector.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).normalize(); // => array([0.26726123690605164, 0.5345224738121033, 0.8017836809158325])
+   */
   public normalize = normalize;
+
+  /**
+   * @function pow
+   * @memberof NDArray
+   * @instance
+   * @description Returns each element of current array to the exponent power, that is, element^exponent.
+   * @param {Number} exponent
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).pow(2); // <=> array([1, 4, 9])
+   */
   public pow = pow;
+
+  /**
+   * @function prod
+   * @memberof NDArray
+   * @instance
+   * @description Product of all elements of current array
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).prod(); // => 6
+   */
   public prod = prod;
+
+  /**
+   * @function product
+   * @memberof NDArray
+   * @instance
+   * @description Hadamard product of current matrix and `x`
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).product([4, 5, 6]); // <=> array([4, 10, 18])
+   */
   public product = product;
+
+  /**
+   * @function project
+   * @memberof NDArray
+   * @instance
+   * @description Projects the current vector onto `x` using the projection formula `(y * (x * y / y * y))`.
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).project([4, 5, 6]); // <=> array([1.6623376607894897, 2.0779221057891846, 2.49350643157959])
+   */
   public project = project;
+
+  /**
+   * @function push
+   * @memberof NDArray
+   * @instance
+   * @description Pushes a new `value` into current vector.
+   * @param {Number} value
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).push(4); // => array([1, 2, 3, 4])
+   */
   public push = push;
+
+  /**
+   * @function rank
+   * @memberof NDArray
+   * @instance
+   * @description Finds the rank of current matrix using gaussian elimination.
+   * @param {Number} tolerance
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 1, 1], [2, 2, 2], [3, 3, 3]]).rank(); // => 1
+   * @todo Switch to SVD algorithm
+   */
   public rank = rank;
+
+  /**
+   * @function reciprocal
+   * @memberof NDArray
+   * @instance
+   * @description Gets the element-wise reciprocal of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]); // => array([1, 0.5, 0.3333333432674408])
+   */
   public reciprocal = reciprocal;
+
+  /**
+   * @function reduce
+   * @memberof NDArray
+   * @instance
+   * @description Equivalent to `TypedArray.prototype.reduce`.
+   * @param {Function} f
+   * @param {Number} initialValue
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).reduce((a, b) => a + b, 0); // => 6
+   */
   public reduce = reduce;
+
+  /**
+   * @function reshape
+   * @memberof NDArray
+   * @instance
+   * @description Reshapes current array
+   * @param {Number[]} ...shape
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3, 4]).reshape(2, 2); // <=> array([[1, 2], [3, 4]])
+   */
   public reshape = reshape;
+
+  /**
+   * @function round
+   * @memberof NDArray
+   * @instance
+   * @description Returns the value of each element of current array rounded to the nearest integer.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1.2, 2.8, 3.5]).round(); // <=> array([1, 3, 4])
+   */
   public round = round;
+
+  /**
+   * @function row_add
+   * @memberof NDArray
+   * @instance
+   * @description Adds a multiple of one row multiplied by `scalar` to another inside current matrix.
+   * @param {Number} dest
+   * @param {Number} source
+   * @param {Number} scalar
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 2], [3, 4]]).row_add(1, 0, 2); // <=> array([[1, 2], [5, 8]])
+   */
   public row_add = row_add;
+
+  /**
+   * @function scale
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Multiplies all elements of current array with a specified `scalar`.
+   * Accelerated with BLAS `?scal`.
+   * @param {Number} scalar
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).scale(2); // <=> array([2, 4, 6])
+   */
   public scale = scale;
+
+  /**
+   * @function set
+   * @memberof NDArray
+   * @instance
+   * @description Sets the element at `i, j, ..., n` to `value`.
+   * @param {Number[]} ...indices
+   * @param {Number} value
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).set(1, 0); // <=> array([1, 0, 3])
+   */
   public set = set;
+
+  /**
+   * @function sign
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Returns the sign of each element of current array, indicating
+   * whether it is positive, negative or zero.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).sign(); // <=> array([1, 1, 1])
+   */
   public sign = sign;
+
+  /**
+   * @function sin
+   * @memberof NDArray
+   * @instance
+   * @description Returns the sine of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([0, Math.PI / 2, Math.PI]).sin(); // <=> array([0, 1, 0])
+   */
   public sin = sin;
+
+  /**
+   * @function sinh
+   * @memberof NDArray
+   * @instance
+   * @description Returns the hyperbolic sine of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).sinh(); // <=> array([1.175201177597046, 3.6268603801727295, 10.017874717712402])
+   */
   public sinh = sinh;
+
+  /**
+   * @function slice
+   * @memberof NDArray
+   * @instance
+   * @description Slices the current array along the leading dimension
+   * @param {Number} begin
+   * @param {Number} end
+   * @param {Number} step
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3, 4]).slice(0, 4, 2); // => array([1, 3])
+   */
   public slice = slice;
+
+  /**
+   * @function solve
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Solves the equation AX = B (where A is current matrix and B is `x`).
+   * Accelerated with LAPACK `?gesv`.
+   * @param {NDArray} x
+   * @returns {NDArray}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).solve([[1], [3], [5]]); // => array([[3.25], [1.75], [-1.5]])
+   */
   public solve = solve;
+
+  /**
+   * @function sqrt
+   * @memberof NDArray
+   * @instance
+   * @description Returns the positive square root of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 4, 9]); // <=> array([1, 2, 3])
+   */
   public sqrt = sqrt;
+
+  /**
+   * @function square
+   * @memberof NDArray
+   * @instance
+   * @description Asserts if current matrix is square.
+   * @throws {Error} matrix is not square
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).square(); // Error: matrix is not square
+   */
   public square = square;
+
+  /**
+   * @function subtract
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Subtracts `x` from the current array.
+   * Accelerated with BLAS `?axpy`.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).subtract([1, 1, 1]); // <=> array([0, 1, 2])
+   */
   public subtract = subtract;
+
+  /**
+   * @function sum
+   * @memberof NDArray
+   * @instance
+   * @description Sum of array elements
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).sum(); // => 6
+   */
   public sum = sum;
+
+  /**
+   * @function swap
+   * @memberof NDArray
+   * @instance
+   * @description Swaps two rows `i` and `j` in current matrix
+   * @param {Number} i
+   * @param {Number} j
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 2], [3, 4]]); // <=> array([[3, 4], [1, 2]])
+   */
   public swap = swap;
+
+  /**
+   * @function tan
+   * @memberof NDArray
+   * @instance
+   * @description Returns the tangent of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).tan(); // <=> array([1.5574077367782593, -2.185039758682251, -0.14254654943943024])
+   */
   public tan = tan;
+
+  /**
+   * @function tanh
+   * @memberof NDArray.prototype
+   * @description Returns the hyperbolic tangent of each element of current array.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).tanh(); // <=> array([0.7615941762924194, 0.9640275835990906, 0.9950547814369202])
+   */
   public tanh = tanh;
+
+  /**
+   * @function toArray
+   * @memberof NDArray
+   * @instance
+   * @description Converts current vector into a JavaScript array.
+   * @param {Number} index
+   * @param {Number} dim
+   * @returns {Array}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).toArray(); // => [1, 2, 3]
+   */
   public toArray = toArray;
+
+  /**
+   * @function toString
+   * @memberof NDArray
+   * @instance
+   * @description Converts current vector into a readable formatted string.
+   * @returns {String}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).toString(); // => '1,2,3'
+   */
   public toString = toString;
+
+  /**
+   * @function trace
+   * @memberof NDArray
+   * @instance
+   * @description Gets the trace of the matrix (the sum of all diagonal elements).
+   * @returns {Number}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1, 2, 3]).trace(); // => 5
+   */
   public trace = trace;
+
+  /**
+   * @function transpose
+   * @memberof NDArray
+   * @instance
+   * @description Transposes current matrix (mirror across the diagonal).
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]); // <=> array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
+   */
   public transpose = transpose;
+
+  /**
+   * @function trunc
+   * @memberof NDArray
+   * @instance
+   * @description
+   * Returns the integer part of each element of current array,
+   * removing any fractional digits.
+   * @returns {this}
+   * @example
+   * import { array } from 'vectorious';
+   *
+   * array([1.2, 2.8, 3.5]).trunc(); // => array([1, 2, 3])
+   */
   public trunc = trunc;
 
   public constructor(
@@ -288,7 +1297,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name x
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @description Gets or sets the value at index 0
    * @type Number
    */
@@ -302,7 +1312,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name y
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @description Gets or sets the value at index 1
    * @type Number
    */
@@ -316,7 +1327,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name z
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @description Gets or sets the value at index 2
    * @type Number
    */
@@ -330,7 +1342,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name w
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @description Gets or sets the value at index 3
    * @type Number
    */
@@ -344,7 +1357,8 @@ export class NDArray implements INDArray {
 
   /**
    * @name T
-   * @memberof NDArray.prototype
+   * @memberof NDArray
+   * @instance
    * @description Short for `this.copy().transpose()`
    * @type NDArray
    */

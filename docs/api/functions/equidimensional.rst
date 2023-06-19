@@ -3,4 +3,4 @@
 equidimensional
 ======================================
 
-.. autofunction:: module:Globals.equidimensional
+.. autofunction:: vectorious.equidimensional

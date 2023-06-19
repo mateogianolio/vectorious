@@ -3,4 +3,4 @@
 binOp
 ======================================
 
-.. autofunction:: module:Globals.binOp
+.. autofunction:: vectorious.binOp

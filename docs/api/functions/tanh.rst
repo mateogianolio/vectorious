@@ -3,4 +3,4 @@
 tanh
 ======================================
 
-.. autofunction:: module:Globals.tanh
+.. autofunction:: vectorious.tanh

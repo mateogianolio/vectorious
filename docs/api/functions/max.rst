@@ -3,4 +3,4 @@
 max
 ======================================
 
-.. autofunction:: module:Globals.max
+.. autofunction:: vectorious.max

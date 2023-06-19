@@ -3,4 +3,4 @@
 product
 ======================================
 
-.. autofunction:: module:Globals.product
+.. autofunction:: vectorious.product

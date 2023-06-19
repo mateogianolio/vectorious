@@ -3,4 +3,4 @@
 pow
 ======================================
 
-.. autofunction:: module:Globals.pow
+.. autofunction:: vectorious.pow

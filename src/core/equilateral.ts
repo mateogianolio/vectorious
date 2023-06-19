@@ -4,7 +4,7 @@ import { array } from './array';
 /**
  * @deprecated
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function equilateral
  * @description Asserts if `x` and `y` have the same length
  * @param {NDArray} x
@@ -19,18 +19,6 @@ export const equilateral = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<
   array(x).equilateral(array(y));
 };
 
-/**
- * @deprecated
- * @function equilateral
- * @memberof NDArray.prototype
- * @description Asserts if current array and `x` have the same length
- * @param {NDArray} x
- * @throws {Error} lengths x and y do not match
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).equilateral([1, 2]); // Error: lengths 3 and 2 do not match
- */
 export default function (this: NDArray, x: NDArray): void {
   const { length: l1 } = this;
   const { length: l2 } = x;

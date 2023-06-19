@@ -3,4 +3,4 @@
 min
 ======================================
 
-.. autofunction:: module:Globals.min
+.. autofunction:: vectorious.min

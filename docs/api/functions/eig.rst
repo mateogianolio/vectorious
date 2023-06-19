@@ -3,4 +3,4 @@
 eig
 ======================================
 
-.. autofunction:: module:Globals.eig
+.. autofunction:: vectorious.eig

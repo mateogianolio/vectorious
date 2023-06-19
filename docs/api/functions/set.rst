@@ -3,4 +3,4 @@
 set
 ======================================
 
-.. autofunction:: module:Globals.set
+.. autofunction:: vectorious.set

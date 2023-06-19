@@ -6,7 +6,7 @@ const { abs: f } = Math;
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function abs
  * @description Returns the absolute value of each element of `x`.
  * @param {NDArray} x
@@ -18,16 +18,6 @@ const { abs: f } = Math;
  */
 export const abs = (x: NDArray | ArrayLike<any>): NDArray => array(x).abs();
 
-/**
- * @function abs
- * @memberof NDArray.prototype
- * @description Returns the absolute value of each element of current array.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([-1, -2, -3]).abs() // <=> array([1, 2, 3])
- */
 export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);

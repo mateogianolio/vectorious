@@ -3,4 +3,4 @@
 round
 ======================================
 
-.. autofunction:: module:Globals.round
+.. autofunction:: vectorious.round

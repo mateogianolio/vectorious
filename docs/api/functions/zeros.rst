@@ -3,4 +3,4 @@
 zeros
 ======================================
 
-.. autofunction:: module:Globals.zeros
+.. autofunction:: vectorious.zeros

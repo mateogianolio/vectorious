@@ -3,4 +3,4 @@
 lu_factor
 ======================================
 
-.. autofunction:: module:Globals.lu_factor
+.. autofunction:: vectorious.lu_factor

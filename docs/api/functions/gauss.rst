@@ -3,4 +3,4 @@
 gauss
 ======================================
 
-.. autofunction:: module:Globals.gauss
+.. autofunction:: vectorious.gauss

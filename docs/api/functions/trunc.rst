@@ -3,4 +3,4 @@
 trunc
 ======================================
 
-.. autofunction:: module:Globals.trunc
+.. autofunction:: vectorious.trunc

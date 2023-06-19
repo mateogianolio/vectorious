@@ -3,4 +3,4 @@
 add
 ======================================
 
-.. autofunction:: module:Globals.add
+.. autofunction:: vectorious.add

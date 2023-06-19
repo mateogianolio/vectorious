@@ -5,7 +5,7 @@ import * as blas from '../blas';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function max
  * @description
  * Gets the maximum value (largest) element of `x`.
@@ -19,18 +19,6 @@ import * as blas from '../blas';
  */
 export const max = (x: NDArray | ArrayLike<any>): number => array(x).max();
 
-/**
- * @function max
- * @memberof NDArray.prototype
- * @description
- * Gets the maximum value (smallest) element of current array.
- * Accelerated with BLAS `i?amax`.
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).max(); // => 3
- */
 export default function (this: NDArray): number {
   const { data: d1, length: l1, strides: st1, dtype } = this;
   let max: number = Number.NEGATIVE_INFINITY;

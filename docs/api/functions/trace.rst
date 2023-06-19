@@ -3,4 +3,4 @@
 trace
 ======================================
 
-.. autofunction:: module:Globals.trace
+.. autofunction:: vectorious.trace

@@ -3,4 +3,4 @@
 inv
 ======================================
 
-.. autofunction:: module:Globals.inv
+.. autofunction:: vectorious.inv

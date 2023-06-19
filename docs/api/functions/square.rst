@@ -3,4 +3,4 @@
 square
 ======================================
 
-.. autofunction:: module:Globals.square
+.. autofunction:: vectorious.square

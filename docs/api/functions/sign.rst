@@ -3,4 +3,4 @@
 sign
 ======================================
 
-.. autofunction:: module:Globals.sign
+.. autofunction:: vectorious.sign

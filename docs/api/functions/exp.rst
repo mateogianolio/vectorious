@@ -3,4 +3,4 @@
 exp
 ======================================
 
-.. autofunction:: module:Globals.exp
+.. autofunction:: vectorious.exp

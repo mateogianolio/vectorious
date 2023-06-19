@@ -3,4 +3,4 @@
 sinh
 ======================================
 
-.. autofunction:: module:Globals.sinh
+.. autofunction:: vectorious.sinh

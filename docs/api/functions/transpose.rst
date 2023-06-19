@@ -3,4 +3,4 @@
 transpose
 ======================================
 
-.. autofunction:: module:Globals.transpose
+.. autofunction:: vectorious.transpose

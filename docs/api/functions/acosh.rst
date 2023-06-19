@@ -3,4 +3,4 @@
 acosh
 ======================================
 
-.. autofunction:: module:Globals.acosh
+.. autofunction:: vectorious.acosh

@@ -3,4 +3,4 @@
 scale
 ======================================
 
-.. autofunction:: module:Globals.scale
+.. autofunction:: vectorious.scale

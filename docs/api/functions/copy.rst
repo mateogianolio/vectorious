@@ -3,4 +3,4 @@
 copy
 ======================================
 
-.. autofunction:: module:Globals.copy
+.. autofunction:: vectorious.copy

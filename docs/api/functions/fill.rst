@@ -3,4 +3,4 @@
 fill
 ======================================
 
-.. autofunction:: module:Globals.fill
+.. autofunction:: vectorious.fill

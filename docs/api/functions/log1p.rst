@@ -3,4 +3,4 @@
 log1p
 ======================================
 
-.. autofunction:: module:Globals.log1p
+.. autofunction:: vectorious.log1p

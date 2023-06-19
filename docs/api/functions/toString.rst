@@ -3,4 +3,4 @@
 toString
 ======================================
 
-.. autofunction:: module:Globals.toString
+.. autofunction:: vectorious.toString

@@ -3,4 +3,4 @@
 acos
 ======================================
 
-.. autofunction:: module:Globals.acos
+.. autofunction:: vectorious.acos

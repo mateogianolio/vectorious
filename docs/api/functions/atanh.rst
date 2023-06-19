@@ -3,4 +3,4 @@
 atanh
 ======================================
 
-.. autofunction:: module:Globals.atanh
+.. autofunction:: vectorious.atanh

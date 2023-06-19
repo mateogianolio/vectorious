@@ -3,4 +3,4 @@
 sin
 ======================================
 
-.. autofunction:: module:Globals.sin
+.. autofunction:: vectorious.sin

@@ -3,4 +3,4 @@
 project
 ======================================
 
-.. autofunction:: module:Globals.project
+.. autofunction:: vectorious.project

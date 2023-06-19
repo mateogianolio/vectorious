@@ -3,4 +3,4 @@
 reduce
 ======================================
 
-.. autofunction:: module:Globals.reduce
+.. autofunction:: vectorious.reduce

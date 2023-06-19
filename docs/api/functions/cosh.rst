@@ -3,4 +3,4 @@
 cosh
 ======================================
 
-.. autofunction:: module:Globals.cosh
+.. autofunction:: vectorious.cosh

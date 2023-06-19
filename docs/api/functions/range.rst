@@ -3,4 +3,4 @@
 range
 ======================================
 
-.. autofunction:: module:Globals.range
+.. autofunction:: vectorious.range

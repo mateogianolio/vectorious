@@ -3,4 +3,4 @@
 expm1
 ======================================
 
-.. autofunction:: module:Globals.expm1
+.. autofunction:: vectorious.expm1

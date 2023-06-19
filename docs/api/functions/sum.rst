@@ -3,4 +3,4 @@
 sum
 ======================================
 
-.. autofunction:: module:Globals.sum
+.. autofunction:: vectorious.sum

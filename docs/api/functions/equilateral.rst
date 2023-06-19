@@ -3,4 +3,4 @@
 equilateral
 ======================================
 
-.. autofunction:: module:Globals.equilateral
+.. autofunction:: vectorious.equilateral

@@ -3,4 +3,4 @@
 eye
 ======================================
 
-.. autofunction:: module:Globals.eye
+.. autofunction:: vectorious.eye

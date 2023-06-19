@@ -3,4 +3,4 @@
 atan
 ======================================
 
-.. autofunction:: module:Globals.atan
+.. autofunction:: vectorious.atan

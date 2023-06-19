@@ -3,4 +3,4 @@
 asin
 ======================================
 
-.. autofunction:: module:Globals.asin
+.. autofunction:: vectorious.asin

@@ -3,4 +3,4 @@
 ones
 ======================================
 
-.. autofunction:: module:Globals.ones
+.. autofunction:: vectorious.ones

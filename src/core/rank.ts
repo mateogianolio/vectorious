@@ -4,7 +4,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function rank
  * @description Finds the rank of `x` using gaussian elimination.
  * @param {NDArray} x
@@ -18,18 +18,6 @@ import { array } from './array';
 export const rank = (x: NDArray | ArrayLike<any>, tolerance: number = 1e-6): number =>
   array(x).rank(tolerance);
 
-/**
- * @function rank
- * @memberof NDArray.prototype
- * @description Finds the rank of current matrix using gaussian elimination.
- * @param {Number} tolerance
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 1, 1], [2, 2, 2], [3, 3, 3]]).rank(); // => 1
- * @todo Switch to SVD algorithm
- */
 export default function (this: NDArray, tolerance: number = 1e-6): number {
   const { data: d1 } = this.copy().gauss();
 

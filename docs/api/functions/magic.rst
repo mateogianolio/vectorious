@@ -3,4 +3,4 @@
 magic
 ======================================
 
-.. autofunction:: module:Globals.magic
+.. autofunction:: vectorious.magic

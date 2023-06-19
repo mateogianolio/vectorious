@@ -3,4 +3,4 @@
 push
 ======================================
 
-.. autofunction:: module:Globals.push
+.. autofunction:: vectorious.push
