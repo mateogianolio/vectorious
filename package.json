@@ -18,11 +18,11 @@
   "scripts": {
     "test": "jest",
     "benchmark": "for file in $(ls src/**/*.bench.ts); do ts-node $file; done",
-    "docs": "tsc --outDir built && jsdoc --configure jsdoc.json && rm -rf built",
+    "docs": "tsc --outDir built && jsdoc --configure jsdoc.json && rimraf built",
     "build:node": "esbuild --bundle src/index.ts --minify --sourcemap --platform=node --outfile=dist/index.js --external:nblas --external:nlapack",
     "build:browser": "esbuild --bundle src/index.ts --minify --sourcemap --platform=browser --global-name=v --outfile=dist/index.browser.js --external:nblas --external:nlapack",
     "build:esm": "esbuild --bundle src/index.ts --minify --sourcemap --format=esm --outfile=dist/index.esm.js --external:nblas --external:nlapack",
-    "build": "rm -rf dist && tsc -emitDeclarationOnly && npm run build:node && npm run build:browser && npm run build:esm",
+    "build": "rimraf dist && tsc -emitDeclarationOnly && npm run build:node && npm run build:browser && npm run build:esm",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -57,6 +57,7 @@
     "mocha": "^10.2.0",
     "nodemark": "^0.3.0",
     "prettier": "^2.8.7",
+    "rimraf": "^5.0.1",
     "tidy-jsdoc": "^1.4.1",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
