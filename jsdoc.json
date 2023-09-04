@@ -13,7 +13,8 @@
     "cleverLinks": false,
     "monospaceLinks": true,
     "default": {
-      "layoutFile": "docs.tmpl"
+      "layoutFile": "docs.tmpl",
+      "includeDate": false
     }
   },
   "opts": {
