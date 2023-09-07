@@ -10,3 +10,6 @@ API reference
 
   classes/index
   functions/index
+
+.. tip::
+  Use the sidebar menu to navigate through the API reference.
