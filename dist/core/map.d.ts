@@ -2,7 +2,7 @@ import { TypedArray } from '../types';
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function map
  * @description Equivalent to `TypedArray.prototype.map`.
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const map: (x: NDArray | ArrayLike<any>, f: (value: number, i: number, src: TypedArray) => number) => NDArray;
 /**
  * @function map
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Equivalent to `TypedArray.prototype.map`.
  * @returns {this}
  * @example

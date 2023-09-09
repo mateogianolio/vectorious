@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function lu
  * @description
  * Performs full LU decomposition on `x`.
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const lu: (x: NDArray | ArrayLike<any>) => [NDArray, NDArray, Int32Array];
 /**
  * @function lu
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Performs full LU decomposition on current matrix.
  * Accelerated with LAPACK `?getrf`.

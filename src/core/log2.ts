@@ -6,7 +6,7 @@ const { log2: f } = Math;
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function log2
  * @description Returns the base 2 logarithm of each element of `x`.
  * @param {NDArray} x
@@ -18,16 +18,6 @@ const { log2: f } = Math;
  */
 export const log2 = (x: NDArray | ArrayLike<any>): NDArray => array(x).log2();
 
-/**
- * @function log2
- * @memberof NDArray.prototype
- * @description Returns the base 2 logarithm of each element of current array.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 4]).log2(); // => array([0, 1, 2])
- */
 export default function (this: NDArray): NDArray {
   const { data: d1 } = this;
   const iter = new NDIter(this);

@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function multiply
  * @description
  * Multiplies two matrices `x` and `y` of matching dimensions.
@@ -17,7 +17,8 @@ import { NDArray } from './';
 export declare const multiply: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function multiply
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Multiplies current matrix with `x`.
  * Accelerated with BLAS `?gemm`.

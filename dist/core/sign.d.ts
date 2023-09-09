@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function sign
  * @description
  * Returns the sign of each element of `x`, indicating
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const sign: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function sign
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Returns the sign of each element of current array, indicating
  * whether it is positive, negative or zero.

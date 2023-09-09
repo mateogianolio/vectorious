@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function normalize
  * @description Normalizes `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const normalize: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function normalize
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Normalizes current vector.
  * @returns {this}
  * @example

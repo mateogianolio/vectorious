@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function fill
  * @description Fills `x` with a scalar value
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const fill: (x: NDArray | ArrayLike<any>, value?: number | ((index: number) => number)) => NDArray;
 /**
  * @function fill
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Fills the current array with a scalar value
  * @param {Number} value
  * @returns {this}

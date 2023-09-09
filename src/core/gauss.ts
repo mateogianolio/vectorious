@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function gauss
  * @description
  * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of `x`.
@@ -16,17 +16,6 @@ import { array } from './array';
  */
 export const gauss = (x: NDArray | ArrayLike<any>): NDArray => array(x).gauss();
 
-/**
- * @function gauss
- * @memberof NDArray.prototype
- * @description
- * Gauss-Jordan elimination (i.e. returns the reduced row echelon form) of the current matrix.
- * @returns {NDArray}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 2, 3], [4, 5, 6]]).gauss(); // <=> array([[1, 0, -1], [-0, 1, 2]])
- */
 export default function (this: NDArray): NDArray {
   const {
     shape: [r, c],

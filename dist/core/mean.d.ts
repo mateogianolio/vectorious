@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function mean
  * @description Gets the arithmetic mean of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const mean: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function mean
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Gets the arithmetic mean of current array.
  * @returns {Number}
  * @example

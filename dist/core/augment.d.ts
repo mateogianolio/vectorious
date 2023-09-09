@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function augment
  * @description Augments `x` and `y`.
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const augment: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function augment
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Augments `x` with current matrix.
  * @param {NDArray} x
  * @returns {this}

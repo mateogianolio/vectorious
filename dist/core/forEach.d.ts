@@ -2,7 +2,7 @@ import { TypedArray } from '../types';
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function forEach
  * @description Equivalent to `TypedArray.prototype.forEach`.
  * @param {NDArray} x
@@ -18,7 +18,8 @@ import { NDArray } from './';
 export declare const forEach: (x: NDArray, f: (value: number, i: number, src: TypedArray) => void) => void;
 /**
  * @function forEach
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Equivalent to `TypedArray.prototype.forEach`.
  * @param {Function} f
  * @example

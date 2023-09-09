@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function inv
  * @description
  * Determines the inverse of `x`.
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const inv: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function inv
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Determines the inverse of current matrix using Gaussian elimination.
  * Accelerated with LAPACK `?getri`.

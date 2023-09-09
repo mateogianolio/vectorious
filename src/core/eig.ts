@@ -46,7 +46,7 @@ const rotate: (
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function eig
  * @description
  * Gets eigenvalues and eigenvectors of `x` using the Jacobi method.
@@ -60,18 +60,6 @@ const rotate: (
  */
 export const eig = (x: NDArray | ArrayLike<any>): [NDArray, NDArray] => array(x).eig();
 
-/**
- * @function eig
- * @memberof NDArray.prototype
- * @description
- * Gets eigenvalues and eigenvectors of the current matrix using the Jacobi method.
- * Accelerated with LAPACK `?geev`.
- * @returns {Array<NDArray>}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 0, 0], [0, 2, 0], [0, 0, 3]]).eig(); // => [array([1, 2, 3]), array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])]
- */
 export default function (this: NDArray): [NDArray, NDArray] {
   this.square();
 

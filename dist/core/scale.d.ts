@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function scale
  * @description
  * Multiplies all elements of `x` with a specified `scalar`.
@@ -17,7 +17,8 @@ import { NDArray } from './';
 export declare const scale: (x: NDArray | ArrayLike<any>, scalar: number) => NDArray;
 /**
  * @function scale
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Multiplies all elements of current array with a specified `scalar`.
  * Accelerated with BLAS `?scal`.

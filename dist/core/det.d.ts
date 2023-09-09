@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function det
  * @description Gets the determinant of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const det: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function det
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Gets the determinant of current matrix using LU factorization.
  * @returns {Number}
  * @example

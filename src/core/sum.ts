@@ -4,7 +4,7 @@ import { NDIter } from '../iterators';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function sum
  * @description Sum of `x`
  * @param {NDArray} x
@@ -16,16 +16,6 @@ import { NDIter } from '../iterators';
  */
 export const sum = (x: NDArray | ArrayLike<any>): number => array(x).sum();
 
-/**
- * @function sum
- * @memberof NDArray.prototype
- * @description Sum of array elements
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).sum(); // => 6
- */
 export default function (this: NDArray): number {
   const { data: d1 } = this;
   const iter = new NDIter(this);

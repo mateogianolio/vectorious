@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function log1p
  * @description Returns the natural logarithm (log_e, also ln) of 1 + x for each element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const log1p: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function log1p
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
  * @returns {this}
  * @example

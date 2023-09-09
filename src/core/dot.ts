@@ -5,7 +5,7 @@ import * as blas from '../blas';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function dot
  * @description
  * Performs dot multiplication with `x` and `y`.
@@ -21,19 +21,6 @@ import * as blas from '../blas';
 export const dot = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): number =>
   array(x).dot(array(y));
 
-/**
- * @function dot
- * @memberof NDArray.prototype
- * @description
- * Performs dot multiplication with `x` and current array
- * Accelerated with BLAS `?dot`.
- * @param {NDArray} x
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).dot([4, 5, 6]); // => 32
- */
 export default function (this: NDArray, x: NDArray): number {
   const { data: d1, length: l1, strides: st1, dtype } = this;
   const { data: d2, strides: st2 } = x;

@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function cosh
  * @description Returns the hyperbolic cosine of each element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const cosh: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function cosh
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns the hyperbolic cosine of each element of current array.
  * @returns {this}
  * @example

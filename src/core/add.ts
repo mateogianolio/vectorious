@@ -5,7 +5,7 @@ import * as blas from '../blas';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function add
  * @description
  * Adds `y` multiplied by `alpha` to `x`.
@@ -25,20 +25,6 @@ export const add = (
   alpha: number = 1
 ): NDArray => array(x).add(array(y), alpha);
 
-/**
- * @function add
- * @memberof NDArray.prototype
- * @description
- * Adds `x` multiplied by `alpha` to the current array.
- * Accelerated with BLAS `?axpy`.
- * @param {NDArray} x
- * @param {Number} [1] alpha
- * @returns {NDArray}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).add([4, 5, 6]); // <=> array([5, 7, 9])
- */
 export default function (this: NDArray, x: NDArray | ArrayLike<any>, alpha: number = 1): NDArray {
   const { data: d1, length: l1, strides: st1, dtype } = this;
   const { data: d2, strides: st2 } = array(x);

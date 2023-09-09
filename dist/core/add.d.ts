@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function add
  * @description
  * Adds `y` multiplied by `alpha` to `x`.
@@ -18,7 +18,8 @@ import { NDArray } from './';
 export declare const add: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, alpha?: number) => NDArray;
 /**
  * @function add
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Adds `x` multiplied by `alpha` to the current array.
  * Accelerated with BLAS `?axpy`.

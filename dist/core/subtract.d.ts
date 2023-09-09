@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function subtract
  * @description
  * Subtracts `y` from `x`.
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const subtract: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function subtract
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Subtracts `x` from the current array.
  * Accelerated with BLAS `?axpy`.

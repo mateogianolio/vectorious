@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function swap
  * @description Swaps two rows `i` and `j` in `x`.
  * @param {NDArray} x
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const swap: (x: NDArray | ArrayLike<any>, i: number, j: number) => NDArray;
 /**
  * @function swap
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Swaps two rows `i` and `j` in current matrix
  * @param {Number} i
  * @param {Number} j

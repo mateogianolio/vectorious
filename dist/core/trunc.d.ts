@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function trunc
  * @description
  * Returns the integer part of each element of `x`,
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const trunc: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function trunc
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Returns the integer part of each element of current array,
  * removing any fractional digits.

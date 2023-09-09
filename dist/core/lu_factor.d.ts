@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function lu_factor
  * @description
  * Performs LU factorization on `x`.
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const lu_factor: (x: NDArray | ArrayLike<any>) => [NDArray, Int32Array];
 /**
  * @function lu_factor
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Performs LU factorization on current matrix.
  * Accelerated with LAPACK `?getrf`.

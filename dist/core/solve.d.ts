@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function solve
  * @description
  * Solves the equation AX = B (where A is `x` and B is `y`).
@@ -17,7 +17,8 @@ import { NDArray } from './';
 export declare const solve: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function solve
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Solves the equation AX = B (where A is current matrix and B is `x`).
  * Accelerated with LAPACK `?gesv`.

@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function transpose
  * @description Transposes `x` (mirror across the diagonal).
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const transpose: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function transpose
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Transposes current matrix (mirror across the diagonal).
  * @returns {this}
  * @example

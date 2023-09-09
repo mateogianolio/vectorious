@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function matrix
  * @description Creates a matrix of `r` rows and `c` columns.
  * @param {Number} r

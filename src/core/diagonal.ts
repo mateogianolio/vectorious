@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function diagonal
  * @description Gets the diagonal of `x`.
  * @param {NDArray} x
@@ -15,16 +15,6 @@ import { array } from './array';
  */
 export const diagonal = (x: NDArray | ArrayLike<any>): NDArray => array(x).diagonal();
 
-/**
- * @function diagonal
- * @memberof NDArray.prototype
- * @description Gets the diagonal of current matrix.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).diagonal(); // => array([1, 4])
- */
 export default function (this: NDArray): NDArray {
   this.square();
 

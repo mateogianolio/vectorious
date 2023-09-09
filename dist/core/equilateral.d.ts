@@ -2,7 +2,7 @@ import { NDArray } from './';
 /**
  * @deprecated
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function equilateral
  * @description Asserts if `x` and `y` have the same length
  * @param {NDArray} x
@@ -17,7 +17,8 @@ export declare const equilateral: (x: NDArray | ArrayLike<any>, y: NDArray | Arr
 /**
  * @deprecated
  * @function equilateral
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Asserts if current array and `x` have the same length
  * @param {NDArray} x
  * @throws {Error} lengths x and y do not match

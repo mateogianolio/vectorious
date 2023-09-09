@@ -4,7 +4,7 @@ import { NDIter } from '../iterators';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function min
  * @description Gets the minimum value (smallest) element of `x`.
  * @param {NDArray} x
@@ -16,16 +16,6 @@ import { NDIter } from '../iterators';
  */
 export const min = (x: NDArray | ArrayLike<any>): number => array(x).min();
 
-/**
- * @function min
- * @memberof NDArray.prototype
- * @description Gets the minimum value (smallest) element of current array.
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).min(); // 1
- */
 export default function (this: NDArray): number {
   const { data: d1 } = this;
 

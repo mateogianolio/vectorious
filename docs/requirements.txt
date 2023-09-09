@@ -1,0 +1,3 @@
+sphinx-js
+pydata-sphinx-theme
+sphinx-autobuild

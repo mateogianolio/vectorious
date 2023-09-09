@@ -6,7 +6,7 @@ import * as blas from '../blas';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function multiply
  * @description
  * Multiplies two matrices `x` and `y` of matching dimensions.
@@ -22,19 +22,6 @@ import * as blas from '../blas';
 export const multiply = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): NDArray =>
   array(x).multiply(array(y));
 
-/**
- * @function multiply
- * @memberof NDArray.prototype
- * @description
- * Multiplies current matrix with `x`.
- * Accelerated with BLAS `?gemm`.
- * @param {NDArray} x
- * @returns {NDArray}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 2]]).multiply([[1], [2]]); // <=> array([[5]])
- */
 export default function (this: NDArray, x: NDArray): NDArray {
   // TODO: compare strides instead of blind copy
   const {

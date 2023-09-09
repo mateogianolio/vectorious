@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function norm
  * @description
  * Calculates the norm of current array (also called L2 norm or Euclidean length).
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const norm: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function norm
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Calculates the norm of current array (also called L2 norm or Euclidean length).
  * Accelerated with BLAS `?nrm2`.

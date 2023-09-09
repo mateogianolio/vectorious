@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function get
  * @description Gets the element at `i, j, ..., n` from `x`
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const get: (x: NDArray | ArrayLike<any>, ...indices: number[]) => number;
 /**
  * @function get
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Gets the element at `i, j, ..., n` from current vector.
  * @param {Number[]} ...indices
  * @returns {Number}

@@ -6,7 +6,7 @@ import { NDIter } from '../iterators';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function reduce
  * @description Equivalent to `TypedArray.prototype.reduce`.
  * @param {NDArray} x
@@ -24,18 +24,6 @@ export const reduce = (
   initialValue?: number
 ): number => array(x).reduce(f, initialValue);
 
-/**
- * @function reduce
- * @memberof NDArray.prototype
- * @description Equivalent to `TypedArray.prototype.reduce`.
- * @param {Function} f
- * @param {Number} initialValue
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).reduce((a, b) => a + b, 0); // => 6
- */
 export default function (
   this: NDArray,
   f: (acc: number, value: number, i: number, src: TypedArray) => number,

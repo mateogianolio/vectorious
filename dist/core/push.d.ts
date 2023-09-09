@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function push
  * @description Pushes a new `value` into `x`.
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const push: (x: NDArray | ArrayLike<any>, value: number) => NDArray;
 /**
  * @function push
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Pushes a new `value` into current vector.
  * @param {Number} value
  * @returns {this}

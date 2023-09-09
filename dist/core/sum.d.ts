@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function sum
  * @description Sum of `x`
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const sum: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function sum
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Sum of array elements
  * @returns {Number}
  * @example

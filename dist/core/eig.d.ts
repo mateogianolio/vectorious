@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function eig
  * @description
  * Gets eigenvalues and eigenvectors of `x` using the Jacobi method.
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const eig: (x: NDArray | ArrayLike<any>) => [NDArray, NDArray];
 /**
  * @function eig
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Gets eigenvalues and eigenvectors of the current matrix using the Jacobi method.
  * Accelerated with LAPACK `?geev`.

@@ -5,7 +5,7 @@ import { NDIter } from '../iterators';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function forEach
  * @description Equivalent to `TypedArray.prototype.forEach`.
  * @param {NDArray} x
@@ -25,19 +25,6 @@ export const forEach = (
   x.forEach(f);
 };
 
-/**
- * @function forEach
- * @memberof NDArray.prototype
- * @description Equivalent to `TypedArray.prototype.forEach`.
- * @param {Function} f
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).forEach(console.log);
- * // 1 0 [ 1, 2, 3 ]
- * // 2 1 [ 1, 2, 3 ]
- * // 3 2 [ 1, 2, 3 ]
- */
 export default function (
   this: NDArray,
   f: (value: number, i: number, src: TypedArray) => void

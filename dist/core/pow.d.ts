@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function pow
  * @description Returns each element of `x` to the exponent power, that is, element^exponent.
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const pow: (x: NDArray | ArrayLike<any>, exponent: number) => NDArray;
 /**
  * @function pow
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns each element of current array to the exponent power, that is, element^exponent.
  * @param {Number} exponent
  * @returns {this}

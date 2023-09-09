@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function diagonal
  * @description Gets the diagonal of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const diagonal: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function diagonal
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Gets the diagonal of current matrix.
  * @returns {this}
  * @example

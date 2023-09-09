@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function slice
  * @description Slices `x` in the corresponding dimension
  * @param {NDArray} x
@@ -17,7 +17,8 @@ import { NDArray } from './';
 export declare const slice: (x: NDArray | ArrayLike<any>, begin?: number, end?: number, step?: number) => NDArray;
 /**
  * @function slice
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Slices the current array along the leading dimension
  * @param {Number} begin
  * @param {Number} end

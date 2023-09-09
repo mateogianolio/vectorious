@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function project
  * @description Projects the `y` onto `x` using the projection formula `(y * (x * y / y * y))`.
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const project: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function project
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Projects the current vector onto `x` using the projection formula `(y * (x * y / y * y))`.
  * @returns {NDArray}
  * @example

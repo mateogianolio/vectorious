@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function acos
  * @description Returns the arccosine of each element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const acos: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function acos
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns the arccosine of each element of current array.
  * @returns {this}
  * @example

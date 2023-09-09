@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function toArray
  * @description Converts `x` into a JavaScript array.
  * @param {NDArray} x
@@ -15,18 +15,6 @@ import { array } from './array';
  */
 export const toArray = (x: NDArray | ArrayLike<any>): any => array(x).toArray();
 
-/**
- * @function toArray
- * @memberof NDArray.prototype
- * @description Converts current vector into a JavaScript array.
- * @param {Number} index
- * @param {Number} dim
- * @returns {Array}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).toArray(); // => [1, 2, 3]
- */
 export default function (this: NDArray, index: number = 0, dim = 0): any {
   const { data: d1, shape: s1, strides: st1 } = this;
   const { length: ndim } = s1;

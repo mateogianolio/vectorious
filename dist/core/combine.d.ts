@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function combine
  * @description Combines the vector `x` with `y`
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const combine: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function combine
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Combines the current vector with `x`
  * @param {NDArray} x
  * @returns {this}

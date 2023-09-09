@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function min
  * @description Gets the minimum value (smallest) element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const min: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function min
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Gets the minimum value (smallest) element of current array.
  * @returns {Number}
  * @example

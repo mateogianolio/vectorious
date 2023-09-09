@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function binOp
  * @description Perform binary operation `f` on `y` in `x`.
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const binOp: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, f: (a: number, b: number, index: number) => number) => NDArray;
 /**
  * @function binOp
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Perform binary operation `f` on `x` in the current array.
  * @param {NDArray} x
  * @returns {this}

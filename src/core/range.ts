@@ -4,7 +4,7 @@ import { NDArray } from './';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function range
  * @description
  * Creates an array containing a range (can be either ascending or descending)

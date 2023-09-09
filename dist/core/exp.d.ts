@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function exp
  * @description
  * Returns e^x of each element of `x`, where x is the argument,
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const exp: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function exp
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Returns e^x of each element of current array, where x is the argument,
  * and e is Euler's constant (2.718…), the base of the natural logarithm.

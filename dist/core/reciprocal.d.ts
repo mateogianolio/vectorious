@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function reciprocal
  * @description Gets the element-wise reciprocal of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const reciprocal: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function reciprocal
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Gets the element-wise reciprocal of current array.
  * @returns {this}
  * @example
