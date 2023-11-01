@@ -13,6 +13,12 @@ describe('(v) get', () => {
     strictEqual(x.data[2], x.get(2));
   });
 
+  it('should work with ndim=0', () => {
+    const x = array([13]).reshape();
+    strictEqual(13, x.get());
+  });
+
+
   it('should work as expected', () => {
     const x = array([[[-1]], [[-2]], [[3]]]);
 
