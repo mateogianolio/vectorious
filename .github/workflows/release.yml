@@ -39,7 +39,7 @@ jobs:
 
       - name: Build docs/
         run: |
-          pip install -r docs/requirements.txt
+          pip install -r sphinx/requirements.txt
           npm run docs
 
       - name: Test
