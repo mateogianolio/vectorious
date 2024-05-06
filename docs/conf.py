@@ -49,9 +49,7 @@ html_context = {
     'github_version': 'master',
     'doc_path': 'docs/',
 }
-html_css_files = [
-  'css/custom.css?id=%s' % time.time(),
-]
+html_css_files = ['css/custom.css']
 
 # -- Options for sphinx_js -----------------------------------------------------
 js_language = 'javascript'
