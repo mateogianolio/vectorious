@@ -12,15 +12,4 @@ import { NDArray } from './';
  * cbrt([1, 8, 27]); // => array([1, 2, 3])
  */
 export declare const cbrt: (x: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function cbrt
- * @memberof NDArray
- * @instance
- * @description Returns the cube root of each element of current array.
- * @returns {this}
- * @example
- * import { cbrt } from 'vectorious/core/cbrt';
- *
- * cbrt([1, 8, 27]); // => array([1, 2, 3])
- */
 export default function (this: NDArray): NDArray;

@@ -14,17 +14,4 @@ import { NDArray } from './';
  * norm([1, 2, 3]); // => 3.7416574954986572
  */
 export declare const norm: (x: NDArray | ArrayLike<any>) => number;
-/**
- * @function norm
- * @memberof NDArray
- * @instance
- * @description
- * Calculates the norm of current array (also called L2 norm or Euclidean length).
- * Accelerated with BLAS `?nrm2`.
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).norm(); // => 3.7416574954986572
- */
 export default function (this: NDArray): number;

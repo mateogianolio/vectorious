@@ -12,15 +12,4 @@ import { NDArray } from './';
  * diagonal([[1, 2], [3, 4]]); // => array([1, 4])
  */
 export declare const diagonal: (x: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function diagonal
- * @memberof NDArray
- * @instance
- * @description Gets the diagonal of current matrix.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).diagonal(); // => array([1, 4])
- */
 export default function (this: NDArray): NDArray;

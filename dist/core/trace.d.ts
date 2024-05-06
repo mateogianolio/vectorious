@@ -12,15 +12,4 @@ import { NDArray } from './';
  * trace([[1, 2], [3, 4]]); // => 5
  */
 export declare const trace: (x: NDArray | ArrayLike<any>) => number;
-/**
- * @function trace
- * @memberof NDArray
- * @instance
- * @description Gets the trace of the matrix (the sum of all diagonal elements).
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).trace(); // => 5
- */
 export default function (this: NDArray): number;

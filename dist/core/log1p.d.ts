@@ -12,15 +12,4 @@ import { NDArray } from './';
  * log1p([1, 2, 3]); // => array([0.6931471824645996, 1.0986123085021973, 1.3862943649291992])
  */
 export declare const log1p: (x: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function log1p
- * @memberof NDArray
- * @instance
- * @description Returns the natural logarithm (log_e, also ln) of 1 + x for each element of current array.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]); // <=> array([0.6931471824645996, 1.0986123085021973, 1.3862943649291992])
- */
 export default function (this: NDArray): NDArray;

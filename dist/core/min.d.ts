@@ -12,15 +12,4 @@ import { NDArray } from './';
  * min([1, 2, 3]); // => 1
  */
 export declare const min: (x: NDArray | ArrayLike<any>) => number;
-/**
- * @function min
- * @memberof NDArray
- * @instance
- * @description Gets the minimum value (smallest) element of current array.
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).min(); // 1
- */
 export default function (this: NDArray): number;

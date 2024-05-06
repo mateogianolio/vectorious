@@ -14,17 +14,4 @@ import { NDArray } from './';
  * trunc([1.2, 2.8, 3.5]); // => array([1, 2, 3])
  */
 export declare const trunc: (x: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function trunc
- * @memberof NDArray
- * @instance
- * @description
- * Returns the integer part of each element of current array,
- * removing any fractional digits.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1.2, 2.8, 3.5]).trunc(); // => array([1, 2, 3])
- */
 export default function (this: NDArray): NDArray;

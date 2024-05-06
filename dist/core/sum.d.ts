@@ -12,15 +12,4 @@ import { NDArray } from './';
  * sum([1, 2, 3]); // => 6
  */
 export declare const sum: (x: NDArray | ArrayLike<any>) => number;
-/**
- * @function sum
- * @memberof NDArray
- * @instance
- * @description Sum of array elements
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).sum(); // => 6
- */
 export default function (this: NDArray): number;

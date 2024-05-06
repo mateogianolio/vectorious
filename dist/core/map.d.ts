@@ -13,15 +13,4 @@ import { NDArray } from './';
  * map([1, 2, 3], value => -value); // => array([-1, -2, -3])
  */
 export declare const map: (x: NDArray | ArrayLike<any>, f: (value: number, i: number, src: TypedArray) => number) => NDArray;
-/**
- * @function map
- * @memberof NDArray
- * @instance
- * @description Equivalent to `TypedArray.prototype.map`.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).map(value => -value); // => array([-1, -2, -3])
- */
 export default function (this: NDArray, f: (value: number, i: number, src: TypedArray) => number): NDArray;

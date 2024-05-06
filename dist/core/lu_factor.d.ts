@@ -14,17 +14,4 @@ import { NDArray } from './';
  * lu_factor([[1, 3, 5], [2, 4, 7], [1, 1, 0]]); // => [array([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]), Int32Array([2, 2, 3])]
  */
 export declare const lu_factor: (x: NDArray | ArrayLike<any>) => [NDArray, Int32Array];
-/**
- * @function lu_factor
- * @memberof NDArray
- * @instance
- * @description
- * Performs LU factorization on current matrix.
- * Accelerated with LAPACK `?getrf`.
- * @returns {Array<NDArray|Int32Array>}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 3, 5], [2, 4, 7], [1, 1, 0]]).lu_factor(); // <=> [array([[2, 4, 7], [0.5, 1, 1.5], [0.5, -1, -2]]), Int32Array([2, 2, 3])]
- */
 export default function (this: NDArray): [NDArray, Int32Array];

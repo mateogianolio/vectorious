@@ -14,17 +14,4 @@ import { NDArray } from './';
  * sign([1, 2, 3]); // => array([1, 1, 1])
  */
 export declare const sign: (x: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function sign
- * @memberof NDArray
- * @instance
- * @description
- * Returns the sign of each element of current array, indicating
- * whether it is positive, negative or zero.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).sign(); // <=> array([1, 1, 1])
- */
 export default function (this: NDArray): NDArray;

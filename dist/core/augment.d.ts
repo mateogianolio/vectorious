@@ -13,16 +13,4 @@ import { NDArray } from './';
  * augment([[1, 2], [3, 4]], [[1], [2]]); // => array([[1, 2, 1], [3, 4, 2]])
  */
 export declare const augment: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function augment
- * @memberof NDArray
- * @instance
- * @description Augments `x` with current matrix.
- * @param {NDArray} x
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 2], [3, 4]]).augment(array([[1], [2]])); // <=> array([[1, 2, 1], [3, 4, 2]])
- */
 export default function (this: NDArray, x: NDArray | ArrayLike<any>): NDArray;

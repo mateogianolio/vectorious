@@ -13,16 +13,4 @@ import { NDArray } from './';
  * push([1, 2, 3], 4); // => array([1, 2, 3, 4])
  */
 export declare const push: (x: NDArray | ArrayLike<any>, value: number) => NDArray;
-/**
- * @function push
- * @memberof NDArray
- * @instance
- * @description Pushes a new `value` into current vector.
- * @param {Number} value
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).push(4); // => array([1, 2, 3, 4])
- */
 export default function (this: NDArray, value: number): NDArray;

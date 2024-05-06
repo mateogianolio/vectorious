@@ -13,17 +13,4 @@ import { NDArray } from './';
  * rank([[1, 1, 1], [2, 2, 2], [3, 3, 3]]); // => 1
  */
 export declare const rank: (x: NDArray | ArrayLike<any>, tolerance?: number) => number;
-/**
- * @function rank
- * @memberof NDArray
- * @instance
- * @description Finds the rank of current matrix using gaussian elimination.
- * @param {Number} tolerance
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[1, 1, 1], [2, 2, 2], [3, 3, 3]]).rank(); // => 1
- * @todo Switch to SVD algorithm
- */
 export default function (this: NDArray, tolerance?: number): number;

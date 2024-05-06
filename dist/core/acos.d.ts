@@ -12,15 +12,4 @@ import { NDArray } from './';
  * acos([-1, 0, 1]); // => array([3.141592653589793, 1.5707963267948966, 0])
  */
 export declare const acos: (x: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function acos
- * @memberof NDArray
- * @instance
- * @description Returns the arccosine of each element of current array.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([-1, 0, 1]).acos(); // <=> array([3.141592653589793, 1.5707963267948966, 0])
- */
 export default function (this: NDArray): NDArray;

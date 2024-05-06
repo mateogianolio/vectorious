@@ -12,15 +12,4 @@ import { NDArray } from './';
  * prod([1, 2, 3]); // => 6
  */
 export declare const prod: (x: NDArray | ArrayLike<any>) => number;
-/**
- * @function prod
- * @memberof NDArray
- * @instance
- * @description Product of all elements of current array
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).prod(); // => 6
- */
 export default function (this: NDArray): number;

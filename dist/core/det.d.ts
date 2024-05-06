@@ -12,15 +12,4 @@ import { NDArray } from './';
  * det([[0, 1], [2, 3]]); // => -2
  */
 export declare const det: (x: NDArray | ArrayLike<any>) => number;
-/**
- * @function det
- * @memberof NDArray
- * @instance
- * @description Gets the determinant of current matrix using LU factorization.
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[0, 1], [2, 3]]).det(); // => -2
- */
 export default function (this: NDArray): number;

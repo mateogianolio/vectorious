@@ -12,15 +12,4 @@ import { NDArray } from './';
  * square([1, 2, 3]); // Error: matrix is not square
  */
 export declare const square: (x: NDArray | ArrayLike<any>) => void;
-/**
- * @function square
- * @memberof NDArray
- * @instance
- * @description Asserts if current matrix is square.
- * @throws {Error} matrix is not square
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).square(); // Error: matrix is not square
- */
 export default function (this: NDArray): void;

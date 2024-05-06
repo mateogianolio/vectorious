@@ -12,15 +12,4 @@ import { NDArray } from './';
  * sqrt([1, 4, 9]); // => array([1, 2, 3])
  */
 export declare const sqrt: (x: NDArray | ArrayLike<any>) => NDArray;
-/**
- * @function sqrt
- * @memberof NDArray
- * @instance
- * @description Returns the positive square root of each element of current array.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 4, 9]); // <=> array([1, 2, 3])
- */
 export default function (this: NDArray): NDArray;

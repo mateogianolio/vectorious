@@ -13,16 +13,4 @@ import { NDArray } from './';
  * pow([1, 2, 3], 2); // => array([1, 4, 9])
  */
 export declare const pow: (x: NDArray | ArrayLike<any>, exponent: number) => NDArray;
-/**
- * @function pow
- * @memberof NDArray
- * @instance
- * @description Returns each element of current array to the exponent power, that is, element^exponent.
- * @param {Number} exponent
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).pow(2); // <=> array([1, 4, 9])
- */
 export default function (this: NDArray, exponent: number): NDArray;
