@@ -1,6 +1,6 @@
 {
   "name": "vectorious",
-  "version": "6.1.13",
+  "version": "6.1.14",
   "description": "A high performance linear algebra library.",
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
@@ -12,7 +12,8 @@
   "exports": {
     ".": {
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
