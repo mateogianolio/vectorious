@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function angle
  * @description Determines the angle between the `x` and `y`
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const angle: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => number;
 /**
  * @function angle
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Determines the angle between the current vector and `x`.
  * @param {NDArray} x
  * @returns {number}

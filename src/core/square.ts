@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function square
  * @description Asserts if `x` is square.
  * @param {NDArray} x
@@ -17,16 +17,6 @@ export const square = (x: NDArray | ArrayLike<any>): void => {
   array(x).square();
 };
 
-/**
- * @function square
- * @memberof NDArray.prototype
- * @description Asserts if current matrix is square.
- * @throws {Error} matrix is not square
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).square(); // Error: matrix is not square
- */
 export default function (this: NDArray): void {
   const { length } = this.shape;
   const [r, c] = this.shape;

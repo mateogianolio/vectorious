@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function expm1
  * @description Returns subtracting 1 from exp(x) of each element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const expm1: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function expm1
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns subtracting 1 from exp(x) of each element of current array.
  * @returns {this}
  * @example

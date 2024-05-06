@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function check
  * @description Asserts if indices `i, j, ..., n` are within the bounds of `x`
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const check: (x: NDArray | ArrayLike<any>, ...indices: number[]) => void;
 /**
  * @function check
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Asserts if indices `i, j, ..., n` are within the bounds of current array
  * @param {Number[]} ...indices
  * @throws {Error} index out of bounds

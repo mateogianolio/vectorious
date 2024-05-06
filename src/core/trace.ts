@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function trace
  * @description Gets the trace of `x` (the sum of all diagonal elements).
  * @param {NDArray} x
@@ -15,16 +15,6 @@ import { array } from './array';
  */
 export const trace = (x: NDArray | ArrayLike<any>): number => array(x).trace();
 
-/**
- * @function trace
- * @memberof NDArray.prototype
- * @description Gets the trace of the matrix (the sum of all diagonal elements).
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).trace(); // => 5
- */
 export default function (this: NDArray): number {
   const [r, c] = this.shape;
   const { data: d1 } = this;

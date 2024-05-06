@@ -2,7 +2,7 @@ import { TypedArray } from '../types';
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function reduce
  * @description Equivalent to `TypedArray.prototype.reduce`.
  * @param {NDArray} x
@@ -17,7 +17,8 @@ import { NDArray } from './';
 export declare const reduce: (x: NDArray, f: (acc: number, value: number, i: number, src: TypedArray) => number, initialValue?: number) => number;
 /**
  * @function reduce
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Equivalent to `TypedArray.prototype.reduce`.
  * @param {Function} f
  * @param {Number} initialValue

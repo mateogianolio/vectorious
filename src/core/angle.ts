@@ -5,7 +5,7 @@ const { acos: f } = Math;
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function angle
  * @description Determines the angle between the `x` and `y`
  * @param {NDArray} x
@@ -19,17 +19,6 @@ const { acos: f } = Math;
 export const angle = (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>): number =>
   array(x).angle(array(y));
 
-/**
- * @function angle
- * @memberof NDArray.prototype
- * @description Determines the angle between the current vector and `x`.
- * @param {NDArray} x
- * @returns {number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).angle([4, 5, 6]); // <=> 0.22572622788897287
- */
 export default function (this: NDArray, x: NDArray | ArrayLike<any>): number {
   return f(this.dot(array(x)) / this.norm() / array(x).norm());
 }

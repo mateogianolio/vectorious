@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function square
  * @description Asserts if `x` is square.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const square: (x: NDArray | ArrayLike<any>) => void;
 /**
  * @function square
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Asserts if current matrix is square.
  * @throws {Error} matrix is not square
  * @example

@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function cos
  * @description Returns the cosine of each element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const cos: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function cos
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns the cosine of each element of current array.
  * @returns {this}
  * @example

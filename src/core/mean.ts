@@ -4,7 +4,7 @@ import { NDIter } from '../iterators';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function mean
  * @description Gets the arithmetic mean of `x`.
  * @param {NDArray} x
@@ -16,16 +16,6 @@ import { NDIter } from '../iterators';
  */
 export const mean = (x: NDArray | ArrayLike<any>): number => array(x).mean();
 
-/**
- * @function mean
- * @memberof NDArray.prototype
- * @description Gets the arithmetic mean of current array.
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).mean(); // => 2
- */
 export default function (this: NDArray): number {
   const { data: d1, length: l1 } = this;
   const iter = new NDIter(this);

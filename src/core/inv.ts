@@ -8,7 +8,7 @@ import * as lapack from '../lapack';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function inv
  * @description
  * Determines the inverse of `x`.
@@ -22,18 +22,6 @@ import * as lapack from '../lapack';
  */
 export const inv = (x: NDArray | ArrayLike<any>): NDArray => array(x).inv();
 
-/**
- * @function inv
- * @memberof NDArray.prototype
- * @description
- * Determines the inverse of current matrix using Gaussian elimination.
- * Accelerated with LAPACK `?getri`.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]]).inv(); // <=> array([[0.75, 0.5, 0.25], [0.5, 1, 0.5], [0.25, 0.5, 0.75]])
- */
 export default function (this: NDArray): NDArray {
   this.square();
 

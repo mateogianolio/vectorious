@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function reshape
  * @description Reshapes `x`
  * @param {NDArray} x
@@ -15,7 +15,8 @@ import { NDArray } from './';
 export declare const reshape: (x: NDArray | ArrayLike<any>, ...shape: number[]) => NDArray;
 /**
  * @function reshape
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Reshapes current array
  * @param {Number[]} ...shape
  * @returns {this}

@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function equals
  * @description Checks if `x` and `y` are equal.
  * @param {NDArray} x
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const equals: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>, tolerance?: number) => boolean;
 /**
  * @function equals
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Checks if current array and `x` are equal.
  * @param {NDArray} x
  * @param {Number} tolerance

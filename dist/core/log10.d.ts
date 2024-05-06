@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function log10
  * @description Returns the base 10 logarithm of each element of `x`.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const log10: (x: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function log10
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Returns the base 10 logarithm of each element of current array.
  * @returns {this}
  * @example

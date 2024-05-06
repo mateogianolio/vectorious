@@ -6,7 +6,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function map
  * @description Equivalent to `TypedArray.prototype.map`.
  * @param {NDArray} x
@@ -21,16 +21,6 @@ export const map = (
   f: (value: number, i: number, src: TypedArray) => number
 ): NDArray => array(x).map(f);
 
-/**
- * @function map
- * @memberof NDArray.prototype
- * @description Equivalent to `TypedArray.prototype.map`.
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).map(value => -value); // => array([-1, -2, -3])
- */
 export default function (
   this: NDArray,
   f: (value: number, i: number, src: TypedArray) => number

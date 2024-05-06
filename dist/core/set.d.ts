@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function set
  * @description Sets the element at `i, j, ..., n` to `value`.
  * @param {NDArray} x
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const set: (x: NDArray, ...args: number[]) => void;
 /**
  * @function set
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Sets the element at `i, j, ..., n` to `value`.
  * @param {Number[]} ...indices
  * @param {Number} value

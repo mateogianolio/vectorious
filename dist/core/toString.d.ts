@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function toString
  * @description Converts `x` into a readable formatted string.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const toString: (x: NDArray | ArrayLike<any>) => string;
 /**
  * @function toString
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Converts current vector into a readable formatted string.
  * @returns {String}
  * @example

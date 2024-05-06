@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function toArray
  * @description Converts `x` into a JavaScript array.
  * @param {NDArray} x
@@ -14,7 +14,8 @@ import { NDArray } from './';
 export declare const toArray: (x: NDArray | ArrayLike<any>) => any;
 /**
  * @function toArray
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description Converts current vector into a JavaScript array.
  * @param {Number} index
  * @param {Number} dim

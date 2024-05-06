@@ -2,9 +2,9 @@ import { NDArray } from './';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function array
- * @description `array(...args)` is an alias for `new v(...args)`
+ * @description :code:`array(...args)` is an alias for :class:`new NDArray(...args) <NDArray>`.
  * @param {} ...args
  * @returns {NDArray}
  * @example

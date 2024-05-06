@@ -3,7 +3,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function get
  * @description Gets the element at `i, j, ..., n` from `x`
  * @param {NDArray} x
@@ -17,17 +17,6 @@ import { array } from './array';
 export const get = (x: NDArray | ArrayLike<any>, ...indices: number[]): number =>
   array(x).get(...indices);
 
-/**
- * @function get
- * @memberof NDArray.prototype
- * @description Gets the element at `i, j, ..., n` from current vector.
- * @param {Number[]} ...indices
- * @returns {Number}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).get(2); // 3
- */
 export default function (this: NDArray, ...indices: number[]): number {
   this.check(...indices);
 

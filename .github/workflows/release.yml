@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - run: |
           git config --global user.name 'Mateo Gianolio'
@@ -35,8 +37,9 @@ jobs:
       - name: Build dist/
         run: npm run build
 
-      - name: Generate docs/
-        run: npm run docs
+      - name: Build docs/
+        run: |
+          npm run docs
 
       - name: Test
         run: npm test
@@ -54,13 +57,14 @@ jobs:
           git commit -m "Publish dist and docs"
           git push origin master
 
-      - id: publish
-        name: Publish package to npm
-        uses: JS-DevTools/npm-publish@v1
+      - name: Publish package to npm
+        id: publish
+        uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
 
-      - if: steps.publish.outputs.type != 'none'
+      - name: Publish git tag
+        if: ${{ steps.publish.outputs.type }}
         run: |
           git tag ${{ steps.publish.outputs.version }}
           git push origin ${{ steps.publish.outputs.version }}

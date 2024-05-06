@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function cross
  * @description
  * Computes the cross product of the `x` and the vector `y`
@@ -18,7 +18,8 @@ import { NDArray } from './';
 export declare const cross: (x: NDArray | ArrayLike<any>, y: NDArray | ArrayLike<any>) => NDArray;
 /**
  * @function cross
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Computes the cross product of the current vector and the vector `x`
  * This operation can only calculated for vectors with three components.

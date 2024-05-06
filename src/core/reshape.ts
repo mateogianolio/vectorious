@@ -5,7 +5,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function reshape
  * @description Reshapes `x`
  * @param {NDArray} x
@@ -19,17 +19,6 @@ import { array } from './array';
 export const reshape = (x: NDArray | ArrayLike<any>, ...shape: number[]): NDArray =>
   array(x).reshape(...shape);
 
-/**
- * @function reshape
- * @memberof NDArray.prototype
- * @description Reshapes current array
- * @param {Number[]} ...shape
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3, 4]).reshape(2, 2); // <=> array([[1, 2], [3, 4]])
- */
 export default function (this: NDArray, ...shape: number[]): NDArray {
   const { length } = this;
   if (shape.reduce((sum: number, dim: number) => sum * dim, 1) !== length) {

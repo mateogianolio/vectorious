@@ -4,7 +4,7 @@ import { array } from './array';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function binOp
  * @description Perform binary operation `f` on `y` in `x`.
  * @param {NDArray} x
@@ -21,17 +21,6 @@ export const binOp = (
   f: (a: number, b: number, index: number) => number
 ): NDArray => array(x).binOp(array(y), f);
 
-/**
- * @function binOp
- * @memberof NDArray.prototype
- * @description Perform binary operation `f` on `x` in the current array.
- * @param {NDArray} x
- * @returns {this}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).binOp([4, 5, 6], (a, b) => a + b); // => array([[5, 7, 9])
- */
 export default function (
   this: NDArray,
   x: NDArray | ArrayLike<any>,

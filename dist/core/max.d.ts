@@ -1,7 +1,7 @@
 import { NDArray } from './';
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function max
  * @description
  * Gets the maximum value (largest) element of `x`.
@@ -16,7 +16,8 @@ import { NDArray } from './';
 export declare const max: (x: NDArray | ArrayLike<any>) => number;
 /**
  * @function max
- * @memberof NDArray.prototype
+ * @memberof NDArray
+ * @instance
  * @description
  * Gets the maximum value (smallest) element of current array.
  * Accelerated with BLAS `i?amax`.

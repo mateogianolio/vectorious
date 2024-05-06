@@ -5,7 +5,7 @@ import { NDMultiIter } from '../iterators';
 
 /**
  * @static
- * @memberof module:Globals
+ * @memberof vectorious
  * @function copy
  * @description Makes a copy of `x`
  * @param {NDArray} x
@@ -17,16 +17,6 @@ import { NDMultiIter } from '../iterators';
  */
 export const copy = (x: NDArray | ArrayLike<any>): NDArray => array(x).copy();
 
-/**
- * @function copy
- * @memberof NDArray.prototype
- * @description Makes a copy of the class and underlying data
- * @returns {NDArray}
- * @example
- * import { array } from 'vectorious/core/array';
- *
- * array([1, 2, 3]).copy(); // => array([1, 2, 3])
- */
 export default function (this: NDArray): NDArray {
   const x = zeros(...this.shape);
 
