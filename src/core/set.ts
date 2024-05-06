@@ -25,11 +25,12 @@ export default function (this: NDArray, ...args: number[]): void {
   this.check(...indices);
 
   const { shape: s1 } = this;
-  let index: number = indices[indices.length - 1];
+  let index: number = 0;
 
   let i: number;
-  for (i = 0; i < indices.length - 1; i += 1) {
-    index += indices[i] * s1[i + 1];
+  for (i = 0; i < indices.length; i += 1) {
+    index *= s1[i];
+    index += indices[i];
   }
 
   this.data[index] = value;

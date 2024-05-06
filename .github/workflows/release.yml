@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - run: |
           git config --global user.name 'Mateo Gianolio'
@@ -35,6 +37,10 @@ jobs:
       - name: Build dist/
         run: npm run build
 
+      - name: Build docs/
+        run: |
+          npm run docs
+
       - name: Test
         run: npm test
 
@@ -45,25 +51,20 @@ jobs:
         with:
           coverageLocations: ${{github.workspace}}/coverage/lcov.info:lcov
 
-      - name: Build and deploy docs
+      - name: Publish dist/ and docs/
         run: |
-          npm run docs
-          ./docs/deploy.sh
-
-      - name: Publish dist
-        run: |
-          git add dist
-          git commit --amend --no-edit
-          git push --force origin master
+          git add dist docs
+          git commit -m "Publish dist and docs"
+          git push origin master
 
       - name: Publish package to npm
         id: publish
-        uses: JS-DevTools/npm-publish@v1
+        uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish git tag
-        if: steps.publish.outputs.type != 'none'
+        if: ${{ steps.publish.outputs.type }}
         run: |
           git tag ${{ steps.publish.outputs.version }}
           git push origin ${{ steps.publish.outputs.version }}

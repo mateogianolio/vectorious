@@ -50,7 +50,7 @@ It exposes a global variable named `v` in the `window` object and can be accesse
 
 #### ES module
 
-Added in version 6.1.0, vectorious exposes an ES module bundle at `dist/index.esm.js` which can be imported using the `import` syntax:
+Added in version 6.1.0, vectorious exposes an ES module bundle at `dist/index.mjs` which can be imported using the `import` syntax:
 
 ```typescript
 import { array } from 'vectorious';

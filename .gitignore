@@ -5,5 +5,3 @@ coverage
 built
 benchmarks
 docs/code
-docs/_build/**/*
-!docs/_build/CNAME

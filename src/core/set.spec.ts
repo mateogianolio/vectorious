@@ -18,6 +18,12 @@ describe('(v) set', () => {
     strictEqual(3, x.data[3]);
   });
 
+  it('should work with ndim=0', () => {
+    const x = array([-1]).reshape();
+    x.set(42);
+    strictEqual(42, x.data[0]);
+  });
+
   it('should work as the static equivalent', () => {
     const x = array([-1, -1, -1, -1]);
 
